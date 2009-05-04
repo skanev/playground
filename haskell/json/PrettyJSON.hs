@@ -5,7 +5,7 @@ import Data.Bits (shiftR, (.&.))
 import Data.Char (ord)
 
 import SimpleJSON (JValue(..))
-import Prettify (Doc, (<>), char, double, fsep, hcat, punctuate, text, compact, pretty)
+import Prettify (Doc, (<>), char, double, fsep, hcat, punctuate, text, compact, pretty, nest)
 
 string :: String -> Doc
 string = enclose '"' '"' .hcat . map oneChar
@@ -54,6 +54,9 @@ renderJValue (JArray ary)   = series '[' ']' renderJValue ary
 renderJValue (JObject obj)  = series '{' '}' field obj
     where field (name, val) = string name <> text ": " <> renderJValue val
     
-value = renderJValue (JObject [("f", JNumber 1), ("q", JBool True)])
+value = renderJValue (JObject [("f", JNumber 1), ("z", JArray [JString "Foo", JBool True, JNull]), ("q", JBool True)])
 
-main = putStrLn (pretty 10 value)
+main = putStrLn (nest 2 13 value)
+
+-- TODO Rewrite Prettify.pretty in a more senseful way
+-- http://book.realworldhaskell.org/read/writing-a-library-working-with-json-data.html

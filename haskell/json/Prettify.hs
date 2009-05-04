@@ -85,7 +85,33 @@ pretty width x = best 0 [x]
           nicest col a b | (width - least) `fits` a = a
                          | otherwise                = b
                          where least = min width col
-                         
+
+
+nest :: Int -> Int -> Doc -> String
+nest shiftwidth width x = best 0 0 [x]
+     where best i len (d:ds) =
+             case d of
+                 Empty           -> best i len ds
+                 Char c          -> c:best indent (len + 1) ds
+                     where indent = 
+                             case c of
+                                 '{' -> i + 1
+                                 '}' -> i - 1
+                                 '[' -> i + 1
+                                 ']' -> i - 1
+                                 otherwise -> i
+                 Text str        -> str ++ best i (len + (length str)) ds
+                 Line            -> "\n" ++ shift ++ best i (length shift) ds
+                     where shift = (replicate (i * shiftwidth) ' ')
+                 a `Concat` b    -> best i len (a:b:ds)
+                 a `Union` b     -> nicest len (best i len (a:ds)) (best i len (b:ds))
+           best _ _ _ = ""
+           nicest pad x y | (width - pad) `fits` x = x
+                          | otherwise                = y
+                          -- where least = min width pad
+
+
+
 fits :: Int -> String -> Bool
 w `fits` _ | w < 0  = False
 w `fits` ""         = True
