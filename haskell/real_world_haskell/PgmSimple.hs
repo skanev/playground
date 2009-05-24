@@ -56,7 +56,28 @@ parseP5 s =
                           Nothing -> Nothing
                           Just (bitmap, s6) ->
                             Just (Greymap width height maxGrey bitmap, s6)
-                            
+
+(>>?) :: Maybe a -> (a -> Maybe b) -> Maybe b
+Nothing >>? _ = Nothing
+Just a >>? f  = f a
+
+parseP5_take2 :: L.ByteString -> Maybe (Greymap, L.ByteString)
+parseP5_take2 s =
+    matchHeader (L8.pack "P5") s        >>?
+    \s -> skipSpace ((), s)             >>?
+    (getNat . snd)                      >>?
+    skipSpace                           >>?
+    \(width, s) -> getNat s             >>?
+    skipSpace                           >>?
+    \(height, s) -> getNat s            >>?
+    \(maxGrey, s) -> getBytes 1 s       >>?
+    (getBytes (width * height) . snd)   >>?
+    \(bitmap, s) -> Just (Greymap width height maxGrey bitmap, s)
+  
+skipSpace :: (a, L.ByteString) -> Maybe (a, L.ByteString)
+skipSpace (a, s) = Just (a, L8.dropWhile isSpace s)
+
+
 main = do handle <- openFile "./sample/foo.pgm" ReadMode
           contents <- L8.hGetContents handle
-          print (parseP5 contents)
+          print (parseP5_take2 contents)
