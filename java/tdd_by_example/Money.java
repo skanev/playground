@@ -1,5 +1,5 @@
 
-public class Money {
+public abstract class Money {
 	protected int amount;
 	
 	@Override
@@ -7,6 +7,16 @@ public class Money {
 		Money money = (Money) object;
 		return money.amount == this.amount && money.getClass().equals(this.getClass());
 	}
+
+	public static Money dollar(int amount) {
+		return new Dollar(amount);
+	}
+	
+	public static Money franc(int amount) {
+		return new Franc(amount);
+	}
+	
+	public abstract Money times(int multiplier);
 }
 
 class Dollar extends Money {
@@ -15,7 +25,7 @@ class Dollar extends Money {
 		this.amount = amount;
 	}
 
-	public Dollar times(int multiplier) {
+	public Money times(int multiplier) {
 		return new Dollar(amount * multiplier);
 	}
 	
@@ -27,7 +37,7 @@ class Franc extends Money {
 		this.amount = amount;
 	}
 
-	public Franc times(int multiplier) {
+	public Money times(int multiplier) {
 		return new Franc(amount * multiplier);
 	}
 
