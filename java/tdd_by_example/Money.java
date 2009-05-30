@@ -25,7 +25,7 @@ public class Money implements Expression {
 		return new Money(amount, "CHF");
 	}
 	
-	public Money times(int multiplier) {
+	public Expression times(int multiplier) {
 		return new Money(amount * multiplier, currency);
 	}
 
@@ -33,32 +33,41 @@ public class Money implements Expression {
 		return currency;
 	}
 
-	public Expression plus(Money addend) {
+	public Expression plus(Expression addend) {
 		return new Sum(this, addend);
 	}
 
 	public Money reduce(Bank bank, String to) {
-		
 		return new Money(amount / bank.rate(currency, to), to);
+	}
+	
+	@Override
+	public String toString() {
+		return amount + " " + currency;
 	}
 }
 
 interface Expression {
 	Money reduce(Bank bank, String to);
+	Expression plus(Expression addend);
 }
 
 class Sum implements Expression {
-	Money augend;
-	Money addend;
+	Expression augend;
+	Expression addend;
 
-	public Sum(Money augend, Money addend) {
+	public Sum(Expression augend, Expression addend) {
 		this.augend = augend;
 		this.addend = addend;
 	}
 
 	public Money reduce(Bank bank, String to) {
-		int amount = augend.amount + addend.amount;
+		int amount = augend.reduce(bank, to).amount + addend.reduce(bank, to).amount;
 		return new Money(amount, to);
+	}
+
+	public Expression plus(Expression addend) {
+		return null; // TODO
 	}
 }
 
