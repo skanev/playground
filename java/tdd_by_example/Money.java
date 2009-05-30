@@ -49,6 +49,7 @@ public class Money implements Expression {
 
 interface Expression {
 	Money reduce(Bank bank, String to);
+	Expression times(int multiplier);
 	Expression plus(Expression addend);
 }
 
@@ -67,7 +68,11 @@ class Sum implements Expression {
 	}
 
 	public Expression plus(Expression addend) {
-		return null; // TODO
+		return new Sum(this, addend);
+	}
+
+	public Expression times(int multiplier) {
+		return new Sum(augend.times(multiplier), addend.times(multiplier));
 	}
 }
 
