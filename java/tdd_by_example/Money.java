@@ -1,10 +1,15 @@
 
 public class Money {
-
+	protected int amount;
+	
+	@Override
+	public boolean equals(Object object) {
+		Money money = (Money) object;
+		return money.amount == this.amount;
+	}
 }
 
-class Dollar {
-	private int amount;
+class Dollar extends Money {
 	
 	public Dollar(int amount) {
 		this.amount = amount;
@@ -14,16 +19,9 @@ class Dollar {
 		return new Dollar(amount * multiplier);
 	}
 	
-	@Override
-	public boolean equals(Object object) {
-		Dollar dollar = (Dollar) object;
-		return dollar.amount == this.amount;
-	}
-
 }
 
-class Franc {
-	private int amount;
+class Franc extends Money {
 	
 	public Franc(int amount) {
 		this.amount = amount;
@@ -31,12 +29,6 @@ class Franc {
 
 	public Franc times(int multiplier) {
 		return new Franc(amount * multiplier);
-	}
-	
-	@Override
-	public boolean equals(Object object) {
-		Franc franc = (Franc) object;
-		return franc.amount == this.amount;
 	}
 
 }
