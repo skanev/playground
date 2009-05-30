@@ -1,1 +1,24 @@
 Try-outs from Test-Driven Development by Kent Beck
+==================================================
+
+The book advocates doing TDD in very small increments, writing the
+simplest test possible, followed by the simplest implementation possible
+and then refactoring. Known as the red/green/refactory cycle. The curious
+thing is that the steps are really tiny and that after writing the test
+you should make it pass as quick as possible, even if that means returning
+a constant or "Faking it" some other way. This way you get a test that you
+know works and refactor "in the green".
+
+Another curious thing is that when you follow this approach, you end up
+having very high coverage, since you basically don't write code you have
+no test for. Overall, you're progressing slower, but you should end up
+having a very nice test suite in the end.
+
+The examples here were done following the book very closely. Different
+commits represent the result after the end of each chapter (with one
+skipped).
+
+
+
+One can find the book here:
+ * http://www.amazon.com/Test-Driven-Development-Addison-Wesley-Signature/dp/0321146530
