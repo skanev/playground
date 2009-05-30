@@ -14,7 +14,7 @@ public class MoneyTest extends TestCase {
 		assertTrue(Money.franc(5).equals(Money.franc(5)));
 	}
 	
-	public void testSimpleAddition() throws Exception {
+	public void testSimpleAddition() {
 		Money five = Money.dollar(5);
 		Expression sum = five.plus(five);
 		Bank bank = new Bank();
@@ -22,8 +22,30 @@ public class MoneyTest extends TestCase {
 		assertEquals(Money.dollar(10), reduced);
 	}
 	
-	public void testCurrency() throws Exception {
+	public void testCurrency() {
 		assertEquals("USD", Money.dollar(1).currency());
 		assertEquals("CHF", Money.franc(1).currency());
+	}
+	
+	public void testPlusReturnsSumm() {
+		Money five = Money.dollar(5);
+		Money ten = Money.dollar(10);
+		Expression result = five.plus(ten);
+		Sum sum = (Sum) result;
+		assertEquals(five, sum.augend);
+		assertEquals(ten, sum.addend);
+	}
+	
+	public void testReduceSum() {
+		Expression sum = new Sum(Money.dollar(3), Money.dollar(4));
+		Bank bank = new Bank();
+		Money result = bank.reduce(sum, "USD");
+		assertEquals(Money.dollar(7), result);
+	}
+	
+	public void testReduceMoney() {
+		Bank bank = new Bank();
+		Money result = bank.reduce(Money.dollar(1), "USD");
+		assertEquals(Money.dollar(1), result);
 	}
 }

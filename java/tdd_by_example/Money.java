@@ -31,17 +31,37 @@ public class Money implements Expression {
 	}
 
 	public Expression plus(Money addend) {
-		return new Money(this.amount + addend.amount, currency);
+		return new Sum(this, addend);
+	}
+
+	public Money reduce(String to) {
+		return this;
 	}
 }
 
 interface Expression {
+	Money reduce(String to);
+}
+
+class Sum implements Expression {
+	Money augend;
+	Money addend;
+
+	public Sum(Money augend, Money addend) {
+		this.augend = augend;
+		this.addend = addend;
+	}
+
+	public Money reduce(String to) {
+		int amount = augend.amount + addend.amount;
+		return new Money(amount, to);
+	}
 }
 
 class Bank {
 
 	public Money reduce(Expression source, String to) {
-		return Money.dollar(10);
+		return source.reduce(to);
 	}
 }
 
