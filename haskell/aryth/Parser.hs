@@ -7,7 +7,7 @@ import Text.ParserCombinators.Parsec
 import Text.ParserCombinators.Parsec.Expr (buildExpressionParser, Assoc(..), OperatorTable(..), Operator(..))
 import qualified Text.ParserCombinators.Parsec.Token as P
 import Text.ParserCombinators.Parsec.Language (emptyDef)
-import Control.Monad (liftM)
+import Control.Monad (liftM, forM)
 
 lexer      = P.makeTokenParser emptyDef
 
@@ -27,12 +27,18 @@ assignment = do
   return $ Assignment name value
   
 
+call = do
+  name <- identifier
+  args <- parens (sepBy expr (reservedOp ","))
+  return $ Call name args
+
 expr = buildExpressionParser table term
         <?> "expression"
 
-term = parens expr
+term = try call
+        <|> parens expr
         <|> liftM (Number . fromIntegral) natural
-        <|> liftM Variable identifier
+        <|> liftM Name identifier
         <?> "simple expression"
 
 table :: OperatorTable Char () Expr
@@ -50,8 +56,12 @@ parseAst input = parse parser "(ast input)" input
           eof
           return ast
 
-main = case parse statement "(Dr. Who)" "x = (4 / 2 - 1) * 2 - 1 + y + 2 ^ 3 ^ 4" of
-  Left err -> print err
-  Right ast -> do
-    print ast
---    print (reduce ast)
+codes = [
+  ]
+
+main = do
+  forM codes $ \code -> do
+    case parse statement "(Dr. Who)" code of
+      Left err -> print err
+      Right ast -> putStrLn $ code ++ ": " ++ show ast
+  return ()

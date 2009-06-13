@@ -2,18 +2,11 @@ module Ast (
   Expr(..),
   BinaryOp(..),
   Statement(..),
-  Binding,
-  reduce,
-  substitute,
-  variables,
-  grounded
 ) where
 
 import qualified Data.Map as M
-import Data.List (nub)
+import Data.List (nub, intercalate)
 import Control.Applicative ((<$>))
-
-type Binding = M.Map String Float
 
 data BinaryOp = Add
               | Sub
@@ -23,7 +16,8 @@ data BinaryOp = Add
   deriving (Eq, Show)
 
 data Expr = Number Float
-          | Variable String
+          | Name String
+          | Call String [Expr]
           | Binary BinaryOp Expr Expr
   deriving (Eq)
   
@@ -36,9 +30,10 @@ instance Show Statement where
   show (Assignment var expr) = var ++ " = " ++ show expr
 
 instance Show Expr where
-  show (Binary op a b) = "(" ++ show a ++ " " ++ symbol op ++ " " ++ show b ++ ")"
   show (Number n) = show n
-  show (Variable v) = v
+  show (Name v) = v
+  show (Call name args) = name ++ "(" ++ intercalate ", " (map show args) ++ ")"
+  show (Binary op a b) = "(" ++ show a ++ " " ++ symbol op ++ " " ++ show b ++ ")"
 
 instance Num Expr where
   (+) = Binary Add
@@ -68,16 +63,6 @@ instance Floating Expr where
   atanh = undefined
   acosh = undefined
 
-lift :: (Float -> Float -> Float) -> Expr -> Expr -> Float
-lift op a b = reduce a `op` reduce b
-
-apply :: BinaryOp -> Expr -> Expr -> Float
-apply Add = lift (+)
-apply Sub = lift (-)
-apply Mul = lift (*)
-apply Div = lift (/)
-apply Exp = lift (**)
-
 symbol :: BinaryOp -> String
 symbol Add = "+"
 symbol Sub = "-"
@@ -88,30 +73,9 @@ symbol Exp = "^"
 showOp :: (Show s) => String -> s -> s -> String
 showOp op a b = "(" ++ show a ++ " " ++ op ++ " " ++ show b ++ ")"
 
-reduce :: Expr -> Float
-reduce (Binary op a b) = apply op a b
-reduce (Number a) = a
-reduce (Variable _) = error "Cannot reduce variables"
-
 someExpr :: Expr
 someExpr = (3 + 1) * 3 - 1 / 2 + 2 ** 1 ** 2
 
-variables :: Expr -> [String]
-variables = nub . nonUnique
-  where nonUnique (Number _)     = []
-        nonUnique (Binary _ a b) = variables a ++ variables b
-        nonUnique (Variable v)   = [v]
-        
-grounded :: Expr -> Bool
-grounded = null . variables
-
-substitute :: Binding -> Expr -> Expr
-substitute _       n@(Number _)      = n
-substitute binding (Binary op a b)   = Binary op (substitute binding a) (substitute binding b)
-substitute binding v@(Variable name) = maybe v Number (M.lookup name binding)
-
 main = do
   print $ show someExpr
-  print $ reduce someExpr
-  print $ variables (Variable "Foo" + Variable "Foo" + 1)
-  print $ substitute (M.fromAscList [("a", 1)]) (Variable "a" + Variable "b")
+  print $ 1 + Call "foo" [1, 2, Name "a" + 1]
