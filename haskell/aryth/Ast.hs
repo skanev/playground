@@ -2,10 +2,11 @@ module Ast (
   Expr(..),
   BinaryOp(..),
   Statement(..),
+  build
 ) where
 
 import qualified Data.Map as M
-import Data.List (nub, intercalate)
+import Data.List (nub, intercalate, (\\))
 import Control.Applicative ((<$>))
 
 data BinaryOp = Add
@@ -23,11 +24,13 @@ data Expr = Number Float
   
 data Statement = Expr Expr
                | Assignment String Expr
+               | Definition String [String] Expr
   deriving (Eq)
 
 instance Show Statement where
   show (Expr expr)           = show expr
   show (Assignment var expr) = var ++ " = " ++ show expr
+  show (Definition name args body) = name ++ "(" ++ intercalate ", " args ++ ") { " ++ show body ++ " }"
 
 instance Show Expr where
   show (Number n) = show n
@@ -75,6 +78,17 @@ showOp op a b = "(" ++ show a ++ " " ++ op ++ " " ++ show b ++ ")"
 
 someExpr :: Expr
 someExpr = (3 + 1) * 3 - 1 / 2 + 2 ** 1 ** 2
+
+variables :: Expr -> [String]
+variables = nub . nonUnique
+  where nonUnique (Number _)     = []
+        nonUnique (Name n)       = [n]
+        nonUnique (Binary _ a b) = variables a ++ variables b
+
+build :: String -> [String] -> Expr -> Either String Statement
+build name args body | length args /= length (nub args)    = Left $ "Duplicate argument name: " ++ show args
+                     | not . null $ variables body \\ args = Left $ "Undefined arguments: " ++ show (variables body \\ args)
+                     | otherwise = Right $ Definition name args body
 
 main = do
   print $ show someExpr

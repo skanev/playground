@@ -3,6 +3,7 @@ module Parser (
 ) where
 
 import Ast
+import Data.List (intercalate)
 import Text.ParserCombinators.Parsec
 import Text.ParserCombinators.Parsec.Expr (buildExpressionParser, Assoc(..), OperatorTable(..), Operator(..))
 import qualified Text.ParserCombinators.Parsec.Token as P
@@ -16,8 +17,11 @@ natural    = P.natural lexer
 parens     = P.parens lexer
 reservedOp = P.reservedOp lexer
 identifier = P.identifier lexer
+comma      = P.comma lexer
+braces     = P.braces lexer
 
-statement = try assignment
+statement = (try definition >>= either fail return)
+            <|> try assignment
             <|> liftM Expr expr
 
 assignment = do
@@ -26,11 +30,16 @@ assignment = do
   value <- expr
   return $ Assignment name value
   
-
 call = do
   name <- identifier
-  args <- parens (sepBy expr (reservedOp ","))
+  args <- parens (sepBy expr comma)
   return $ Call name args
+
+definition = do
+  name <- identifier
+  args <- parens (sepBy identifier comma)
+  body <- braces expr
+  return $ build name args body
 
 expr = buildExpressionParser table term
         <?> "expression"
@@ -57,11 +66,17 @@ parseAst input = parse parser "(ast input)" input
           return ast
 
 codes = [
+    "1 + 2",
+    "f(a,b)",
+    "f(c, d) { c + d }",
+    "f(a, a) { 1 }",
+    "f(a) { 1 }",
+    "f(x) { x + c }"
   ]
 
 main = do
   forM codes $ \code -> do
-    case parse statement "(Dr. Who)" code of
-      Left err -> print err
+    case parseAst code of
+      Left err -> putStrLn $ code ++ ": " ++ intercalate " | " (lines (show err))
       Right ast -> putStrLn $ code ++ ": " ++ show ast
   return ()
