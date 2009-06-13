@@ -19,12 +19,15 @@ term = parens expr
         <?> "simple expression"
 
 table :: OperatorTable Char () AST
-table = [[binary "*" Mul AssocLeft],
-         [binary "+" Add AssocLeft]
+table = [ [binary "^" Exp AssocRight],
+          [binary "*" Mul AssocLeft, binary "/" Sub AssocLeft],
+          [binary "+" Add AssocLeft, binary "-" Sub AssocLeft]
         ]
 
 binary name fun assoc = Infix (do{ reservedOp name; return fun }) assoc
 
-main = case parse expr "(Dr. Who)" "(1 + 4 + 2) * 3 + 1" of
+main = case parse expr "(Dr. Who)" "(4 / 2 - 1) * 2 - 1 + 2 ^ 3 ^ 4" of
   Left err -> print err
-  Right ast -> print $ reduce ast
+  Right ast -> do
+    print ast
+    print (reduce ast)
