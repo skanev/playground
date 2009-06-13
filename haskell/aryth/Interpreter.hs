@@ -1,39 +1,29 @@
 import Ast
 import Parser
+import World
 import qualified Data.Map as M
 
-closedIn :: Expr -> Binding -> Bool
-expr `closedIn` binding = grounded (substitute binding expr)
+exec :: World -> Statement -> (Computation (Maybe Float), World)
+exec world (Expr expr) = (Just `fmap` evaluate world expr, world)
+exec world (Assignment name expr) = case evaluate world expr of
+  Failure err -> (Failure err, world)
+  Success val -> (Success Nothing, M.insert name (Value val) world)
 
-valueIn :: Expr -> Binding -> Maybe Float
-valueIn expr binding
-  | expr `closedIn` binding = Just $ reduce (substitute binding expr)
-  | otherwise               = Nothing              
-
-getExpr :: Statement -> Expr
-getExpr (Expr expr)         = expr
-getExpr (Assignment _ expr) = expr
-
-exec :: Binding -> Statement -> IO Binding
-exec binding stmt = case expr `valueIn` binding of
-    Just value -> case stmt of
-      Expr expr -> print value >> return binding
-      Assignment name expr -> return $ M.insert name value binding
-    Nothing -> do
-      putStrLn $ "Undefined variables: " ++ show (variables (substitute binding expr))
-      return binding
-  where expr = getExpr stmt
-
-process :: Binding -> IO ()
-process binding = do
+process :: World -> IO ()
+process world = do
   putStr "> "
   input <- getLine
   case parseAst input of
     Left err -> do
       putStrLn "Parsing error:"
       putStrLn $ concat $ map (\s -> "  " ++ s ++ "\n") (lines (show err))
-      process binding
-    Right stmt -> exec binding stmt >>= process
+      process world
+    Right stmt ->
+      let (comp, world') = exec world stmt in
+      case comp of
+        Failure msg -> print msg >> process world'
+        Success (Just val) -> print val >> process world'
+        Success Nothing -> process world'
   
-main = process M.empty
+main = process caladan
 m = main

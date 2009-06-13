@@ -1,7 +1,9 @@
+{-# LANGUAGE TypeFamilies, MultiParamTypeClasses #-}
+
 module World (
   World,
   Inhabitant(..),
-  Computation,
+  Computation(..),
   ComputationError(..),
   evaluate,
   caladan
@@ -10,7 +12,7 @@ module World (
 import Ast
 import qualified Data.Map as M
 import Control.Monad (liftM2, mapM)
-import Control.Monad.Error (Error(..), throwError)
+import Control.Monad.Error --(Error(..), throwError, MonadError(..))
 
 data FuncDef = FuncDef { args :: [String], body :: Expr } deriving (Eq, Show)
 
@@ -20,13 +22,26 @@ data Inhabitant = Value Float
 
 type World = M.Map String Inhabitant
 
-newtype ComputationError = ComputationError { msgOf :: String } deriving (Show)
+newtype ComputationError = ComputationError { msgOf :: String } deriving (Show, Eq)
+
+data Computation a = Success a | Failure ComputationError deriving (Show, Eq)
+
+instance Functor Computation where
+  f `fmap` Success a = Success (f a)
+  f `fmap` Failure e = Failure e
+
+instance Monad Computation where
+  return x = Success x
+  (Failure err) >>= _ = Failure err
+  (Success x) >>= f = f x
+
+instance MonadError ComputationError Computation where
+  throwError = Failure
+  catchError = undefined
 
 instance Error ComputationError where
   noMsg  = ComputationError "What the phukk?"
   strMsg = ComputationError 
-
-type Computation = Either ComputationError
 
 evaluate :: World -> Expr -> Computation Float
 evaluate world (Number n) = return n
@@ -76,7 +91,6 @@ main = do
   print $ evaluate caladan (1 + 2 + Name "paul")
   print $ evaluate caladan (1 + 2 + Name "larodi")
   print $ evaluate caladan (Call "foo" [1.4, 2])
-  print "---->"
   print $ evaluate caladan (Call "add" [Name "jessica", 2])
   print $ evaluate caladan (Call "larodi" [])
   return ()
