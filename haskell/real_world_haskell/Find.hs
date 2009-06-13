@@ -47,8 +47,6 @@ getFileSize path = handle (\(_ :: IOException) -> return Nothing) $ do
         size <- hFileSize h
         return (Just size)
 
-
-
 type InfoP a = FilePath -> Permissions -> Maybe Integer -> ClockTime -> a
 
 pathP :: InfoP FilePath
