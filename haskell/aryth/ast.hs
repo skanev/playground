@@ -1,40 +1,57 @@
 module Ast (
-  AST(..), reduce
+  AST(..), BinaryOp(..), reduce
 ) where
 
 import Control.Applicative ((<$>))
 
-data AST =
-  Number Float
-  | Add AST AST
-  | Sub AST AST
-  | Mul AST AST
-  | Div AST AST
-  | Exp AST AST
+data BinaryOp = Add
+              | Sub
+              | Mul
+              | Div
+              | Exp
+  deriving (Eq, Show)
+
+data AST =  Number Float
+          | Binary BinaryOp AST AST
   deriving (Eq)
 
+
+lift :: (Float -> Float -> Float) -> AST -> AST -> Float
+lift op a b = reduce a `op` reduce b
+
+apply :: BinaryOp -> AST -> AST -> Float
+apply Add = lift (+)
+apply Sub = lift (-)
+apply Mul = lift (*)
+apply Div = lift (/)
+apply Exp = lift (**)
+
+
+symbol :: BinaryOp -> String
+symbol Add = "+"
+symbol Sub = "-"
+symbol Mul = "*"
+symbol Div = "/"
+symbol Exp = "^"
+
 instance Show AST where
-  show (Add a b) = showOp "+" a b
-  show (Sub a b) = showOp "-" a b
-  show (Mul a b) = showOp "*" a b
-  show (Div a b) = showOp "/" a b
-  show (Exp a b) = showOp "^" a b
+  show (Binary op a b) = "(" ++ show a ++ " " ++ symbol op ++ " " ++ show b ++ ")"
   show (Number a) = show a
 
 instance Num AST where
-  (+) = Add
-  (*) = Mul
-  (-) = Sub
+  (+) = Binary Add
+  (*) = Binary Mul
+  (-) = Binary Sub
   abs = undefined
   signum = undefined
   fromInteger = Number . fromIntegral
 
 instance Fractional AST where
-  (/) = Div
+  (/) = Binary Div
   fromRational = Number . fromRational
   
 instance Floating AST where
-  (**)  = Exp
+  (**)  = Binary Exp
   pi    = undefined
   exp   = undefined
   log   = undefined
@@ -53,14 +70,12 @@ showOp :: (Show s) => String -> s -> s -> String
 showOp op a b = "(" ++ show a ++ " " ++ op ++ " " ++ show b ++ ")"
 
 reduce :: AST -> Float
-reduce (Add a b) = reduce a + reduce b
-reduce (Mul a b) = reduce a * reduce b
-reduce (Sub a b) = reduce a - reduce b
-reduce (Div a b) = reduce a / reduce b
-reduce (Exp a b) = reduce a ** reduce b
+reduce (Binary op a b) = apply op a b
 reduce (Number a) = a
 
 someExpr :: AST
 someExpr = (3 + 1) * 3 - 1 / 2 + 2 ** 1 ** 2
 
-main = print $ show someExpr
+main = do
+  print $ show someExpr
+  print $ reduce someExpr

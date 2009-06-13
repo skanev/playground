@@ -29,7 +29,7 @@ table = [ [binary "^" Exp AssocRight],
           [binary "+" Add AssocLeft, binary "-" Sub AssocLeft]
         ]
 
-binary name fun assoc = Infix (do{ reservedOp name; return fun }) assoc
+binary symbol op assoc = Infix (reservedOp symbol >> return (Binary op)) assoc
 
 parseAst input = parse parser "(ast input)" input 
   where parser = do
