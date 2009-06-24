@@ -338,3 +338,105 @@
 
 (sort/predicate > '(8 2 5 2 3))
 (sort/predicate < '(8 2 5 2 3))
+
+
+
+(define leaf
+  (lambda (n) n))
+
+(define node
+  (lambda (sym l r)
+    (list sym l r)))
+
+(define the-tree
+  (node 'red
+    (node 'b
+      (node 'red 1 2)
+      3)
+    (node 'red 4 (node 'e 5 6))))
+
+(define leaf?
+  (lambda (n) (number? n)))
+
+(define lson (lambda (node) (cadr node)))
+(define rson (lambda (node) (caddr node)))
+(define contents-of (lambda (node) (car node)))
+
+(lson the-tree)
+(rson the-tree)
+(contents-of the-tree)
+
+
+
+(define double
+  (lambda (tree)
+    (if (leaf? tree) 
+        (* tree 2)
+        (node (contents-of tree) (double (lson tree)) (double (rson tree))))))
+
+(double the-tree)
+
+
+
+(define mark-leaves-with-red-depth-from
+  (lambda (tree n)
+    (if (leaf? tree)
+        n
+        (let ((next-level (+ n (if (eq? 'red (contents-of tree)) 1 0))))
+          (node (contents-of tree)
+              (mark-leaves-with-red-depth-from (lson tree) next-level)
+              (mark-leaves-with-red-depth-from (rson tree) next-level))))))
+
+(define mark-leaves-with-red-depth
+  (lambda (tree) (mark-leaves-with-red-depth-from tree 0)))
+
+(mark-leaves-with-red-depth the-tree)
+
+
+
+(define val (lambda (t) (car t)))
+(define ltree (lambda (t) (cadr t)))
+(define rtree (lambda (t) (caddr t)))
+
+(define path
+  (lambda (n tree)
+    (cond ((eq? n (val tree)) '())
+          ((< n (val tree)) (cons 'left (path n (ltree tree))))
+          (else (cons 'right (path n (rtree tree)))))))                 
+
+(path 17 '(14 (7 () (12 () ()))
+              (26 (20 (17 () ())
+                      ())
+                  (31 ()()))))
+
+
+
+(define number-leaves
+  (lambda (tree) tree))
+
+(define last
+  (lambda (tree)
+    (cond ((leaf? tree) tree)
+          (last (rson tree)))))
+
+(define number-leaves-from
+  (lambda (tree n)
+    (if (leaf? tree)
+        n
+        (let ((left (number-leaves-from (lson tree) n)))
+          (node (contents-of tree) left (number-leaves-from (rson tree) (+ 1 (last left))))))))
+             
+(define number-leaves
+  (lambda (tree)
+    (number-leaves-from tree 0)))
+
+(number-leaves the-tree)
+(number-leaves (node 'foo
+                     (node 'bar
+                           (leaf 26)
+                           (leaf 12))
+                     (node 'baz
+                           (leaf 11)
+                           (node 'quux
+                                 (leaf 117)
+                                 (leaf 14)))))
