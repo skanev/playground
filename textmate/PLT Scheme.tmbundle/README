@@ -1,0 +1,12 @@
+I decided to switch from Vim to TextMate when playing with PLT Scheme. Since
+I wanted to learn about making TextMate bundles, I decided to let go of the
+Scheme bundle and create one of my own for the experience.
+
+You should definitelly not use this. I'm adding only stuff that I need. Since
+I am using a subset of the language (a rather weird one, I might add), you'll
+get strange highlighting, lack of features and so on.
+
+TextMate has a nice Scheme bundle, that I'm shamelessly ripping code off (to
+give credit where due). You can find it here:
+
+  http://svn.textmate.org/trunk/Bundles/Scheme.tmbundle/

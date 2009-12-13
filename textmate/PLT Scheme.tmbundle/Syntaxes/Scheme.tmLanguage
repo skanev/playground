@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>fileTypes</key>
+	<array>
+		<string>ss</string>
+	</array>
+	<key>keyEquivalent</key>
+	<string>^~P</string>
+	<key>name</key>
+	<string>PLT Scheme</string>
+	<key>patterns</key>
+	<array>
+		<dict>
+			<key>include</key>
+			<string>#comment</string>
+		</dict>
+		<dict>
+			<key>include</key>
+			<string>#constants</string>
+		</dict>
+		<dict>
+			<key>include</key>
+			<string>#keywords</string>
+		</dict>
+	</array>
+	<key>repository</key>
+	<dict>
+		<key>comment</key>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.comment.scheme</string>
+				</dict>
+			</dict>
+			<key>match</key>
+			<string>(;).*$\n?</string>
+			<key>name</key>
+			<string>comment.line.semicolon.scheme</string>
+		</dict>
+		<key>constants</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>#[t|f]</string>
+					<key>name</key>
+					<string>constant.language.boolean.scheme</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>(?&lt;=[\(\s])((#e|#i)?[0-9]+(\.[0-9]+)?|(#x)[0-9a-fA-F]+|(#o)[0-7]+|(#b)[01]+)(?=[\s;()'",\[\]])</string>
+					<key>name</key>
+					<string>constant.numeric.scheme</string>
+				</dict>
+			</array>
+		</dict>
+		<key>keywords</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>(?x)
+						(?&lt;=(\s|\(|\[))
+						( define|module|let|cond|if|require|provide|lambda )
+						(?=(\s|\(|\[))
+					</string>
+					<key>name</key>
+					<string>keyword.control.scheme</string>
+				</dict>
+			</array>
+		</dict>
+	</dict>
+	<key>scopeName</key>
+	<string>source.scheme</string>
+	<key>uuid</key>
+	<string>7AF4CBF5-CF08-4855-8BAB-CBDBFB1F429D</string>
+</dict>
+</plist>
