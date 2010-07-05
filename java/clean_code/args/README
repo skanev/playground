@@ -1,0 +1,7 @@
+This code follows closely the refactoring steps in Chapter 14: Successive
+Refinement in Clean Code. It is written as a programming exercise, partly to
+follow Uncle Bob's reasoning up close and partly to reminiscent a bit about
+Java and Eclipse.
+
+In order to commit more to memory, I intend to get a bit too talkative in the
+commit messages and this file. This is just a mnemonic device for my own good. 
