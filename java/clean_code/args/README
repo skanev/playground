@@ -11,3 +11,5 @@ Reflections:
    it top level
  * Accumulate behavior in a single class, then split it in subclasses after
    enough feedback
+ * Extracting subclasses: one by one, introducing methods in the parent and
+   implementing them in the children
