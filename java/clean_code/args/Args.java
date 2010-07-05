@@ -174,18 +174,18 @@ public class Args {
         String parameter = null;
         try {
             parameter = args[currentArgument];
-            intArgs.get(argChar).setInt(Integer.parseInt(parameter));
+            intArgs.get(argChar).set(parameter);
         } catch (ArrayIndexOutOfBoundsException e) {
             this.valid = false;
             this.errorArgumentId = argChar;
             this.errorCode = ErrorCode.MISSING_INTEGER;
             throw new ArgsException();
-        } catch (NumberFormatException e) {
+        } catch (ArgsException e) {
             this.valid = false;
             this.errorArgumentId = argChar;
             this.errorParamenter = parameter;
             this.errorCode = ErrorCode.INVALID_INTEGER;
-            throw new ArgsException();
+            throw e;
         }
     }
     
@@ -230,7 +230,7 @@ public class Args {
     }
 
     public int getInt(char arg) {
-        return intArgs.get(arg).getInt();
+        return intArgs.get(arg).get();
     }
     
     public boolean has(char arg) {
@@ -241,23 +241,9 @@ public class Args {
         return valid;
     }
     
-    private class ArgumentMarshaler {
-        private int intValue = 0;
-        
-        public int getInt() {
-            return intValue;
-        }
-
-        public void setInt(int value) {
-            this.intValue = value;
-        }
-        
-        public void set(String value) {
-        }
-        
-        public Object get() {
-            return null;
-        }
+    private abstract class ArgumentMarshaler {
+        public abstract void set(String value) throws ArgsException;
+        public abstract Object get();
     }
     
     private class BooleanMarshaler extends ArgumentMarshaler {
@@ -289,5 +275,20 @@ public class Args {
     }
     
     private class IntegerMarshaler extends ArgumentMarshaler {
+        private int intValue = 0;
+        
+        @Override
+        public void set(String value) throws ArgsException {
+            try {
+                intValue = new Integer(value);
+            } catch (NumberFormatException e) {
+                throw new ArgsException();
+            }
+        }
+        
+        @Override
+        public Integer get() {
+            return intValue;
+        }
     }
 }
