@@ -14,9 +14,9 @@ public class Args {
     private String[] args;
     private boolean valid = true;
     private Set<Character> unexpectedArguments = new TreeSet<Character>();
-    private Map<Character, ArgumentMarshaler> booleanArgs = new HashMap<Character, ArgumentMarshaler>();
-    private Map<Character, ArgumentMarshaler> stringArgs = new HashMap<Character, ArgumentMarshaler>();
-    private Map<Character, ArgumentMarshaler> intArgs = new HashMap<Character, ArgumentMarshaler>();
+    private Map<Character, BooleanMarshaler> booleanArgs = new HashMap<Character, BooleanMarshaler>();
+    private Map<Character, StringMarshaler> stringArgs = new HashMap<Character, StringMarshaler>();
+    private Map<Character, IntegerMarshaler> intArgs = new HashMap<Character, IntegerMarshaler>();
     private Set<Character> argsFound = new HashSet<Character>();
     private int currentArgument;
     private char errorArgumentId = '\0';
@@ -66,24 +66,24 @@ public class Args {
         }
     }
 
-    private void parseIntegerSchemaElement(char elementId) {
-        intArgs.put(elementId, new ArgumentMarshaler());
-    }
-
     private void validateSchemaElementId(char elementId) throws ParseException {
         if (!Character.isLetter(elementId)) {
             throw new ParseException("Bad character: " + elementId + " in Args format: " + schema, 0);
         }
     }
-
-    private void parseStringSchemaElement(char elementId) {
-        stringArgs.put(elementId, new ArgumentMarshaler());
-    }
-
+    
     private void parseBooleanSchemaElement(char elementId) {
-        booleanArgs.put(elementId, new ArgumentMarshaler());
+        booleanArgs.put(elementId, new BooleanMarshaler());
+    }
+    
+    private void parseStringSchemaElement(char elementId) {
+        stringArgs.put(elementId, new StringMarshaler());
     }
 
+    private void parseIntegerSchemaElement(char elementId) {
+        intArgs.put(elementId, new IntegerMarshaler());
+    }
+    
     private boolean isStringSchemaElement(String elementTail) {
         return elementTail.equals("*");
     }
@@ -269,6 +269,14 @@ public class Args {
         public void setInt(int value) {
             this.intValue = value;
         }
-        
+    }
+    
+    private class BooleanMarshaler extends ArgumentMarshaler {
+    }
+    
+    private class StringMarshaler extends ArgumentMarshaler {
+    }
+    
+    private class IntegerMarshaler extends ArgumentMarshaler {
     }
 }
