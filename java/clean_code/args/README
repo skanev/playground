@@ -5,3 +5,7 @@ Java and Eclipse.
 
 In order to commit more to memory, I intend to get a bit too talkative in the
 commit messages and this file. This is just a mnemonic device for my own good. 
+
+Reflections:
+ * Start dirty: add a class as an inner class first, get it working, then make
+   it top level
