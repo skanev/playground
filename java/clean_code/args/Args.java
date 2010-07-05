@@ -16,7 +16,7 @@ public class Args {
     private Set<Character> unexpectedArguments = new TreeSet<Character>();
     private Map<Character, ArgumentMarshaler> booleanArgs = new HashMap<Character, ArgumentMarshaler>();
     private Map<Character, ArgumentMarshaler> stringArgs = new HashMap<Character, ArgumentMarshaler>();
-    private Map<Character, Integer> intArgs = new HashMap<Character, Integer>();
+    private Map<Character, ArgumentMarshaler> intArgs = new HashMap<Character, ArgumentMarshaler>();
     private Set<Character> argsFound = new HashSet<Character>();
     private int currentArgument;
     private char errorArgumentId = '\0';
@@ -67,7 +67,7 @@ public class Args {
     }
 
     private void parseIntegerSchemaElement(char elementId) {
-        intArgs.put(elementId, 0);
+        intArgs.put(elementId, new ArgumentMarshaler());
     }
 
     private void validateSchemaElementId(char elementId) throws ParseException {
@@ -174,7 +174,7 @@ public class Args {
         String parameter = null;
         try {
             parameter = args[currentArgument];
-            intArgs.put(argChar, new Integer(parameter));
+            intArgs.get(argChar).setInt(Integer.parseInt(parameter));
         } catch (ArrayIndexOutOfBoundsException e) {
             this.valid = false;
             this.errorArgumentId = argChar;
@@ -230,13 +230,9 @@ public class Args {
     }
 
     public int getInt(char arg) {
-        return zeroIfNull(intArgs.get(arg));
+        return intArgs.get(arg).getInt();
     }
     
-    private int zeroIfNull(Integer integer) {
-        return integer == null ? 0 : integer;
-    }
-
     public boolean has(char arg) {
         return argsFound.contains(arg);
     }
@@ -248,6 +244,7 @@ public class Args {
     private class ArgumentMarshaler {
         private boolean booleanValue = false;
         private String stringValue = "";
+        private int intValue = 0;
         
         public boolean getBoolean() {
             return booleanValue;
@@ -264,5 +261,14 @@ public class Args {
         public void setString(String value) {
             this.stringValue = value;
         }
+
+        public int getInt() {
+            return intValue;
+        }
+
+        public void setInt(int value) {
+            this.intValue = value;
+        }
+        
     }
 }
