@@ -9,3 +9,5 @@ commit messages and this file. This is just a mnemonic device for my own good.
 Reflections:
  * Start dirty: add a class as an inner class first, get it working, then make
    it top level
+ * Accumulate behavior in a single class, then split it in subclasses after
+   enough feedback

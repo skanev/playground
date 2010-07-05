@@ -15,7 +15,7 @@ public class Args {
     private boolean valid = true;
     private Set<Character> unexpectedArguments = new TreeSet<Character>();
     private Map<Character, ArgumentMarshaler> booleanArgs = new HashMap<Character, ArgumentMarshaler>();
-    private Map<Character, String> stringArgs = new HashMap<Character, String>();
+    private Map<Character, ArgumentMarshaler> stringArgs = new HashMap<Character, ArgumentMarshaler>();
     private Map<Character, Integer> intArgs = new HashMap<Character, Integer>();
     private Set<Character> argsFound = new HashSet<Character>();
     private int currentArgument;
@@ -77,7 +77,7 @@ public class Args {
     }
 
     private void parseStringSchemaElement(char elementId) {
-        stringArgs.put(elementId, "");
+        stringArgs.put(elementId, new ArgumentMarshaler());
     }
 
     private void parseBooleanSchemaElement(char elementId) {
@@ -160,7 +160,7 @@ public class Args {
     private void setStringArg(char argChar, String s) throws ArgsException {
         currentArgument++;
         try {
-            stringArgs.put(argChar, args[currentArgument]);
+            stringArgs.get(argChar).setString(args[currentArgument]);
         } catch (ArrayIndexOutOfBoundsException e) {
             this.valid = false;
             this.errorArgumentId = argChar;
@@ -226,13 +226,9 @@ public class Args {
     }
 
     public String getString(char arg) {
-        return blankIfNull(stringArgs.get(arg));
+        return stringArgs.get(arg).getString();
     }
 
-    private String blankIfNull(String s) {
-        return s == null ? "" : s;
-    }
-    
     public int getInt(char arg) {
         return zeroIfNull(intArgs.get(arg));
     }
@@ -251,6 +247,7 @@ public class Args {
     
     private class ArgumentMarshaler {
         private boolean booleanValue = false;
+        private String stringValue = "";
         
         public boolean getBoolean() {
             return booleanValue;
@@ -258,6 +255,14 @@ public class Args {
         
         public void setBoolean(boolean value) {
             this.booleanValue = value;
+        }
+
+        public String getString() {
+            return stringValue;
+        }
+
+        public void setString(String value) {
+            this.stringValue = value;
         }
     }
 }
