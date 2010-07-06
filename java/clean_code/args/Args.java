@@ -136,7 +136,6 @@ public class Args {
     private boolean setArgument(char argChar) throws ArgsException {
         try {
             ArgumentMarshaler marshaler = marshalers.get(argChar);
-            boolean set = true;
             if (marshaler instanceof BooleanMarshaler) {
                 setBooleanArg(marshaler);
             } else if (marshaler instanceof StringMarshaler) {
@@ -144,10 +143,10 @@ public class Args {
             } else if (marshaler instanceof IntegerMarshaler) {
                 setIntArg(marshaler);
             } else {
-                set = false;
+                return false;
             }
             
-            return set;
+            return true;
         } catch (ArgsException e) {
             this.errorArgumentId = argChar;
             throw e;
