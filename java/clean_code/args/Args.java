@@ -149,6 +149,7 @@ public class Args {
             return true;
         } catch (ArgsException e) {
             this.errorArgumentId = argChar;
+            this.valid = false;
             throw e;
         }
     }
@@ -162,7 +163,6 @@ public class Args {
         try {
             marshaler.set(args[currentArgument]);
         } catch (ArrayIndexOutOfBoundsException e) {
-            this.valid = false;
             this.errorCode  = ErrorCode.MISSING_STRING;
             throw new ArgsException();
         }
@@ -175,11 +175,9 @@ public class Args {
             parameter = args[currentArgument];
             marshaler.set(parameter);
         } catch (ArrayIndexOutOfBoundsException e) {
-            this.valid = false;
             this.errorCode = ErrorCode.MISSING_INTEGER;
             throw new ArgsException();
         } catch (ArgsException e) {
-            this.valid = false;
             this.errorParamenter = parameter;
             this.errorCode = ErrorCode.INVALID_INTEGER;
             throw e;
