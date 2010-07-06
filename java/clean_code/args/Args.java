@@ -137,7 +137,7 @@ public class Args {
         ArgumentMarshaler marshaler = marshalers.get(argChar);
         boolean set = true;
         if (marshaler instanceof BooleanMarshaler) {
-            setBooleanArg(argChar, true);
+            setBooleanArg(marshaler);
         } else if (marshaler instanceof StringMarshaler) {
             setStringArg(argChar, "");
         } else if (marshaler instanceof IntegerMarshaler) {
@@ -149,8 +149,8 @@ public class Args {
         return set;
     }
 
-    private void setBooleanArg(char argChar, boolean value) {
-        booleanArgs.get(argChar).set("true");
+    private void setBooleanArg(ArgumentMarshaler marshaler) throws ArgsException {
+        marshaler.set("true");
     }
     
     private void setStringArg(char argChar, String s) throws ArgsException {
