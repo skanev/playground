@@ -134,32 +134,36 @@ public class Args {
     }
 
     private boolean setArgument(char argChar) throws ArgsException {
-        ArgumentMarshaler marshaler = marshalers.get(argChar);
-        boolean set = true;
-        if (marshaler instanceof BooleanMarshaler) {
-            setBooleanArg(marshaler);
-        } else if (marshaler instanceof StringMarshaler) {
-            setStringArg(argChar, "");
-        } else if (marshaler instanceof IntegerMarshaler) {
-            setIntArg(argChar);
-        } else {
-            set = false;
+        try {
+            ArgumentMarshaler marshaler = marshalers.get(argChar);
+            boolean set = true;
+            if (marshaler instanceof BooleanMarshaler) {
+                setBooleanArg(marshaler);
+            } else if (marshaler instanceof StringMarshaler) {
+                setStringArg(marshaler);
+            } else if (marshaler instanceof IntegerMarshaler) {
+                setIntArg(argChar);
+            } else {
+                set = false;
+            }
+            
+            return set;
+        } catch (ArgsException e) {
+            this.errorArgumentId = argChar;
+            throw e;
         }
-        
-        return set;
     }
 
     private void setBooleanArg(ArgumentMarshaler marshaler) throws ArgsException {
         marshaler.set("true");
     }
     
-    private void setStringArg(char argChar, String s) throws ArgsException {
+    private void setStringArg(ArgumentMarshaler marshaler) throws ArgsException {
         currentArgument++;
         try {
-            stringArgs.get(argChar).set(args[currentArgument]);
+            marshaler.set(args[currentArgument]);
         } catch (ArrayIndexOutOfBoundsException e) {
             this.valid = false;
-            this.errorArgumentId = argChar;
             this.errorCode  = ErrorCode.MISSING_STRING;
             throw new ArgsException();
         }
