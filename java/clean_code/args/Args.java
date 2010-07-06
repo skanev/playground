@@ -149,15 +149,15 @@ public class Args {
     }
 
     private boolean isBooleanArg(char argChar) {
-        return booleanArgs.containsKey(argChar);
+        return marshalers.get(argChar) instanceof BooleanMarshaler;
     }
 
     private boolean isStringArg(char argChar) {
-        return stringArgs.containsKey(argChar);
+        return marshalers.get(argChar) instanceof StringMarshaler;
     }
     
     private boolean isIntArg(char argChar) {
-        return intArgs.containsKey(argChar);
+        return marshalers.get(argChar) instanceof IntegerMarshaler;
     }
     
     private void setBooleanArg(char argChar, boolean value) {
