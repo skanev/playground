@@ -14,7 +14,6 @@ public class Args {
     private String[] args;
     private boolean valid = true;
     private Set<Character> unexpectedArguments = new TreeSet<Character>();
-    private Map<Character, StringMarshaler> stringArgs = new HashMap<Character, StringMarshaler>();
     private Map<Character, IntegerMarshaler> intArgs = new HashMap<Character, IntegerMarshaler>();
     private Map<Character, ArgumentMarshaler> marshalers = new HashMap<Character, Args.ArgumentMarshaler>();
     private Set<Character> argsFound = new HashSet<Character>();
@@ -79,7 +78,6 @@ public class Args {
     
     private void parseStringSchemaElement(char elementId) {
         StringMarshaler marshaler = new StringMarshaler();
-        stringArgs.put(elementId, marshaler);
         marshalers.put(elementId, marshaler);
     }
 
@@ -219,7 +217,7 @@ public class Args {
     }
 
     public String getString(char arg) {
-        return (String) stringArgs.get(arg).get();
+        return (String) marshalers.get(arg).get();
     }
 
     public int getInt(char arg) {
