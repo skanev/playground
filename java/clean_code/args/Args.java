@@ -142,7 +142,7 @@ public class Args {
             } else if (marshaler instanceof StringMarshaler) {
                 setStringArg(marshaler);
             } else if (marshaler instanceof IntegerMarshaler) {
-                setIntArg(argChar);
+                setIntArg(marshaler);
             } else {
                 set = false;
             }
@@ -169,20 +169,18 @@ public class Args {
         }
     }
     
-    private void setIntArg(char argChar) throws ArgsException {
+    private void setIntArg(ArgumentMarshaler marshaler) throws ArgsException {
         currentArgument++;
         String parameter = null;
         try {
             parameter = args[currentArgument];
-            intArgs.get(argChar).set(parameter);
+            marshaler.set(parameter);
         } catch (ArrayIndexOutOfBoundsException e) {
             this.valid = false;
-            this.errorArgumentId = argChar;
             this.errorCode = ErrorCode.MISSING_INTEGER;
             throw new ArgsException();
         } catch (ArgsException e) {
             this.valid = false;
-            this.errorArgumentId = argChar;
             this.errorParamenter = parameter;
             this.errorCode = ErrorCode.INVALID_INTEGER;
             throw e;
