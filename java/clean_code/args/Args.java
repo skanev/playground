@@ -14,7 +14,6 @@ public class Args {
     private String[] args;
     private boolean valid = true;
     private Set<Character> unexpectedArguments = new TreeSet<Character>();
-    private Map<Character, IntegerMarshaler> intArgs = new HashMap<Character, IntegerMarshaler>();
     private Map<Character, ArgumentMarshaler> marshalers = new HashMap<Character, Args.ArgumentMarshaler>();
     private Set<Character> argsFound = new HashSet<Character>();
     private int currentArgument;
@@ -83,7 +82,6 @@ public class Args {
 
     private void parseIntegerSchemaElement(char elementId) {
         IntegerMarshaler marshaler = new IntegerMarshaler();
-        intArgs.put(elementId, marshaler);
         marshalers.put(elementId, marshaler);
     }
     
@@ -221,7 +219,7 @@ public class Args {
     }
 
     public int getInt(char arg) {
-        return intArgs.get(arg).get();
+        return (Integer) marshalers.get(arg).get();
     }
     
     public boolean has(char arg) {
