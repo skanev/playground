@@ -138,14 +138,7 @@ public class Args {
             return false;
         }
         try {
-            if (marshaler instanceof BooleanMarshaler) {
-                marshaler.set(currentArgument);
-            } else if (marshaler instanceof StringMarshaler) {
-                marshaler.set(currentArgument);
-            } else if (marshaler instanceof IntegerMarshaler) {
-                marshaler.set(currentArgument);
-            }
-            
+            marshaler.set(currentArgument);
             return true;
         } catch (ArgsException e) {
             this.errorArgumentId = argChar;
