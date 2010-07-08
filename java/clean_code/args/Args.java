@@ -200,20 +200,12 @@ public class Args {
     }
     
     private abstract class ArgumentMarshaler {
-        public abstract void set(String value) throws ArgsException;
-        public void set(Iterator<String> currentArgument) throws ArgsException {
-            throw new RuntimeException("Unimplemented method");
-        }
         public abstract Object get();
+        public abstract void set(Iterator<String> currentArgument) throws ArgsException;
     }
     
     private class BooleanMarshaler extends ArgumentMarshaler {
         private boolean booleanValue = false;
-        
-        @Override
-        public void set(String value) {
-            booleanValue = true;
-        }
         
         @Override
         public Boolean get() {
@@ -228,11 +220,6 @@ public class Args {
     
     private class StringMarshaler extends ArgumentMarshaler {
         private String stringValue = "";
-        
-        @Override
-        public void set(String value) {
-            stringValue = value;
-        }
         
         @Override
         public String get() {
@@ -252,15 +239,6 @@ public class Args {
     
     private class IntegerMarshaler extends ArgumentMarshaler {
         private int intValue = 0;
-        
-        @Override
-        public void set(String value) throws ArgsException {
-            try {
-                intValue = new Integer(value);
-            } catch (NumberFormatException e) {
-                throw new ArgsException();
-            }
-        }
         
         @Override
         public Integer get() {
