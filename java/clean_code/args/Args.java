@@ -143,9 +143,7 @@ public class Args {
             } else if (marshaler instanceof StringMarshaler) {
                 marshaler.set(currentArgument);
             } else if (marshaler instanceof IntegerMarshaler) {
-                setIntArg(marshaler);
-            } else {
-                return false;
+                marshaler.set(currentArgument);
             }
             
             return true;
@@ -156,21 +154,6 @@ public class Args {
         }
     }
 
-    private void setIntArg(ArgumentMarshaler marshaler) throws ArgsException {
-        String parameter = null;
-        try {
-            parameter = currentArgument.next();
-            marshaler.set(parameter);
-        } catch (NoSuchElementException e) {
-            this.errorCode = ErrorCode.MISSING_INTEGER;
-            throw new ArgsException();
-        } catch (ArgsException e) {
-            this.errorParamenter = parameter;
-            this.errorCode = ErrorCode.INVALID_INTEGER;
-            throw e;
-        }
-    }
-    
     public int cardinality() {
         return argsFound.size();
     }
@@ -289,6 +272,22 @@ public class Args {
         @Override
         public Integer get() {
             return intValue;
+        }
+        
+        @Override
+        public void set(Iterator<String> currentArgument) throws ArgsException {
+            String parameter = null;
+            try {
+                parameter = currentArgument.next();
+                intValue = new Integer(parameter);
+            } catch (NoSuchElementException e) {
+                Args.this.errorCode = ErrorCode.MISSING_INTEGER;
+                throw new ArgsException();
+            } catch (NumberFormatException e) {
+                Args.this.errorParamenter = parameter;
+                Args.this.errorCode = ErrorCode.INVALID_INTEGER;
+                throw new ArgsException();
+            }
         }
     }
 }
