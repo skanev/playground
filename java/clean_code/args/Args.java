@@ -133,10 +133,13 @@ public class Args {
     }
 
     private boolean setArgument(char argChar) throws ArgsException {
+        ArgumentMarshaler marshaler = marshalers.get(argChar);
+        if (marshaler == null) {
+            return false;
+        }
         try {
-            ArgumentMarshaler marshaler = marshalers.get(argChar);
             if (marshaler instanceof BooleanMarshaler) {
-                setBooleanArg(marshaler);
+                marshaler.set(currentArgument);
             } else if (marshaler instanceof StringMarshaler) {
                 setStringArg(marshaler);
             } else if (marshaler instanceof IntegerMarshaler) {
@@ -153,10 +156,6 @@ public class Args {
         }
     }
 
-    private void setBooleanArg(ArgumentMarshaler marshaler) throws ArgsException {
-        marshaler.set("true");
-    }
-    
     private void setStringArg(ArgumentMarshaler marshaler) throws ArgsException {
         try {
             marshaler.set(currentArgument.next());
@@ -235,6 +234,9 @@ public class Args {
     
     private abstract class ArgumentMarshaler {
         public abstract void set(String value) throws ArgsException;
+        public void set(Iterator<String> currentArgument) {
+            throw new RuntimeException("Unimplemented method");
+        }
         public abstract Object get();
     }
     
@@ -249,6 +251,11 @@ public class Args {
         @Override
         public Boolean get() {
             return booleanValue;
+        }
+        
+        @Override
+        public void set(Iterator<String> currentArgument) {
+            booleanValue = true;
         }
     }
     
