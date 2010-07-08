@@ -3,6 +3,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -14,7 +15,7 @@ public class Args {
 	}
 
     private String schema;
-    private String[] args;
+    private List<String> argsList;
     private Iterator<String> currentArgument;
     private boolean valid = true;
     private Set<Character> unexpectedArguments = new TreeSet<Character>();
@@ -26,12 +27,12 @@ public class Args {
 	
 	public Args(String schema, String [] args) throws ParseException {
 	    this.schema = schema;
-	    this.args = args;
+	    this.argsList = Arrays.asList(args);
 	    parse();
     }
 
     private void parse() throws ParseException {
-        if (schema.length() == 0 && args.length == 0) {
+        if (schema.length() == 0 && argsList.isEmpty()) {
             this.valid = true;
         }
         parseSchema();
@@ -101,7 +102,7 @@ public class Args {
     }
     
     private boolean parseArguments() throws ArgsException {
-        this.currentArgument = Arrays.asList(args).iterator();
+        this.currentArgument = argsList.iterator();
         while (currentArgument.hasNext()) {
             String arg = currentArgument.next();
             parseArgument(arg);
