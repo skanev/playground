@@ -141,7 +141,7 @@ public class Args {
             if (marshaler instanceof BooleanMarshaler) {
                 marshaler.set(currentArgument);
             } else if (marshaler instanceof StringMarshaler) {
-                setStringArg(marshaler);
+                marshaler.set(currentArgument);
             } else if (marshaler instanceof IntegerMarshaler) {
                 setIntArg(marshaler);
             } else {
@@ -156,15 +156,6 @@ public class Args {
         }
     }
 
-    private void setStringArg(ArgumentMarshaler marshaler) throws ArgsException {
-        try {
-            marshaler.set(currentArgument.next());
-        } catch (NoSuchElementException e) {
-            this.errorCode  = ErrorCode.MISSING_STRING;
-            throw new ArgsException();
-        }
-    }
-    
     private void setIntArg(ArgumentMarshaler marshaler) throws ArgsException {
         String parameter = null;
         try {
@@ -234,7 +225,7 @@ public class Args {
     
     private abstract class ArgumentMarshaler {
         public abstract void set(String value) throws ArgsException;
-        public void set(Iterator<String> currentArgument) {
+        public void set(Iterator<String> currentArgument) throws ArgsException {
             throw new RuntimeException("Unimplemented method");
         }
         public abstract Object get();
@@ -270,6 +261,16 @@ public class Args {
         @Override
         public String get() {
             return stringValue;
+        }
+        
+        @Override
+        public void set(Iterator<String> currentArgument) throws ArgsException {
+            try {
+                stringValue = currentArgument.next();
+            } catch (NoSuchElementException e) {
+                Args.this.errorCode  = ErrorCode.MISSING_STRING;
+                throw new ArgsException();
+            }
         }
     }
     
