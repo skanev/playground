@@ -1,7 +1,10 @@
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -12,11 +15,11 @@ public class Args {
 
     private String schema;
     private String[] args;
+    private Iterator<String> currentArgument;
     private boolean valid = true;
     private Set<Character> unexpectedArguments = new TreeSet<Character>();
     private Map<Character, ArgumentMarshaler> marshalers = new HashMap<Character, Args.ArgumentMarshaler>();
     private Set<Character> argsFound = new HashSet<Character>();
-    private int currentArgument;
     private char errorArgumentId = '\0';
     private String errorParamenter = "TILT";
     private ErrorCode errorCode = ErrorCode.OK;
@@ -98,8 +101,9 @@ public class Args {
     }
     
     private boolean parseArguments() throws ArgsException {
-        for (currentArgument = 0; currentArgument < args.length; currentArgument++) {
-            String arg = args[currentArgument];
+        this.currentArgument = Arrays.asList(args).iterator();
+        while (currentArgument.hasNext()) {
+            String arg = currentArgument.next();
             parseArgument(arg);
         }
         return true;
@@ -153,22 +157,20 @@ public class Args {
     }
     
     private void setStringArg(ArgumentMarshaler marshaler) throws ArgsException {
-        currentArgument++;
         try {
-            marshaler.set(args[currentArgument]);
-        } catch (ArrayIndexOutOfBoundsException e) {
+            marshaler.set(currentArgument.next());
+        } catch (NoSuchElementException e) {
             this.errorCode  = ErrorCode.MISSING_STRING;
             throw new ArgsException();
         }
     }
     
     private void setIntArg(ArgumentMarshaler marshaler) throws ArgsException {
-        currentArgument++;
         String parameter = null;
         try {
-            parameter = args[currentArgument];
+            parameter = currentArgument.next();
             marshaler.set(parameter);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (NoSuchElementException e) {
             this.errorCode = ErrorCode.MISSING_INTEGER;
             throw new ArgsException();
         } catch (ArgsException e) {
