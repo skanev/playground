@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class Args {
-	private enum ErrorCode {
+	public enum ErrorCode {
 	    OK, MISSING_STRING, MISSING_INTEGER, INVALID_INTEGER, UNEXPECTED_ARGUMENT;
 	}
 
@@ -149,6 +149,18 @@ public class Args {
 
     public int cardinality() {
         return argsFound.size();
+    }
+    
+    public char getErrorArgumentId() {
+        return errorArgumentId;
+    }
+    
+    public ErrorCode getErrorCode() {
+        return errorCode;
+    }
+    
+    public String getErrorParamenter() {
+        return errorParamenter;
     }
     
     public String errorMessage() {

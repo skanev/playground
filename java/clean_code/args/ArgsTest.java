@@ -71,9 +71,7 @@ public class ArgsTest {
     
     @Test
     public void missingStringArgumentShouldBeAnError() throws Exception {
-        Args args = new Args("x*", new String[]{"-x"});
-        assertFalse(args.isValid());
-        assertEquals("Could not find string parameter for -x", args.errorMessage());
+        assertInvalidArgs("x*", new String[]{"-x"}, Args.ErrorCode.MISSING_STRING, 'x');
     }
     
     @Test
@@ -94,16 +92,12 @@ public class ArgsTest {
     
     @Test
     public void parsingInvalidIntegerShouldBeAnError() throws Exception {
-        Args args = new Args("x#", new String[]{"-x", "forty two"});
-        assertFalse(args.isValid());
-        assertEquals("Invalid integer for parameter -x: forty two", args.errorMessage());
+        assertInvalidArgs("x#", new String[]{"-x", "forty two"}, Args.ErrorCode.INVALID_INTEGER, 'x');
     }
     
     @Test
     public void missingIntegerShuoldBeAnError() throws Exception {
-        Args args = new Args("x#", new String[]{"-x"});
-        assertFalse(args.isValid());
-        assertEquals("Could not find integer parameter for -x", args.errorMessage());
+        assertInvalidArgs("x#", new String[]{"-x"}, Args.ErrorCode.MISSING_INTEGER, 'x');
     }
     
     @Test
@@ -127,6 +121,14 @@ public class ArgsTest {
         
         assertEquals("foo", args.getString('x'));
         assertEquals("bar", args.getString('y'));
+    }
+    
+    private void assertInvalidArgs(String schema, String[] arguments,
+            Args.ErrorCode errorCode, char argumentId) throws Exception {
+        Args args = new Args(schema, arguments);
+        assertFalse("isValid()", args.isValid());
+        assertEquals("errorCode", errorCode, args.getErrorCode());
+        assertEquals("errorArgumentId", argumentId, args.getErrorArgumentId());
     }
 }
 
