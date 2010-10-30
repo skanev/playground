@@ -33,36 +33,37 @@ cigars(Brand) :- member(Brand, [pall_mall, dunhill, blends, prince, blue_master]
 
 person([Nation, Color, Pet, Beverage, Cigars]) :- nationality(Nation), color(Color), pet(Pet), beverage(Beverage), cigars(Cigars).
 
-firsth(P, [P, _, _, _, _]).
-leftof(A, B, List) :- nextto(A, B, List).
-center(P, [_, _, P, _, _]).
+has(Thing, Person) :- nationality(Thing), Person = [Thing, _, _, _, _].
+has(Thing, Person) :- color(Thing), Person = [_, Thing, _, _, _].
+has(Thing, Person) :- pet(Thing), Person = [_, _, Thing, _, _].
+has(Thing, Person) :- beverage(Thing), Person = [_, _, _, Thing, _].
+has(Thing, Person) :- cigars(Thing), Person = [_, _, _, _, Thing].
 
-neighb(A, B, List) :- nextto(A, B, List).
-neighb(A, B, List) :- nextto(B, A, List).
+same(A, B, People) :- has(A, Person), has(B, Person), member(Person, People).
+
+first_house(A, People) :- has(A, Person), People = [Person, _, _, _, _].
+center_house(A, People) :- has(A, Person), People = [_, _, Person, _, _].
+left_of(A, B, People) :- has(A, PersonA), has(B, PersonB), nextto(PersonA, PersonB, People).
+neighbours(A, B, People) :- left_of(A, B, People); left_of(B, A, People).
 
 solution(People) :-
   People = [_, _, _, _, _],
 
-  member([brit,      red,    _,      _,      _          ], People),
-  member([swede,     _,      dogs,   _,      _          ], People),
-  member([dane,      _,      _,      tea,    _          ], People),
-  leftof([_,         green,  _,      _,      _          ],
-         [_,         white,  _,      _,      _          ], People),
-  member([_,         green,  _,      coffee, _          ], People),
-  member([_,         _,      birds,  _,      pall_mall  ], People),
-  member([_,         yellow, _,      _,      dunhill    ], People),
-  center([_,         _,      _,      milk,   _          ], People),
-  firsth([norwegian, _,      _,      _,      _          ], People),
-  neighb([_,         _,      _,      _,      blends     ],
-         [_,         _,      cats,   _,      _          ], People),
-  neighb([_,         _,      horses, _,      _          ],
-         [_,         _,      _,      _,      dunhill    ], People),
-  member([_,         _,      _,      beer,   blue_master], People),
-  member([german,    _,      _,      _,      prince     ], People),
-  neighb([norwegian, _,      _,      _,      _          ],
-         [_,         blue,   _,      _,      _          ], People),
-  neighb([_,         _,      _,      _,      blends     ],
-         [_,         _,      _,      water,  _          ], People),
+  same(brit, red, People),
+  same(swede, dogs, People),
+  same(dane, tea, People),
+  left_of(green, white, People),
+  same(green, coffee, People),
+  same(birds, pall_mall, People),
+  same(yellow, dunhill, People),
+  center_house(milk, People),
+  first_house(norwegian, People),
+  neighbours(blends, cats, People),
+  neighbours(horses, dunhill, People),
+  same(beer, blue_master, People),
+  same(german, prince, People),
+  neighbours(norwegian, blue, People),
+  neighbours(blends, water, People),
 
   maplist(person, People),
   flatten(People, Items),
