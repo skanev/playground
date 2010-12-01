@@ -3,7 +3,7 @@ import org.scalatest.matchers.ShouldMatchers
 
 class ArrayElementSpec extends Spec with ShouldMatchers {
   describe("ArrayElement") {
-    it("can be transformed to a block of text") {
+    it("represents multiple lines of text with the same height") {
       new ArrayElement(Array("aaa", "bbb", "ccc")).toString should equal ("aaa\nbbb\nccc")
     }
 
