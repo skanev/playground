@@ -1,3 +1,5 @@
+package layout
+
 abstract class Element {
   def contents: Array[String]
   def width = if (contents.isEmpty) 0 else contents(0).length
