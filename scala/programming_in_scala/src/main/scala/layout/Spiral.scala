@@ -22,4 +22,9 @@ object Spiral {
       }
     }
   }
+
+  def main(args: Array[String]) {
+    val sides = args(0).toInt
+    println(spiral(sides))
+  }
 }
