@@ -14,6 +14,15 @@ abstract class Element {
   def width = if (contents.isEmpty) 0 else contents(0).length
   def height = contents.size
   override def toString = contents.mkString("\n")
+
+  def above(that: Element): Element =
+    new ArrayElement(this.contents ++ that.contents)
+
+  def beside(that: Element): Element = {
+    new ArrayElement(
+      for ((line1, line2) <- this.contents zip that.contents) yield line1 + line2
+    )
+  }
 }
 
 class ArrayElement(val contents: Array[String]) extends Element
