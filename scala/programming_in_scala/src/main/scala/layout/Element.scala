@@ -33,14 +33,37 @@ abstract class Element {
   def height = contents.size
   override def toString = contents.mkString("\n")
 
-  def above(that: Element): Element =
-    elem(this.contents ++ that.contents)
+  def above(that: Element): Element = {
+    val adjustedThis = this widen that.width
+    val adjustedThat = that widen this.width
+    elem(adjustedThis.contents ++ adjustedThat.contents)
+  }
 
   def beside(that: Element): Element = {
+    val adjustedThis = this heighten that.height
+    val adjustedThat = that heighten this.height
     elem(
       for (
-        (line1, line2) <- this.contents zip that.contents
+        (line1, line2) <- adjustedThis.contents zip adjustedThat.contents
       ) yield line1 + line2
     )
+  }
+
+  def widen(w: Int): Element = {
+    if (w <= width) this
+    else {
+      val left = elem(' ', (w - width) / 2, height)
+      val right = elem(' ', w - width - left.width, height)
+      left beside this beside right
+    }
+  }
+
+  def heighten(h: Int): Element = {
+    if (h <= height) this
+    else {
+      val top = elem(' ', width, (h - height) / 2)
+      val bottom = elem(' ', width, h - height - top.height)
+      top above this above bottom
+    }
   }
 }
