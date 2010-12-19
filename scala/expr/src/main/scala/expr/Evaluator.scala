@@ -14,7 +14,7 @@ object Evaluator {
       case Name(x) => env(x)
       case x + y => e(x) + e(y)
       case x * y => e(x) * e(y)
-      case x ** y => pow(e(x), e(y))
+      case x ^ y => pow(e(x), e(y))
       case _ => error("Cannot evaluate expression: " + expression)
     }
   }
