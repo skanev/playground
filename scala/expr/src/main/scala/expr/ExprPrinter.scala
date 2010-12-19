@@ -1,8 +1,10 @@
 package expr
 
+import Operator._
+
 object ExprPrinter {
-  private def precendance(operator: String): Int = {
-    Map("**" -> 1, "*" -> 2, "+" -> 3)(operator)
+  private def precendance(operator: Operator.Value): Int = {
+    Map(Pow -> 1, Mul -> 2, Add -> 3)(operator)
   }
 
   private def parenthesize(expr: Expr, enclosingPrecendence: Int): String = {
