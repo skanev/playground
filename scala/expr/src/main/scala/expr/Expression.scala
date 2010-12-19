@@ -1,6 +1,10 @@
 package expr
 
-sealed abstract class Expr
+sealed abstract class Expr {
+  def +(other: Expr) = BinOp(Operator.+, this, other)
+  def *(other: Expr) = BinOp(Operator.*, this, other)
+  def **(other: Expr) = BinOp(Operator.**, this, other)
+}
 
 case class Num(number: Double) extends Expr
 case class Name(name: String) extends Expr
