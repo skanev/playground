@@ -4,22 +4,20 @@ import org.scalatest.Spec
 import org.scalatest.matchers.ShouldMatchers
 
 class EvaluatorSpec extends Spec with ShouldMatchers {
-  def expectValueOf(expr: Expr)(expectation: => Double) {
-    expect(Evaluator.eval(expr))(expectation)
-  }
+  val env = Map[String, Double]("X" -> 1, "Y" -> 2)
 
-  def expectValueOf(expr: Expr, env: Map[String, Double])(expectation: => Double) {
-    expect(Evaluator.eval(expr, env))(expectation)
-  }
+  val examples = Array(
+    "1" -> 1
+    , "2 + 3" -> 5
+    , "X + Y" -> 3
+    , "Y ** (X * 4)" -> 16
+  )
 
-  it("evaluates simple addition") {
-    val expr = BinOp("+", Num(1), Num(2))
-    expectValueOf(expr) { 3 }
-  }
-
-  it("evaluates variables") {
-    val env = Map("X" -> 2.0)
-    val expr = BinOp("+", Name("X"), Num(1))
-    expectValueOf(expr, env) { 3 }
+  for((input, expectation) <- examples) {
+    it("evaluates " + input + " to " + expectation) {
+      val ast = Parser.parse(input)
+      val result = Evaluator.eval(ast, env)
+      expect(expectation) { result }
+    }
   }
 }
