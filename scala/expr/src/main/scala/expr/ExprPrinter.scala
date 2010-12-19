@@ -6,9 +6,7 @@ object ExprPrinter {
   private def parenthesize(expr: Expr, enclosingPrecendence: Int): String = {
     val str = asString(expr)
     expr match {
-      case binOp @ BinOp(operator, _, _) =>
-        if (operator.precendance > enclosingPrecendence) "(" + str + ")"
-        else str
+      case BinOp(operator, _, _) if operator.precendance > enclosingPrecendence => "(" + str + ")"
       case _ => str
     }
   }
