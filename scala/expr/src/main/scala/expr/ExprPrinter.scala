@@ -12,10 +12,10 @@ object ExprPrinter {
   def asString(expr: Expr): String = {
     expr match {
       case Num(number) => number.toString.replaceAll(".0$", "")
+      case Name(name) => name
       case BinOp(operator, left, right) =>
         val prec = operator.precendance
         parenthesize(left, prec) + " " + operator + " " + parenthesize(right, prec)
-      case Name(name) => name
     }
   }
 }
