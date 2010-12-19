@@ -24,4 +24,9 @@ class PrintingExpressionsSpec extends Spec with ShouldMatchers {
 
     expectAsStringOf(expr) { "(x + 2) * 3" }
   }
+
+  it("prints 1 - 2 + 3 - 4") {
+    val expr = (Num(1) - Num(2)) + (Num(3) - Num(4))
+    expectAsStringOf(expr) { "1 - 2 + 3 - 4" }
+  }
 }

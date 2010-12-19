@@ -2,6 +2,7 @@ package expr
 
 sealed abstract class Expr {
   def +(other: Expr) = BinOp(Operator.+, this, other)
+  def -(other: Expr) = BinOp(Operator.-, this, other)
   def *(other: Expr) = BinOp(Operator.*, this, other)
   def ^(other: Expr) = BinOp(Operator.^, this, other)
 }
@@ -27,4 +28,5 @@ object Operator {
   object ^ extends Value("^", 1)
   object * extends Value("*", 2)
   object + extends Value("+", 3)
+  object - extends Value("-", 3)
 }

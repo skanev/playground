@@ -11,6 +11,7 @@ class EvaluatorSpec extends Spec with ShouldMatchers {
     , "2 + 3" -> 5
     , "X + Y" -> 3
     , "Y ^ (X * 4)" -> 16
+    , "4 - Y" -> 2
   )
 
   for((input, expectation) <- examples) {

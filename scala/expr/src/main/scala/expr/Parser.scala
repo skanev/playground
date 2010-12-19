@@ -1,7 +1,8 @@
 package expr
 
 import scala.util.parsing.combinator._
-import Operator._
+import expr.{Operator => O}
+import expr.Operator._
 
 object Parser {
   def parse(input: String): Expr = {
@@ -13,7 +14,9 @@ object Parser {
 }
 
 class Parser extends JavaTokenParsers {
-  def expr = binaryOp(Operator.+, term)
+  def expr = addition
+  def addition = binaryOp(O.+, subtraction)
+  def subtraction = binaryOp(O.-, term)
   def term = binaryOp(*, exp)
   def exp = binaryOp(^, factor)
   def factor: Parser[Expr] = "(" ~> expr <~ ")" | number | name
