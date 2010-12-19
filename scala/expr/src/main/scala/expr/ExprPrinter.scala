@@ -4,7 +4,7 @@ import Operator._
 
 object ExprPrinter {
   private def precendance(operator: Operator.Value): Int = {
-    Map(Pow -> 1, Mul -> 2, Add -> 3)(operator)
+    Map(** -> 1, * -> 2, Operator.+ -> 3)(operator)
   }
 
   private def parenthesize(expr: Expr, enclosingPrecendence: Int): String = {
