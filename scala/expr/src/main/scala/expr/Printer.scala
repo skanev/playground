@@ -14,8 +14,8 @@ object Printer {
       case Num(number) => number.toString.replaceAll(".0$", "")
       case Name(name) => name
       case BinOp(operator, left, right) =>
-        val prec = operator.precendance
-        parenthesize(left, prec) + " " + operator + " " + parenthesize(right, prec)
+        val encosling = operator.precendance
+        parenthesize(left, encosling) + " " + operator + " " + parenthesize(right, encosling)
     }
   }
 }
