@@ -4,8 +4,8 @@ import org.scalatest.Spec
 import org.scalatest.matchers.ShouldMatchers
 
 import Parser.parse
-import Operator._
-import expr.{Operator => O}
+import BinOp._
+import expr.{BinOp => O}
 
 class ParserSpec extends Spec with ShouldMatchers {
   val examples = Array(

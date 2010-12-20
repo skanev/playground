@@ -1,7 +1,7 @@
 package expr
 
 import Math.pow
-import Operator._
+import BinOp._
 
 object Evaluator {
   def eval(expression: Expr): Double = eval(expression, Map())
