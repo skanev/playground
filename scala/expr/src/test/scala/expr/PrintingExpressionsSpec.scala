@@ -13,7 +13,7 @@ class PrintingExpressionsSpec extends Spec with ShouldMatchers {
 
   for ((expr, string) <- examples) {
     it("prints " + string) {
-      expect(string) { ExprPrinter.asString(expr) }
+      expect(string) { Printer.asString(expr) }
     }
   }
 }

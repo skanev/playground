@@ -1,6 +1,6 @@
 package expr
 
-object ExprPrinter {
+object Printer {
   private def parenthesize(expr: Expr, enclosingPrecendence: Int): String = {
     val str = asString(expr)
     expr match {
