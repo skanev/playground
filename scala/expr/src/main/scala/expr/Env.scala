@@ -4,24 +4,18 @@ object Env {
   sealed abstract class Value
   case class Variable(val number: Double) extends Value
   case class Function(val code: Callable) extends Value
+
+  def empty = new Env(Map())
 }
 
 class Env(val mapping: Map[String, Env.Value]) {
-  def this() { this(Map[String, Env.Value]()) }
-
   def apply(name: String) = mapping(name)
+  def names: Set[String] = Set() ++ mapping.keys
 
-  def withVariable(name: String, number: Double): Env = {
-    new Env(mapping + (name -> Env.Variable(number)))
-  }
-
-  def withVariables(pairs: Seq[(String, Double)]): Env = {
-    new Env(mapping ++ pairs.map(x => (x._1, Env.Variable(x._2))))
-  }
-
-  def withFunction(name: String, code: Callable): Env = {
-    new Env(mapping + (name -> Env.Function(code)))
-  }
+  def extend(name: String, value: Env.Value): Env = new Env(mapping + (name -> value))
+  def extend(name: String, number: Double): Env = extend(name, Env.Variable(number))
+  def extend(name: String, code: Callable): Env = extend(name, Env.Function(code))
+  def extend(pairs: Seq[(String, Double)]): Env = new Env(mapping ++ pairs.map { p => (p._1, Env.Variable(p._2)) })
 
   def variable(name: String): Double = {
     this(name) match {

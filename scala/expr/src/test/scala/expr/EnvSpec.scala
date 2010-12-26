@@ -5,24 +5,35 @@ import org.scalatest.matchers.ShouldMatchers
 
 class EnvSpec extends Spec with ShouldMatchers {
   it("can be extended with a variable") {
-    val env = new Env().withVariable("X", 1.0)
+    val env = Env.empty.extend("X", 1.0)
     expect(1.0) { env.variable("X") }
   }
 
   it("can be extended with multiple variables") {
-    val env = new Env().withVariables(Array("X" -> 1.0, "Y" -> 2.0))
+    val env = Env.empty.extend(Array("X" -> 1.0, "Y" -> 2.0))
     expect(1.0) { env.variable("X") }
     expect(2.0) { env.variable("Y") }
   }
 
+  it("overrides existing variables") {
+    val env = Env.empty.extend("X", 1)
+    expect(2) { env.extend("X", 2).variable("X") }
+    expect(2) { env.extend(Array("X" -> 2)).variable("X") }
+  }
+
   it("can be extended with a functions") {
     val add = new Lambda(Array("X", "Y"), Name("X") + Name("Y"))
-    val env = new Env().withFunction("add", add)
+    val env = Env.empty.extend("add", add)
     expect(add) { env.function("add") }
   }
 
   it("raises an error when queried for an unexisting name") {
-    intercept[NoSuchElementException] { new Env().variable("X") }
-    intercept[NoSuchElementException] { new Env().function("X") }
+    intercept[NoSuchElementException] { Env.empty.variable("X") }
+    intercept[NoSuchElementException] { Env.empty.function("X") }
+  }
+
+  it("can tell its own bound names") {
+    val env = Env.empty.extend("X", 1).extend("foo", new Lambda(Array(), Num(1)))
+    expect(Set("X", "foo")) { env.names }
   }
 }

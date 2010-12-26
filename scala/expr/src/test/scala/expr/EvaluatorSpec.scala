@@ -8,11 +8,12 @@ class EvaluatorSpec extends Spec with ShouldMatchers {
   val twice = new Lambda(Array("X"), Call("add", List(Name("X"), Name("X"))))
   val negate = ScalaCode.define1 { x => -x }
 
-  val env = new Env().withVariable("X", 1)
-                     .withVariable("Y", 2)
-                     .withFunction("add", add)
-                     .withFunction("twice", twice)
-                     .withFunction("negate", negate)
+  val env = Env.empty
+    .extend("X", 1)
+    .extend("Y", 2)
+    .extend("add", add)
+    .extend("twice", twice)
+    .extend("negate", negate)
 
   val examples = Array(
     "1" -> 1

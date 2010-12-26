@@ -6,7 +6,7 @@ class Lambda(val args: Array[String], val expr: Expr) extends Callable {
   def arity = args.length
   override def eval(env: Env, params: Seq[Double]): Double = {
     verifyArity(params.length)
-    val extended = env.withVariables(args zip params.toArray)
+    val extended = env.extend(args zip params.toArray)
     Evaluator.eval(expr, extended)
   }
 

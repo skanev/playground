@@ -6,7 +6,7 @@ import org.scalatest.matchers.ShouldMatchers
 import BinOp.{Operator => O}
 
 class LambdaSpec extends Spec with ShouldMatchers {
-  val env = new Env()
+  val env = Env.empty
   val add = new Lambda(Array("X", "Y"), Name("X") + Name("Y"))
 
   it("knows its arity") {
