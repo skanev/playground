@@ -4,7 +4,7 @@ class Lambda(val args: Array[String], val expr: Expr) {
   verifyNoFreeVariables()
 
   def arity = args.length
-  def eval(env: Env, params: Double*): Double = {
+  def eval(env: Env, params: Seq[Double]): Double = {
     verifyArity(params.length)
     val extended = env.withVariables(args zip params.toArray)
     Evaluator.eval(expr, extended)
