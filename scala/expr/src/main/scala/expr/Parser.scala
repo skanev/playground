@@ -15,8 +15,9 @@ object Parser {
 class Parser extends JavaTokenParsers {
   def expr = addition
   def addition = binaryOp(BinOp.+, subtraction)
-  def subtraction = binaryOp(BinOp.-, term)
-  def term = binaryOp(*, exp)
+  def subtraction = binaryOp(BinOp.-, multiplication)
+  def multiplication = binaryOp(*, division)
+  def division = binaryOp(/, exp)
   def exp = binaryOp(^, factor)
   def factor: Parser[Expr] = "(" ~> expr <~ ")" | number | name
   def number: Parser[Num] = floatingPointNumber ^^ (x => Num(x.toDouble))
