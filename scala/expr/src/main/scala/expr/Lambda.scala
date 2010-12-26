@@ -1,10 +1,10 @@
 package expr
 
-class Lambda(val args: Array[String], val expr: Expr) {
+class Lambda(val args: Array[String], val expr: Expr) extends Callable {
   verifyNoFreeVariables()
 
   def arity = args.length
-  def eval(env: Env, params: Seq[Double]): Double = {
+  override def eval(env: Env, params: Seq[Double]): Double = {
     verifyArity(params.length)
     val extended = env.withVariables(args zip params.toArray)
     Evaluator.eval(expr, extended)

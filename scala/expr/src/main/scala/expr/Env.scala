@@ -3,7 +3,7 @@ package expr
 object Env {
   sealed abstract class Value
   case class Variable(val number: Double) extends Value
-  case class Function(val code: Lambda) extends Value
+  case class Function(val code: Callable) extends Value
 }
 
 class Env(val mapping: Map[String, Env.Value]) {
@@ -19,7 +19,7 @@ class Env(val mapping: Map[String, Env.Value]) {
     new Env(mapping ++ pairs.map(x => (x._1, Env.Variable(x._2))))
   }
 
-  def withFunction(name: String, code: Lambda): Env = {
+  def withFunction(name: String, code: Callable): Env = {
     new Env(mapping + (name -> Env.Function(code)))
   }
 
@@ -30,7 +30,7 @@ class Env(val mapping: Map[String, Env.Value]) {
     }
   }
 
-  def function(name: String): Lambda = {
+  def function(name: String): Callable = {
     this(name) match {
       case Env.Function(lambda) => lambda
       case _ => throw new NoSuchElementException("function: " + name)
