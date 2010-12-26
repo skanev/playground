@@ -7,9 +7,16 @@ object Env {
 
 class Env(val mapping: Map[String, Env.Value]) {
   def this() { this(Map[String, Env.Value]()) }
-  def this(pairs: (String, Double)*) { this(Map() ++ pairs.map(x => (x._1, Env.Number(x._2)))) }
 
   def apply(name: String) = mapping(name)
+
+  def withVariable(name: String, number: Double): Env = {
+    new Env(mapping + (name -> Env.Number(number)))
+  }
+
+  def withVariables(pairs: Seq[(String, Double)]): Env = {
+    new Env(mapping ++ pairs.map(x => (x._1, Env.Number(x._2))))
+  }
 
   def variable(name: String): Double = {
     this(name) match {

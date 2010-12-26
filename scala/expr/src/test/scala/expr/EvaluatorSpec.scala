@@ -4,7 +4,7 @@ import org.scalatest.Spec
 import org.scalatest.matchers.ShouldMatchers
 
 class EvaluatorSpec extends Spec with ShouldMatchers {
-  val env = new Env("X" -> 1, "Y" -> 2)
+  val env = new Env().withVariable("X", 1).withVariable("Y", 2)
 
   val examples = Array(
     "1" -> 1
