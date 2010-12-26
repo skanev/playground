@@ -21,7 +21,7 @@ class Parser extends JavaTokenParsers {
   def exp = binaryOp(^, factor)
   def factor: Parser[Expr] = "(" ~> expr <~ ")" | number | call | name;
   def call: Parser[Expr] = ident ~ "(" ~ repsep(expr, ",") ~ ")" ^^ {
-    case name ~ "(" ~ args ~ ")" => Call(name, args: _*)
+    case name ~ "(" ~ args ~ ")" => Call(name, args)
   }
   def number: Parser[Num] = floatingPointNumber ^^ (x => Num(x.toDouble))
   def name: Parser[Name] = ident ^^ Name

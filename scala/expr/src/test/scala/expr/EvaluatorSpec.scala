@@ -5,7 +5,7 @@ import org.scalatest.matchers.ShouldMatchers
 
 class EvaluatorSpec extends Spec with ShouldMatchers {
   val add = new Lambda(Array("X", "Y"), Name("X") + Name("Y"))
-  val twice = new Lambda(Array("X"), Call("add", Name("X"), Name("X")))
+  val twice = new Lambda(Array("X"), Call("add", List(Name("X"), Name("X"))))
   val env = new Env().withVariable("X", 1).withVariable("Y", 2).withFunction("add", add).withFunction("twice", twice)
 
   val examples = Array(

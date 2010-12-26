@@ -11,7 +11,7 @@ object Evaluator {
     expression match {
       case Num(x) => x
       case Name(x) => env.variable(x)
-      case Call(name, args @ _*) => env.function(name).eval(env, args.map(e): _*)
+      case Call(name, args) => env.function(name).eval(env, args.map(e): _*)
       case x + y => e(x) + e(y)
       case x - y => e(x) - e(y)
       case x * y => e(x) * e(y)

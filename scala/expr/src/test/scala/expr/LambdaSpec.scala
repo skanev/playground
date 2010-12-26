@@ -27,6 +27,6 @@ class LambdaSpec extends Spec with ShouldMatchers {
 
   it("cannot be constructed with free variables") {
     intercept[IllegalArgumentException] { new Lambda(Array("X"), Name("X") + Name("Y")) }
-    intercept[IllegalArgumentException] { new Lambda(Array("X"), Call("foo", Name("X"), Name("Y"))) }
+    intercept[IllegalArgumentException] { new Lambda(Array("X"), Call("foo", List(Name("X"), Name("Y")))) }
   }
 }

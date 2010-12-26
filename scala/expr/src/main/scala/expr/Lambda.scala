@@ -13,7 +13,7 @@ class Lambda(val args: Array[String], val expr: Expr) {
   private def freeVariables(expr: Expr): Seq[String] = {
     expr match {
       case BinOp(_, left, right) => freeVariables(left) ++ freeVariables(right)
-      case Call(_, params @ _*) => params.flatMap(freeVariables)
+      case Call(_, params) => params.flatMap(freeVariables)
       case Name(name) if !args.contains(name) => List(name)
       case _ => List()
     }
