@@ -1,6 +1,6 @@
 package expr
 
-class Function(val name: String, val args: Array[String], val expr: Expr) {
+class Lambda(val args: Array[String], val expr: Expr) {
   verifyNoFreeVariables()
 
   def arity = args.length
@@ -19,15 +19,17 @@ class Function(val name: String, val args: Array[String], val expr: Expr) {
     }
   }
 
+  override def toString = "lambda(%s) { %s }".format(args.mkString(", "), Printer.asString(expr))
+
   private def verifyArity(paramCount: Int) {
     if (paramCount != arity)
-      throw new IllegalArgumentException("Function " + name + " expects " + arity + "arguments, " +
+      throw new IllegalArgumentException("Lambda expects " + arity + "arguments, " +
           "but was called with " + paramCount)
   }
 
   private def verifyNoFreeVariables() = {
     val vars = freeVariables(expr)
     if (vars.length != 0)
-      throw new IllegalArgumentException("Function contains free variables: " + vars.mkString(","))
+      throw new IllegalArgumentException("Lambda contains free variables: " + vars.mkString(","))
   }
 }
