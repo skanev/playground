@@ -21,6 +21,9 @@ class ParserSpec extends Spec with ShouldMatchers {
     , "1 ^ 2 + 3 * 4" -> BinOp(O.+, BinOp(^, Num(1), Num(2)), BinOp(*, Num(3), Num(4)))
     , "2 / 3 ^ 4" -> BinOp(O./, Num(2), BinOp(O.^, Num(3), Num(4)))
     , "2 ^ 3 / 4" -> BinOp(O./, BinOp(O.^, Num(2), Num(3)), Num(4))
+    , "foo(1, 2)" -> Call("foo", Num(1), Num(2))
+    , "foo(X + Y)" -> Call("foo", BinOp(O.+, Name("X"), Name("Y")))
+    , "a(b(), 3 + c())" -> Call("a", Call("b"), BinOp(O.+, Num(3), Call("c")))
   )
 
   for ((input, ast) <- examples) {

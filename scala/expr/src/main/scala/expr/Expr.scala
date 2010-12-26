@@ -10,6 +10,7 @@ sealed abstract class Expr {
 case class Num(number: Double) extends Expr
 case class Name(name: String) extends Expr
 case class BinOp(op: BinOp.Operator, left: Expr, right: Expr) extends Expr
+case class Call(name: String, arguments: Expr*) extends Expr
 
 object BinOp {
   sealed abstract class Operator(symbol: String, val precendance: Int) {
