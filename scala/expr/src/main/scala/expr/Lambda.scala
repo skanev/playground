@@ -6,7 +6,7 @@ class Lambda(val args: Array[String], val expr: Expr) {
   def arity = args.length
   def eval(params: Double*): Double = {
     verifyArity(params.length)
-    val env = Map() ++ args.zip(params.toArray)
+    val env = new Env(args.zip(params.toArray): _*)
     Evaluator.eval(expr, env)
   }
 
