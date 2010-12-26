@@ -13,6 +13,7 @@ object Printer {
     expr match {
       case Num(number) => number.toString.replaceAll(".0$", "")
       case Name(name) => name
+      case Call(name, args) => "%s(%s)".format(name, args.map(asString).mkString(", "))
       case BinOp(operator, left, right) =>
         val encosling = operator.precendance
         parenthesize(left, encosling) + " " + operator + " " + parenthesize(right, encosling)
