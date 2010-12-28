@@ -22,6 +22,10 @@ class REPLSpec extends Spec with ShouldMatchers {
     expect("= 3.0") { lastMessageInSession("add = lambda(X, Y) { X + Y }", "add(1, 2)") }
   }
 
+  it("lists the environment when requested") {
+    expect("X = 1.0") { lastMessageInSession("X = 1", "names") }
+  }
+
   it("displays an error when given an unparsable expression") {
     expect("ERROR: Unparsable input") { lastMessageInSession("+++") }
   }

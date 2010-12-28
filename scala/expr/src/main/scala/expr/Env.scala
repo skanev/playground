@@ -1,15 +1,17 @@
 package expr
 
 object Env {
-  sealed abstract class Value
-  case class Variable(val number: Double) extends Value
-  case class Function(val code: Callable) extends Value
+  sealed abstract class Value { def repr: String }
+  case class Variable(val number: Double) extends Value { def repr = number.toString }
+  case class Function(val code: Callable) extends Value { def repr = code.toString }
 
   def empty = new Env(Map())
 }
 
 class Env(val mapping: Map[String, Env.Value]) {
-  import Env.{Variable, Function}
+  import Env.{Value, Variable, Function}
+
+  def apply(name: String): Value = mapping(name)
 
   def extend(name: String, value: Env.Value): Env = new Env(mapping + (name -> value))
   def extend(name: String, number: Double): Env = extend(name, Variable(number))

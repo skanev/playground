@@ -10,6 +10,10 @@ class CommandSpec extends Spec with ShouldMatchers {
     expect(Exit()) { Command.parse("exit") }
   }
 
+  it("parses 'names' as the ShowEnv() command") {
+    expect(ShowEnv()) { Command.parse("names") }
+  }
+
   it("parses '1 + 2' as an Eval(1 + 2)") {
     expect(Eval(Num(1) + Num(2))) { Command.parse("1 + 2") }
   }
