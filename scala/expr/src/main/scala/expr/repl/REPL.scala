@@ -3,26 +3,6 @@ package expr.repl
 import expr.BadInputException
 import Command._
 
-trait Shell {
-  def read(): String
-  def write(output: String)
-  def writeln(output: String) = write(output + "\n")
-}
-
-object ConsoleShell extends Shell {
-  override def read(): String = {
-    print("> ")
-    Console.readLine
-  }
-  override def write(output: String) = print(output)
-}
-
-object Main {
-  def main(args: Array[String]) {
-    new REPL(ConsoleShell).start()
-  }
-}
-
 class REPL(val shell: Shell) {
   var env = Env.empty
 
