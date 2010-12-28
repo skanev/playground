@@ -29,4 +29,8 @@ class REPLSpec extends Spec with ShouldMatchers {
   it("displays an error when refering to an unknown variable") {
     expect("ERROR: Undefined variable: X") { lastMessageInSession("X + 1") }
   }
+
+  it("displays an error when calling an unknown function") {
+    expect("ERROR: Undefined function: foo") { lastMessageInSession("foo()") }
+  }
 }
