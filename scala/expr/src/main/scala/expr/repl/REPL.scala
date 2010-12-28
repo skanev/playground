@@ -16,6 +16,7 @@ class REPL(val shell: Shell) {
         case Assign(name, expr) => env = env.extend(name, eval(expr, env))
         case Define(name, lambda) => env = env.extend(name, lambda)
         case ShowEnv() => listNames()
+        case Help() => showHelp()
         case Exit() => return
       }
     } catch {
@@ -34,5 +35,24 @@ class REPL(val shell: Shell) {
     for (name <- env.names) {
       shell.writeln("%s = %s".format(pad(name), env(name).repr))
     }
+  }
+
+  private def showHelp() {
+    shell.writeln("""|Usage instructions:
+                     |  * write any expression in order to evaluate it:
+                     |
+                     |     1 + 2 + 3 + 5 + 7 + 11 + 13
+                     |     X + add(2, 4)
+                     |
+                     |  * assign variables or define functions with =
+                     |
+                     |     ANSWER = 42
+                     |     add = lambda(X, Y) { X + Y }
+                     |
+                     |  * other available commands
+                     |
+                     |     names -- show all defined names
+                     |     exit  -- quit the interpreter
+                     |     help  -- you are looking at it""".stripMargin)
   }
 }
