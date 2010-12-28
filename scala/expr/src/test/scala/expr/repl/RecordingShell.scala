@@ -17,5 +17,4 @@ class RecordedShell(playback: String*) extends Shell {
 
   def messages = outputBuffer.split("\n")
   def lastMessage = messages.last
-  def messageBeforeExit = messages.reverse(1)
 }
