@@ -23,13 +23,13 @@ case class Lambda(val args: List[String], val expr: Expr) extends Callable {
 
   private def verifyArity(paramCount: Int) {
     if (paramCount != arity)
-      throw new IllegalArgumentException("Lambda expects " + arity + "arguments, " +
+      throw new ExprException("Lambda expects " + arity + " argument(s), " +
           "but was called with " + paramCount)
   }
 
   private def verifyNoFreeVariables() = {
     val vars = freeVariables(expr)
     if (vars.length != 0)
-      throw new IllegalArgumentException("Lambda contains free variables: " + vars.mkString(","))
+      throw new ExprException("Lambda contains free variables: " + vars.mkString(","))
   }
 }

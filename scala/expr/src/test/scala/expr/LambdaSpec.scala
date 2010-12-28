@@ -22,11 +22,11 @@ class LambdaSpec extends Spec with ShouldMatchers {
   }
 
   it("raises an error when invoked with the wrong number of arguments") {
-    intercept[IllegalArgumentException] { add.eval(env, List(1, 2, 3)) }
+    intercept[ExprException] { add.eval(env, List(1, 2, 3)) }
   }
 
   it("cannot be constructed with free variables") {
-    intercept[IllegalArgumentException] { Lambda(List("X"), Name("X") + Name("Y")) }
-    intercept[IllegalArgumentException] { Lambda(List("X"), Call("foo", List(Name("X"), Name("Y")))) }
+    intercept[ExprException] { Lambda(List("X"), Name("X") + Name("Y")) }
+    intercept[ExprException] { Lambda(List("X"), Call("foo", List(Name("X"), Name("Y")))) }
   }
 }

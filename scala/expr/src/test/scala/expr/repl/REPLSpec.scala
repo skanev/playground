@@ -37,4 +37,14 @@ class REPLSpec extends Spec with ShouldMatchers {
   it("displays an error when calling an unknown function") {
     expect("ERROR: Undefined function: foo") { lastMessageInSession("foo()") }
   }
+
+  it("displays an error when trying to define a function with free variables") {
+    expect("ERROR: Lambda contains free variables: Y") { lastMessageInSession("foo = lambda(X) { X + Y }") }
+  }
+
+  it("displays an error when a function is called with the wrong number of arguments") {
+    expect("ERROR: Lambda expects 1 argument(s), but was called with 0") {
+      lastMessageInSession("x = lambda(X) { X }", "x()")
+    }
+  }
 }

@@ -23,14 +23,14 @@ class Env(val mapping: Map[String, Env.Value]) {
   def variable(name: String): Double = {
     mapping.get(name) match {
       case Some(Variable(x)) => x
-      case _ => throw new UndefinedNameException("Undefined variable: " + name)
+      case _ => throw new ExprException("Undefined variable: " + name)
     }
   }
 
   def function(name: String): Callable = {
     mapping.get(name) match {
       case Some(Function(lambda)) => lambda
-      case _ => throw new UndefinedNameException("Undefined function: " + name)
+      case _ => throw new ExprException("Undefined function: " + name)
     }
   }
 }

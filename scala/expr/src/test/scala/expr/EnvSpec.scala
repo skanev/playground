@@ -28,8 +28,8 @@ class EnvSpec extends Spec with ShouldMatchers {
   }
 
   it("raises an error when queried for an unexisting name") {
-    intercept[UndefinedNameException] { Env.empty.variable("X") }
-    intercept[UndefinedNameException] { Env.empty.function("X") }
+    intercept[ExprException] { Env.empty.variable("X") }
+    intercept[ExprException] { Env.empty.function("X") }
   }
 
   it("can tell its own bound names") {
