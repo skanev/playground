@@ -18,6 +18,11 @@ class CommandSpec extends Spec with ShouldMatchers {
     expect(Assign("X", Num(1) + Num(2))) { Command.parse("X = 1 + 2") }
   }
 
+  it("parses 'add = lambda(X, Y) { X + Y }' add Define(add, Lambda(..))") {
+    val lambda = Lambda(List("X", "Y"), Name("X") + Name("Y"))
+    expect(Define("add", lambda)) { Command.parse("add = lambda(X, Y) { X + Y }") }
+  }
+
   it("throws an exception when command cannot be parsed") {
     intercept[BadInputException] { Command.parse("+++") }
   }

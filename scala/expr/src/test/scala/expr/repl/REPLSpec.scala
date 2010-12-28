@@ -18,6 +18,10 @@ class REPLSpec extends Spec with ShouldMatchers {
     expect("= 3.0") { lastMessageInSession("X = 1", "Y = 2", "X + Y") }
   }
 
+  it("evaluates function definitions") {
+    expect("= 3.0") { lastMessageInSession("add = lambda(X, Y) { X + Y }", "add(1, 2)") }
+  }
+
   it("displays an error when given an unparsable expression") {
     expect("ERROR: Unparsable input") { lastMessageInSession("+++") }
   }

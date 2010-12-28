@@ -25,6 +25,7 @@ class REPL(val shell: Shell) {
       case Exit() => throw new ExitSignal
       case Eval(expr) => shell.writeln("= " + eval(expr, env))
       case Assign(name, expr) => env = env.extend(name, eval(expr, env))
+      case Define(name, lambda) => env = env.extend(name, lambda)
     }
   }
 
