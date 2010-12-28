@@ -26,9 +26,13 @@ class REPL(val shell: Shell) {
   }
 
   private def listNames() {
+    if (env.names.isEmpty) return
+
+    val width = env.names.toList.map(_.length).sort(_ > _).first
+    def pad(name: String) = name + " " * (width - name.length)
+
     for (name <- env.names) {
-      val repr = env(name).repr
-      shell.writeln("%s = %s".format(name, repr))
+      shell.writeln("%s = %s".format(pad(name), env(name).repr))
     }
   }
 }
