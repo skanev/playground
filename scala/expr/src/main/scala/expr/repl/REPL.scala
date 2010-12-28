@@ -4,8 +4,8 @@ import expr.BadInputException
 import Command._
 import Evaluator.eval
 
-class REPL(val shell: Shell) {
-  var env = Env.empty
+class REPL(shell: Shell, private var env: Env) {
+  def this(shell: Shell) { this(shell, Env.empty) }
 
   def start() = processNextLine()
 
