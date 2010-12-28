@@ -10,11 +10,11 @@ class CommandSpec extends Spec with ShouldMatchers {
     expect(Exit()) { Command.parse("exit") }
   }
 
-  it("parser '1 + 2' as an Eval(1 + 2)") {
+  it("parses '1 + 2' as an Eval(1 + 2)") {
     expect(Eval(Num(1) + Num(2))) { Command.parse("1 + 2") }
   }
 
-  it("returns null when command cannot be parsed") {
+  it("throws an exception when command cannot be parsed") {
     intercept[BadInputException] { Command.parse("+++") }
   }
 }
