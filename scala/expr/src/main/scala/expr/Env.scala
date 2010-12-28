@@ -9,25 +9,26 @@ object Env {
 }
 
 class Env(val mapping: Map[String, Env.Value]) {
-  def apply(name: String) = mapping(name)
-  def names: Set[String] = Set() ++ mapping.keys
+  import Env.{Variable, Function}
 
   def extend(name: String, value: Env.Value): Env = new Env(mapping + (name -> value))
-  def extend(name: String, number: Double): Env = extend(name, Env.Variable(number))
-  def extend(name: String, code: Callable): Env = extend(name, Env.Function(code))
-  def extend(pairs: Seq[(String, Double)]): Env = new Env(mapping ++ pairs.map { p => (p._1, Env.Variable(p._2)) })
+  def extend(name: String, number: Double): Env = extend(name, Variable(number))
+  def extend(name: String, code: Callable): Env = extend(name, Function(code))
+  def extend(pairs: Seq[(String, Double)]): Env = new Env(mapping ++ pairs.map { p => (p._1, Variable(p._2)) })
+
+  def names: Set[String] = Set() ++ mapping.keys
 
   def variable(name: String): Double = {
-    this(name) match {
-      case Env.Variable(x) => x
-      case _ => throw new NoSuchElementException("variable: " + name)
+    mapping.get(name) match {
+      case Some(Variable(x)) => x
+      case _ => throw new UndefinedNameException("Undefined variable: " + name)
     }
   }
 
   def function(name: String): Callable = {
-    this(name) match {
-      case Env.Function(lambda) => lambda
-      case _ => throw new NoSuchElementException("function: " + name)
+    mapping.get(name) match {
+      case Some(Function(lambda)) => lambda
+      case _ => throw new UndefinedNameException("Undefined function: " + name)
     }
   }
 }

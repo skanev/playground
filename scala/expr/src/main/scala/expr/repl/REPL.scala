@@ -14,6 +14,7 @@ class REPL(val shell: Shell) {
       processCommand(readCommand())
     } catch {
       case ex: BadInputException => shell.writeln("ERROR: Unparsable input")
+      case ex: UndefinedNameException => shell.writeln("ERROR: " + ex.message)
       case ex: ExitSignal =>
         shell.writeln("Bye!")
         return
