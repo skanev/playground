@@ -28,6 +28,8 @@ class Parser extends JavaTokenParsers {
 
   private def binaryOp(operator: BinOp.Operator, operand: Parser[Expr]): Parser[Expr] = {
     val symbol = operator.toString;
-    operand ~ symbol ~ operand ^^ { case left ~ symbol ~ right => BinOp(operator, left, right) } | operand
+    operand ~ rep(symbol ~> operand) ^^ {
+      case first ~ operands => (first /: operands) { (binOp, operand) => BinOp(operator, binOp, operand) }
+    }
   }
 }
