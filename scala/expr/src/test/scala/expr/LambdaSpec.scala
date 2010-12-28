@@ -7,7 +7,7 @@ import BinOp.{Operator => O}
 
 class LambdaSpec extends Spec with ShouldMatchers {
   val env = Env.empty
-  val add = new Lambda(Array("X", "Y"), Name("X") + Name("Y"))
+  val add = Lambda(List("X", "Y"), Name("X") + Name("Y"))
 
   it("knows its arity") {
     expect(2) { add.arity }
@@ -26,7 +26,7 @@ class LambdaSpec extends Spec with ShouldMatchers {
   }
 
   it("cannot be constructed with free variables") {
-    intercept[IllegalArgumentException] { new Lambda(Array("X"), Name("X") + Name("Y")) }
-    intercept[IllegalArgumentException] { new Lambda(Array("X"), Call("foo", List(Name("X"), Name("Y")))) }
+    intercept[IllegalArgumentException] { Lambda(List("X"), Name("X") + Name("Y")) }
+    intercept[IllegalArgumentException] { Lambda(List("X"), Call("foo", List(Name("X"), Name("Y")))) }
   }
 }

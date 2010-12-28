@@ -4,8 +4,8 @@ import org.scalatest.Spec
 import org.scalatest.matchers.ShouldMatchers
 
 class EvaluatorSpec extends Spec with ShouldMatchers {
-  val add = new Lambda(Array("X", "Y"), Name("X") + Name("Y"))
-  val twice = new Lambda(Array("X"), Call("add", List(Name("X"), Name("X"))))
+  val add = Lambda(List("X", "Y"), Name("X") + Name("Y"))
+  val twice = Lambda(List("X"), Call("add", List(Name("X"), Name("X"))))
   val negate = ScalaCode.define1 { x => -x }
 
   val env = Env.empty

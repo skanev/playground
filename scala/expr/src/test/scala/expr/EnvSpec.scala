@@ -22,7 +22,7 @@ class EnvSpec extends Spec with ShouldMatchers {
   }
 
   it("can be extended with a functions") {
-    val add = new Lambda(Array("X", "Y"), Name("X") + Name("Y"))
+    val add = Lambda(List("X", "Y"), Name("X") + Name("Y"))
     val env = Env.empty.extend("add", add)
     expect(add) { env.function("add") }
   }
@@ -33,7 +33,7 @@ class EnvSpec extends Spec with ShouldMatchers {
   }
 
   it("can tell its own bound names") {
-    val env = Env.empty.extend("X", 1).extend("foo", new Lambda(Array(), Num(1)))
+    val env = Env.empty.extend("X", 1).extend("foo", Lambda(List(), Num(1)))
     expect(Set("X", "foo")) { env.names }
   }
 }
