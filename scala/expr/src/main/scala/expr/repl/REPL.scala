@@ -2,6 +2,7 @@ package expr.repl
 
 import expr.BadInputException
 import Command._
+import Evaluator.eval
 
 class REPL(val shell: Shell) {
   var env = Env.empty
@@ -23,7 +24,8 @@ class REPL(val shell: Shell) {
   private def processCommand(command: Command) {
     command match {
       case Exit() => throw new ExitSignal
-      case Eval(expr) => shell.writeln("= " + Evaluator.eval(expr, env))
+      case Eval(expr) => shell.writeln("= " + eval(expr, env))
+      case Assign(name, expr) => env = env.extend(name, eval(expr, env))
     }
   }
 

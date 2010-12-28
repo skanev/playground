@@ -10,8 +10,8 @@ class REPLSpec extends Spec with ShouldMatchers {
     shell
   }
 
-  def outputFor(input: String): String = {
-    shellWithInput(input, "exit").messageBeforeExit
+  def lastMessageInSession(inputs: String*): String = {
+    shellWithInput(inputs ++ List("exit"): _*).messageBeforeExit
   }
 
   it("replies with 'Bye!' when you exit it") {
@@ -19,6 +19,10 @@ class REPLSpec extends Spec with ShouldMatchers {
   }
 
   it("evaluates an expression if given") {
-    expect("= 3.0") { outputFor("1 + 2") }
+    expect("= 3.0") { lastMessageInSession("1 + 2") }
+  }
+
+  it("evaluates expressions in the defined context") {
+    expect("= 3.0") { lastMessageInSession("X = 1", "Y = 2", "X + Y") }
   }
 }
