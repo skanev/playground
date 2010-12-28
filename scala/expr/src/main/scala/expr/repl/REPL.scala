@@ -11,25 +11,16 @@ class REPL(val shell: Shell) {
 
   private def processNextLine() {
     try {
-      processCommand(readCommand())
+      parse(shell.read) match {
+        case Eval(expr) => shell.writeln("= " + eval(expr, env))
+        case Assign(name, expr) => env = env.extend(name, eval(expr, env))
+        case Define(name, lambda) => env = env.extend(name, lambda)
+        case Exit() => return
+      }
     } catch {
       case ex: BadInputException => shell.writeln("ERROR: Unparsable input")
       case ex: UndefinedNameException => shell.writeln("ERROR: " + ex.message)
-      case ex: ExitSignal => return
     }
     processNextLine()
-  }
-
-  private def processCommand(command: Command) {
-    command match {
-      case Exit() => throw new ExitSignal
-      case Eval(expr) => shell.writeln("= " + eval(expr, env))
-      case Assign(name, expr) => env = env.extend(name, eval(expr, env))
-      case Define(name, lambda) => env = env.extend(name, lambda)
-    }
-  }
-
-  private def readCommand(): Command = {
-    Command.parse(shell.read)
   }
 }
