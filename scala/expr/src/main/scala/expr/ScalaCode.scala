@@ -9,7 +9,7 @@ object ScalaCode {
   private def define(doc: String)(code: PartialFunction[Seq[Double], Double]): ScalaCode = {
     def codeWithVerification(params: Seq[Double]): Double = {
       if (!code.isDefinedAt(params))
-        throw new IllegalArgumentException("Function called with an unexpected number of arguments")
+        throw new ExprException("Function called with an unexpected number of arguments")
       code(params)
     }
     new ScalaCode(doc, codeWithVerification)

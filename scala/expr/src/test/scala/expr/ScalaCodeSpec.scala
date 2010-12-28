@@ -31,6 +31,6 @@ class ScalaCodeSpec extends Spec with ShouldMatchers {
 
   it("raises an error when not invoked with the right number of arguments") {
     val code = ScalaCode.define2("") { (a, b) => a + b }
-    intercept[IllegalArgumentException] { code.eval(Env.empty, List(1, 2, 3)) }
+    intercept[ExprException] { code.eval(Env.empty, List(1, 2, 3)) }
   }
 }
