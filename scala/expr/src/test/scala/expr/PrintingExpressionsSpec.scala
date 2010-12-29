@@ -15,7 +15,7 @@ class PrintingExpressionsSpec extends Spec with ShouldMatchers {
 
   for ((expr, string) <- examples) {
     it("prints " + string) {
-      expect(string) { Printer.asString(expr) }
+      expect(string) { expr.toString }
     }
   }
 }

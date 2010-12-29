@@ -12,6 +12,8 @@ sealed abstract class Expr {
 
   def eval(env: Env) = Evaluation.eval(this, env)
   def ceval(env: Env) = Evaluation.ceval(this, env)
+
+  override def toString = Printer.asString(this)
 }
 
 case class Num(number: Double) extends Expr

@@ -7,7 +7,6 @@ import org.scalatest.matchers.ShouldMatchers
 import org.scalacheck._
 import org.scalacheck.Prop._
 
-import Printer.asString
 import Expr.parse
 
 class PropertiesSpec extends Spec with Checkers {
@@ -15,11 +14,11 @@ class PropertiesSpec extends Spec with Checkers {
     def sameResult(left: Double, right: Double): Boolean = (left == right) || (left.isNaN && right.isNaN)
 
     property("parse . toString is idemptotent (to some extent)") = forAll(ExprGen.expr) { expr =>
-      expr == parse(asString(expr))
+      expr == parse(expr.toString)
     }
 
     property("parse . toString evaluates to the same value") = forAll(ExprGen.expr) { expr =>
-      sameResult(expr.eval(ExprGen.env), parse(asString(expr)).eval(ExprGen.env))
+      sameResult(expr.eval(ExprGen.env), parse(expr.toString).eval(ExprGen.env))
     }
 
     property("concurrent == normal evaluation") = forAll(ExprGen.expr) { expr =>

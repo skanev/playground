@@ -19,7 +19,7 @@ case class Lambda(val args: List[String], val expr: Expr) extends Callable {
     }
   }
 
-  override def toString = "lambda(%s) { %s }".format(args.mkString(", "), Printer.asString(expr))
+  override def toString = "lambda(%s) { %s }".format(args.mkString(", "), expr.toString)
 
   private def verifyArity(paramCount: Int) {
     if (paramCount != arity)
