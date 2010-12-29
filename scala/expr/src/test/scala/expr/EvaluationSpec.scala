@@ -33,5 +33,11 @@ class EvaluationSpec extends Spec with ShouldMatchers {
       val result = ast.eval(env)
       expect(expectation) { result }
     }
+
+    it("can concurrently evaluate " + input + " to " + expectation) {
+      val ast = Parser.parse(input)
+      val result = ast.ceval(env)
+      expect(expectation) { result }
+    }
   }
 }
