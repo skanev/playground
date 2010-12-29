@@ -7,7 +7,6 @@ import org.scalatest.matchers.ShouldMatchers
 import org.scalacheck._
 import org.scalacheck.Prop._
 
-import Evaluator.eval
 import Printer.asString
 import Parser.parse
 
@@ -20,11 +19,11 @@ class PropertiesSpec extends Spec with Checkers {
     }
 
     property("parse . toString evaluates to the same value") = forAll(ExprGen.expr) { expr =>
-      sameResult(eval(expr, ExprGen.env), eval(parse(asString(expr)), ExprGen.env))
+      sameResult(expr.eval(ExprGen.env), parse(asString(expr)).eval(ExprGen.env))
     }
 
     property("concurrent == normal evaluation") = forAll(ExprGen.expr) { expr =>
-      sameResult(Evaluator.eval(expr, ExprGen.env), ConcurrentEvaluator.eval(expr, ExprGen.env))
+      sameResult(expr.eval(ExprGen.env), ConcurrentEvaluator.eval(expr, ExprGen.env))
     }
   }
 

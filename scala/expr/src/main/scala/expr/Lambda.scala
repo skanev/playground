@@ -7,7 +7,7 @@ case class Lambda(val args: List[String], val expr: Expr) extends Callable {
   override def eval(env: Env, params: Seq[Double]): Double = {
     verifyArity(params.length)
     val extended = env.extend(args zip params.toList)
-    Evaluator.eval(expr, extended)
+    expr.eval(extended)
   }
 
   private def freeVariables(expr: Expr): Seq[String] = {

@@ -5,6 +5,8 @@ sealed abstract class Expr {
   def -(other: Expr) = BinOp(BinOp.-, this, other)
   def *(other: Expr) = BinOp(BinOp.*, this, other)
   def ^(other: Expr) = BinOp(BinOp.^, this, other)
+
+  def eval(env: Env) = Evaluation.eval(this, env)
 }
 
 case class Num(number: Double) extends Expr

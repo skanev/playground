@@ -8,7 +8,7 @@ import org.scalacheck.Arbitrary.arbitrary
 import expr.BinOp._
 
 object ExprGen {
-  def eval(e: Expr) = Evaluator.eval(e, env)
+  def eval(e: Expr) = e.eval(env)
 
   val env = Env.empty
     .extend("x", 1.44)

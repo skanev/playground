@@ -3,7 +3,7 @@ package expr
 import org.scalatest.Spec
 import org.scalatest.matchers.ShouldMatchers
 
-class EvaluatorSpec extends Spec with ShouldMatchers {
+class EvaluationSpec extends Spec with ShouldMatchers {
   val add = Lambda(List("X", "Y"), Name("X") + Name("Y"))
   val twice = Lambda(List("X"), Call("add", List(Name("X"), Name("X"))))
   val negate = ScalaCode.define1("negate") { x => -x }
@@ -30,7 +30,7 @@ class EvaluatorSpec extends Spec with ShouldMatchers {
   for((input, expectation) <- examples) {
     it("evaluates " + input + " to " + expectation) {
       val ast = Parser.parse(input)
-      val result = Evaluator.eval(ast, env)
+      val result = ast.eval(env)
       expect(expectation) { result }
     }
   }

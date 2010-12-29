@@ -3,8 +3,7 @@ package expr
 import Math.pow
 import BinOp._
 
-object Evaluator {
-  def eval(expression: Expr): Double = eval(expression, Env.empty)
+object Evaluation {
   def eval(expression: Expr, env: Env): Double = {
     def e(expr: Expr) = eval(expr, env)
 

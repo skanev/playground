@@ -2,7 +2,6 @@ package expr.repl
 
 import expr.BadInputException
 import Command._
-import Evaluator.eval
 
 class REPL(shell: Shell, private var env: Env) {
   def this(shell: Shell) { this(shell, Env.empty) }
@@ -12,8 +11,8 @@ class REPL(shell: Shell, private var env: Env) {
   private def processNextLine() {
     try {
       parse(shell.read) match {
-        case Eval(expr) => shell.writeln("= " + eval(expr, env))
-        case Assign(name, expr) => env = env.extend(name, eval(expr, env))
+        case Eval(expr) => shell.writeln("= " + expr.eval(env))
+        case Assign(name, expr) => env = env.extend(name, expr.eval(env))
         case Define(name, lambda) => env = env.extend(name, lambda)
         case ShowEnv() => listNames()
         case Help() => showHelp()
