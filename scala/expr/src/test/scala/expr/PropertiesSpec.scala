@@ -22,6 +22,10 @@ class PropertiesSpec extends Spec with Checkers {
     property("parse . toString evaluates to the same value") = forAll(ExprGen.expr) { expr =>
       sameResult(eval(expr, ExprGen.env), eval(parse(asString(expr)), ExprGen.env))
     }
+
+    property("concurrent == normal evaluation") = forAll(ExprGen.expr) { expr =>
+      sameResult(Evaluator.eval(expr, ExprGen.env), ConcurrentEvaluator.eval(expr, ExprGen.env))
+    }
   }
 
   it("satisfies its properties") { check(ExprProperties) }
