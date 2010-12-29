@@ -8,7 +8,7 @@ import org.scalacheck._
 import org.scalacheck.Prop._
 
 import Printer.asString
-import Parser.parse
+import Expr.parse
 
 class PropertiesSpec extends Spec with Checkers {
   object ExprProperties extends Properties("expr") {

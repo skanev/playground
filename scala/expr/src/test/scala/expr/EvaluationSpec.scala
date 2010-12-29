@@ -3,6 +3,8 @@ package expr
 import org.scalatest.Spec
 import org.scalatest.matchers.ShouldMatchers
 
+import Expr.parse
+
 class EvaluationSpec extends Spec with ShouldMatchers {
   val add = Lambda(List("X", "Y"), Name("X") + Name("Y"))
   val twice = Lambda(List("X"), Call("add", List(Name("X"), Name("X"))))
@@ -29,15 +31,11 @@ class EvaluationSpec extends Spec with ShouldMatchers {
 
   for((input, expectation) <- examples) {
     it("evaluates " + input + " to " + expectation) {
-      val ast = Parser.parse(input)
-      val result = ast.eval(env)
-      expect(expectation) { result }
+      expect(expectation) { parse(input).eval(env) }
     }
 
     it("can concurrently evaluate " + input + " to " + expectation) {
-      val ast = Parser.parse(input)
-      val result = ast.ceval(env)
-      expect(expectation) { result }
+      expect(expectation) { parse(input).ceval(env) }
     }
   }
 }

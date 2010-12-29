@@ -3,11 +3,11 @@ package expr
 import org.scalatest.Spec
 import org.scalatest.matchers.ShouldMatchers
 
-import Parser.parse
+import Expr.parse
 import BinOp._
 import expr.{BinOp => O}
 
-class ParserSpec extends Spec with ShouldMatchers {
+class ParsingSpec extends Spec with ShouldMatchers {
   val examples = Array(
     "1" -> Num(1)
     , "X" -> Name("X")

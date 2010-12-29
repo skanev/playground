@@ -1,5 +1,9 @@
 package expr
 
+object Expr {
+  def parse(input: String) = Parser.parse(input)
+}
+
 sealed abstract class Expr {
   def +(other: Expr) = BinOp(BinOp.+, this, other)
   def -(other: Expr) = BinOp(BinOp.-, this, other)

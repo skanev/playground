@@ -7,7 +7,6 @@ object Parser {
   def parse(input: String): Expr = {
     val parser = new Parser()
     val result = parser.parseAll(parser.expr, input)
-
     result.getOrElse { throw new BadInputException(input) }
   }
 }
