@@ -27,8 +27,8 @@ object BinOp {
   }
 
   object ^ extends Operator("^", 1)
-  object * extends Operator("*", 2)
   object / extends Operator("/", 2)
-  object + extends Operator("+", 3)
-  object - extends Operator("-", 3)
+  object * extends Operator("*", 3)
+  object - extends Operator("-", 4)
+  object + extends Operator("+", 5)
 }
