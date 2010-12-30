@@ -1,6 +1,6 @@
 package expr
 
-import scala.actors.Actor._
+import scala.actors.Futures.future
 import Math.pow
 import BinOp._
 
@@ -24,32 +24,25 @@ object Evaluation {
   def ceval(expression: Expr, env: Env): Double = {
     def e(expr: Expr) = ceval(expr, env)
 
-    def paralelize(leftExpr: Expr, rightExpr: Expr)(fun: (Double, Double) => Double): Double = {
-      var left, right: Double = 0
-      val caller = self
+    def parallelBinOp(leftExpr: Expr, rightExpr: Expr)(fun: (Double, Double) => Double): Double = {
+      val left = future { leftExpr.eval(env) }
+      val right = future { rightExpr.eval(env) }
+      fun(left(), right())
+    }
 
-      actor { caller ! ("left", e(leftExpr)) }
-      actor { caller ! ("right", e(rightExpr)) }
-
-      for (i <- 1 to 2) {
-        receive {
-          case ("left", value: Double) => left = value
-          case ("right", value: Double) => right = value
-        }
-      }
-
-      fun(left, right)
+    def parallelize(items: Seq[Expr])(fun: Seq[Double] => Double): Double = {
+      fun(items.map { expr => future { e(expr) } }.map { f => f() })
     }
 
     expression match {
       case Num(x) => x
       case Name(x) => env.variable(x)
-      case Call(name, args) => env.function(name).eval(env, args.map(e))
-      case x + y => paralelize(x, y) { _ + _ }
-      case x - y => paralelize(x, y) { _ - _ }
-      case x * y => paralelize(x, y) { _ * _ }
-      case x / y => paralelize(x, y) { _ / _ }
-      case x ^ y => paralelize(x, y) { pow(_, _) }
+      case Call(name, args) => parallelize(args) { params => env.function(name).eval(env, params) }
+      case x + y => parallelBinOp(x, y) { _ + _ }
+      case x - y => parallelBinOp(x, y) { _ - _ }
+      case x * y => parallelBinOp(x, y) { _ * _ }
+      case x / y => parallelBinOp(x, y) { _ / _ }
+      case x ^ y => parallelBinOp(x, y) { pow(_, _) }
       case _ => error("Cannot evaluate expression: " + expression)
     }
   }
