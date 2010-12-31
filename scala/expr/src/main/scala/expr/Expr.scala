@@ -11,7 +11,7 @@ sealed abstract class Expr {
   def ^(other: Expr) = BinOp(BinOp.^, this, other)
 
   def eval(env: Env) = Evaluation.eval(this, env)
-  def aeval(env: Env) = new ActorEvaluation(env).eval(this)
+  def aeval(env: Env) = ActorEvaluation.eval(this, env)
 
   override def toString = Printer.asString(this)
 }

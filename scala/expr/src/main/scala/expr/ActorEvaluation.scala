@@ -5,9 +5,14 @@ import scala.actors.Actor.{actor, react, reply, loopWhile, mkBody}
 
 import BinOp._
 
-case class PartialResult(index: Int, num: Double)
+
+object ActorEvaluation {
+  def eval(expr: Expr, env: Env) = new ActorEvaluation(env).eval(expr)
+}
 
 class ActorEvaluation(env: Env) {
+  case class PartialResult(index: Int, num: Double)
+
   def mapReduce(exprs: List[Expr], index: Int, target: Actor)(reduce: Array[Double] => Double): Unit = {
     val mapper = actor {
       val evaluated: Array[Double] = Array.make(exprs.length, 0.0)
