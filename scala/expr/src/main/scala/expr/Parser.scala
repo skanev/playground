@@ -1,7 +1,6 @@
 package expr
 
-import scala.util.parsing.combinator._
-import expr.BinOp._
+import scala.util.parsing.combinator.JavaTokenParsers
 
 object Parser {
   def parse(input: String): Expr = {
@@ -15,9 +14,9 @@ class Parser extends JavaTokenParsers {
   def expr = addition
   def addition = binaryOp(BinOp.+, subtraction)
   def subtraction = binaryOp(BinOp.-, multiplication)
-  def multiplication = binaryOp(*, division)
-  def division = binaryOp(/, exp)
-  def exp = binaryOp(^, factor)
+  def multiplication = binaryOp(BinOp.*, division)
+  def division = binaryOp(BinOp./, exp)
+  def exp = binaryOp(BinOp.^, factor)
   def factor: Parser[Expr] = "(" ~> expr <~ ")" | number | call | name;
   def call: Parser[Expr] = ident ~ "(" ~ repsep(expr, ",") ~ ")" ^^ {
     case name ~ "(" ~ args ~ ")" => Call(name, args)

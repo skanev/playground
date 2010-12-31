@@ -4,7 +4,8 @@ object Printer {
   private def parenthesize(expr: Expr, enclosingPrecendence: Int): String = {
     val str = asString(expr)
     expr match {
-      case BinOp(operator, _, _) if operator.precendance > enclosingPrecendence => "(" + str + ")"
+      case BinOp(operator, _, _) if operator.precendance > enclosingPrecendence =>
+        "(" + str + ")"
       case _ => str
     }
   }
@@ -15,8 +16,8 @@ object Printer {
       case Name(name) => name
       case Call(name, args) => "%s(%s)".format(name, args.map(asString).mkString(", "))
       case BinOp(operator, left, right) =>
-        val encosling = operator.precendance
-        parenthesize(left, encosling) + " " + operator + " " + parenthesize(right, encosling)
+        val enclosing = operator.precendance
+        parenthesize(left, enclosing) + " " + operator + " " + parenthesize(right, enclosing)
     }
   }
 }
