@@ -13,5 +13,5 @@ object InteractiveInterpreter extends Application {
     .extend("log", Lambda(List("base", "number"), parse("ln(number) / ln(base)")))
 
   println("Type 'help' for help.")
-  new REPL(ConsoleShell, env).start()
+  new REPL(JLineShell, env).start()
 }
