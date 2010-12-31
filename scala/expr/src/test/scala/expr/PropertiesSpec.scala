@@ -21,8 +21,8 @@ class PropertiesSpec extends Spec with Checkers {
       sameResult(expr.eval(ExprGen.env), parse(expr.toString).eval(ExprGen.env))
     }
 
-    property("concurrent == normal evaluation") = forAll(ExprGen.expr) { expr =>
-      sameResult(expr.eval(ExprGen.env), expr.ceval(ExprGen.env))
+    property("actor evaluation = normal evaluation") = forAll(ExprGen.expr) { expr =>
+      sameResult(expr.eval(ExprGen.env), expr.aeval(ExprGen.env))
     }
   }
 

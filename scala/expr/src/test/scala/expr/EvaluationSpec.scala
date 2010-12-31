@@ -34,8 +34,8 @@ class EvaluationSpec extends Spec with ShouldMatchers {
       expect(expectation) { parse(input).eval(env) }
     }
 
-    it("can concurrently evaluate " + input + " to " + expectation) {
-      expect(expectation) { parse(input).ceval(env) }
+    it("can evaluate with actors " + input + " to " + expectation) {
+      expect(expectation) { parse(input).aeval(env) }
     }
   }
 }
