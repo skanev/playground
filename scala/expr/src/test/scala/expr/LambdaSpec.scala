@@ -9,10 +9,6 @@ class LambdaSpec extends Spec with ShouldMatchers {
   val env = Env.empty
   val add = Lambda(List("X", "Y"), Name("X") + Name("Y"))
 
-  it("knows its arity") {
-    expect(2) { add.arity }
-  }
-
   it("can be evaluated with given parameters") {
     expect(3) { add.eval(env, List(1, 2)) }
   }

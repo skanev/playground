@@ -1,9 +1,10 @@
 package expr
 
-case class Lambda(val args: List[String], val expr: Expr) extends Callable {
+case class Lambda(args: List[String], expr: Expr) extends Callable {
   verifyNoFreeVariables()
 
-  def arity = args.length
+  override def toString = "lambda(%s) { %s }".format(args.mkString(", "), expr.toString)
+
   override def eval(env: Env, params: Seq[Double]): Double = {
     verifyArity(params.length)
     val extended = env.extend(args zip params.toList)
@@ -19,11 +20,9 @@ case class Lambda(val args: List[String], val expr: Expr) extends Callable {
     }
   }
 
-  override def toString = "lambda(%s) { %s }".format(args.mkString(", "), expr.toString)
-
   private def verifyArity(paramCount: Int) {
-    if (paramCount != arity)
-      throw new ExprException("Lambda expects " + arity + " argument(s), " +
+    if (paramCount != args.length)
+      throw new ExprException("Lambda expects " + args.length + " argument(s), " +
           "but was called with " + paramCount)
   }
 
