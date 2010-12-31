@@ -1,20 +1,18 @@
 package expr
 
 import scala.actors.Actor
-import scala.actors.Actor._
+import scala.actors.Actor.{actor, react, reply, loopWhile, mkBody}
 
 import BinOp._
 
-case class Result(num: Double)
 case class PartialResult(index: Int, num: Double)
 
 class ActorEvaluation(env: Env) {
   def mapReduce(exprs: List[Expr], index: Int, target: Actor)(reduce: Array[Double] => Double): Unit = {
     val mapper = actor {
-      var count = exprs.length
-      val evaluated: Array[Double] = Array.make(count, 0.0)
+      val evaluated: Array[Double] = Array.make(exprs.length, 0.0)
 
-      times(count) {
+      times(exprs.length) {
         react { case PartialResult(n, value) => evaluated(n) = value }
       } andThen {
         target ! PartialResult(index, reduce(evaluated))
@@ -46,7 +44,7 @@ class ActorEvaluation(env: Env) {
   def eval(expr: Expr): Double = {
     val waiter = actor {
       var result = 0.0
-      once { 
+      mkBody {
         react { case PartialResult(-1, num) => result = num }
       } andThen {
         react { case 'Eval => reply(result) }
@@ -61,5 +59,4 @@ class ActorEvaluation(env: Env) {
     var counter = n
     loopWhile(counter > 0) { counter -= 1; body }
   }
-  private def once(body: () => Unit) = times(1)(body)
 }
