@@ -6,17 +6,17 @@ object ScalaCode {
   def define2(doc: String)(code: (Double, Double) => Double): ScalaCode = define(doc) { case List(a, b) => code(a, b) }
   def define3(doc: String)(code: (Double, Double, Double) => Double): ScalaCode = define(doc) { case List(a, b, c) => code(a, b, c) }
 
-  private def define(doc: String)(code: PartialFunction[Seq[Double], Double]): ScalaCode = {
-    def codeWithVerification(params: Seq[Double]): Double = {
-      if (!code.isDefinedAt(params.toList))
+  private def define(doc: String)(code: PartialFunction[List[Double], Double]): ScalaCode = {
+    def codeWithVerification(params: List[Double]): Double = {
+      if (!code.isDefinedAt(params))
         throw new ExprException("Function called with an unexpected number of arguments")
-      code(params.toList)
+      code(params)
     }
     new ScalaCode(doc, codeWithVerification)
   }
 }
 
-class ScalaCode(doc: String, code: Seq[Double] => Double) extends Callable {
-  override def eval(env: Env, params: Seq[Double]): Double = code(params)
+class ScalaCode(doc: String, code: List[Double] => Double) extends Callable {
+  override def eval(env: Env, params: Seq[Double]): Double = code(params.toList)
   override def toString = "<ScalaCode:%s>".format(doc)
 }
