@@ -42,6 +42,7 @@ class REPL(shell: Shell, private var env: Env) {
                      |
                      |     1 + 2 + 3 + 5 + 7 + 11 + 13
                      |     X + add(2, 4)
+                     |     1 + 2 - 3 * 4 / 5 ^ 6
                      |
                      |  * assign variables or define functions with =
                      |
