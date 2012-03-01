@@ -15,3 +15,37 @@ At the time, Racket does not have a decent sicp language pack. Instead of
 trying to figure out a way to restrict the language, I will try to stick at
 the R5S5 subset, using Racket. If that fails for some reason, I might
 reconsider.
+
+## Tests
+
+I like to keep a bunch of tests for each exercise. I'm just that kind of
+person.
+
+Although I will do the solutions in SICP-level Scheme, I will not hesitate
+to use full-blown Racket in the tests. This will give me a nice opportunity
+to do some cargo-culting, which might be useful if I want to learn Racket
+in the future.
+
+## Tools
+
+I'm not just interested in solving the exercise. I'm interested in building
+an environment that is up for the task, tailored to me. If Racket was a bit
+more modern, I would have tried to go with its own tools. Since this is not
+the case (IMHO), I will just use Ruby.
+
+### Generating scaffolds
+
+It is fairly simple. If you want to generate a scaffold for exercise 1.01,
+just run:
+
+    rake exercise[1,1]
+
+### Running tests
+
+Tests can be run the following way:
+
+    rake run:exercise[1,1]
+
+If you want to run all tests do:
+
+    rake run:all
