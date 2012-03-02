@@ -33,3 +33,7 @@ Tests can be run the following way:
 If you want to run all tests do:
 
     rake run:all
+
+You can also use watchr to do continuous testing. Just run:
+
+    rake watch

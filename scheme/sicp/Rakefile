@@ -71,3 +71,8 @@ END
     end
   end
 end
+
+desc 'Runs watchr on the tests'
+task :watch do
+  exec 'watchr tests.watchr'
+end
