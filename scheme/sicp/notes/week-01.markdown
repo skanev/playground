@@ -2,6 +2,12 @@
 
 Notes on my first week with SICP. We have just started the study group.
 
+## Questions
+
+* Is [Nikolay's `good-enough?`][nb-01-07] different?
+
+[nb-01-07]: https://github.com/nb/sicp/blob/a468e7e08c03cde42b317d94b5cf0e4db7613212/1.7.scm
+
 ## Various
 
 * I enjoy writing text on the side of the code. I don't do that in my day job, since I consider it an anti-pattern. It makes me more reflective.
