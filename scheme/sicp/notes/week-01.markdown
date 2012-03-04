@@ -37,6 +37,12 @@ Sussman has an [interesting comment][why-python] on why MIT switched to Python. 
 
 [why-python]: http://www.wisdomandwonder.com/link/2110/why-mit-switched-from-scheme-to-python
 
+## Invariant quantity
+
+There is an interesting idea in exercise 1.16. We're designing an iterative algoright to do fast exponentiation. For each iteration we are keeping three state variables (a, b and n) and we require that an invariant holds on each iteration (namely abⁿ is constant). The three of them change on each iteration, but the abⁿ remains unchanged. n is reduced on every iteration and when it finaly reaches 0, the result is in a.
+
+Invariant quantities appear to be an interesting way to design algorithms.
+
 ## Some school-level algebra
 
 I just love it when I discover something neat in algebra I learned in school. Namely, there is a neat way to geometrically explain (n + 1)². Assume we have a square with size n and we want to increase its size with n. Here's a nice ASCII graphic:
