@@ -37,3 +37,28 @@ Sussman has an [interesting comment][why-python] on why MIT switched to Python. 
 
 [why-python]: http://www.wisdomandwonder.com/link/2110/why-mit-switched-from-scheme-to-python
 
+## Some school-level algebra
+
+I just love it when I discover something neat in algebra I learned in school. Namely, there is a neat way to geometrically explain (n + 1)². Assume we have a square with size n and we want to increase its size with n. Here's a nice ASCII graphic:
+
+    +---+---+---+---+---+---+ . +      Each "small square" has area of 1. The "thick" squares
+    |   |   |   |   |   |   | x .      make up the original square with size n, while the
+    +---+---+---+---+---+---+ . +      "thin" ones make up the extra areas we need to add
+    |   |   |   |   |   |   | x .      to increase the size with 1. Let's count the added
+    +---+---+---+---+---+---+ . +      squares. We add n squares on the right (marked with x)
+    |   |   |   |   |   |   | x .      and another n squares on the bottom (marked with x).
+    +---+---+---+---+---+---+ . +      We need to add an extra square, diagonally to complete
+    |   |   |   |   |   |   | x .      the shape, marked with o. Thus, we end up adding 2n + 1
+    +---+---+---+---+---+---+ . +      squares. When we take all together, we get:
+    |   |   |   |   |   |   | x .
+    +---+---+---+---+---+---+ . +      n² + 2n + 1
+    |   |   |   |   |   |   | x .
+    +---+---+---+---+---+---+ . +      which of course is:
+    . x . x . x . x . x . x . o .
+    + - + - + - + - + - + - + . +      (n + 1)²
+
+It's easy enough to generalize this to (a + b)². The number of times we add a to each side is b, which makes it 2ab for the x squares. We need to add b² to complete the o squares. It ends up as:
+
+a² + 2ab + b²
+
+There is probably some Greek person that wrote this down a couple of thousand years ago, but somehow I managed to miss it. Anyway, it's still fun when I discover something simple about school math that I did not know.
