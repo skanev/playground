@@ -5,6 +5,7 @@ Notes on my first week with SICP. We have just started the study group.
 ## Questions
 
 * Is [Nikolay's `good-enough?`][nb-01-07] different?
+* What is the time complexity of 1.14?
 
 [nb-01-07]: https://github.com/nb/sicp/blob/a468e7e08c03cde42b317d94b5cf0e4db7613212/1.7.scm
 
