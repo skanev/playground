@@ -16,6 +16,7 @@ Notes on my first week with SICP. We have just started the study group.
 * I take a lot of time to ensure nice commit message and nice looking solutions. That way the code should be a pleasure to read.
 * Consider giving me the thumbs up, if you are following along and enjoying it ;)
 * Building tools is interesting, although it turned into yak shaving - I spent and hour and something on the Rakefile.
+* Fib(n) can be calculated in o(log(n)). I knew it, but I still find it freaky.
 
 ## How to Design Programs
 
