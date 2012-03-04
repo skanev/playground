@@ -6,6 +6,7 @@ Notes on my first week with SICP. We have just started the study group.
 
 * Is [Nikolay's `good-enough?`][nb-01-07] different?
 * What is the time complexity of 1.14?
+* What is the time complexity of normal-order in 1.20?
 
 [nb-01-07]: https://github.com/nb/sicp/blob/a468e7e08c03cde42b317d94b5cf0e4db7613212/1.7.scm
 
@@ -43,6 +44,14 @@ Sussman has an [interesting comment][why-python] on why MIT switched to Python. 
 There is an interesting idea in exercise 1.16. We're designing an iterative algoright to do fast exponentiation. For each iteration we are keeping three state variables (a, b and n) and we require that an invariant holds on each iteration (namely abⁿ is constant). The three of them change on each iteration, but the abⁿ remains unchanged. n is reduced on every iteration and when it finaly reaches 0, the result is in a.
 
 Invariant quantities appear to be an interesting way to design algorithms.
+
+## Tail recursion and normal-order evaluation
+
+Normal-order evaluation can dramatically change the order of growth when combined with tail recursion. I thought it just changes the constant, but it can actually change the function.
+
+Exercise 1.20 shows a nice example. In applicative-order evaluation, gcd has log(n) order of growth, but in normal-order evaluation it becomes a lot slower. I'm not sure what the new order of growth is, but it is at least linear.
+
+I doubt it happens in practice, but it is still an interesting observation.
 
 ## Some school-level algebra
 
