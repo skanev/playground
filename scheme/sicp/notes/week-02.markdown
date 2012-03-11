@@ -27,3 +27,11 @@ We established that we the target for next week is 1.3.2. One of my question was
 I'm following Uncle Bob's approach to ordering procedures in Scheme. I am putting the most important function on top. It will refer undefined (yet) procedures. I find the first such procedure in the body and put it afterwards. If the second procedure has undefined names, I define them before continuing with the remaining undefined names from the first procedures. Essentially, this orders the procedures depth-first.
 
 The argument is that this way the code reads from top to bottom. I don't find it optimal, but I believe it works great in this case.
+
+### Recursive process vs. recursive procedure
+
+This is from chapter 1.2.1, and while I've known it all along, it took me a while to appreciate the subtlety. Consider a tail-recursive and a non-tail-recursive implementations of factorial. Both of them are recursive procedures. But the first generates an iterative process, while the latter - a recursive one.
+
+It's curious that recursive definitions do not always imply recursive processes. As far as I can tell, this totally depends on the tail recursion call.
+
+Which got me thinking about tail recursion. While it's extremely nice, there is the risk of modifying a tail-recursive function in a way that preserves correctness, but makes it non-tail-recursive. This can happen accidentally and can be a regression, because the function will run out of stack space for larger inputs. That's why I find it extremely nice that Scala has a `@tailrec` annotation that enforces tail recursion.
