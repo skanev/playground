@@ -61,8 +61,8 @@ END
   desc 'Runs the tests of all exercises'
   task :all do
     FileUtils.cd ROOT do
-      Dir.glob('0*').each do |chapter|
-        Dir.glob("#{chapter}/tests/*").each do |test_file|
+      Dir.glob('0*').sort.each do |chapter|
+        Dir.glob("#{chapter}/tests/*").sort.each do |test_file|
           test_file =~ %r{(\d)/tests/(\d+)-tests.scm}
           print "#{test_file}: "
           Rake::Task['run:exercise'].execute :chapter => $1, :exercise => $2
