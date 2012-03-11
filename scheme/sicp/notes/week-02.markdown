@@ -18,6 +18,7 @@ We established that we the target for next week is 1.3.2. One of my question was
 * What is the time complexity of 1.14?
 * What is the time complexity of normal-order in 1.20?
 * Am I getting the Robin-Miller test from 1.28 wrong? I expected all numbers a < n to fail the simple test (the one without the non-trivial square root test).
+* In 1.29, my implementation of Simpson's rule appears to be less precise. Am I doing something wrong?
 
 ## Various
 
