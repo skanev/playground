@@ -36,6 +36,15 @@ END
   END
 end
 
+desc 'Generates the next exercise'
+task :next do
+  chapter  = Dir.glob('0*').max
+  exercise = '%02d' % Dir.glob("#{chapter}/*.scm").grep(/(\d+)\.scm/) { $1.to_i }.max.succ
+
+  puts "Generating files for exercise #{chapter}.#{exercise}"
+  Rake::Task['exercise'].execute :chapter => chapter, :exercise => exercise
+end
+
 namespace :run do
   desc 'Runs a specific exercise'
   task :exercise, :chapter, :exercise do |task, args|
