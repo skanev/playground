@@ -18,3 +18,11 @@ It was rather quick. I found out that some of my thoughts were utterly invalid a
 * What is the time complexity of normal-order in 1.20?
 * Am I getting the Robin-Miller test from 1.28 wrong? I expected all numbers a < n to fail the simple test (the one without the non-trivial square root test).
 * In 1.29, my implementation of Simpson's rule appears to be less precise. Am I doing something wrong?
+
+## Ruby, lambdas and procedures as general methods
+
+Chapter 1.3.3 makes a very nice point about procedures. When a procedure is parametrized with functions (as opposed to values), it can create a more powerful abstraction. The `fixed-point` function is a nice example of that - it is a general abstraction for Newton's method of finding square roots (exercise 1.07). This is cool, but I would say that it is not used in Ruby.
+
+Ruby is pretty decent, when your method needs just one lambda - it can be passed as a block. When you need too lambdas, however, it becomes rather awkward. Ruby has the `lambda` keyword, but it has at least two problems - (1) mullti-ine lambdas are tricky (you have to use `{`/`}` instead of `do`/`end`) and (2) it feels awkward to pass lambdas to functions an invoke them. In such cases, I would probably go with a Template Method instead.
+
+While Ruby has all the power and flexibility to do this, I feel that the Ruby culture frowns upon it. Thus, Ruby feels less powerful in that sense. Note that it just **feels** that way.
