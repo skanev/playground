@@ -44,5 +44,5 @@
 ;    rounded up.
 ;
 ; b. The space of (sine n) is n / 3. Its order of growth is Θ(n). The number of
-;    steps is (n / 3)C, where C is the number of steps it takes to calculate p
-;    once. The number of steps (time taken) also has order of growth Θ(n).
+;   steps is (n / 3)C, where C is the number of steps it takes to calculate p
+;   once. The number of steps (time taken) has order of growth Θ(logn).

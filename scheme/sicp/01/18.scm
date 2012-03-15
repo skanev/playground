@@ -24,5 +24,5 @@
     (cond ((= b 0) c)
           ((even? b) (iter (double a) (halve b) c))
           (else (iter a (- b 1) (+ a c)))))
-  
+
   (iter a b 0))
