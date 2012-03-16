@@ -23,12 +23,12 @@
 ; Changing the algorithm produces produces results I did not expect.
 ;
 ; Let's take a look at the amount of numbers a, such that a < n, for which aⁿ⁻¹
-; is congruent to 1 modulo n. If n is prime, this is true for all numbers 1 < a
-; < n. I expected that to be true for Carmichael numbers, but I turned out to
-; be wrong - it's not all numbers, but a fairly large percent of them. For
-; example, if n = 66011, for approximatelly 80% of the numbers a < n, aⁿ⁻¹ is
-; congruent to 1 modulo n. The large the percentage, the more likely the test
-; will be fooled.
+; is congruent to 1 modulo n. If n is prime, this is true for all numbers
+; 1 < a < n. I expected that to be true for Carmichael numbers, but I turned
+; out to be wrong - it's not all numbers, but a fairly large percent of them.
+; For example, if n = 66011, for approximatelly 80% of the numbers a < n, aⁿ⁻¹
+; is congruent to 1 modulo n. The large the percentage, the more likely the
+; test will be fooled.
 ;
 ; However, if we introduce the check for non-trivial square root of 1 modulo n,
 ; the amount of numbers that fool the test drops dramatically. Here's a table

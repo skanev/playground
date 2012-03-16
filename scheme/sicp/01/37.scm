@@ -11,7 +11,7 @@
 ;               D₃ + …
 ;
 ; As an example, one can show that the infinite continued fraction expansion
-; with the Nᵢ and the Dᵢ all equal to 1 produces 1/, where 𝜙 is the golden
+; with the Nᵢ and the Dᵢ all equal to 1 produces 1/𝜙, where 𝜙 is the golden
 ; ratio (described in section 1.2.2). One way to approximate an infinite
 ; continued fraction is to truncate the expansion after a given number of
 ; terms. Such a truncation — a so called k-term finite continued fraction — has
