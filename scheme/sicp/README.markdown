@@ -24,6 +24,10 @@ It is fairly simple. If you want to generate a scaffold for exercise 1.01, just 
 
     rake exercise[1,1]
 
+If you want to generate the scaffold for the next unsolved task, just do:
+
+    rake next
+
 ### Running tests
 
 Tests can be run the following way:
