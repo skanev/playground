@@ -26,3 +26,13 @@ Chapter 1.3.3 makes a very nice point about procedures. When a procedure is para
 Ruby is pretty decent, when your method needs just one lambda - it can be passed as a block. When you need too lambdas, however, it becomes rather awkward. Ruby has the `lambda` keyword, but it has at least two problems - (1) mullti-ine lambdas are tricky (you have to use `{`/`}` instead of `do`/`end`) and (2) it feels awkward to pass lambdas to functions an invoke them. In such cases, I would probably go with a Template Method instead.
 
 While Ruby has all the power and flexibility to do this, I feel that the Ruby culture frowns upon it. Thus, Ruby feels less powerful in that sense. Note that it just **feels** that way.
+
+## First-class citizens and Ruby
+
+This is a continuation of the previous thought. Section 1.3.4 talks about procedures as first-class citizens and what the term means. It says, that when more elements are first-class, this provides for more powerful abstractions.
+
+It is curious how this question looks in Ruby. Are methods first-class in Ruby or not? On one hand, they are, since they (1) may be named as variables, (2) may be passed as arguments to procedures, (3) can be returned as the result of procedures and (4) may be included in data structures. Working with them, however, is slightly awkward, since they are obtained with `#method` and need special handling (invoking with `#call`). The awkwardness is very apparent when you compare with Python.
+
+I find the following interesting: the slight awkwardness in Ruby makes Ruby programmers avoid those constructs. Nobody really ever passes a method or returns a lambda to be called. I find two reasons for this. First, the code appears un-Rubyic, which is a cultural reason. Second, and more to the point, this is not orthogonal to blocks - most of those things can be accomplished by blocks, which makes such use of the constructs unpopular.
+
+Bottom line, I find the concept of "first-class citizens" blurry at best. It might be useful to explain the differences of procedures in C and those in LISP, but it is very imprecise in Ruby. Methods there appear to be first-class in letter, but not in spirit. Which is a useful insight on its own.
