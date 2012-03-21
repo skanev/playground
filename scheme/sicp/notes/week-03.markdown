@@ -2,16 +2,6 @@
 
 This is the third week of our humble study group. Some of us are lagging behind, but nontheless, we decided that we will complete Chapter 1.
 
-## Meetup summary
-
-It was rather quick. I found out that some of my thoughts were utterly invalid and that some of my solutions were wrong. Here are some assorted thouhgts:
-
-* Plamen claims that it is proven that n.log(n) is the fastest a sorting algorithm can get. I'm not so certain about this, but hey - what do I know about sorting.
-* I should check out what Radix sort is. It is purported to be constrained, but faster.
-* My note from Week 1 on tail recursion + normal-order evaluation needs some clarification. I claimed that the time gets worse when both are present. It is actually not true, since normal-order evaluation is sufficient to degrade performance. Tail recursion is a factor, however, in the way you write programs. I would claim that if you had no tail recursion in your language, you would not go with a recursive procedure. Therefore, it is very unlikely that you stumble in that kind of degradation. Normal-order would still be slower, however.
-* I got 1.15 wrong. Time is Θ(logn).
-* I sill have questions from earlier. I will not carry them over to Chapter 2, but I will still keep them around in hope that somebody would provide a satisfactory answer.
-
 ## Questions
 
 * What is the time complexity of 1.14?
@@ -23,7 +13,7 @@ It was rather quick. I found out that some of my thoughts were utterly invalid a
 
 Chapter 1.3.3 makes a very nice point about procedures. When a procedure is parametrized with functions (as opposed to values), it can create a more powerful abstraction. The `fixed-point` function is a nice example of that - it is a general abstraction for Newton's method of finding square roots (exercise 1.07). This is cool, but I would say that it is not used in Ruby.
 
-Ruby is pretty decent, when your method needs just one lambda - it can be passed as a block. When you need too lambdas, however, it becomes rather awkward. Ruby has the `lambda` keyword, but it has at least two problems - (1) mullti-ine lambdas are tricky (you have to use `{`/`}` instead of `do`/`end`) and (2) it feels awkward to pass lambdas to functions an invoke them. In such cases, I would probably go with a Template Method instead.
+Ruby is pretty decent, when your method needs just one lambda - it can be passed as a block. When you need too lambdas, however, it becomes rather awkward. Ruby has the `lambda` keyword, but it has at least two problems - (1) multiline lambdas are tricky (you have to use `{`/`}` instead of `do`/`end`) and (2) it feels awkward to pass lambdas to functions an invoke them. In such cases, I would probably go with a Template Method instead.
 
 While Ruby has all the power and flexibility to do this, I feel that the Ruby culture frowns upon it. Thus, Ruby feels less powerful in that sense. Note that it just **feels** that way.
 
@@ -36,3 +26,16 @@ It is curious how this question looks in Ruby. Are methods first-class in Ruby o
 I find the following interesting: the slight awkwardness in Ruby makes Ruby programmers avoid those constructs. Nobody really ever passes a method or returns a lambda to be called. I find two reasons for this. First, the code appears un-Rubyic, which is a cultural reason. Second, and more to the point, this is not orthogonal to blocks - most of those things can be accomplished by blocks, which makes such use of the constructs unpopular.
 
 Bottom line, I find the concept of "first-class citizens" blurry at best. It might be useful to explain the differences of procedures in C and those in LISP, but it is very imprecise in Ruby. Methods there appear to be first-class in letter, but not in spirit. Which is a useful insight on its own.
+
+## Meetup summary
+
+It was a longer, nicer meeting. We still need to be way more structured. I also believe that we should try to make them longer. Here are some assorted notes:
+
+* There is a book called [Structure and Interpretation of Classical Mechanics][sicm] from one of the authors. I find this equally disturbing and fascinating.
+* Slavena did a couple of neat algebraic tricks. Nothing fancy - just straightforward formula transformations that simplify the Scheme code. In [1.39][slav-1-39] she divides the whole expression by x, which makes an `if` in the numerator unnecessary. This reminds me of negotiating requirements to simplify code - when done properly, both sides win.
+* Somebody said that the next study group should be on a Haskell group. I'm quite happy that (1) we're talking about a next study group and (2) that it is Haskell. I personally prefer Introduction to Algorithms, though.
+* I promised everybody dinner after we complete Chapter 2. Either I take them out or I cook.
+* I don't like how the meetup summary of a week ends up in the notes from the next, so I rearranged all the notes
+
+[sicm]: http://mitpress.mit.edu/sicm/
+[slav-1-39]: https://github.com/slavv/sicp-exercises/blob/master/01/39.scm

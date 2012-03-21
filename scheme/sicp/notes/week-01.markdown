@@ -78,3 +78,14 @@ It's easy enough to generalize this to (a + b)². The number of times we add a t
 a² + 2ab + b²
 
 There is probably some Greek person that wrote this down a couple of thousand years ago, but somehow I managed to miss it. Anyway, it's still fun when I discover something simple about school math that I did not know.
+
+## Meetup summary
+
+We established that we the target for next week is 1.3.2. One of my question was answered, but the other two remain a mystery to me.
+
+### Notes
+* Is [Nikolay's `good-enough?`][nb-01-07] different?
+  * Nikolay says that he is doing multiplication, while I'm doing divisions. He claims that multiplication is (1) faster and (2) more accurate. He does not quote sources.
+* Ackermann's function seems pretty useless to me, but apparently it has some interesting properties. It is mostly theoretical, though.
+
+[nb-01-07]: https://github.com/nb/sicp/blob/a468e7e08c03cde42b317d94b5cf0e4db7613212/1.7.scm

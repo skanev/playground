@@ -2,17 +2,6 @@
 
 This is my second week in the book. I'm still very excited, but I am also gotten the farthest in the exercise from all the people in the study group. Thus, I will attempt to take it slower. It will not be that hard, since I have travelling involved.
 
-## Meetup summary
-
-We established that we the target for next week is 1.3.2. One of my question was answered, but the other two remain a mystery to me.
-
-### Notes
-* Is [Nikolay's `good-enough?`][nb-01-07] different?
-  * Nikolay says that he is doing multiplication, while I'm doing divisions. He claims that multiplication is (1) faster and (2) more accurate. He does not quote sources.
-* Ackermann's function seems pretty useless to me, but apparently it has some interesting properties. It is mostly theoretical, though.
-
-[nb-01-07]: https://github.com/nb/sicp/blob/a468e7e08c03cde42b317d94b5cf0e4db7613212/1.7.scm
-
 ## Questions
 
 * What is the time complexity of 1.14?
@@ -35,3 +24,13 @@ This is from chapter 1.2.1, and while I've known it all along, it took me a whil
 It's curious that recursive definitions do not always imply recursive processes. As far as I can tell, this totally depends on the tail recursion call.
 
 Which got me thinking about tail recursion. While it's extremely nice, there is the risk of modifying a tail-recursive function in a way that preserves correctness, but makes it non-tail-recursive. This can happen accidentally and can be a regression, because the function will run out of stack space for larger inputs. That's why I find it extremely nice that Scala has a `@tailrec` annotation that enforces tail recursion.
+
+## Meetup summary
+
+It was rather quick. I found out that some of my thoughts were utterly invalid and that some of my solutions were wrong. Here are some assorted thouhgts:
+
+* Plamen claims that it is proven that n.log(n) is the fastest a sorting algorithm can get. I'm not so certain about this, but hey - what do I know about sorting.
+* I should check out what Radix sort is. It is purported to be constrained, but faster.
+* My note from Week 1 on tail recursion + normal-order evaluation needs some clarification. I claimed that the time gets worse when both are present. It is actually not true, since normal-order evaluation is sufficient to degrade performance. Tail recursion is a factor, however, in the way you write programs. I would claim that if you had no tail recursion in your language, you would not go with a recursive procedure. Therefore, it is very unlikely that you stumble in that kind of degradation. Normal-order would still be slower, however.
+* I got 1.15 wrong. Time is Θ(logn).
+* I sill have questions from earlier. I will not carry them over to Chapter 2, but I will still keep them around in hope that somebody would provide a satisfactory answer.
