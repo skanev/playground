@@ -2,6 +2,7 @@
 ;
 ; A continued fraction representation of tangent function was published in
 ; 1770 by the German mathematician J. H. Lambert:
+;
 ;                x
 ; tan(x) = ─────────────
 ;                  x²
