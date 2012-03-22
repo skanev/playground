@@ -1,7 +1,35 @@
 # Week 4 (2012-03-20 - 2012-03-27)
 
-We are finally starting Chapter 2. It goes into data structures and I'm super excited. Plus, I really, really, REALLY like using `car` and `cdr` in a recreational way.
+We are finally starting Chapter 2. It goes into data structures and I'm super excited. Plus, I really, really, REALLY like using `car` and `cdr` for recreation.
 
 ## Questions
 
 ## Various
+
+* With the rational numbers example, calculating the `gcd` can be done either in construction time (`make-rat`) or in selection time (`numer` and `denom`). This is a good example of the flexibility in data abstraction. I didn't occur to me that doing it in selection time can be faster in some cases.
+
+## Constructors, selectors and abstraction barriers
+
+There is an interesting difference in how SICP advocates designing compound data and classical OOP wisdom. It is easy to show when implementing rational numbers. In an object-oriented fashion, we will have two levels of abstraction - (1) the clients of the `Rational` class and the (2) implementation of its operations (as methods). The methods use the private representation of the class. In contrast, the book talks about three levels - (1) the clients that use rational numbers, (2) the rational number operations (addition, subtraction, multiplication, divison) and (3) a set of constructors and selectors, what the operations are implemented with. That way representation can change without affecting the operations.
+
+If we have a class `Rational`, the operations (2nd layer) and the internal representation (3rd layer) are naturally grouped in the same context (the class). Usually there is no separation - the operations access the private state directly. This makes changing the representation harder.
+
+Introducing a layer of _constructors and selectors_ in a Ruby class seems a neat idea. I wonder if there is a good way to make it explicit.
+
+## Procedural representation of pairs
+
+I know what procedural representation of data is, but this caught me off guard - you can implement LISP pairs with lambdas. Like this:
+
+    (define (cons x y)
+      (define (dispatch m)
+        (cond ((= m 0) x)
+              ((= m 1) y)
+              (else (error "Argument not 0 or 1 -- CONS" m))))
+      dispatch)
+
+    (define (car z) (z 0))
+    (define (car z) (z 1))
+
+While I never gave serious thought about it, I always assumed pairs have to be implemented in C. Interestingly, this will be a sufficient implementation for a lot of LISP code.
+
+I'm curious how `pair?` will be implemented in this approach.
