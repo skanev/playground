@@ -7,6 +7,7 @@ We are finally starting Chapter 2. It goes into data structures and I'm super ex
 ## Various
 
 * With the rational numbers example, calculating the `gcd` can be done either in construction time (`make-rat`) or in selection time (`numer` and `denom`). This is a good example of the flexibility in data abstraction. I didn't occur to me that doing it in selection time can be faster in some cases.
+* The parts of subtraction are called "minuend", "subtrahend" and "difference". Neat.
 
 ## Constructors, selectors and abstraction barriers
 
