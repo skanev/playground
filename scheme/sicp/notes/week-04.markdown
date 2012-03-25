@@ -34,3 +34,9 @@ I know what procedural representation of data is, but this caught me off guard -
 While I never gave serious thought about it, I always assumed pairs have to be implemented in C. Interestingly, this will be a sufficient implementation for a lot of LISP code.
 
 I'm curious how `pair?` will be implemented in this approach.
+
+## Mathematics and naïveté
+
+The extended exercise of 2.1.4 shows an interesting insight: you can rarely approch mathematics naïvely. The idea was generally sound in the beginning, but the accumulated error in tolerance quickly makes the code untrustworthy. Furthermore, in order to minimize the error, one has to devise a way of simplifying arithmetic expressions. This is a task, way larger than the original.
+
+Another interesting aspect of the exercise, is that the accumulated error was not immediatelly obvious from the initial design.
