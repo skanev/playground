@@ -5,6 +5,7 @@ We are finally starting Chapter 2. It goes into data structures and I'm super ex
 ## Questions
 
 * There is a quote in the foreword - "In Pascal the plethora of declarable data structures induces a specialization within functions that inhibits and penalizes casual cooperation. It is better to have 100 functions operate on one data structure than to have 10 functions operate on 10 data structure.". I'm not sure what it means, because of the ambiguity - "It is better in Pascal" or "It is better in general"?
+* How do you put more than one call in an if branch? (2.23)
 
 ## Various
 
