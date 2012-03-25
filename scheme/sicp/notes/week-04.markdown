@@ -4,10 +4,13 @@ We are finally starting Chapter 2. It goes into data structures and I'm super ex
 
 ## Questions
 
+* There is a quote in the foreword - "In Pascal the plethora of declarable data structures induces a specialization within functions that inhibits and penalizes casual cooperation. It is better to have 100 functions operate on one data structure than to have 10 functions operate on 10 data structure.". I'm not sure what it means, because of the ambiguity - "It is better in Pascal" or "It is better in general"?
+
 ## Various
 
 * With the rational numbers example, calculating the `gcd` can be done either in construction time (`make-rat`) or in selection time (`numer` and `denom`). This is a good example of the flexibility in data abstraction. I didn't occur to me that doing it in selection time can be faster in some cases.
 * The parts of subtraction are called "minuend", "subtrahend" and "difference". Neat.
+* "The names car and cdr persist because simple combinations like cadr are pronounceable." This even sounds true. Wow.
 
 ## Constructors, selectors and abstraction barriers
 
