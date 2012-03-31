@@ -45,3 +45,13 @@ I'm curious how `pair?` will be implemented in this approach.
 The extended exercise of 2.1.4 shows an interesting insight: you can rarely approch mathematics naïvely. The idea was generally sound in the beginning, but the accumulated error in tolerance quickly makes the code untrustworthy. Furthermore, in order to minimize the error, one has to devise a way of simplifying arithmetic expressions. This is a task, way larger than the original.
 
 Another interesting aspect of the exercise, is that the accumulated error was not immediatelly obvious from the initial design.
+
+## Meetup summary
+
+This time I was in London and we held a brief meeting over Skype. Everybody was in the beginning of the material, except for me and Plamen.
+
+* Plamen seems to enjoy the video lectures. I should check them out.
+* I should show the real-time aspect of how I implement the exercises.
+* Veselin said he will show us the group annotation software next time.
+
+We decided to keep the scope to 2.2.2, although Plamen and I might race a bit forward.
