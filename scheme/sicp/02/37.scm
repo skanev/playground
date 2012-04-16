@@ -47,11 +47,7 @@
 
 (define (matrix-*-matrix m n)
   (let ((cols (transpose n)))
-    (map (lambda (row)
-           (map (lambda (col)
-                  (dot-product row col))
-                cols))
-         m)))
+    (map (lambda (row) (matrix-*-vector cols row)) m)))
 
 
 
