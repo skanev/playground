@@ -2,4 +2,4 @@
 
 ## Notes
 
-* My estimate on 2.43 is 18% off. I should check or ask around.
+* My estimate on 2.43 is a bit off. I should check or ask around.

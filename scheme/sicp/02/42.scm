@@ -64,44 +64,42 @@
             (queen-cols (- k 1))))))
   (queen-cols board-size))
 
+
+
 (define empty-board '())
 
 (define (adjoin-position new-row k rest-of-queens)
   (cons (list new-row k) rest-of-queens))
 
 (define (safe? k positions)
-  (define position (queen-at k positions))
-  (define queen-row (car position))
-  (define queen-column (cadr position))
-  (define other-queens (queens-except k positions))
-  (define (no-other-queen? proc)
-    (no-queen? proc other-queens))
-  (and (no-other-queen? (lambda (row column)
-                          (= row queen-row)))
-       (no-other-queen? (lambda (row column)
-                          (= (+ row column)
-                             (+ queen-row queen-column))))
-       (no-other-queen? (lambda (row column)
-                          (= (- row column)
-                             (- queen-row queen-column))))))
+  (define queen-position (queen-at k positions))
+  (let ((q1r (car queen-position))
+        (q1c (cadr queen-position)))
+    (all?
+      (lambda (position)
+        (let ((q2r (car position))
+              (q2c (cadr position)))
+          (or (and (= q1r q2r)
+                   (= q1c q2c))
+              (and (not (= q1r q2r))
+                   (not (= q1c q2c))
+                   (not (= (+ q1r q1c)
+                           (+ q2r q2c)))
+                   (not (= (- q1r q1c)
+                           (- q2r q2c)))))))
+      positions)))
 
 
-
-(define (no-queen? proc positions)
-  (cond ((null? positions) #t)
-        ((proc (caar positions) (cadar positions)) #f)
-        (else (no-queen? proc (cdr positions)))))
-
-(define (queens-except column positions)
-  (if (= (cadar positions) column)
-      (cdr positions)
-      (cons (car positions)
-            (queens-except column (cdr positions)))))
 
 (define (queen-at column positions)
   (if (= column (cadar positions))
       (car positions)
       (queen-at column (cdr positions))))
+
+(define (all? proc seq)
+  (cond ((null? seq) #t)
+        ((proc (car seq)) (all? proc (cdr seq)))
+        (else #f)))
 
 
 
@@ -112,12 +110,10 @@
           (enumerate-interval (+ a 1) b))))
 
 (define (flatmap proc seq)
-  (accumulate append nil (map proc seq)))
+  (accumulate append '() (map proc seq)))
 
 (define (accumulate op initial sequence)
   (if (null? sequence)
       initial
       (op (car sequence)
           (accumulate op initial (cdr sequence)))))
-
-(define nil '())

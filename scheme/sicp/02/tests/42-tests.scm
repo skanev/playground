@@ -12,6 +12,10 @@
     (check-false (safe? 2 '((3 1) (2 2))))
     (check-false (safe? 2 '((1 1) (2 2))))
 
+    (check-true (all? zero? '(0 0 0)))
+    (check-false (all? zero? '(0 1 0)))
+    (check-true (all? zero? '()))
+
     (check-equal? 92 (length (queens 8)))
 ))
 
