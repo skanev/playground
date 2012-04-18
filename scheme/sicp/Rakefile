@@ -1,82 +1,53 @@
 require 'pathname'
-ROOT = Pathname(File.dirname(__FILE__))
 
 desc 'Scaffolds an exercise solution and its unit test'
 task :exercise, :chapter, :exercise do |task, args|
-  chapter  = args[:chapter].to_i
-  exercise = args[:exercise].to_i
+  exercise = Exercise.new args[:chapter], args[:exercise]
 
-  raise ArgumentError, <<-END if chapter.zero? or exercise.zero?
+  raise ArgumentError, <<-END unless exercise.valid?
 You need to supply chapter and exercise numbers. If you want to generate exercise 2.23:
 
   rake exericse[2,23]
 END
 
-  solution_file = ROOT.join '%02d/%02d.scm' % [chapter, exercise]
-  test_file     = ROOT.join '%02d/tests/%02d-tests.scm' % [chapter, exercise]
-  exercise_name = '%1d.%02d' % [chapter, exercise]
-
-  FileUtils.mkdir_p File.dirname(test_file)
-
-  open(solution_file, 'w') { |f| f.write(<<-END) }
-; SICP exercise #{exercise_name}
-  END
-
-  open(test_file, 'w') { |f| f.write(<<-END) }
-(require rackunit rackunit/text-ui)
-(load "../#{sprintf('%02d', exercise)}.scm")
-
-(define sicp-#{exercise_name}-tests
-  (test-suite
-    "Tests for SICP exercise #{exercise_name}"
-
-))
-
-(run-tests sicp-#{exercise_name}-tests)
-  END
+  exercise.generate_scaffold
 end
 
 desc 'Generates the next exercise'
 task :next do
-  chapter  = Dir.glob('0*').max
-  exercise = '%02d' % Dir.glob("#{chapter}/*.scm").grep(/(\d+)\.scm/) { $1.to_i }.max.succ
+  exercise = Exercise.next
 
-  puts "Generating files for exercise #{chapter}.#{exercise}"
-  Rake::Task['exercise'].execute :chapter => chapter, :exercise => exercise
+  puts "Generating files for exercise #{exercise.name}"
+  exercise.generate_scaffold
 end
 
 namespace :run do
-  desc 'Runs a specific exercise'
+  desc "Runs a specific exercise"
   task :exercise, :chapter, :exercise do |task, args|
-    chapter  = args[:chapter].to_i
-    exercise = args[:exercise].to_i
+    exercise = Exercise.new args[:chapter], args[:exercise]
 
-    raise ArgumentError, <<-END if chapter.zero? or exercise.zero?
+    exercise.run
+  end
+
+  desc 'Runs the test of a specific exercise'
+  task :test, :chapter, :exercise do |task, args|
+    exercise = Exercise.new args[:chapter], args[:exercise]
+
+    raise ArgumentError, <<-END unless exercise.valid?
 You need to supply chapter and exercise numbers. If you want to run exercise 2.23:
 
   rake run:exericse[2,23]
 END
 
-    test_file     = ROOT.join '%02d/tests/%02d-tests.scm' % [chapter, exercise]
-    exercise_name = '%1d.%02d' % [chapter, exercise]
-
-    raise "Test for #{exercise_name} does not exist" unless File.exists? test_file
-
-    FileUtils.cd File.dirname(test_file) do
-      system "racket -r #{test_file}"
-    end
+    raise "Test for #{exercise.name} does not exist" unless exercise.having_a_test?
+    exercise.run_test
   end
 
   desc 'Runs the tests of all exercises'
   task :all do
-    FileUtils.cd ROOT do
-      Dir.glob('0*').sort.each do |chapter|
-        Dir.glob("#{chapter}/tests/*").sort.each do |test_file|
-          test_file =~ %r{(\d)/tests/(\d+)-tests.scm}
-          print "#{test_file}: "
-          Rake::Task['run:exercise'].execute :chapter => $1, :exercise => $2
-        end
-      end
+    Exercise.each_with_a_test do |exercise|
+      print "#{exercise.name}: "
+      exercise.run_test
     end
   end
 end
@@ -84,4 +55,90 @@ end
 desc 'Runs watchr on the tests'
 task :watch do
   exec 'watchr tests.watchr'
+end
+
+
+
+ROOT = Pathname(File.dirname(__FILE__))
+
+class Exercise
+  attr_reader :chapter, :number
+
+  def initialize(chapter, number)
+    @chapter = chapter.to_i
+    @number  = number.to_i
+  end
+
+  def valid?
+    chapter.nonzero? and number.nonzero?
+  end
+
+  def test_file
+    ROOT.join '%02d/tests/%02d-tests.scm' % [chapter, number]
+  end
+
+  def file
+    ROOT.join '%02d/%02d.scm' % [chapter, number]
+  end
+
+  def name
+    "%1d.%02d" % [chapter, number]
+  end
+
+  def having_a_test?
+    test_file.exist?
+  end
+
+  def run
+    system "racket -r #{file}"
+  end
+
+  def run_test
+    FileUtils.cd File.dirname(test_file) do
+      system "racket -r #{test_file}"
+    end
+  end
+
+  def generate_scaffold
+    FileUtils.mkdir_p File.dirname(test_file)
+
+    open(file, 'w') { |f| f.write(<<-END) }
+; SICP exercise #{name}
+  END
+
+    open(test_file, 'w') { |f| f.write(<<-END) }
+(require rackunit rackunit/text-ui)
+(load "../#{sprintf('%02d', number)}.scm")
+
+(define sicp-#{name}-tests
+  (test-suite
+    "Tests for SICP exercise #{name}"
+
+))
+
+(run-tests sicp-#{name}-tests)
+    END
+  end
+
+  class << self
+    def each_with_a_test
+      FileUtils.cd ROOT do
+        Dir.glob('0*').sort.each do |chapter|
+          Dir.glob("#{chapter}/tests/*").sort.each do |test_file|
+            test_file =~ %r{(\d)/tests/(\d+)-tests.scm}
+            yield Exercise.new $1, $2
+          end
+        end
+      end
+    end
+
+    def next
+      FileUtils.cd ROOT do
+        chapter = Dir.glob('0*').max
+        number  = '%02d' % Dir.glob("#{chapter}/*.scm").grep(/(\d+)\.scm/) { $1.to_i }.max.succ
+
+        return Exercise.new chapter, number
+      end
+    end
+  end
 end

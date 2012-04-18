@@ -6,11 +6,11 @@ def run_file(chapter, exercise)
     racket_test chapter, exercise
   else
     system 'clear'
-    system "racket -r #{chapter}/#{exercise}.scm"
+    system "rake run:exercise[#{chapter},#{exercise}]"
   end
 end
 
 def racket_test(chapter, exercise)
   system 'clear'
-  system "rake run:exercise[#{chapter},#{exercise}]"
+  system "rake run:test[#{chapter},#{exercise}]"
 end
