@@ -2,6 +2,11 @@ require 'pathname'
 
 ROOT = Pathname(File.dirname(__FILE__))
 
+def run_racket(file)
+  executable = ENV['RACKET'] || 'racket'
+  system executable, '-r', file
+end
+
 class Exercise
   attr_reader :chapter, :number
 
@@ -31,12 +36,12 @@ class Exercise
   end
 
   def run
-    system "racket -r #{file}"
+    run_racket file
   end
 
   def run_test
     Dir.chdir File.dirname(test_file) do
-      system "racket -r #{test_file}"
+      run_racket test_file
     end
   end
 
