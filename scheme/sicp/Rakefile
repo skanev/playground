@@ -35,7 +35,7 @@ class Exercise
   end
 
   def run_test
-    FileUtils.cd File.dirname(test_file) do
+    Dir.chdir File.dirname(test_file) do
       system "racket -r #{test_file}"
     end
   end
@@ -63,7 +63,7 @@ class Exercise
 
   class << self
     def each_with_a_test
-      FileUtils.cd ROOT do
+      Dir.chdir ROOT do
         Dir.glob('0*').sort.each do |chapter|
           Dir.glob("#{chapter}/tests/*").sort.each do |test_file|
             test_file =~ %r{(\d)/tests/(\d+)-tests.scm}
@@ -74,11 +74,11 @@ class Exercise
     end
 
     def next
-      FileUtils.cd ROOT do
+      Dir.chdir ROOT do
         chapter = Dir.glob('0*').max
         number  = '%02d' % Dir.glob("#{chapter}/*.scm").grep(/(\d+)\.scm/) { $1.to_i }.max.succ
 
-        return Exercise.new chapter, number
+        Exercise.new chapter, number
       end
     end
   end
