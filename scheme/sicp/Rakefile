@@ -1,64 +1,5 @@
 require 'pathname'
 
-desc 'Scaffolds an exercise solution and its unit test'
-task :exercise, :chapter, :exercise do |task, args|
-  exercise = Exercise.new args[:chapter], args[:exercise]
-
-  raise ArgumentError, <<-END unless exercise.valid?
-You need to supply chapter and exercise numbers. If you want to generate exercise 2.23:
-
-  rake exericse[2,23]
-END
-
-  exercise.generate_scaffold
-end
-
-desc 'Generates the next exercise'
-task :next do
-  exercise = Exercise.next
-
-  puts "Generating files for exercise #{exercise.name}"
-  exercise.generate_scaffold
-end
-
-namespace :run do
-  desc "Runs a specific exercise"
-  task :exercise, :chapter, :exercise do |task, args|
-    exercise = Exercise.new args[:chapter], args[:exercise]
-
-    exercise.run
-  end
-
-  desc 'Runs the test of a specific exercise'
-  task :test, :chapter, :exercise do |task, args|
-    exercise = Exercise.new args[:chapter], args[:exercise]
-
-    raise ArgumentError, <<-END unless exercise.valid?
-You need to supply chapter and exercise numbers. If you want to run exercise 2.23:
-
-  rake run:exericse[2,23]
-END
-
-    raise "Test for #{exercise.name} does not exist" unless exercise.having_a_test?
-    exercise.run_test
-  end
-
-  desc 'Runs the tests of all exercises'
-  task :all do
-    Exercise.each_with_a_test do |exercise|
-      print "#{exercise.name}: "
-      exercise.run_test
-    end
-  end
-end
-
-desc 'Runs watchr on the tests'
-task :watch do
-  exec 'watchr tests.watchr'
-end
-
-
-
 ROOT = Pathname(File.dirname(__FILE__))
 
 class Exercise
@@ -141,4 +82,61 @@ class Exercise
       end
     end
   end
+end
+
+desc 'Scaffolds an exercise solution and its unit test'
+task :exercise, :chapter, :exercise do |task, args|
+  exercise = Exercise.new args[:chapter], args[:exercise]
+
+  raise ArgumentError, <<-END unless exercise.valid?
+You need to supply chapter and exercise numbers. If you want to generate exercise 2.23:
+
+  rake exericse[2,23]
+END
+
+  exercise.generate_scaffold
+end
+
+desc 'Generates the next exercise'
+task :next do
+  exercise = Exercise.next
+
+  puts "Generating files for exercise #{exercise.name}"
+  exercise.generate_scaffold
+end
+
+namespace :run do
+  desc "Runs a specific exercise"
+  task :exercise, :chapter, :exercise do |task, args|
+    exercise = Exercise.new args[:chapter], args[:exercise]
+
+    exercise.run
+  end
+
+  desc 'Runs the test of a specific exercise'
+  task :test, :chapter, :exercise do |task, args|
+    exercise = Exercise.new args[:chapter], args[:exercise]
+
+    raise ArgumentError, <<-END unless exercise.valid?
+You need to supply chapter and exercise numbers. If you want to run exercise 2.23:
+
+  rake run:exericse[2,23]
+END
+
+    raise "Test for #{exercise.name} does not exist" unless exercise.having_a_test?
+    exercise.run_test
+  end
+
+  desc 'Runs the tests of all exercises'
+  task :all do
+    Exercise.each_with_a_test do |exercise|
+      print "#{exercise.name}: "
+      exercise.run_test
+    end
+  end
+end
+
+desc 'Runs watchr on the tests'
+task :watch do
+  exec 'watchr tests.watchr'
 end
