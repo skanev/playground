@@ -89,6 +89,38 @@ class Exercise
   end
 end
 
+class Showcase
+  attr_reader :name, :chapter
+
+  def initialize(name, chapter)
+    @name    = name.to_sym
+    @chapter = chapter.to_i
+  end
+
+  def directory
+    ROOT.join "%02d/showcase/%s" % [chapter, name]
+  end
+
+  def run
+    Dir.chdir directory do
+      run_racket 'main.scm'
+    end
+  end
+
+  class << self
+    def all
+      Dir.chdir ROOT do
+        Dir['0*/showcase/*/main.scm'].map do |path|
+          path =~ %r[(\d+)/showcase/(.+)/]
+          new $2, $1
+        end.compact
+      end
+    end
+  end
+end
+
+
+
 desc 'Scaffolds an exercise solution and its unit test'
 task :exercise, :chapter, :exercise do |task, args|
   exercise = Exercise.new args[:chapter], args[:exercise]
@@ -137,6 +169,15 @@ END
     Exercise.each_with_a_test do |exercise|
       print "#{exercise.name}: "
       exercise.run_test
+    end
+  end
+
+  namespace :showcase do
+    Showcase.all.each do |showcase|
+      desc "Run the #{showcase.name} showcase"
+      task showcase.name do
+        showcase.run
+      end
     end
   end
 end
