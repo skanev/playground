@@ -41,3 +41,17 @@ If you want to run all tests do:
 You can also use watchr to do continuous testing. Just run:
 
     rake watch
+
+## Showcases
+
+Some of the chapters require chunks of work that don't fit as exercises. Instead, I need a larger program that can show something meaningful. Occasionally, I will create a "showcase" for those. You can see a list of showcases by running `rake -T`.
+
+The showcases have a specific directory structure, that's pretty easy to grok. Note, that if you want to run a showcase with a different version of Racket, you need to specify the `RACKET` environment variable to point to an executable. For example:
+
+    RACKET=/path/to/racket rake run:showcase:example
+
+### The Picture Language (section 2.2.4)
+
+This is the Escher-like picture library, introduced when talking about data abstraction and robust design. Note, that this might not run with the Racket that you install from Homebrew. It has a bunch of problems with depending on `libcairo` that I don't care to debug. Downloading a pre-compiled distribution from the Racket site is enough.
+
+    RACKET=~/Code/runtime/racket/bin/racket rake run:showcase:picturelang
