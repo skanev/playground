@@ -55,3 +55,9 @@ The showcases have a specific directory structure, that's pretty easy to grok. N
 This is the Escher-like picture library, introduced when talking about data abstraction and robust design. Note, that this might not run with the Racket that you install from Homebrew. It has a bunch of problems with depending on `libcairo` that I don't care to debug. Downloading a pre-compiled distribution from the Racket site is enough.
 
     RACKET=~/Code/runtime/racket/bin/racket rake run:showcase:picturelang
+
+### The metacircular evaluator (section 4.1)
+
+This is the basic metacircular evaluator explored in Chapter 4 for the book. It is very basic and featureless. It is fairly easy to run it, although you should be careful what you are typing in. Run it with:
+
+    rake run:showcase:evaluator
