@@ -4,7 +4,7 @@ ROOT = Pathname(File.dirname(__FILE__))
 
 def run_racket(file)
   executable = ENV['RACKET'] || 'racket'
-  system executable, '-r', file
+  system executable, '-r', file.to_s
 end
 
 class Exercise
