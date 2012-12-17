@@ -70,7 +70,7 @@ class Exercise
     def each_with_a_test
       Dir.chdir ROOT do
         Dir.glob('0*').sort.each do |chapter|
-          Dir.glob("#{chapter}/tests/*").sort.each do |test_file|
+          Dir.glob("#{chapter}/tests/*.scm").sort.each do |test_file|
             test_file =~ %r{(\d)/tests/(\d+)-tests.scm}
             yield Exercise.new $1, $2
           end
