@@ -1,2 +1,0 @@
-* Create a script that generates 01-foo.ss and 01-foo-test.ss along with
-  stub implementations (like script/generate)
