@@ -1,0 +1,8 @@
+source :rubygems
+
+gem 'guard'
+gem 'guard-shell'
+gem 'thor'
+gem 'term-ansicolor'
+gem 'rb-fsevent', require: false
+gem 'rb-inotify', require: false

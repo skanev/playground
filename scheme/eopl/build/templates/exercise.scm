@@ -1,0 +1,1 @@
+; EOPL exercise <%= config[:name] %>

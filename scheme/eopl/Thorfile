@@ -1,0 +1,81 @@
+require './build/exercise'
+require 'term/ansicolor'
+
+class Default < Thor
+  include Thor::Actions
+
+  def self.source_root
+    File.dirname(__FILE__)
+  end
+
+  method_option :chapter, type: :numeric, desc: 'The chapter number'
+  method_option :number, type: :numeric, desc: 'The exercise number'
+  option :skip_test, type: :boolean, desc: 'Skip generating a test case'
+  desc :exercise, 'Generates an exercise and a test'
+  def exercise(chapter, number)
+    exercise = Exercise.new chapter, number
+    config = {
+      name: exercise.name,
+      exercise_require_path: exercise.exercise_require_path
+    }
+
+    template 'build/templates/exercise.scm', exercise.file_path, config
+
+    unless options[:skip_test]
+      template 'build/templates/test.scm', exercise.test_path, config
+    end
+  end
+
+  desc :next, 'Generates the next exercise'
+  option :skip_test, type: :boolean, desc: 'Skip generating a test case'
+  def next
+    exercise = Exercise.next
+
+    invoke :exercise, [exercise.chapter, exercise.number], options
+
+    system "mvim --remote-silent #{exercise.file_path}"
+    system "mvim --remote-tab-silent #{exercise.test_path}" if exercise.has_test?
+
+    exec 'guard'
+  end
+end
+
+class Run < Thor
+  include Term::ANSIColor
+
+  desc :exercise, 'Runs an exercise or its tests'
+  method_option :chapter, type: :numeric, desc: 'The chapter number'
+  method_option :number, type: :numeric, desc: 'The exercise number'
+  def exercise(chapter, number)
+    exercise = Exercise.new chapter, number
+
+    if exercise.has_test?
+      system "racket -r #{exercise.test_path}"
+    else
+      system "racket -r #{exercise.file_path}"
+    end
+  end
+
+  desc :test, 'Runs the tests of an exercise'
+  method_option :chapter, type: :numeric, desc: 'The chapter number'
+  method_option :number, type: :numeric, desc: 'The exercise number'
+  def test(chapter, number)
+    exercise = Exercise.new chapter, number
+
+    system "racket -r #{exercise.test_path}"
+  end
+
+  desc :all, 'Runs all the tests'
+  def all
+    Exercise.each_with_test do |exercise|
+      print bold("#{exercise.name}: ")
+      success = system "racket -r #{exercise.test_path}"
+      unless success
+        puts red("FAILURE AT #{exercise.name}")
+        exit(1) unless success
+      end
+    end
+
+    puts green("OK")
+  end
+end
