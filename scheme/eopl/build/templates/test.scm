@@ -1,5 +1,5 @@
 (require rackunit rackunit/text-ui)
-(require eopl)
+(load-relative "../../support/eopl.scm")
 (load-relative "<%= config[:exercise_require_path] %>")
 
 (define eopl-<%= config[:name] %>-tests
