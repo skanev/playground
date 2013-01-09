@@ -2,13 +2,18 @@ class Exercise
   attr_reader :chapter, :number
 
   def initialize(chapter, number)
-    @chapter = chapter.to_i
+    @chapter = case chapter
+      when Integer then chapter
+      when /^\d+$/ then chapter.to_i
+      when /^B$/ then 'B'
+      else raise "Invalid chapter: #{chapter}"
+    end
     @number  = number.to_i
   end
 
   class << self
     def next
-      current_chapter = chapters.last
+      current_chapter = chapters(false).last
       last_exercise   = exercises_in_chapter(current_chapter).last
       next_exercise   = last_exercise.to_i + 1
 
@@ -32,26 +37,28 @@ class Exercise
 
     private
 
-    def chapters
-      Dir['*'].grep(/^\d+$/).sort
+    def chapters(include_appendices = true)
+      chapters = Dir['*'].grep(/^(\d+|B)$/)
+      chapters -= %w[A B] unless include_appendices
+      chapters.sort
     end
 
     def exercises_in_chapter(chapter)
-      Dir["%02d/*" % chapter].grep(%r{^\d+/(\d+).scm$}) { $1 }.sort
+      Dir["#{chapter}/*"].grep(%r{^(?:\d+|B)/(\d+).scm$}) { $1 }.sort
     end
   end
 
 
   def name
-    "%d.%02d" % [@chapter, @number]
+    "%s.%02d" % [@chapter, @number]
   end
 
   def file_path
-    "%02d/%02d.scm" % [@chapter, @number]
+    "%s/%02d.scm" % [formatted_chapter, @number]
   end
 
   def test_path
-    "%02d/tests/%02d-tests.scm" % [@chapter, @number]
+    "%s/tests/%02d-tests.scm" % [formatted_chapter, @number]
   end
 
   def exercise_require_path
@@ -60,5 +67,14 @@ class Exercise
 
   def has_test?
     File.exist? test_path
+  end
+
+  private
+
+  def formatted_chapter
+    case @chapter
+      when Integer then "%02d" % @chapter
+      else @chapter
+    end
   end
 end

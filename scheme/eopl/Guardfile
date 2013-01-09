@@ -1,6 +1,6 @@
 interactor :off
 
 guard :shell do
-  watch(%r{^(\d+)/(\d+).scm$}) { |m| system "clear && thor run exercise #{m[1]} #{m[2]}" }
-  watch(%r{^(\d+)/tests/(\d+)-tests.scm$}) { |m| system "clear && thor run exercise #{m[1]} #{m[2]}" }
+  watch(%r{^(\d+|B)/(\d+).scm$}) { |m| system "clear && thor run exercise #{m[1]} #{m[2]}" }
+  watch(%r{^(\d+|B)/tests/(\d+)-tests.scm$}) { |m| system "clear && thor run exercise #{m[1]} #{m[2]}" }
 end
