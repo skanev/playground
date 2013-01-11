@@ -3,4 +3,5 @@ interactor :off
 guard :shell do
   watch(%r{^(\d+|B)/(\d+).scm$}) { |m| system "clear && thor run exercise #{m[1]} #{m[2]}" }
   watch(%r{^(\d+|B)/tests/(\d+)-tests.scm$}) { |m| system "clear && thor run exercise #{m[1]} #{m[2]}" }
+  watch(%r{^(\d+)/cases/(\w+)/[^/]+.scm$}) { |m| system "clear && racket -r #{m[1]}/cases/#{m[2]}/tests.scm" }
 end
