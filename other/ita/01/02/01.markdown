@@ -1,0 +1,8 @@
+> Give an example of an application that requires algorithmic content at
+> the application level, and discuss the function of the algorithms
+> involved.
+
+Google Maps when finding a route between two places.
+
+The algorithms are an essential part of this use case, since the route is what
+the user cares for the most.
