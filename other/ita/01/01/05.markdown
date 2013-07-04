@@ -1,0 +1,10 @@
+> Come up with a real-world problem in which only the best solution will do.
+> Then come up with one in which a solution that is "approximately" the best
+> is good enough.
+
+Sorting a catalog is a problem, where only the best solution will do. An
+"approximately" sorted catalog won't be that useful.
+
+Finding the shortest path between two points in a city is a problem, where
+good-enough will do. It might not be the fastest way, but you will still get
+there.
