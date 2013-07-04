@@ -1,0 +1,9 @@
+> How are the shortest-path and traveling-salesman problems given above
+> similar? How are they different?
+
+They are similar, because each of then has to walk a graph and find a path in
+them.
+
+The difference is the constraint on the solution. The shortest-path requires
+just a path between two points, while the traveling salesman requires a path
+between more points that returns to the first point.
