@@ -1,0 +1,38 @@
+<% @catalog.chapters.each do |chapter| %>
+  <h2>Chapter <%= chapter.number %></h2>
+  <table class="table table-condensed table-bordered table-compact">
+    <% max_width = chapter.sections.map(&:exercises).map(&:size).+([chapter.problems.size]).max %>
+    <tbody>
+      <% chapter.sections.each do |section| %>
+        <tr>
+          <th>Section <%= section.number %></th>
+          <% section.exercises.each do |exercise| %>
+            <td>
+              <a href="<%= '%02d/%02d/%02d.html' % exercise.components %>">
+                <%= exercise.name %>
+              </a>
+            </td>
+          <% end %>
+          <% if section.exercises.size < max_width %>
+            <td colspan="<%= max_width - section.exercises.size %>"></td>
+          <% end %>
+        </tr>
+      <% end %>
+      <% unless chapter.problems.empty? %>
+        <tr>
+          <th>Problems</th>
+          <% chapter.problems.each do |problem| %>
+            <td>
+              <a href="<%= '%02d/problems/%02d.html' % problem.components %>">
+                <%= problem.name %>
+              </a>
+            </td>
+          <% end %>
+          <% if chapter.problems.size < max_width %>
+            <td colspan="<%= max_width - chapter.problems.size %>"></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

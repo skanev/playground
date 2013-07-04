@@ -1,0 +1,6 @@
+.table td[align=center],
+.table th[align=center] { text-align: center; }
+.table td[align=right],
+.table th[align=right] { text-align: right; }
+
+.table-compact { width: auto }
