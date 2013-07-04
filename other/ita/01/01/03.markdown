@@ -1,0 +1,14 @@
+> Select a data structure that you have seen previously, and discuss its
+> strengths and limitations.
+
+Let's take the singly-linked list.
+
+Strengths:
+
+* It does not need sequential space in memory
+* We can insert a new element at any place
+
+Limitations:
+
+* Random access is $\mathcal{O}(n)$
+* It takes additional memory for the links
