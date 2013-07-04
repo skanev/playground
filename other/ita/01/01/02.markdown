@@ -1,0 +1,4 @@
+> Other than speed, what other measures of efficiency might one use in a
+> real-world setting?
+
+Memory usage and resource utilization (network, database) are good answers.
