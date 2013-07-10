@@ -10,6 +10,7 @@ require_relative 'lib/exercise'
 require_relative 'lib/problem'
 require_relative 'lib/renderer'
 require_relative 'lib/generator'
+require_relative 'lib/graph'
 
 SOLUTION_ROOT = Pathname(__FILE__).dirname.join('..').expand_path
 VIEWS_ROOT    = Pathname(__FILE__).dirname.join('views/').expand_path

@@ -22,6 +22,13 @@ get '/:chapter/problems/:number.?:format?' do
   Renderer.render_problem problem
 end
 
+get '/:chapter/:section/:number.png' do
+  exercise = Exercise.new params[:chapter], params[:section], params[:number]
+
+  content_type 'image/png'
+  Graph.render exercise.graph_file
+end
+
 get '/:chapter/:section/:number.?:format?' do
   exercise = Exercise.new params[:chapter], params[:section], params[:number]
   Renderer.render_exercise exercise

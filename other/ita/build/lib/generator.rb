@@ -26,6 +26,7 @@ module Generator
       chapter.sections.each do |section|
         section.exercises.each do |exercise|
           generate_exercise exercise
+          generate_graph exercise if exercise.graph?
         end
       end
 
@@ -47,6 +48,11 @@ module Generator
   def generate_problem(problem)
     filename = '%02d/problems/%02d.html' % problem.components
     write_file filename, Renderer.render_problem(problem)
+  end
+
+  def generate_graph(exercise)
+    filename = '%02d/%02d/%02d.png' % exercise.components
+    write_file filename, Graph.render(exercise.graph_file)
   end
 
   def write_file(filename, content)

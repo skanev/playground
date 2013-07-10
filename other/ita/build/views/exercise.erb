@@ -1,2 +1,6 @@
 <h1>Exercise <%= @exercise.name %></h1>
 <%= yield %>
+<% if @exercise.graph? %>
+  <hr />
+  <img src="<%= '%02d/%02d/%02d.png' % @exercise.components %>" />
+<% end %>
