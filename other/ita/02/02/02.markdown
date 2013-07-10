@@ -1,0 +1,56 @@
+> Consider sorting $n$ numbers in an array $A$ by first finding the smallest
+> element of $A$ and exchanging it with the element in $A[1]$. Then find the
+> second smallest element of $A$, and exchange it with $A[2]$. Continue in
+> this manner for the first $n - 1$ elements of $A$. Write pseudocode for this
+> algorithm, which is known as **selection sort**. What loop invariants does
+> this algorithm maintain? Why does it need to run for only the first $n - 1$
+> elements, rather than for all $n$ elements? Give the best-case and the
+> worst-case running times of selection sort in $\Theta$-notation.
+
+## Pseudocode
+
+    SELECTION-SORT(A):
+      for i = 1 to A.length - 1
+          min = i
+          for j = i + 1 to A.length
+              if A[j] < A[min]
+                  min = j
+          temp = A[i]
+          A[i] = A[min]
+          A[min] = temp
+
+## Loop invariants
+
+> At the start of each iteration of the outer **for** loop, the subarray
+> $A[1..i - 1]$ contains the smallest $i - 1$ elements of the array, sorted
+> in nondecreasing order.
+
+And:
+
+> At the start of each iteration of the inner **for** loop, $A[min]$ is the
+> smallest number in the subarray $A[i..j - 1]$.
+
+## Why $n - 1$ elements?
+
+In the final step, the algorithm will be left with two elements to compare. It
+will store the smaller one in $A[n-1]$ and leave the larger in $A[n]$. The
+final one will be the largest element of the array, since all the previous
+iteration would have sorted all but the last two elements (the outer loop
+invariant). If we do it $n$ times, we will end up with a redundant step that
+sorts a single-element subarray.
+
+## Running times
+
+In the best-case time (the array is sorted), the body of the if is never
+invoked. The number of operations (counting the comparison as one operation)
+is:
+
+$$ (n - 1)(\frac{n + 2}{2} + 4) $$
+
+In the worst-case time (the array is reversed), the body of the if is invoked
+on every occasion, which doubles the number of steps in the inner loop, that
+is:
+
+$$ (n - 1)(n + 6) $$
+
+Both are clearly $\Theta(n)$.
