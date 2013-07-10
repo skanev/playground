@@ -1,0 +1,6 @@
+require_relative 'build/build'
+
+desc 'Build all the static files'
+task :build do
+  Generator.generate
+end
