@@ -47,7 +47,7 @@ module Renderer
   end
 
   def markdown
-    @markdown ||= Redcarpet::Markdown.new Markdown, tables: true
+    @markdown ||= Redcarpet::Markdown.new Markdown, tables: true, no_intra_emphasis: true
   end
 
   class Markdown < Redcarpet::Render::HTML
