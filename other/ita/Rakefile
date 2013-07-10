@@ -4,3 +4,8 @@ desc 'Build all the static files'
 task :build do
   Generator.generate
 end
+
+desc 'Copies all the files to ita.skanev.com'
+task :deploy => :build do
+  system 'scp -r target/compiled/* ita.skanev.com:~/www'
+end
