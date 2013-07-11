@@ -4,3 +4,7 @@
   <hr />
   <img src="<%= '%02d/%02d/%02d.png' % @exercise.components %>" />
 <% end %>
+<% if @exercise.code? %>
+  <hr />
+  <%= CodeRay.scan(File.read(SOLUTION_ROOT.join(@exercise.code_file)), :c).div %>
+<% end %>

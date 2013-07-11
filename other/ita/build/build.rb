@@ -4,6 +4,7 @@ require 'fileutils'
 require 'tilt'
 require 'redcarpet'
 require 'nokogiri'
+require 'coderay'
 
 require_relative 'lib/catalog'
 require_relative 'lib/exercise'

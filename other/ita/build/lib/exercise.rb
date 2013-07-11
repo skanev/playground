@@ -13,6 +13,10 @@ class Exercise
     @tested ||= SOLUTION_ROOT.join(test_file).exist?
   end
 
+  def code?
+    @code ||= SOLUTION_ROOT.join(code_file).exist?
+  end
+
   def components
     [@chapter, @section, @number]
   end
@@ -27,6 +31,10 @@ class Exercise
 
   def graph_file
     '%02d/%02d/%02d.dot' % components
+  end
+
+  def code_file
+    '%02d/%02d/%02d.c' % components
   end
 
   def test_file
