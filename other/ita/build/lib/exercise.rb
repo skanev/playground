@@ -9,6 +9,10 @@ class Exercise
     @graph ||= SOLUTION_ROOT.join(graph_file).exist?
   end
 
+  def tested?
+    @tested ||= SOLUTION_ROOT.join(test_file).exist?
+  end
+
   def components
     [@chapter, @section, @number]
   end
@@ -23,5 +27,19 @@ class Exercise
 
   def graph_file
     '%02d/%02d/%02d.dot' % components
+  end
+
+  def test_file
+    '%02d/%02d/%02d.test.c' % components
+  end
+
+  def test_target_file
+    'target/bin/%02d/%02d/%02d' % components
+  end
+
+  def run_test
+    raise "Exercise #{self} does not have tests" unless tested?
+
+    Runtimes::C.compile_and_run_test test_file, test_target_file
   end
 end

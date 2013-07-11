@@ -5,7 +5,21 @@ task :build do
   Generator.generate
 end
 
+desc 'Clean all the compiled things'
+task :clean do
+  Pathname(__FILE__).dirname.join('target/compiled').rmtree
+  Pathname(__FILE__).dirname.join('target/bin').rmtree
+end
+
 desc 'Copies all the files to ita.skanev.com'
 task :deploy => :build do
   system 'scp -r target/compiled/* ita.skanev.com:~/www'
+end
+
+namespace :run do
+  desc 'Run a test for an exercise'
+  task :exercise, :chapter, :section, :number do |t, args|
+    exercise = Exercise.new args[:chapter], args[:section], args[:number]
+    exercise.run_test
+  end
 end
