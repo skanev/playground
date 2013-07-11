@@ -1,0 +1,5 @@
+> How can we modify almost any algorithm to have a good best-case running time?
+
+We can modify it to handle the best-case efficiently. For example, if we
+modify merge-sort to check if the array is sorted and just return it, the
+best-case running time will be $\Theta(n)$.
