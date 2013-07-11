@@ -1,0 +1,38 @@
+> Use mathematical induction to show that when $n$ is an exact power of 2, the
+> solution of the recurrence
+>
+> $$ T(n) = \begin{cases}
+>      2           & \text{if } n = 2, \\\\
+>      2T(n/2) + n & \text{if } n = 2^k, \text{for } k > 1.
+>    \end{cases} $$
+>
+> is $T(n) = n\lg{n}$
+
+Boy, this is going to be a lot of $\LaTeX$.
+
+First, let's establish a function on which we're going to perform induction:
+
+$$ F(k) = T(2^k) $$
+
+We want to prove that:
+
+$$ F(k) = 2^k \lg{2^k} $$
+
+**Base.** It is simple enough:
+
+$$ F(1) = T(2) = 2 = 2\lg2 = 2^1\lg{2^1} $$
+
+**Step.** We assume that:
+
+$$ F(k) = 2^k \lg{2^k} $$
+
+We prove it for $k + 1$:
+
+$$ \begin{align}
+   F(k + 1) & = T(2^{k+1})= 2T(\frac{2^{k+1}}{2}) + 2^{k+1} = \\\\
+            & = 2T(2^k) + 2^{k+1} = 2 \cdot 2^k \lg{2^k} + 2^{k+1} = \\\\
+            & = 2^{k+1}(\lg{2^k} + 1) = 2^{k+1}(\lg{2^k} + \lg2) = \\\\
+            & = 2^{k+1}\lg{2^{k+1}}
+   \end{align} $$
+
+□
