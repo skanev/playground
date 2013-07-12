@@ -1,0 +1,31 @@
+> Referring back to the searching problem (see Exercise 2.1-3), observe that
+> if the sequence A is sorted, we can check the midpoint of the sequence
+> against $\nu$ and eliminate half of the sequence from further consideration.
+> The **binary search** algorithm repeats this procedure, halving the size of
+> the remaining portion of the sequence each time. Write pseudocode, either
+> iterative or recursive, for binary search. Argue that the worst-case running
+> time of binary search is $\Theta(\lg{n})$.
+
+Here's the presudocode:
+
+    BINARY-SEARCH(A, v):
+      low = 1
+      high = A.length
+
+      while low <= high
+          mid = (low + high) / 2
+          if A[mid] == v
+              return mid
+          if A[mid] < v
+              low = mid + 1
+          else
+              high = mid - 1
+
+      return NIL
+
+The argument is fairly straightforward and I will make it brief:
+
+$$ T(n+1) = T(n/2) + c $$
+
+This is the recurrence shown in the chapter text, and we know, that this is
+logarithmic time.
