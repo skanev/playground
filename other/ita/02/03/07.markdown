@@ -1,0 +1,24 @@
+> ★ Describe a $\Theta(n\lg{n})$-time algorithm that, given a set $S$ of $n$
+> integers and another integer $x$, determines whether or not there exists two
+> elements of $S$ whose sum is exactly $x$.
+
+First we sort $S$. Afterwards, we iterate it and for each element $i$ we
+perform a binary search to see if there is an element equal to $x - i$. If one
+is found, the algorithm returns true. Otherwise, it returns false.
+
+We iterate $n$ elements and perform binary search for each on in an $n$-sized
+array, which leads to $\Theta(n\lg{n})$-time. If we sort first (with merge
+sort) it will introduce another $\Theta(n\lg{n})$ time, that would change the
+constant in the final algorithm, but not the asymptotic time.
+
+Here's the pseudocode:
+
+    PAIR-EXISTS(S, x):
+      A = MERGE-SORT(S)
+
+      for i = 1 to S.length
+          if BINARY-SEARCH(A, x - S[i]) != NIL
+              return true
+
+      return false
+
