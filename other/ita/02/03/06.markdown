@@ -1,0 +1,10 @@
+> Observe that the while loop line 5-7 of the *INSERTION-SORT* procedure in
+> Section 2.1 uses a linear search to scan (backward) through the sorted
+> subarray $A[i..j-1]$. Can we use a binary search (see Exercise 2.3-5)
+> instead to improve the overall worst-case running time of insertion sort to
+> $\Theta(n\lg{n})$?
+
+No. Even if it finds the position in logarithmic time, it still needs to shift
+all elements after it to the right, which is linear in the worst case. It will
+perform the same number of swaps, although it would reduce the number of
+comparisons.
