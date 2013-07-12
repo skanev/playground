@@ -108,6 +108,22 @@ report_failure:
   abort_test();
 }
 
+#define ASSERT_EQUALS(a, b) \
+  test_last_assert_file = __FILE__; \
+  test_last_assert_line = __LINE__; \
+  assert_equals(a, b)
+
+void assert_equals(int a, int b) {
+  if (a != b) {
+    test_report_assertion_error("assert_equals");
+    fprintf(stderr, "    expected %d\n", a);
+    fprintf(stderr, "    to equal %d\n", b);
+    fprintf(stderr, "\n");
+    abort_test();
+  }
+}
+
+
 /*
  * Defining tests
  */
