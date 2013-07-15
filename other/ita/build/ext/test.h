@@ -2,8 +2,6 @@
 #include <setjmp.h>
 #include "debug_helpers.h"
 
-#define TEST_CASE
-
 /*
  * A small testing library I'm writing for the Introduction to Algorithms
  * study group. It will probably be expanded as we go.
@@ -123,12 +121,11 @@ void assert_equals(int a, int b) {
   }
 }
 
-
 /*
  * Defining tests
  */
 
 #define TEST(NAME) \
   void NAME##_test_code(); \
-  void TEST_CASE run_##NAME() { run_test(#NAME, &NAME##_test_code); } \
+  void run_##NAME() { run_test(#NAME, &NAME##_test_code); } \
   void NAME##_test_code()
