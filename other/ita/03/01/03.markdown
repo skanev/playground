@@ -1,0 +1,4 @@
+> Explain why the statement, "The running time of algorithm $A$ is at least
+> $O(n^2)$ is meaningless.
+
+The $O$-notation provides an upper bound. "At least" implies a lower bound.
