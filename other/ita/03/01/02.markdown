@@ -1,0 +1,10 @@
+> Show that for any real constants $a$ and $b$, where $b > 0$,
+>
+> $$(n + a)^b = \Theta(n^b)$$
+
+Quite simply:
+
+$$(n + a)^b = \binom{n}0n^b + \binom{n}1n^{b-1}b + \cdots + \binom{n}0a^b$$
+
+The most significant term is $n^b$ and this is obviously polynomially tightly
+bound.
