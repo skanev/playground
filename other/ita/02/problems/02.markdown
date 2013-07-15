@@ -1,0 +1,91 @@
+## Correctness of bubblesort
+
+> Bubblesort is popular, but inefficient, sorting algorithm. It works by
+> repeatedly swapping adjancent elements that are out of order.
+>
+>     BUBBLESORT(A)
+>       for i to A.length - 1
+>           for j = A.length downto i + 1
+>               if A[j] < A[j - 1]
+>                   exchange A[j] with A[j - 1]
+>
+> 1. Let $A'$ denote the output of *BUBBLESORT(A)*. To prove that *BUBBLESORT*
+>    is correct, we need to prove that it terminates and that
+>
+>    $$ A'[1] \leq A'[2] \leq \cdots \leq A'[n] \tag{2.3}$$
+>
+>    where $n = A.length$. In order to show that *BUBBLESORT* actually sorts,
+>    what else do we need to prove?
+>
+> 2. State precisely a loop invariant for the **for** loop in lines 2-4, and
+>    prove that this loop invariant holds. Your proof should use the structure
+>    of the loop invariant proof presented in this chapter.
+>
+> 3. Using the termination condition of the loop invariant proved in part (2),
+>    state a loop invariant for the **for** loop in lines 1-4 that will allow
+>    you to prove inequality (2.3). Your proof should use the structure of the
+>    loop invariant proof presented in this chapter.
+>
+> 4. What is the worst-case running time of bubblesort? How does it compare to
+>    the running time of insertion sort?
+
+### 1. What else?
+
+We need to prove that $A'$ consists of the original elements in $A$, although
+in (possibly) different order.
+
+### 2. Inner loop invariant
+
+> At the start of each iteration of the **for** loop of lines 2-4, (1) the
+> subarray $A[j...]$ consists of elements that were in $A[j...]$ before
+> entering the inner loop (possibly) in different order and (2) $A[j]$ is the
+> smallest of those elements.
+
+**Initialization:** It holds trivially, because $A[j...]$ consists of only
+one element and it is the last element of $A$ when execution starts the inner
+loop.
+
+**Maintenance:** On each step, we replace $A[j]$ with $A[j - 1]$ if it is
+smaller. Because we're only adding the previous element and possibly swapping
+two values (1) holds. Since $A[j-1]$ becomes the smallest of $A[j]$ and
+$A[j-1]$ and the loop invariant states that $A[j]$ is the smallest one in
+$A[j...]$, we know that (2) holds.
+
+**Termination:** After the loop terminates, we will get $j = i$. This implies
+that $A[i]$ is the smallest element of the subarray $A[i...]$ and array
+contains the original elements in some order.
+
+### 3. Outer loop invariant
+
+> At the start of each iteration, $A[1..i-1]$ consists of sorted elements, all
+> of which are smaller or equal to the ones in $A[i...]$.
+
+**Initialization:** Initially we have the empty array, which holds trivially.
+
+**Maintenance:** The invariant of the inner loop tells us that on each
+iteration, $A[i]$ becomes the smallest element of $A[i...]$ while the rest get
+shuffled. This impliest that at the end of the loop:
+
+$$ A[i] < A[k] \text{, for } i < k $$
+
+**Termination:** The loop terminates with $i = n$, where $n$ is the length of
+the array. Substituting the $n$ for $i$ in the invariant, we have that the
+subarray $A[1..n]$ consists of the original elements, but in sorted order.
+This is the entire array, so the entire array is sorted.
+
+### 4. Worst-case running time?
+
+The number of comparisons is
+
+$$ n - 1, n - 2, \cdots , 1 = \frac{n(n - 1)}{2} $$
+
+Which is a quadratic function. The swaps are at most the same ammount, which
+means that the worst-case complexity is $\Theta(n^2)$.
+
+Insertion sort has the same worst-case complexity. In general, the best-case
+complexity of both algorithms should be $\Theta(n)$, but this implementation
+of bubble-sort has $\Theta(n^2)$ best-case complexity. That can be fixed by
+returning if no swaps happened in an iteration of the outer loop.
+
+Furthermore, bubble-sort should be even slower than insertion sort, because
+the swaps imply a lot more assignments than what insertion sort does.
