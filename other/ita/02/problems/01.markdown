@@ -1,0 +1,101 @@
+## Insertion sort on small arrays in merge sort
+
+> Although merge sort runs in $\Theta(\lg{n})$ worst-case time and insertion
+> sort runs in $\Theta(n^2)$ worst-case time, the constant factors in
+> insertion sort can make it faster in practice for small problem sizes on
+> many machines. Thus, it makes sense to **coarsen** the leaves of the
+> recursion by using insertion sort within merge sort when subproblems become
+> sufficiently small. Consider a modification to merge sort in which $n/k$
+> sublists of length $k$ are sorted using insertion sort and then merged using
+> the standard merging mechanism, where $k$ is a value to be determined.
+>
+> 1. Show that insertion sort can sort the $n/k$ sublists, each of length $k$,
+>    in $\Theta(nk)$ worst-case time.
+> 2. Show how to merge the sublists in $\Theta(n\lg(n/k))$ worst-case time.
+> 3. Given that the modified algorithm runs in $\Theta(nk + n\lg(n/k))$
+>    worst-case time, what is the largest value of $k$ as a function of $n$
+>    for which the modified algorithm has the same running time as standard
+>    merge sort, in terms of $\Theta$-notation?
+> 4. How should we choose $k$ in practice?
+
+### 1. Sorting sublists
+
+This is simple enough. We know that sorting each list takes $ak^2 + bk + c$
+for some constants $a$, $b$ and $c$. We have $n/k$ of those, thus:
+
+$$ \frac{n}{k}(ak^2 + bk + c) = ank + bn + \frac{cn}{k} = \Theta(nk) $$
+
+### 2. Merging sublists
+
+This is a bit trickier. Sorting $a$ sublists of length $k$ each takes:
+
+$$ T(a) = \begin{cases}
+     0            & \text{if } a = 1, \\\\
+     2T(a/2) + ak & \text{if } a = 2^p, \text{if } p > 0.
+  \end{cases} $$
+
+This makes sense, since merging one sublist is trivial and merging $a$
+sublists means splitting dividing them in two groups of $a/2$ lists, merging
+each group recursively and then combining the results in $ak$ steps, since
+have two arrays, each of length $\frac{a}{2}k$.
+
+I don't know the master theorem yet, but it seems to me that the recurrence is
+actually $ak\lg{a}$. Let's try to prove this via induction:
+
+**Base**. Simple as ever:
+
+$$ T(1) = 1k\lg1 = k \cdot 0 = 0 $$
+
+**Step**. We assume that $T(a) = ak\lg{a}$ and we calculate $T(2a)$:
+
+$$ \begin{align}
+     T(2a) &= 2T(a) + 2ak = 2(T(a) + ak) = 2(ak\lg{a} + ak) = \\\\
+           &= 2ak(\lg{a} + 1) = 2ak(\lg{a} + \lg{2}) = 2ak\lg(2a)
+   \end{align} $$
+
+This proves it. Now if we substitue the number of sublists $n/k$ for $a$:
+
+$$ T(n/k) = \frac{n}{k}k\lg{\frac{n}{k}} = n\lg(n/k) $$
+
+While this is exact only when $n/k$ is a power of 2, it tells us that the
+overall time complexity of the merge is $\Theta(n\lg(n/k))$.
+
+### 3. The largest value of k
+
+The largest value is $k = \lg{n}$. If we substitute, we get:
+
+$$ \Theta(n\lg{n} + n\lg{\frac{n}{\lg{n}}}) = \Theta(n\lg{n}) $$
+
+If $k = f(n) > \lg{n}$, the complexity will be $\Theta(nf(n))$, which is
+larger running time than merge sort.
+
+### 4. The value of k in practice
+
+It's constant factors, so we just figure out when insertion sort beats merge
+sort, exactly as we did in exercise 1.2.2, and pick that number for $k$.
+
+### Runtime comparison
+
+I'm implemented this in C and in Python. I added selection for completeness
+sake in the C version. I ran two variants, depending on whether `merge()`
+allocates its arrays on the stack or on the heap (stack won't work for huge
+arrays). Here are the results:
+
+    STACK ALLOCATION
+    ================
+    merge-sort      = 0.173352
+    mixed-insertion = 0.150485
+    mixed-selection = 0.165806
+
+    HEAP ALLOCATION
+    ===============
+    merge-sort      = 1.731111
+    mixed-insertion = 0.903480
+    mixed-selection = 1.017437
+
+Here's the results I got from Python:
+
+    merge-sort = 2.6207s
+    mixed-sort = 1.4959s
+
+I can safely conclude that this approach is faster.
