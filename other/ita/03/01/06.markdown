@@ -1,0 +1,17 @@
+> Prove that the running time of an algorithm is $\Theta(g(n))$ if and only if
+> its worst-case running time is $O(g(n))$ and its best-case running time is
+> $\Omega(g(n))$.
+
+If $T_w$ is the worst-case running time and $T_b$ is the best-case running
+time, we know that:
+
+$$ 0 \leq c_1g(n) \leq T_b(n) \quad \text{for } n > n_b \\\\
+   0 \leq T_w(n) \leq c_2g(n) \quad \text{for } n > n_w $$
+
+Combining them we get:
+
+$$ 0 \leq c_1g(n) \leq T_b(n) \leq T_w(n) \leq c_2g(n)
+   \quad \text{for } n > \max(n_b, n_w) $$
+
+Since the running time is bound between $T_b$ and $T_w$ and the above is the
+definition of the $\Theta$-notation, we have our proof.
