@@ -1,0 +1,25 @@
+> Let $f(n)$ + $g(n)$ be asymptotically nonnegative functions. Using the basic
+> definition of $\Theta$-notation, prove that $\max(f(n), g(n)) = \Theta(f(n) + g(n))$.
+
+From "asymptotically nonnegative", we can assume that
+
+$$\begin{align}
+    \exists n_1, n_2: & f(n) \geq 0 & \text{for } n > n_1 \\\\
+                      & g(n) \geq 0 & \text{for } n > n_2
+   \end{align}$$
+
+Let $n_0 = max(n_1, n_2)$. Some obvious things for $n > n_0$:
+
+$$
+   f(n) \leq \max(f(n), g(n)) \\\\
+   g(n) \leq \max(f(n), g(n)) \\\\
+   \big(f(n) + g(n)\big)/2 \leq \max(f(n), g(n)) \\\\
+   \max(f(n), g(n)) \leq f(n) + g(n)
+$$
+
+From the last two inequalities, we get:
+
+$$ 0 \leq \frac{1}{2}\big(f(n) + g(n)\big) \leq \min\big(f(n), g(n)\big)
+     \leq f(n) + g(n) \quad \text{for } n > n_0 $$
+
+Which is the definition of $\Theta(f(n) + g(n))$ with $c_1 = 1/2, c_2 = 1$.
