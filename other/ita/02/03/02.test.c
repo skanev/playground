@@ -27,3 +27,12 @@ TEST(exercise_example) {
 
   ASSERT_SAME_ARRAYS(actual, expected);
 }
+
+TEST(reversed_merge) {
+  int actual[]   = {5, 6, 7, 8, 9, 0, 1, 2, 3, 4},
+      expected[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+  merge_sort(actual, 0, 9);
+
+  ASSERT_SAME_ARRAYS(actual, expected);
+}

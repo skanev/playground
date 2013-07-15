@@ -1,3 +1,4 @@
+#include <stdio.h>
 void merge(int A[], int p, int q, int r) {
   int i, j, k;
 
@@ -16,7 +17,7 @@ void merge(int A[], int p, int q, int r) {
     if (i == n1) {
       A[k] = R[j++];
     } else if (j == n2) {
-      A[k] = L[i];
+      A[k] = L[i++];
     } else if (L[i] <= R[j]) {
       A[k] = L[i++];
     } else {
