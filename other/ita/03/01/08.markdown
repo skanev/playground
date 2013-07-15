@@ -1,0 +1,28 @@
+> We can extend our notation to the case of two parameters $n$ and $m$ that
+> can go to infinity independently at different rates. For a given function
+> $g(n, m)$ we denote $O(g(n, m))$ the set of functions:
+>
+> $$ \begin{align}
+>      O(g(n, m) = \lbrace f(n, m):
+>        &\text{there exist positive constants } c, n_0, \text{ and } m_0 \\\\
+>        &\text{such that } 0 \leq f(n, m) \leq cg(n, m) \\\\
+>        &\text{for all } n \geq n_0 \text{ or } m \geq m_0.
+>    \end{align} $$
+>
+> Give corresponding definitions for $\Omega(g(n, m))$ and $\Theta(g(n, m))$.
+
+In the University of Sofia, we woud have writen that tersely.
+
+$$ \begin{align}
+     \Omega(g(n, m) = \lbrace f(n, m):
+       &\text{there exist positive constants } c, n_0, \text{ and } m_0 \\\\
+       &\text{such that } 0 \leq cg(n, m) \leq f(n, m) \\\\
+       &\text{for all } n \geq n_0 \text{ or } m \geq m_0.
+   \end{align} $$
+
+$$ \begin{align}
+     \Theta(g(n, m) = \lbrace f(n, m):
+       &\text{there exist positive constants } c_1, c_2, n_0, \text{ and } m_0 \\\\
+       &\text{such that } 0 \leq c_1g(n, m) \leq f(n, m) \leq c_2g(n, m) \\\\
+       &\text{for all } n \geq n_0 \text{ or } m \geq m_0.
+   \end{align} $$
