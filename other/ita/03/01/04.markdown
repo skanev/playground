@@ -1,0 +1,6 @@
+> Is $2^{n+1} = O(2^n)$? Is $2^{2n} = O(2^n)$?
+
+Yes, because if we choose $2$ for both constants in the $O$-notation
+definition, we get an equality.
+
+No, because $\nexists c: 2^n \cdot 2^n \leq c 2^n$.
