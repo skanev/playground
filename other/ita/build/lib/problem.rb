@@ -1,4 +1,6 @@
 class Problem
+  include Solution
+
   def initialize(chapter, number)
     @chapter = chapter.to_i
     @number  = number.to_i
@@ -12,8 +14,11 @@ class Problem
     "#@chapter.#@number"
   end
 
-  def markdown_file
-    '%02d/problems/%02d.markdown' % components
+  def title
+    "Problem #{name}"
+  end
+
+  def location
+    '%02d/problems/%02d' % components
   end
 end
-

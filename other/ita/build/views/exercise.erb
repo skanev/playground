@@ -4,7 +4,8 @@
   <hr />
   <img src="<%= '%02d/%02d/%02d.png' % @exercise.components %>" />
 <% end %>
-<% if @exercise.code? %>
+<% @exercise.languages.each do |language| %>
   <hr />
-  <%= CodeRay.scan(File.read(SOLUTION_ROOT.join(@exercise.code_file)), :c).div %>
+  <h3><%= language.to_s.capitalize %> code</h3>
+  <%= Renderer.render_code @exercise.code_path(language), language %>
 <% end %>

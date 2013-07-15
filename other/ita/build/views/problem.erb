@@ -1,2 +1,16 @@
 <h1>Problem <%= @problem.name %></h1>
 <%= yield %>
+<% if @problem.graph? %>
+  <hr />
+  <img src="<%= "#{@problem.location}.png" %>" />
+<% end %>
+<% @problem.run_languages.each do |language| %>
+  <hr />
+  <h3><%= language.to_s.capitalize %> runner output</h3>
+  <pre><%= @problem.run_and_capture_output(language) %></pre>
+<% end %>
+<% @problem.languages.each do |language| %>
+  <hr />
+  <h3><%= language.to_s.capitalize %> code</h3>
+  <%= Renderer.render_code @problem.code_path(language), language %>
+<% end %>

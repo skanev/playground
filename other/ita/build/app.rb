@@ -26,7 +26,7 @@ get '/:chapter/:section/:number.png' do
   exercise = Exercise.new params[:chapter], params[:section], params[:number]
 
   content_type 'image/png'
-  Graph.render exercise.graph_file
+  Graph.render exercise.graph_path
 end
 
 get '/:chapter/:section/:number.?:format?' do

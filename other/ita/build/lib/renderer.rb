@@ -10,7 +10,7 @@ module Renderer
   end
 
   def render_exercise(exercise)
-    exercise_markdown = File.read SOLUTION_ROOT.join(exercise.markdown_file)
+    exercise_markdown = File.read exercise.markdown_path
     context           = make_context exercise: exercise, base: '../../'
 
     render_view 'layout', context do
@@ -21,7 +21,7 @@ module Renderer
   end
 
   def render_problem(problem)
-    problem_markdown = File.read SOLUTION_ROOT.join(problem.markdown_file)
+    problem_markdown = File.read problem.markdown_path
     context          = make_context problem: problem, base: '../../'
 
     render_view 'layout', context do
@@ -29,6 +29,11 @@ module Renderer
         markdown.render problem_markdown
       end
     end
+  end
+
+  def render_code(path, language)
+    code = File.read path
+    CodeRay.scan(code, language).div
   end
 
   private
@@ -56,7 +61,7 @@ module Renderer
       doc.search('table').each do |node|
         node[:class] = 'table table-bordered table-striped table-compact'
       end
-      doc.to_s
+      doc.search('body').first.inner_html
     end
   end
 end

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Trying out something</title>
+    <title><%= @exercise && @exercise.title || @problem && @problem.title || 'Introduction to Algorithms study group' %> </title>
     <meta charset="utf-8">
     <% if @base %>
       <base href="<%= @base %>">

@@ -52,7 +52,7 @@ module Generator
 
   def generate_graph(exercise)
     filename = '%02d/%02d/%02d.png' % exercise.components
-    write_file filename, Graph.render(exercise.graph_file)
+    write_file filename, Graph.render(exercise.graph_path)
   end
 
   def write_file(filename, content)
