@@ -1,0 +1,9 @@
+> Prove equation (3.16)
+>
+> $$ a^{\log_bc} = c^{\log_ba} $$
+
+
+$$ \begin{align}
+   a^{\log_bc} = a^{\frac{\log_ac}{\log_ab}} = \big(a^{\log_ac})^\frac{1}{\log_ab}
+   = c^{\log_ba}
+   \end{align} $$
