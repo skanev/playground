@@ -1,0 +1,20 @@
+> Proove by induction that the $i$th Fibonacci number satisfies the equality
+>
+> $$ F_i = \frac{\phi^i - \hat{\phi^i}}{\sqrt5} $$
+
+I've done this [earlier in plain text](https://github.com/skanev/playground/blob/master/scheme/sicp/01/13.scm). Let's do it properly, in $LaTeX$.
+
+**Base**:
+
+$$ \frac{\phi^0 - \hat{\phi^0}}{\sqrt{5}} = \frac{1 - 1}{\sqrt{5}} = 0 = F_0 $$
+
+$$ \frac{\phi - \hat{\phi}}{\sqrt{5}} = \frac{1 + \sqrt{5} - 1 + \sqrt{5}}{2\sqrt{5}} = 1 = F_1 $$
+
+**Step**:
+
+$$ F_{n + 2} = F_{n + 1} + F_n
+   = \frac{\phi^{n+1} - \hat\phi^{n+1}}{\sqrt{5}} + \frac{\phi^n - \hat{\phi^n}}{\sqrt{5}}
+   = \frac{\phi^n(\phi + 1) - \hat{\phi^n}(\hat\phi + 1)}{\sqrt{5}}
+   = \frac{\phi^n\phi^2 - \hat{\phi^n}\hat{\phi^2}}{\sqrt{5}}
+   = \frac{\phi^{n+2} + \hat\phi^{n+2}}{\sqrt{5}}
+$$
