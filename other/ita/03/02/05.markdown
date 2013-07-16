@@ -1,0 +1,5 @@
+> $\star$ Which is asymptotically larger: $\lg(\lg^*n)$ or $\lg^*(\lg{n})$.
+
+The second, because:
+
+$$ \lg^*(\lg{n}) = \lg^*n - 1 > \lg(\lg^*(n)) $$
