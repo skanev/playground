@@ -1,0 +1,26 @@
+> Show that if $f(n)$ and $g(n)$ are monotonically increasing functions, then
+> so are the functions $f(n) + g(n)$ and $f(g(n))$, and if $f(n)$ and $g(n)$
+> are in addition nonnegative, then $f(n) \cdot g(n)$ is monotonically
+> increasing.
+
+So:
+
+$$ f(m) \leq f(n) \quad \text{for } m \leq n \\\\
+   g(m) \leq f(n) \quad \text{for } m \leq n \\\\ $$
+
+When we combine them, we get:
+
+$$ f(m) + g(m) \leq f(n) + g(n) $$
+
+Which proves the first function.
+
+Then:
+
+$$ f(g(m)) \leq f(g(n)) \quad \text{for } m \leq n $$
+
+This is true, since $g(m) > g(n)$ and $f(n)$ is monotonically increasing.
+
+If both functions are nonnegative, then we can multiply the two inequalities
+and we get:
+
+$$ f(m) \cdot g(m) \leq f(n) \cdot g(n) $$
