@@ -1,0 +1,14 @@
+> Show that $k\ln{k} = \Theta(n)$ implies $k = \Theta(n/\ln{n})$.
+
+From the symmetry of $\Theta$:
+
+$$ k\ln{k} = \Theta(n) \Rightarrow n = \Theta(k\ln{k}) $$
+
+Lets find $\ln{n}$:
+
+$$ \ln{n} = \Theta(\ln(k\ln{k})) = \Theta(\ln{k} + \ln\ln{k}) = \Theta(\ln{k})$$
+
+Let's divide the two:
+
+$$ \frac{n}{\ln{n}} = \frac{\Theta(k\ln{k})}{\Theta(\ln{k})}
+   = \Theta{\frac{k\ln{k}}{\ln{k}}} = \Theta(k) $$
