@@ -1,0 +1,61 @@
+## Ordering by asymptotic growth rates
+
+> 1. Rank the following functions by order of growth; that is, find an
+>    arrangement $g_1, g_2, \ldots , g_{30}$ of the functions $g_1 =
+>    \Omega(g_2), g_2 = \Omega(g_3), \ldots, g_{29} = \Omega(g_{30}) $.
+>    Partition your list into equivalence classes such that functions $f(n)$
+>    and $g(n)$ are in the same class if and only if $f(n) = \Theta(g(n))$.
+>
+>    |                   |                      |                       |                 |            |                 |
+>    |:-----------------:|:--------------------:|:---------------------:|:---------------:|:----------:|:---------------:|
+>    | $\lg(\lg^*n)$     | $2^{\lg^*n}$         | $(\sqrt{2})^{\lg{n}}$ | $n^2$           | $n!$       | $(\lg{n})!$     |
+>    | $(\frac{3}{2})^n$ | $n^3$                | $\lg^2{n}$            | $\lg(n!)$       | $2^{2^n}$  | $n^{1/\lg{n}}$  |
+>    | $\ln{\ln{n}}$     | $\lg^*n$             | $n \cdot 2^n$         | $n^{\lg\lg{n}}$ | $\ln{n}$   | $1$             |
+>    | $2^{\lg{n}}$      | $(\lg{n})^{\lg{n}}$  | $e^n$                 | $4^{\lg{n}}$    | $(n + 1)!$ | $\sqrt{\lg{n}}$ |
+>    | $\lg^*(\lg{n})$   | $2^{\sqrt{2\lg{n}}}$ | $n$                   | $2^n$           | $n\lg{n}$  | $2^{2^{n + 1}}$ |
+>
+> 2. Give an example of a single nonnegative function $f(n)$ such that for all
+>    functions $g_i(n)$ in part (1), $f(n)$ is neither $O(g_i(n))$ nor
+>    $\Omega(g_i(n))$.
+
+
+Some facts:
+
+$$ (\sqrt{2})^{\lg{n}} = \sqrt{n} $$
+$$ \sqrt{2}^{\lg{n}} = 2^{1/2\lg{n}} = 2^{\lg{\sqrt{n}}} = \sqrt{n} $$
+$$ n! < n^n = 2^{\lg{n^n}} = 2^{n\lg{n}} $$
+$$ n^{1/\lg{n}} = n^{\log_n{2}} = 2$$
+$$ n^{\lg{\lg{n}}} = (2^{\lg{n}})^{\lg\lg{n}} = (2^{\lg\lg{n}})^{\lg{n}} = (\lg{n})^{\lg{n}} $$
+$$ \lg^2{n} = 2^\{\lg{\lg^2{n}}} = o(2^{\sqrt{2\lg{n}}}) $$
+
+The order is thus:
+
+1. $1 = n^{1/\lg{n}}$
+2. $\lg(\lg^*n)$
+3. $\lg^*n \simeq \lg^*(\lg{n})$
+4. $2^{\lg^*n}$
+5. $\ln{\ln{n}}$
+6. $\sqrt{\lg{n}}$
+7. $\ln{n}$
+8. $\lg^2{n}$
+9. $2^{\sqrt{2\lg{n}}}$
+10. $(\sqrt{2})^{\lg{n}}$
+11. $n = 2^{\lg{n}}$
+12. $n\lg{n} \simeq \lg(n!)$
+13. $n^2 = 1 4^{\lg{n}}$
+14. $n^3$
+15. $n^{\lg\lg{n}} = (\lg{n})^{\lg{n}}$
+16. $(\frac{3}{2})^n$
+17. $2^n$
+18. $n \cdot 2^n$
+19. $e^n$
+20. $n!$
+21. $(n + 1)!$
+22. $2^{2^n}$
+23. $2^{2^{n + 1}}$
+
+---
+
+The asked function can be:
+
+$$ 2^{2^{(n + 1)\sin{x}}} $$
