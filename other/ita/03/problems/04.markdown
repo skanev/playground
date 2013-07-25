@@ -1,0 +1,85 @@
+## Asymptotic notation properties
+
+> Let $f(n)$ and $g(n)$ be asymptotically positive functions. Prove or
+> disprove each of the following conjectures.
+>
+> 1. $ f(n) = O(g(n)) \text{ implies } g(n) = O(f(n)) $
+> 2. $ f(n) + g(n) = \Theta(\min(f(n), g(n))) $
+> 3. $ f(n) = O(g(n)) \text{ implies } \lg(f(n)) = O(lg(g(n))), \text{ where }
+>    \lg(g(n)) \geq 1 \text{ and } f(n) \geq 1 \text{ for all sufficiently
+>    large n} $
+> 4. $ f(n) = O(g(n)) \text{ implies } 2^{f(n)} = O(2^{g(n)}). $
+> 5. $ f(n) = O((f(n))^2) $
+> 6. $ f(n) = O(g(n)) \text{ implies } g(n) = \Omega(f(n)) $
+> 7. $ f(n) = \Theta(f(n/2)) $
+> 8. $ f(n) + o(f(n)) = \Theta(f(n)) $
+
+### a. $ f(n) = O(g(n)) \text{ implies } g(n) = O(f(n)) $
+
+**Incorrect**. It's easy to see that $n = O(n^2)$, but $n^2 \neq O(n)$.
+
+### b. $ f(n) + g(n) = \Theta(\min(f(n), g(n))) $
+
+**Incorrect**. Simply $n^2 + n \neq \Theta(\min(n^2, n)) = \Theta(n) $
+
+### c. $ f(n) = O(g(n)) \Rightarrow \lg(f(n)) = O(lg(g(n))) \text{ if } \lg(g(n)) \geq 1, f(n) \geq 1 $
+
+**Correct**. We can do this, because $f(n) \geq 1$ after a certain $n \geq n_0$.
+
+$$ \exists c, n_0 : \forall n \geq n_0 : 0 \leq f(n) \leq cg(n) \\\\
+   \Downarrow \\\\
+   0 \leq \lg{f(n)} \leq \lg(cg(n)) = \lg{c} + \lg{g(n)}$$
+
+We need to prove that:
+
+$$ \lg{f(n)} \leq d\lg{g(n)} $$
+
+We can easily find $d$:
+
+$$ d = \frac{\lg{c} + \lg{g(n)}}{\lg{g(n)}} = \frac{\lg{c}}{\lg{g}} + 1 \leq \lg{c} + 1 $$
+
+The last step is valid, because $\lg{g(n)} \geq 1$.
+
+### d. $ f(n) = O(g(n)) \Rightarrow 2^{f(n)} = O(2^{g(n)}). $
+
+**Incorrect**, because $2n = O(n)$, but $2^{2n} = 4^n \neq O(2^n)$.
+
+### e. $ f(n) = O((f(n))^2) $
+
+**Correct¹**. $0 \leq f(n) \leq cf^2(n)$ is trivial when $f(n) \geq 1$.
+
+It would be incorrect if $f(n) < 1$ for all $n$, but we are usually not
+interested in such functions.
+
+### f. $ f(n) = O(g(n)) \Rightarrow g(n) = \Omega(f(n)) $
+
+**Correct**. From the first, we know that:
+
+$$ 0 \leq f(n) \leq cg(n) $$
+
+We need to prove that:
+
+$$ 0 \leq df(n) \leq g(n) $$
+
+Which is straightforward with $d = 1/c$.
+
+### g. $ f(n) = \Theta(f(n/2)) $
+
+**Incorrect**. Let's pick $f(n) = 2^{n}$. We will need to prove that:
+
+$$ \exists c_1, c_2, n: \forall n \geq n_0 : 0 \leq c_1 \cdot 2^{n/2} \leq 2^n
+   \leq c_2 \cdot 2^{n/2} $$
+
+Which is obviously untrue.
+
+### h. $ f(n) + o(f(n)) = \Theta(f(n)) $
+
+**Correct**. Let $g(n) = o(f(n))$. We need to proove that:
+
+$$ c_1f(n) \leq f(n) + g(n) \leq c_2f(n) $$
+
+We know that:
+
+$$ \forall c \exists n_0 \forall n \geq n_0 : cg(n) < f(n) $$
+
+Thus, if we pick $c_1 = 1$ and $c_2 = 2$, it holds.
