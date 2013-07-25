@@ -1,0 +1,71 @@
+## Variations on $O$ and $\Omega$
+
+> Some authors define $\Omega$ in a slightly different way than we do; let's
+> use $\mathop{\Omega}^{\infty}$ (read "omega infinity") for this alternative
+> definition. We say that $f(n) = \mathop{\Omega}^{\infty}(g(n))$ if there
+> exists a positive constant $c$ such that $f(n) \geq cg(n) \geq 0$ for
+> infinitely many integers $n$.
+>
+> 1. Show that for any two functions $f(n)$ and $g(n)$ that are asymptotically
+>    nonnegative, either $f(n) = O(g(n))$ or $f(n) =
+>    \mathop{\Omega}^{\infty}(g(n))$ or both, whereas this is not true if we
+>    use $\Omega$ in place of $\mathop{\Omega}^{\infty}$.
+> 2. Describe the potential advantages and disadvantages of using
+>    $\mathop{\Omega}^{\infty}$ instead of $\Omega$ to characterize the
+>    running times of programs.
+> 3. Some authors also define $O$ in a slightly different manner; let's use
+>    $O'$ for the alternative definition. We say that $f(n) = O'(g(n))$ if and
+>    only if $|f(n)| = O(g(n))$. What happens to each direction of the "if and
+>    only if" in Theorem 3.1 if we substitute $O'$ for $O$ but we still use
+>    $\Omega$?
+> 4. Some authors define $\tilde{O}$ (read "soft-oh") to mean $O$ with
+>    logarithmic factors ignored:
+>    $$ \tilde{O} = \lbrace f(n) : \exists c > 0, k > 0 n_0 \forall n \geq n_0: 0 \leq f(n) \leq
+>                            cg(n)\lg^k(n) \rbrace $$
+>    Define $\tilde{\Omega}$ and $\tilde{\Theta}$ in a similar manner. Prove
+>    the corresponding analog to Theorem 3.1.
+
+### Omega infinity
+
+We need to compare:
+
+$$ cg(n) \leq f(n) $$
+
+Either this holds for an infinite number of integers or for a finite one (or
+zero). If the former, we have $\mathop{\Omega}^{\infty}$. If it is a finite
+number, then the largest is $n_0$ and we have that:
+
+$$ \forall n > n_0: f(n) < cg(n) $$
+
+Which is sufficient for $f(n) = O(g(n))$. Both can hold if $f(n) = g(n)$,
+obviously.
+
+It's not true for $\Omega$, because $n = \mathop{\Omega}^{\infty}(n^{\sin{n}})$,
+but $n \neq \Omega(n^{\sin{n}})$.
+
+### Potential advantages
+
+I can't think of anything meaningful. It lets us reason for functions like
+$n^{\sin{n}}$, but I'm not sure that lower bound is the most useful thing
+here.
+
+### $O'$
+
+Theorem 3.1 will change the "if and only if" to "implies", that is, $\Theta
+\Rightarrow O'$, but not the other way around. This can be illustrated by
+$f(n) = n \cdot \sin{n}$, which is $O'(n)$, but not $O(n)$ or $\Theta(n)$.
+
+### Soft-oh
+
+I'm uncertain how we should define $\tilde{\Omega}$. I assume that $n =
+\tilde{\Omega}(n\lg{n})$. In that case,
+
+$$ \tilde{\Omega} = \lbrace f(n) : \exists c, k, n \forall n > n_0 :
+   0 \leq cg(n) \lg^{-k}(n) \leq f(n) \rbrace $$
+
+And:
+
+$$ \tilde{\Theta} = \lbrace f(n) : \exists c_1, c_2, k_1, k_2, n \forall n > n_0 :
+   0 \leq c_1g(n) \lg^{-k_1}(n) \leq f(n) \leq c_2g(n) \lg^{k_2}(n)\rbrace $$
+
+Proving the theorem is very trivial.
