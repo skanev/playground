@@ -1,0 +1,16 @@
+> Implement both the brute-force and recursive algorithms for the
+> maximum-subarray problem on your own computer. What problem size $n_0$ gives
+> the crossover point at which the recursive algorithm beats the brute-force
+> algorithm? Then, change the base case of the recursive algorithm to use the
+> brute-force algorithm whenever the problem size is less than $n_0$. Does
+> that change the crossover point?
+
+On my computer, $n_0$ is 37.
+
+If the algorithm is modified to used divide in conquer when $n \geq 37$ and the
+brute-force approach when $n$ is less, the performance at the crossover point
+almost doubles. The performance at $n_0 - 1$ stays the same, though (or even
+gets worse, because of the added overhead).
+
+What I find interesting is that if we set $n_0 = 20$ and used the mixed
+approach to sort $40$ elements, it is still faster than both.
