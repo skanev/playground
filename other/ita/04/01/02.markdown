@@ -1,0 +1,16 @@
+> Write pseudocode for the brute-force method of solving the maximum-subarray
+> problem. Your procedure should run in $\Theta(n^2)$ time.
+
+    FIND-MAX-SUBARRAY(A, low, high)
+      left = 0
+      right = 0
+      sum = -∞
+      for i = low to high
+          current-sum = 0
+          for j = i to high
+	      current-sum += A[j]
+	      if sum < current-sum
+	          sum = current-sum
+		  left = i
+		  right = j
+      return (left, right, sum)
