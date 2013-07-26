@@ -4,6 +4,11 @@
   <hr />
   <img src="<%= '%02d/%02d/%02d.png' % @exercise.components %>" />
 <% end %>
+<% @exercise.run_languages.each do |language| %>
+  <hr />
+  <h3><%= language.to_s.capitalize %> runner output</h3>
+  <pre><%= @exercise.run_and_capture_output(language) %></pre>
+<% end %>
 <% @exercise.languages.each do |language| %>
   <hr />
   <h3><%= language.to_s.capitalize %> code</h3>
