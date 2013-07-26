@@ -1,0 +1,4 @@
+> What does *FIND-MAXIMUM-SUBARRAY* return when all elements of $A$ are
+> negative?
+
+It will return a single-element array with the largest negative integer.
