@@ -1,0 +1,12 @@
+> Suppose we change the definition of the maximum-subarray problem to allow
+> the result to be an empty subarray, where the sum of the values of an empty
+> subarray is 0. How would you change any of the algorithms that do not allow
+> empty subarrays to permit an empty subarray to be the result?
+
+We need to modify two things - the base case of the algorithm and the
+subroutine that finds the maximum subarray crossing the midpoint.
+
+The base case needs to return an empty array if `A[low]` is negative.
+
+The subroutine needs to return an empty array in case the maximum subarray has
+a negative sum.
