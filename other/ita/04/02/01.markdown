@@ -1,0 +1,47 @@
+> Use Strassen's algorithm to compute the matrix product
+>
+> $$ \begin{pmatrix}
+>    1 & 2 \\\\
+>    7 & 5
+>    \end{pmatrix}
+>    \begin{pmatrix}
+>    6 & 8 \\\\
+>    4 & 2
+>    \end{pmatrix} $$
+>
+> Show your work.
+
+The first matrices are:
+
+$$
+S_1 = 6 \quad S_2 =  4 \quad S_3 = 12 \quad S_4 = -2 \quad S_5 = 5 \\\\
+S_6 = 8 \quad S_7 = -2 \quad S_8 =  6 \quad S_9 = -6 \quad S_{10} = 14
+$$
+
+The products are:
+
+$$
+P_1 = 1 \cdot 6 = 6 \qquad
+P_2 = 4 \cdot 2 = 8 \\\\
+P_3 = 6 \cdot 12 = 72 \qquad
+P_4 = (-2) \cdot 5 = -10 \\\\
+P_5 = 6 \cdot 8 = 48 \qquad
+P_6 = (-2) \cdot 6 = -12 \\\\
+P_7 = (-6) \cdot 14 = -84
+$$
+
+The four matrices are:
+
+$$
+C_{11} = 48 + (-10) - 8 + (-12) = 18 \\\\
+C_{12} = 6 + 8 = 14 \\\\
+C_{21} = 72 + (-10) = 62 \\\\
+C_{22} = 48 + 6 - 72 - (-84) = 66
+$$
+
+The result is:
+
+$$ \begin{pmatrix}
+   18 & 14 \\\\
+   62 & 66
+   \end{pmatrix} $$
