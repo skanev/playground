@@ -1,0 +1,19 @@
+> What is the largest $k$ such that if you can multiply $3 \times 3$ matrices
+> using $k$ multiplications (not assuming commutativity of multiplication),
+> then you can multiply $n \times n$ matrices is time $o(n^{\lg7})$? What
+> would the running time of this algorithm be?
+
+If we apply divide and conquer on this, we get the following recurrence:
+
+$$ T(n) = kT(n/3) + \Theta(n) $$
+
+The master method tells us that if $k$ is large enough, the complexity of this
+recurrence is $\Theta(n^{\log_{3}k})$. We need to solve:
+
+$$
+n^{\log_3k} < n^{\lg7} \\\\
+\Downarrow \\\\
+\log_3k < \lg7 \\\\
+\Downarrow \\\\
+k < 3^{\lg7} \approx 21.84986
+$$
