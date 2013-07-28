@@ -1,0 +1,7 @@
+> How would you modify Strassen's algorithm to multiply $n \times n$ matrices
+> in which $n$ is not an exact power of 2? Show that the resulting algorithm
+> runs in time $\Theta(n^{\lg7})$.
+
+I'm not sure what resulting algorithm we have in mind. In any case, we can
+just extend it to an $n \times n$ matrix and pad it with zeroes. It's
+obviously $\Theta(n^{\lg7})$.
