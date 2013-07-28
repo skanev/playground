@@ -1,0 +1,16 @@
+> V. Pan has discovered a way of multiplying $68 \times 68$ matrices using
+> $132,464$ multiplications, a way of multiplying $70 \times 70$ matrices
+> using $143,640$ multiplications, and a way of multiplying $72 \times 72$
+> matrices using $155,424$ multiplications. Which method yields the best
+> asymptotic running time when used in a divide-and-conquer
+> matrix-multiplication algorithm? How does it compare to Strassen's
+> algorithm?
+
+Using what we know from the last exercise, we need to pick the smalles of the
+following:
+
+$$ \log_{68} 132464 \approx 2.795128 \\\\
+   \log_{70} 143640 \approx 2.795122 \\\\
+   \log_{72} 155424 \approx 2.795147 $$
+
+The fastest one asymptotically is $70 \times 70$ using $143,640$.
