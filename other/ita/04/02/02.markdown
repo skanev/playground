@@ -1,0 +1,5 @@
+> Write pseudocode for Strassen's algorithm
+
+Pseudocode is for sissies. Let's write it in C!
+
+_60 minutes later:_ OK, bad decision.
