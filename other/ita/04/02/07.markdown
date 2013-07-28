@@ -1,0 +1,14 @@
+> Show how to multiply the complex numbers $a + bi$ and $c + di$ using only
+> three multiplications of real numbers. The algorithm should take $a$, $b$,
+> $c$ and $d$ as input and produce the real component $ac - bd$ and the
+> imaginary component $ad + bc$ separately.
+
+Simple enough. The three multiplications are:
+
+$$ A = (a + b)(c + d) = ac + ad + bc + bd \\\\
+   B = ac \quad\qquad
+   C = bd $$
+
+The result is:
+
+$$ (B - C) + (A - B - C)i $$
