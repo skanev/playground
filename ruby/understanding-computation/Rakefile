@@ -1,0 +1,11 @@
+require 'fileutils'
+require 'pathname'
+
+CURRENT_DIR = Pathname(File.dirname(__FILE__))
+
+desc "Generates output for chapter 03"
+task '03' do
+  require './03/example'
+  mkdir_p CURRENT_DIR.join('tmp/03')
+  Chapter03.generate_example CURRENT_DIR.join('tmp/03')
+end

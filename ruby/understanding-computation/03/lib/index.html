@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Understanding Computation - Chapter 03 example</title>
+  </head>
+  <body>
+    <h1>Minimizaiton of finite automata</h1>
+
+    <p>
+      I found Brzozowski's algorithm so unbelievable, that I had actually to
+      run it to be sure that it actually works (spoiler alert: it does). This
+      is what it produces:
+    </p>
+
+    <table border="2">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th><code>ab(ab)*</code></th>
+          <th><code>a(ba)*b</code></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>NFA</td>
+          <td><img src="nfa1.gif" alt="Nondeterministice Finite Automaton for ab(ab)*"></td>
+          <td><img src="nfa2.gif" alt="Nondeterministice Finite Automaton for a(ba)*b"></td>
+        </tr>
+        <tr>
+          <td>DFA</td>
+          <td><img src="dfa2.gif" alt="Deterministice Finite Automaton for a(ba)*b"></td>
+          <td><img src="dfa1.gif" alt="Deterministice Finite Automaton for ab(ab)*"></td>
+        </tr>
+        <tr>
+          <td>Minimized DFA</td>
+          <td><img src="dfa1min.gif" alt="Minimized Finite Automaton for ab(ab)*"></td>
+          <td><img src="dfa2min.gif" alt="Minimized Finite Automaton for a(ba)*b"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>I trully find this shocking ;)</p>
+  </body>
+</html>
