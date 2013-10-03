@@ -1,0 +1,21 @@
+> Show that $\Theta(n\lg{n})$ is the solution to the "exact" recurrence (4.3)
+> for merge sort.
+
+The recurrence is:
+
+$$ T(n) = T(\lfloor n/2 \rfloor) + T(\lceil n/2 \rceil) + \Theta(n) $$
+
+Let's guess $T(n) \le c(n - 2)\lg(n -2)$:
+
+$$ \begin{align}
+     T(n) & \le c(\lfloor n/2 \rfloor - 2)\lg(\lfloor n/2 \rfloor - 2) + c(\lceil n/2 \rceil -2 )\lg(\lceil n/2 \rceil - 2) + dn \\\\
+          & \le c(n/2 - 2)\lg(n/2 - 2) + c(n/2 + 1 -2 )\lg(n/2 + 1 - 2) + dn \\\\
+          & \le c(n/2 - 1)\lg(n/2 - 1) + c(n/2 - 1 )\lg(n/2 - 1) + dn \\\\
+          & \le c\frac{n-2}{2}\lg\frac{n-2}{2} + c\frac{n-2}{2}\lg\frac{n-2}{2} + dn \\\\
+          & \le c(n-2)\lg\frac{n-2}{2} + dn \\\\
+          & \le c(n-2)\lg(n-2) - c(n-2) + dn \\\\
+          & \le c(n-2)\lg(n-2) + (d - c)n + 2c \qquad (c > d, n > 2c)\\\\
+          & \le c(n-2)\lg(n-2)
+   \end{align} $$
+
+This is $\Theta(n\lg{n})$. $\Omega(n\lg{n})$ is very similar.
