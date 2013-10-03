@@ -1,0 +1,9 @@
+> Show that the solution of $T(n) = T(\lceil n/2 \rceil) + 1$ is $O(\lg{n})$
+
+We guess $T(n) \le c\lg(n - 2)$:
+
+$$ T(n) \le c\lg(\lceil n/2 \rceil - 2) + 1
+        \le c\lg(n/2 + 1 - 2) + 1
+	\le c\lg((n - 2)/2) + 1
+	\le c\lg(n - 2) - c\lg2 + 1
+	\le c\lg(n - 2) $$
