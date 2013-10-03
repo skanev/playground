@@ -1,0 +1,6 @@
+> Show that the solution of $T(n)  = T(n - 1) + n$ is $O(n^2)$
+
+We guess $T(n) \le cn^2$. Then:
+
+$$ T(n) \le (n-1)^2 + n = n^2 - 2n + 1 + n = n^2 - n + 1 \le cn^2 \\\\
+   c \ge 1, n \ge 1$$
