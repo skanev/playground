@@ -1,0 +1,25 @@
+> Using the master method in Section 4.5, you can show that the solution to
+> the recurrence $T(n) = 4T(n/3) + n$ is $T(n) = \Theta(n^{\log_{3}4})$. Show
+> that a substitution proof with the assumption $T(n) \leq cn^{\log_{3}4}$
+> fails. Then show how to subtract off a lower-order term to make the
+> substitution proof work.
+
+First we guess $T(n) \le cn^{\log_3{4}}$. Thus:
+
+$$ \begin{align}
+   T(n) & \le 4c(n/3)^{\log_3{4}} + n \\\\
+        & \le cn^{\log_3{4}} + n
+   \end{align} $$
+
+Dead-end!
+
+Let's guess $T(n) \le cn^{\log_3{4}} - n$. Thus:
+
+$$ \begin{align}
+   T(n) & \le 4\Big(c(n/3)^{\log_3{4}} - n\Big) + n \\\\
+        & \le cn^{\log_3{4}} - 4n + n \\\\
+        & \le cn^{\log_3{4}} - 3n \\\\
+        & \le cn^{\log_3{4}} - n
+   \end{align} $$
+
+We're done!
