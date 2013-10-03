@@ -1,0 +1,19 @@
+> Show that by making a different inductive hyptohesis, we can overcome the
+> difficulty with the boundary condition $T(1) = 1$ for recurrence (4.19)
+> without adjusting the boundary conditions for the inductive proof.
+
+We shall make the guess $T(n) \le n\lg{n} + n$:
+
+$$ \begin{align}
+     T(n) & \le 2(c\lfloor n/2 \rfloor\lg{\lfloor n/2 \rfloor} + \lfloor n/2 \rfloor) + n \\\\
+          & \le 2c(n/2)\lg(n/2) + 2(n/2) + n \\\\
+          & \le cn\lg(n/2) + 2n \\\\
+          & \le cn\lg(n/2) + 2n \\\\
+          & \le cn\lg{n} - cn\lg{2} + 2n \\\\
+          & \le cn\lg{n} + (2 - c)n \qquad (c \ge 1)\\\\
+          & \le cn\lg{n} + n
+   \end{align} $$
+
+This time, the boundary condition is:
+
+$$ T(1) = 1 \le cn\lg{n} + n = 0 + 1 = 1 $$
