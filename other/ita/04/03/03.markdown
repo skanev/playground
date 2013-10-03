@@ -1,0 +1,26 @@
+> We saw that the solution of $T(n) = 2T(\lfloor n/2 \rfloor) + n$ is
+> $O(n\lg{n})$. Show that the solution of this recurrence is also
+> $\Omega(n\lg{n})$. Conclude that the solution is $\Theta(n\lg{n})$.
+
+First we guess $T(n) \le cn\lg{n}$:
+
+$$ \begin{align}
+   T(n) & \le 2c\lfloor n/2 \rfloor\lg{\lfloor n/2 \rfloor} + n \\\\
+        & \le cn\lg(n/2) + n \\\\
+	& \le cn\lg{n} - cn\lg{2} + n \\\\
+	& \le cn\lg{n} + (1 - c)n \\\\
+	& \le cn\lg{n} \\\\
+	& \text{for } c \ge 0
+   \end{align} $$
+
+Next we guess $T(n) \ge c(n+2)\lg(n+2)$:
+
+$$ \begin{align}
+   T(n) & \ge 2c(\lfloor n/2 \rfloor + 2)(\lg(\lfloor n/2 \rfloor + 2) + n \\\\
+        & \ge 2c(n/2 - 1 + 2)(\lg(n/2 - 1 + 2) + n \\\\
+        & \ge 2c\frac{n+2}{2}\lg\frac{n+2}{2} + n \\\\
+        & \ge c(n+2)\lg(n+2) - c(n+2)\lg2 + n \\\\
+        & \ge c(n+2)\lg(n+2) + (1 - c)n - 2c \qquad \text{for } n \ge 2c/(1-c), 0 < c < 1 \\\\
+        & \ge c(n+2)\lg(n+2)
+   \end{align} $$
+
