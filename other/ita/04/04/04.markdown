@@ -1,0 +1,18 @@
+> Use a reccursion tree to determine a good asymptotic upper bound on the
+> recurrence $T(n) = 2T(n - 1) + 1$. Use the substitution method to verify your
+> answer.
+
+The depth is $n$, each level is $2^i$ and there are $2^n$ leaves. Thus:
+
+$$ T(n) = \sum_{i=0}^{n-1}2^i + \Theta(2^n)
+        = \frac{2^n - 1}{2 - 1} + \Theta(2^n)
+        = \Theta(2^n) + 2^n - 1
+        = \Theta(2^n) $$
+
+We guess $T(n) \le c2^n + n$. Thus:
+
+$$ \begin{align}
+     T(n) & \le 2c2^{n-1} + (n - 1) + 1 \\\\
+          & \le c2^n + n \\\\
+          & = O(2^n)
+   \end{align} $$
