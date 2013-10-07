@@ -1,0 +1,23 @@
+> Use a reccursion tree to determine a good asymptotic upper bound on the
+> recurrence $T(n) = 4T(n/2 + 2) + n$. Use the substitution method to verify
+> your answer.
+
+With some simplification, the height of the tree is $\lg{n}$, each level adds
+up to $2^i n + 2^{1-i}$ and there are $4^{\lg{n}} = n^2$ leaves. We get:
+
+$$ \begin{align}
+   T(n) &= \sum_{i=0}^{\lg{n}-1}\Big(2^i n + 2^{1-i}) + \Theta(n^2) \\\\
+        &= \sum_{i=0}^{\lg{n}-1}2^i n + \sum_{i=0}^{\lg{n}-1}2^{1-i} + \Theta(n^2) \\\\
+        &= \frac{2^{\lg{n}} - 1}{2 - 1} + 2\sum_{i=0}^{\lg{n}-1}\Big(\frac{1}{2}\Big)^i + \Theta(n^2) \\\\
+        &\le n - 1 + 2\sum_{i=0}^{\infty}\Big(\frac{1}{2}\Big)^i + \Theta(n^2) \\\\
+        &= n - 1 + 2\frac{1}{1-1/2} + \Theta(n^2) \\\\
+        &= \Theta(n^2) + n + 3 \\\\
+        &= \Theta(n^2)
+   \end{align} $$
+
+Let's substitute. We guess $T(n) \le cn^2 + 2n$:
+$$ \begin{align}
+   T(n) & \le 4c(n/2)^2 + 2n/2 + n \\\\
+        & \le cn^2 + 2n \\\\
+        & = \Theta(n^2)
+   \end{align} $$
