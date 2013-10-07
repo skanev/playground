@@ -1,0 +1,31 @@
+> Use a reccursion tree to determine a good asymptotic upper bound on the
+> recurrence $T(n) = T(n-1) + T(n/2) + n$. Use the substitution method to
+> verify your answer.
+
+This is a curious one. The tree makes it look like it is exponential in the
+worst case. The tree is not full (not a complete binary tree of height $n$), but
+it is not polynomial either. It's easy to show $\Omega(n^2)$ and $O(2^n)$:
+
+We guess $T(n) \le c2^n - 4n$:
+
+$$ \begin{align}
+   T(n) & \le c2^{n-1} - 4(n-1) + c2^{n/2} - 4n/2 + n \\\\
+        & \le c(2^{n-1} + 2^{n/2}) - 5n + 1 & (n > 1/4) \\\\
+        & \le c(2^{n-1} + 2^{n/2}) - 4n & (n > 2)\\\\
+        & \le c(2^{n-1} + 2^{n-1}) - 4n \\\\
+        & \le c2^n - 4n \\\\
+        & = O(2^n)
+   \end{align} $$
+
+We guess $T(n) \ge cn^2$:
+
+$$ \begin{align}
+   T(n) & \ge c(n - 1)^2 + c(n/2)^2 + n \\\\
+        & \ge cn^2 - 2cn + 1 + cn^2/4 + n \\\\
+        & \ge (5/4)cn^2 + (1 - 2c)n + 1 \\\\
+        & \ge cn^2 + (1 - 2c)n + 1 & (c < 1/2)\\\\
+        & \ge cn^2 \\\\
+        & = O(n^2)
+   \end{align} $$
+
+As to more details - I am lost.
