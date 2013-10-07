@@ -1,0 +1,22 @@
+> Use a reccursion tree to determine a good asymptotic upper bound on the
+> recurrence $T(n) = 3T(\lfloor n/2 \rfloor) + n$. Use the substitution method
+> to verify your answer.
+
+Let's just ignore the floor, it makes no difference whatsoever.
+
+The tree is of depth $\lg{n}$ and has $\Theta(3^{\lg{2}}) = \Theta(2^{\lg{n}})$ leaves. Thus:
+
+$$ \begin{align}
+   T(n) &= \sum_{i=0}^{\lg{n}-1}\Big(\frac{3}{2}\Big)^i n + \Theta(n^{\lg3}) \\\\
+        &= n\frac{(3/2)^{\lg{n}} - 1}{(3/2) - 1} + \Theta(n^{\lg3}) \\\\
+        &= n\Theta(n^{\lg3 - 1}) + \Theta(n^{\lg3}) \\\\
+        &= \Theta(n^{\lg3})
+   \end{align} $$
+
+Let's use substitution. We guess $T(n) \le cn^{\lg3} + 2n$ (and drop the floor):
+
+$$ \begin{align}
+   T(n) & \le 3c(n/2)^{\lg3} + 2n/2 + n \\\\
+        & \le cn^{\lg3} + 2n \\\\
+        & = \Theta(n^{\lg3})
+   \end{align} $$
