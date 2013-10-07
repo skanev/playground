@@ -1,0 +1,20 @@
+> Use a reccursion tree to determine a good asymptotic upper bound on the
+> recurrence $T(n) = T(n/2) + n^2$. Use the substitution method to verify your
+> answer.
+
+Each level of the tree is $n^2/4^i$, there are $\lg{n}$ levels and 1 leaf. Thus:
+
+$$ T(n) = \sum_{i=0}^{\lg{n}-1}\Big(\frac{1}{4}\Big)^i n^2 + 1
+        < n^2 \sum_{i=0}^{\infty}\Big(\frac{1}{4}\Big)^i + 1
+        = n^2 \frac{1}{1-1/4} + 1
+        = \Theta(n^2)
+$$
+
+We guess $T(n) \le cn^2$
+$$ \begin{align}
+   T(n) & \le c(n/2)^2 + n^2 \\\\
+        & \le cn^2/4 + n^2 \\\\
+        & \le (c/4 + 1)n^2 \qquad (c > 4/3) \\\\
+        & \le cn^2
+   \end{align}
+$$

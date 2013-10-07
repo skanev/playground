@@ -1,0 +1,16 @@
+digraph tree {
+  node[shape=none];
+  edge[dir=none];
+
+  a1[label="n²"];
+  b1[label="n²/4"];
+  c1[label="n²/16"];
+
+  { rank=same
+    z1[label="T(1)"];
+    zs[label="n²/4ⁱ"];
+  }
+
+  a1 -> b1 -> c1;
+  { edge[style=dotted] c1 -> z1; }
+}
