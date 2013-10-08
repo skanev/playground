@@ -1,0 +1,18 @@
+> Can the master method be applied to the recurrence $T(n) = 4T(n/2) + n^2\lg{n}$?
+> Why or why not? Give an asymptotic upper bound for this recurrence.
+
+With $a = 4, b = 2$, we have $f(n) = n^2\lg{n} \ne \mathcal{O}(n^{2-\epsilon}) \ne \Omega(n^{2-\epsilon})$, so no - we cannot apply the master method.
+
+Let's guess $\Theta(n^2\lg^2{n})$:
+
+$$ \begin{align}
+   T(n) & \le 4T(n/2) + n^2\lg{n} \\\\
+        & \le 4c(n/2)^2\lg^2(n/2) + n^2\lg{n} \\\\
+        & \le cn^2\lg(n/2)\lg{n} - cn^2\lg(n/2)\lg{2} + n^2\lg{n} \\\\
+        & \le cn^2\lg^2{n} - cn^2\lg{n}\lg{2} - cn^2\lg(n/2) + n^2\lg{n} \\\\
+        & \le cn^2\lg^2{n} + (1 - c)n^2\lg{n} - cn^2\lg(n/2) & (c > 1) \\\\
+        & \le cn^2\lg^2{n} - cn^2\lg(n/2) \\\\
+        & \le cn^2\lg^2{n}
+   \end{align} $$
+
+Exercise 4.6-2 is the general case for this.
