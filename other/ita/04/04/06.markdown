@@ -1,0 +1,7 @@
+> Argue that the solution to the recurrence $T(n) = T(n/3) + T(2n/3) + cn$,
+> where $c$ is a constant, is $\Omega(n\lg{n})$ by appealing to the recurrsion
+> tree.
+
+The shortest path to a leaf has $\log_3{n}$ levels. The cost at each level is
+$cn$.  If we cut the tree right below the first leaf, we are left with
+complexity of $cn\log_3{n}$, which is $\Omega(n\lg{n})$.
