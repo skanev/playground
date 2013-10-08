@@ -1,0 +1,11 @@
+> $\star$ Give a simple and exact expression for $n_j$ in equation (4.27) for
+> the case in which $b$ is a positive integer instead of an arbitrary real
+> number.
+
+Some experimentation leas me to:
+
+$$ n_j = \lceil n / b^j \rceil $$
+
+An [elaboration][elaboration] can be found on StackExchange.
+
+[elaboration]: http://math.stackexchange.com/questions/509862/simple-and-exact-expression-for-n-j-in-the-following-formula
