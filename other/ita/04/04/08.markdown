@@ -1,0 +1,43 @@
+> Use a recursion tree to give an asymptotically tight solution to the
+> recurrence $T(n) = T(n-a) + T(a) + cn$, where $a \ge 1$ and $c > 0$ are
+> constants.
+
+The tree height is $n/a$ and each level is $c(n-ia)$. Thus:
+
+$$ T(n) = \sum_{i=0}^{n/a}c(n-ia) + (n/a)ca
+        = \sum_{i=0}^{n/a}cn - \sum_{i=0}^{n/a}cia + (n/a)ca
+        = cn^2/a - \Theta(n) + \Theta(n)
+        = \Theta(n^2) $$
+
+Another approach is:
+
+$$ \begin{align}
+   T(n) &= cn + T(a) + T(n - a) + T(a) \\\\
+        &= cn + ca + c(n-a) + T(a) + T(n - 2a) \\\\
+        &= cn + c(n-a) + 2ca + c(n - 2a) + T(a) + T(n - 3a) \\\\
+        &= cn + c(n-a) + c(n - 2a) + c(n - 3a) + T(n - 4a) + 3ca + T(a) \\\\
+        &= \frac{n(n+1)}{2a} + cn \\\\
+        &= \Theta(n^2)
+   \end{align} $$
+
+We can guess $T(n) \le cn^2$:
+
+$$ \begin{align}
+   T(n) & \le c(n-a)^2 + ca + cn \\\\
+        & \le cn^2 - 2acn + ca + cn \\\\
+        & \le cn^2 - c(2an - a - n) & (a > 1/2, n > 2a) \\\\
+        & \le cn^2 - cn \\\\
+        & \le cn^2 \\\\
+        & = \Theta(n^2)
+   \end{align} $$
+
+We can guess $T(n) \ge cn^2$:
+
+$$ \begin{align}
+   T(n) & \ge c(n-a)^2 + ca + cn \\\\
+        & \ge cn^2 - 2acn + ca + cn \\\\
+        & \ge cn^2 - c(2an - a - n) & (a < 1/2, n > 2a) \\\\
+        & \ge cn^2 + cn \\\\
+        & \ge cn^2 \\\\
+        & = \Theta(n^2)
+   \end{align} $$

@@ -1,0 +1,40 @@
+digraph tree {
+  node[shape=none, margin=0.0001];
+  edge[dir=none];
+
+  { rank=same;
+    a1[label="cn"];
+    as[label="cn"];
+  }
+
+  { rank=same;
+    b1[label="c(n - a)"];
+    b2[label="ca"];
+    bs[label="cn"];
+  }
+
+  { rank=same;
+    c1[label="c(n - 2a)"];
+    c2[label="ca"];
+    cs[label="c(n - a)"];
+  }
+
+  { rank=same;
+    d1[label="c(n - 3a)"];
+    d2[label="ca"];
+    ds[label="c(n - 2a)"];
+  }
+
+  { rank=same;
+    z1[label="c(n - ia)"];
+    z2[label="ca"];
+    zs[label="c(n - (i - 1)a)"];
+  }
+
+  a1 -> b1; a1 -> b2;
+  b1 -> c1; b1 -> c2;
+  c1 -> d1; c1 -> d2;
+
+  { edge[style=dotted]; d1 -> z1; d1 -> z2; }
+  { edge[style=invis]; as -> bs -> cs -> ds -> zs; }
+}
