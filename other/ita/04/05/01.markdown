@@ -1,0 +1,12 @@
+> Use the master method to give tight asymptotic bounds for the following
+> recurrences:
+
+> 1. $T(n) = 2T(n/4) + 1$
+> 2. $T(n) = 2T(n/4) + \sqrt{n}$
+> 3. $T(n) = 2T(n/4) + n$
+> 4. $T(n) = 2T(n/4) + n^2$
+
+1. $\Theta(n^{\log_4{2}}) = \Theta(\sqrt{n})$
+1. $\Theta(n^{\log_4{2}}\lg{n}) = \Theta(\sqrt{n}\lg{n})$
+1. $\Theta(n)$
+1. $\Theta(n^2)$
