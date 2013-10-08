@@ -1,0 +1,61 @@
+> Use a recursion tree to give an asymptotically tight solution to the
+> recurrence $T(n) = T(\alpha{n}) + T((1-\alpha)n) + cn$, where $\alpha$ is a
+> constant in the range $0 < \alpha < 1$, and $c > 0$ is also a constant.
+
+We can assume that $\alpha \le 1/2$, since otherwise we can let $\beta = 1 - \alpha$
+and solve it for $\beta$.
+
+Thus, the depnth of the tree is $\log_{1/\alpha}n$ and each level is $cn$. The leaves
+ar not obvious, but let's guess they are $\Theta(n)$.
+
+$$ T(n) = \sum_{i=0}^{\log_{1/\alpha}n}cn + \Theta(n)
+        = cn\log_{1/\alpha}n + \Theta(n)
+        = \Theta(n\lg{n}) $$
+
+There is another way to show it. Let $\beta = 1 - \alpha$. Thus:
+
+$$ \begin{align}
+   T(n) = & T(\alpha n) + T(\beta n) + cn \\\\
+        = & T(\alpha^2 n) + 2T(\alpha \beta n) + T(\beta^2 n) + cn + c \alpha n  + c \beta n \\\\
+         = & T(\alpha^2 n) + 2T(\alpha \beta n) + T(\beta^2 n) + 2cn \\\\
+         = & T(\alpha^3 n) + T(\alpha^2 \beta n) + c\alpha^2 n +
+             2T(\alpha^2 \beta n) + 2T(\alpha \beta^2 n) + 2c\alpha\beta n +
+             T(\alpha \beta^2 n) + T(\beta ^ 3 n) + c\beta ^ 2 n +
+             2cn\\\\
+         = & T(\alpha^3 n) + 3T(\alpha^2 \beta n) + 3T(\alpha \beta^2 n) + T(\beta^3 n) +
+             c \alpha^2 n + 2c \alpha \beta n + c \beta ^ 2 n + 2cn \\\\
+         = & T(\alpha^3 n) + 3T(\alpha^2 \beta n) + 3T(\alpha \beta^2 n) + T(\beta^3 n) + 3cn \\\\
+         = & \ldots
+   \end{align} $$
+
+This goes until $\alpha^kn \le 1$, after which we have $T(n) = \mathcal{O}(1) + ckn$.
+Well:
+
+$$ \alpha^k = \frac{1}{n} \Rightarrow
+   \log{\alpha^k} = \log\frac{1}{n} \Rightarrow
+   k\log\alpha = - \log{n} \Rightarrow
+   k = \frac{-\log{n}}{\log\alpha} = \frac{\log{n}}{\log(1/\alpha)} = \log_{1/\alpha}n$$
+
+Let's verify with substitution. We guess $T(n) \le dn\lg{n}$:
+
+$$ \begin{align}
+   T(n) & \le d \alpha n \lg(\alpha n) + c \beta n \lg(\beta n) + cn \\\\
+        & \le d \alpha n \lg{n} + d \beta n \lg{n} + d \alpha n \lg\alpha + d \beta n \lg\beta + cn \\\\
+        & \le d n \lg{n} + \big(d (\alpha \lg\alpha + \beta \lg\beta) + c\big)n & (d(\alpha\lg\alpha + \beta\lg\beta) + c \le 0)\\\\
+        & \le d n \lg{n}
+   \end{align} $$
+
+In this case:
+
+$$ d \le -\frac{c}{\alpha\lg\alpha + (1-\alpha)\lg(1-\alpha)}$$
+
+I can't proove it, but $-1 \le \alpha\lg\alpha + \beta\lg\beta\big < 0 $.
+
+And the other way around. We guess $T(n) \ge dn\lg{n}$:
+
+$$ \begin{align}
+   T(n) & \ge d \alpha n \lg(\alpha n) + c \beta n \lg(\beta n) + cn \\\\
+        & \ge d \alpha n \lg{n} + d \beta n \lg{n} + d \alpha n \lg\alpha + d \beta n \lg\beta + cn \\\\
+        & \ge d n \lg{n} + \big(d (\alpha \lg\alpha + \beta \lg\beta) + c\big)n & (d(\alpha\lg\alpha + \beta\lg\beta) + c \ge 0)\\\\
+        & \ge d n \lg{n}
+   \end{align} $$
