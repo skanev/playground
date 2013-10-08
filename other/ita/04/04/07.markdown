@@ -1,0 +1,25 @@
+> Draw the recursion tree for $T(n) = 4T(\lfloor n/2 \rfloor) + cn$, where $c$
+> is a constant, and provide a tight asymptotic bound on its solution. Verify
+> your answer with the substitution method.
+
+Let's ignore the floor. Previous exercises illustrate how this can be handled.
+
+The depth of the tree is $\lg{n}$, each level is $2^icn$ and there are
+$4^\{\lg{n}} = n^2$ leaves.
+
+Thus:
+
+$$ T(n) = \sum_{i=0}^{\lg{n}- 1}2^icn + \Theta(n^2)
+        = cn \sum_{i=0}^{\lg{n}-1}2^i + \Theta(n^2)
+        = cn \frac{2^{\lg{n}} - 1}{2 - 1} + \Theta(n^2)
+        = \Theta(n^2) $$
+
+Let's guess $T(n) \le cn^2 + 2cn$:
+
+$$ T(n) \le 4c(n/2)^2 + 2cn/2 + cn
+        \le cn^2 + 2cn $$
+
+Let's guess $T(n) \ge cn^2 + 2cn$:
+
+$$ T(n) \ge 4c(n/2)^2 + 2cn/2 + cn
+        \ge cn^2 + 2cn $$

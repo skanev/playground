@@ -1,0 +1,75 @@
+digraph tree {
+  node[shape=none, margin=0.0001];
+  edge[dir=none];
+
+  { rank=same;
+    a1[label="cn"];
+    as[label="cn"]
+  }
+
+  { rank=same;
+    b1[label="cn/2"];
+    b2[label="cn/2"];
+    b3[label="cn/2"];
+    b4[label="cn/2"];
+    bs[label="2cn"]
+  }
+
+  { rank=same;
+    c1[label="cn/4"];
+    c2[label="cn/4"];
+    c3[label="cn/4"];
+    c4[label="cn/4"];
+    c5[label="cn/4"];
+    c6[label="cn/4"];
+    c7[label="cn/4"];
+    c8[label="cn/4"];
+    c9[label="cn/4"];
+    c10[label="cn/4"];
+    c11[label="cn/4"];
+    c12[label="cn/4"];
+    c13[label="cn/4"];
+    c14[label="cn/4"];
+    c15[label="cn/4"];
+    c16[label="cn/4"];
+    cs[label="4cn"]
+  }
+
+  { rank=same;
+    z1[label="T(1)"];
+    z2[label="T(1)"];
+    z3[label="T(1)"];
+    z4[label="T(1)"];
+    z5[label="T(1)"];
+    z6[label="T(1)"];
+    z7[label="T(1)"];
+    z8[label="T(1)"];
+    z9[label="T(1)"];
+    z10[label="T(1)"];
+    z11[label="T(1)"];
+    z12[label="T(1)"];
+    z13[label="T(1)"];
+    z14[label="T(1)"];
+    z15[label="T(1)"];
+    z16[label="T(1)"];
+    zs[label="2ⁱcn"]
+  }
+
+  a1 -> b1; a1 -> b2; a1 -> b3; a1 -> b4;
+
+  b1 -> c1;  b1 -> c2;  b1 -> c3;  b1 -> c4;
+  b2 -> c5;  b2 -> c6;  b2 -> c7;  b2 -> c8;
+  b3 -> c9;  b3 -> c10; b3 -> c11; b3 -> c12;
+  b4 -> c13; b4 -> c14; b4 -> c15; b4 -> c16;
+
+  { edge[style=dotted];
+    c1 -> z1;   c2 -> z2;   c3 -> z3;   c4 -> z4;
+    c5 -> z5;   c6 -> z6;   c7 -> z7;   c8 -> z8;
+    c9 -> z9;   c10 -> z10; c11 -> z11; c12 -> z12;
+    c13 -> z13; c14 -> z14; c15 -> z15; c16 -> z16;
+  }
+
+  { edge[style=invis];
+    as -> bs -> cs -> zs;
+  }
+}
