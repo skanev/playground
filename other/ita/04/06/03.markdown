@@ -1,0 +1,16 @@
+> $\star$ Show that case 3 of the master method is overstated, in the sense
+> that the regularity condition $af(n/b) \le cf(n)$ for some constant $c < 1$
+> implies that there exists a constant $\epsilon > 0$ such that
+> $f(n) = \Omega(n^{\log_b{a}+\epsilon})$.
+
+$$ af(n/b) \le cf(n) \\\\
+   \alpha f(n/b) \le f(n), \quad \alpha = a/c \\\\
+   \alpha f(n) \le f(nb) \\\\
+   \alpha^i f(1) \le f(b^i) \\\\
+   n = b^i \Rightarrow i = \log_{b}n \Rightarrow f(n) \ge \alpha^{\log_b{n}}f(1) = n^{\log_{b}\alpha} \\\\
+   \alpha > a \Rightarrow \alpha = a + d \quad (c < 1, d > 0) \\\\
+   \Rightarrow f(n) = n^{\log_b{a} + log_b{d}} = n^{\log_b{a}+\epsilon} \quad (\epsilon = \log_{b}d) $$
+
+I did not think this up. I had [some help][help] at StackExchange.
+
+[help]: http://math.stackexchange.com/questions/510897/why-does-afn-b-cfn-for-c-1-imply-that-fn-omegan-log-ba-ep
