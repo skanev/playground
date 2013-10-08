@@ -15,7 +15,7 @@ module Renderer
 
     render_view 'layout', context do
       render_view 'exercise', context do
-        markdown.render exercise_markdown
+        process exercise_markdown
       end
     end
   end
@@ -26,7 +26,7 @@ module Renderer
 
     render_view 'layout', context do
       render_view 'problem', context do
-        markdown.render problem_markdown
+        process problem_markdown
       end
     end
   end
@@ -53,6 +53,12 @@ module Renderer
 
   def markdown
     @markdown ||= Redcarpet::Markdown.new Markdown, tables: true, no_intra_emphasis: true
+  end
+
+  def process(markdown_code)
+    markdown_code = markdown_code.gsub(/exercise\s+(\d+).(\d+)[-.](\d+)/i) { |text| "[#{text}](/%02d/%02d/%02d.html)" % [$1, $2, $3] }
+    markdown_code = markdown_code.gsub(/problem\s+(\d+).(\d+)/i) { |text| "[#{text}](/%02d/%02d.html)" % [$1, $2] }
+    markdown.render markdown_code
   end
 
   class Markdown < Redcarpet::Render::HTML
