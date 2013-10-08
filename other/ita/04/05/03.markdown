@@ -1,0 +1,7 @@
+> Use the master method to show that the solution to the binary-search
+> recurrence $T(n) = T(n/2) + \Theta(1)$ is $T(n) = \Theta(\lg{n})$. (See
+> exercise 2.3-5 for a description of binary search).
+
+$$ a = 1, b = 2 \\\\
+   f(n) = \Theta(n^{\log_2{1}}) = \Theta(1) \\\\
+   T(n) = \Theta(\lg{n}) $$
