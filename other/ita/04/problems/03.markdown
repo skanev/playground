@@ -1,0 +1,91 @@
+## More recurrence examples
+
+> Give asymptotic upper and lower bounds for $T(n)$ in each of the following
+> recurrences. Assume that $T(n)$ is constant for sufficiently small $n$. Make
+> your bounds as tight as possible, and justify your answers.
+>
+> 1. $T(n) = 4T(n/3) + n\lg{n}$
+> 2. $T(n) = 3T(n/3) + n/\lg{n}$
+> 3. $T(n) = 4T(n/2) + n^2\sqrt{n}$
+> 4. $T(n) = 3T(n/3 - 2) + n/2$
+> 5. $T(n) = 2T(n/2) + n/\lg{n}$
+> 6. $T(n) = T(n/2) + T(n/4) + T(n/8) + n$
+> 7. $T(n) = T(n - 1) + 1/n$
+> 8. $T(n) = T(n - 1) + \lg{n}$
+> 9. $T(n) = T(n - 2) + 1/\lg{n}$
+> 10. $T(n) = \sqrt{n}T(\sqrt{n}) + n$
+
+### 1. $T(n) = 4T(n/3) + n\lg{n}$
+
+$\Theta(n^{\log_3{4}})$ by the master method.
+
+### 2. $T(n) = 3T(n/3) + n/\lg{n}$
+
+It's $\Theta(n\lg\lg{n})$. Check subtask 5 for the reasoning.
+
+### 3. $T(n) = 4T(n/2) + n^2\sqrt{n}$
+
+$\Theta(n^2\sqrt{n}) = \Theta(n^{2.5})$ by the master method ($\log_2{4} = 2 < 2.5$).
+
+### 4. $T(n) = 3T(n/3 - 2) + n/2$
+
+We can ignore the $-2$ and using the master method, we arrive at $\Theta(n\lg{n})$.
+
+### 5. $T(n) = 2T(n/2) + n/\lg{n}$
+
+$$ \begin{align}
+   T(n) & = 2T(n/2) + \frac{n}{\lg{n}} = 4(n/4) + 2\frac{n/2}{\lg(n/2)} + \frac{n}{\lg{n}}
+          = 4T(n/4) + \frac{n}{\lg{n} - 1} + \frac{n}{\lg{n}} \\\\
+        & = nT(1) + \sum_{i=0}^{\lg{n} - 1}\frac{n}{\lg{n}-i}
+          = nT(1) + n\sum_{i=1}^{\lg{n}}\frac{1}{\lg{n}} \\\\
+        & = \Theta(n\lg\lg{n})
+   \end{align} $$
+
+### 6. $T(n) = T(n/2) + T(n/4) + T(n/8) + n$
+
+We guess $\Theta(n)$:
+
+$$ \begin{align}
+   T(n) & = cn/2 + cn/4 + cn/8 + n \le (7/8)cn + n \le cn = O(n) \quad (c \ge 8) \\\\
+   T(n) & = cn/2 + cn/4 + cn/8 + n \ge (7/8)cn + n \ge cn = \Omega(n) \quad (c \le 8)
+   \end{align} $$
+
+### 7. $T(n) = T(n - 1) + 1/n$
+
+$$ \begin{align}
+   T(n) &= T(n-1) + 1/n = \frac{1}{n} + \frac{1}{n-1} + T(n-2) \\\\
+        &= \frac{1}{n} + \frac{1}{n-1} + \frac{1}{n-2} + T(n-3) \\\\
+        &= \sum_{i=0}^{n-1}\frac{1}{n-i} = \sum_{i=1}^n\frac{1}{i} = \\\\
+        &= \Theta(\lg{n})
+   \end{align} $$
+
+### 8. $T(n) = T(n - 1) + \lg{n}$
+
+$$ \begin{align}
+   T(n) &= \lg{n} + T(n-1) = \lg{n} + \lg{n-1} + T(n-2) = \\\\
+        &= \sum_{i=0}^{n-1}\lg(n - i) = \sum_{i=1}^{n}\lg{i} = \lg(n!) \le \lg{n^n} = n\lg{n} \\\\
+        &= \Theta(n\lg{n})
+   \end{align} $$
+
+### 9. $T(n) = T(n - 2) + 1/\lg{n}$
+
+$$ \begin{align}
+   T(n) &= \frac{1}{\lg{n}} + \frac{1}{\lg{n-2}} + \ldots \\\\
+        &= \sum_{i=1}^{n/2}\frac{1}{\lg(2i)} \\\\
+        &= \sum_{i=1}^{\infty}\frac{1}{\lg{i}} \\\\
+        &= \Theta(\lg\lg{n})
+   \end{align} $$
+
+### 10. $T(n) = \sqrt{n}T(\sqrt{n}) + n$
+
+We guess $T(n) \le cn\lg{n}\lg{n}$:
+
+$$ \begin{align}
+   T(n) &\le \sqrt{n}c\sqrt{n}\lg\lg\sqrt{n} + n \\\\
+        & = cn\lg\lg\sqrt{n} + n \\\\
+        & = cn\lg\frac{\lg{n}}{2} + n \\\\
+        & = cn\lg\lg{n} - cn\lg{2} + n \\\\
+        & = cn\lg\lg{n} + (1 - c)n & (c > 1) \\\\
+        &\le cn\lg\lg{n}
+        & = \Theta(n\lg\lg{n})
+   \end{align} $$
