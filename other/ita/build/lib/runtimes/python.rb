@@ -8,7 +8,8 @@ module Runtimes
     end
 
     def run_test(location, capture_output = false)
-
+      path = SOLUTION_ROOT.join(location).sub_ext '.test.py'
+      execute path, capture_output
     end
 
     private
