@@ -1,0 +1,12 @@
+> An $n$-input, $m$-output **boolean function** is a function from
+> $\\{TRUE,FALSE\\}^n$ to $\\{TRUE,FALSE\\}^m$. How many $n$-input 1-output
+> boolean functions are there? How many $n$-input, $m$-output boolean functions
+> are there?
+
+There are $2^n$ possible inputs. We can represent the possible binary functions
+completely as binary numbers of $2^n$ digits. There $2^{2^n}$ of those.
+
+If there are $2^m$ possible outputs, we can represent the functions as numbers
+of $2^n$ digits in base $2^m$. This makes the answer of the second question:
+
+$$ (2^m)^{2^n} $$
