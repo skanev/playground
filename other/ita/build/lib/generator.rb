@@ -41,17 +41,17 @@ module Generator
   end
 
   def generate_exercise(exercise)
-    filename = '%02d/%02d/%02d.html' % exercise.components
+    filename = '%s/%02d/%02d.html' % exercise.components
     write_file filename, Renderer.render_exercise(exercise)
   end
 
   def generate_problem(problem)
-    filename = '%02d/problems/%02d.html' % problem.components
+    filename = '%s/problems/%02d.html' % problem.components
     write_file filename, Renderer.render_problem(problem)
   end
 
   def generate_graph(exercise)
-    filename = '%02d/%02d/%02d.png' % exercise.components
+    filename = '%s/%02d/%02d.png' % exercise.components
     write_file filename, Graph.render(exercise.graph_path)
   end
 

@@ -6,6 +6,7 @@ require 'redcarpet'
 require 'nokogiri'
 require 'coderay'
 
+require_relative 'lib/chapter_number'
 require_relative 'lib/catalog'
 require_relative 'lib/solution'
 require_relative 'lib/exercise'

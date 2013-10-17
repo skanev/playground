@@ -8,7 +8,7 @@
           <th>Section <%= section.number %></th>
           <% section.exercises.each do |exercise| %>
             <td>
-              <a href="<%= '%02d/%02d/%02d.html' % exercise.components %>">
+              <a href="<%= '%s/%02d/%02d.html' % exercise.components %>">
                 <%= exercise.name %>
               </a>
             </td>
@@ -23,7 +23,7 @@
           <th>Problems</th>
           <% chapter.problems.each do |problem| %>
             <td>
-              <a href="<%= '%02d/problems/%02d.html' % problem.components %>">
+              <a href="<%= '%s/problems/%02d.html' % problem.components %>">
                 <%= problem.name %>
               </a>
             </td>

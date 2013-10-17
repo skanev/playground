@@ -2,7 +2,7 @@ class Exercise
   include Solution
 
   def initialize(chapter, section, number)
-    @chapter = chapter.to_i
+    @chapter = chapter
     @section = section.to_i
     @number  = number.to_i
   end
@@ -12,7 +12,7 @@ class Exercise
   end
 
   def name
-    "#@chapter.#@section.#@number"
+    "#{@chapter.short_name}.#@section.#@number"
   end
 
   def title
@@ -20,6 +20,6 @@ class Exercise
   end
 
   def location
-    '%02d/%02d/%02d' % components
+    '%s/%02d/%02d' % components
   end
 end

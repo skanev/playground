@@ -18,19 +18,19 @@ get '/index.?:format?' do
 end
 
 get '/:chapter/problems/:number.?:format?' do
-  problem = Problem.new params[:chapter], params[:number]
+  problem = Problem.new ChapterNumber.new(params[:chapter]), params[:number]
   Renderer.render_problem problem
 end
 
 get '/:chapter/:section/:number.png' do
-  exercise = Exercise.new params[:chapter], params[:section], params[:number]
+  exercise = Exercise.new ChapterNumber.new(params[:chapter]), params[:section], params[:number]
 
   content_type 'image/png'
   Graph.render exercise.graph_path
 end
 
 get '/:chapter/:section/:number.?:format?' do
-  exercise = Exercise.new params[:chapter], params[:section], params[:number]
+  exercise = Exercise.new ChapterNumber.new(params[:chapter]), params[:section], params[:number]
   Renderer.render_exercise exercise
 end
 

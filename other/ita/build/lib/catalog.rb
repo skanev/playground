@@ -14,11 +14,14 @@ class Catalog
 
   def find_chapters
     Dir.chdir @root do
-      glob('.', '[0-9][0-9]').map do |number|
+      dirs = glob('.', '[0-9][0-9]').to_a + glob('.', '[ABCD]').to_a
+
+      dirs.map do |dir|
+        number   = ChapterNumber.new dir
         sections = find_sections number
         problems = find_problems number
 
-        Chapter.new number.to_i, sections, problems
+        Chapter.new number, sections, problems
       end
     end
   end
