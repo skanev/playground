@@ -1,0 +1,20 @@
+> How many $k$-substrings does an $n$-string have? (Consider identical
+> $k$-substrings at different positions to be different.) How many substrings
+> does and $n$-string have in total?
+
+There are $S_k = n - k + 1$ possible substrings of length $k$ (one starting at
+the first position, one and the second, etc.)
+
+In total there are:
+
+$$ \begin{align}
+   S &= S_1 + S_2 + \ldots + S_n \\\\
+     &= \sum_{i=1}^{n}S_i \\\\
+     &= \sum_{i=1}^{n}(n - i + 1) \\\\
+     &= \sum_{i=1}^{n}n - \sum_{i=1}^{n}i + \sum_{i=1}^{n}1 \\\\
+     &= n^2 - n(n + 1)/2 + n \\\\
+     &= n^2 - n^2/2 - n/2 + n \\\\
+     &= n(n + 1)/2 \qquad \text{(Duh!)}
+     \end{align}$$
+
+Obvious proof is obvious.
