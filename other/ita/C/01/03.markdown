@@ -1,0 +1,9 @@
+> In how many ways can $n$ professors sit around a circular conference table?
+> Consider two seatings to be the same if one can be rotated to form the other.
+
+If we pick a chair as the first one and a direction, in which the chairs are
+increasing, there are $n!$ ways to seat the professors. However, an arrangement
+$\\{1, 2, \ldots, n\\}$ is identical to $\\{2, 3, \ldots, n, 1\\}$ and there
+are $n$ of those identical arrangements (one starting on each professor). Since
+identical arrangements are in groups of size $n$, the total number of seatings
+is $n!/n = (n-1)!$.
