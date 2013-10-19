@@ -1,0 +1,14 @@
+> Show that for any $n \ge 0$ and $0 \le k \le m$, the expression
+> $\binom{n}{k}$ achieves its maximum value when $k = \lfloor n/2 \rfloor$ or
+> $k = \lceil n/2 \rceil$.
+
+It's evident in Pascal's triangle, yet anyway. There are $k$ multipliers in the
+denominator of:
+
+$$ \binom{n}{k} = \frac{n!}{k!(n-k)!} $$
+
+It's a question of minizing them. For $n/2 - k < i < n/2$, there would be $i$
+pairs of the type $i(n-i)$. Those pairs are strictly greater than $i^2$. They
+are minized when $i$ is $n/2$ or the nearest integer.
+
+It's not bullet-proof, but it works.
