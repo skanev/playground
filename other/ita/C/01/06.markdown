@@ -1,0 +1,8 @@
+> Prove the identity
+>
+> $$ \binom{n}{k} = \frac{n}{n-k}\binom{n-1}{k} $$
+>
+> for $0 \le k < n$.
+
+$$ \binom{n}{k} = \frac{n!}{k!(n-k)!} = \frac{n}{n-k}\frac{(n-1)!}{k!(n-1-k)!}
+                = \frac{n}{n-k}\binom{n-1}{k} $$
