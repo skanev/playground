@@ -1,0 +1,11 @@
+> In how many ways can we choose three distinct numbers from the set
+> $\\{1,2,\ldots,99\\}$ so that their sum is even?
+
+There are 49 even numbers and 50 odd in that set. To get an even number, we
+either need two odd and one even or three even.
+
+$$ \langle \text{2 odd, 1 even} \rangle = 49\frac{50!}{2! \cdot 48!} = \frac{50 \cdot 49^2}{2} \\\\
+   \langle \text{3 even} \rangle = \frac{49!}{3! \cdot 46!} = \frac{49 \cdot 48 \cdot 47}{6} \\\\
+   \langle \text{even sum} \rangle = \frac{49 \cdot 48 \cdot 47}{6} + \frac{50 \cdot 49^2}{2}
+     = 78449
+$$
