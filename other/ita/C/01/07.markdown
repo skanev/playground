@@ -1,0 +1,18 @@
+> To choose $k$ objects from $n$, you can make one of the objects distinguished
+> and consider whether the distinguished object is chosen. Use this approach to
+> prove that:
+>
+> $$ \binom{n}{k} = \binom{n-1}{k} + \binom{n-1}{k-1} $$
+
+Given the distinguished object is chosen, there are $\binom{n-1}{k-1}$ ways to
+choose the others. If it is not chosen, there are $\binom{n-1}{k}$ ways to
+choose the objects. Adding those together yields the equality above.
+
+$$ \begin{align}
+   \binom{n-1}{k} + \binom{n-1}{k-1}
+     &= \frac{(n-1)!}{k!(n-1-k)!} + \frac{(n-1)!}{(k-1)!(n-1-k+1)!} \\\\
+     &= \frac{(n-1-k+1)(n-1)!}{k!(n-1-k+1)!} + \frac{k(n-1)!}{k!(n-1-k+1)!} \\\\
+     &= \frac{(n-1-k+1+k)(n-1)!}{k!(n-1-k+1)!} \\\\
+     &= \frac{n!}{k!(n-k)!} \\\\
+     &= \binom{n}{k}
+   \end{align} $$
