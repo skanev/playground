@@ -1,0 +1,15 @@
+> Using the result of exercise C.1-7, make a table for $n = 0, 1, \ldots, 6$
+> and $0 \le k \le n$ of the binomial coefficients $\binom{n}{k}$ with
+> $\binom{0}{0}$ at the top, $\binom{1}{0}$ and $\binom{1}{1}$ on the next line,
+> and so forth. Such a table of binomial coefficients is called **Pascal's
+> triangle**.
+
+$$ 1 \\\\
+   1 \quad 1 \\\\
+   1 \quad 2 \quad 1 \\\\
+   1 \quad 3 \quad 3  \quad 1 \\\\
+   1 \quad 4 \quad 6  \quad 4  \quad 1 \\\\
+   1 \quad 5 \quad 10 \quad 10 \quad 5  \quad 1 \\\\
+   1 \quad 6 \quad 15 \quad 20 \quad 15 \quad 6  \quad 1 \\\\
+   1 \quad 7 \quad 21 \quad 35 \quad 35 \quad 21 \quad 7 \quad 1
+$$
