@@ -1,0 +1,14 @@
+> Suppose we shuffle a deck of 10 cards, each bearing a distinct number from 1
+> to 10, to mix the cards thoroughly. We then remove three cards, one at a
+> time, from the deck. What is the probability that we select the three cards
+> in sorted (increasing) order?
+
+There are $n!/(n-k)!$ ways to pick $k$ cards. Out of those, only $\binom{n}{k}$
+are ascending. Thus the probability is:
+
+$$ \binom{n}{k} \div \frac{n!}{(n-k)!} = \frac{n!(n-k)!}{k!(n-k)!n!} = \frac{1}{k!} $$
+
+For three cards, this is $1/6$.
+
+I tried approaching this with probabilities, but it was way harder than just
+counting. Also, I wrote a small ruby program to verify my result ;)
