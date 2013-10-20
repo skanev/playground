@@ -1,0 +1,10 @@
+> $\star$ Show that for any integer $n \ge 0$,
+>
+> $$ \sum_{k=0}^n\binom{n}{k}k = n2^{n-1} $$
+
+$$ \sum_{k=0}^n\binom{n}{k}k
+   = \sum_{k=1}^n\binom{n}{k}k
+   = \sum_{k=1}^n\frac{nk}{k}\binom{n-1}{k-1}
+   = n\sum_{k=1}^n\binom{n-1}{k-1}
+   = n\sum_{k=0}^n\binom{n-1}{k}
+   = n2^{n-1} $$
