@@ -1,0 +1,21 @@
+> $\star$ You are a contestant in a game show in which a prize is hidden behind
+> one of three curtains. You will win the prize if you select the correct
+> curtain. After you have picked one curtain but before the curtain is lifted,
+> the emcee lifts one of the other curtains, knowing that it will reveal an
+> empty stage, and asks if you would like to switch from your current selection
+> to the remaining curtain. How would your chances change if you switch? (This
+> question is the celebrated **Monty Hall problem**, named after a game-show
+> host who often presented contestants with just this dilemma.)
+
+This is [very popular](http://en.wikipedia.org/wiki/Monty_Hall_problem).
+
+If you are always given this choice and take it:
+
+* If you picked the right curtain (probability $1/3$), you will switch to an
+  empty stage
+* If you picked a wrong curtain (probability $2/3$), you will switch to the
+  prize (that's the only option, since the other empty stage is shown)
+
+Effectively, you interchange success and failure. That way, the probability to
+win is $2/3$ and you should always take it (if the choice is given to you in an
+unbiased fashion).
