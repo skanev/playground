@@ -1,0 +1,20 @@
+> Prove that for any collection of events $A_1,A_2,\ldots,A_n$
+>
+> $$ \Pr\\{A_1 \cap A_2 \cap \cdots \cap A_n\\} = \Pr\\{A_1\\} \cdot \Pr\\{A_2 | A_1\\} \cdot 
+>    \Pr\\{A_3 | A_1 \cap A_2\\} \cdots \Pr\\{A_n | A_1 \cap A_2 \cap \cdots \cap A_{n-1}\\} $$
+
+This is nice
+
+$$ \begin{align}
+   \Pr\\{A_1 \cap A_2 \cap \cdots\\}
+     &= \Pr\\{A_n | A_1 \cap \cdots \cap A_{n-1}\\} \cdot
+        \Pr\\{A_1 \cap \cdots \cap A_{n-1}\\} \\\\
+     &= \Pr\\{A_n | A_1 \cap \cdots \cap A_{n-1}\\} \cdot
+        \Pr\\{A_{n-1} | A_1 \cap \cdots \cap A_{n-2}\\} \cdot
+        \Pr\\{A_1 \cap \cdots \cap A_{n-2}\\} \\\\
+     &= \ldots \\\\
+     &= \Pr\\{A_n | A_1 \cap \cdots \cap A_{n-1}\\} \cdots
+        \Pr\\{A_3 | A_1 \cap A_2\\} \cdot
+        \Pr\\{A_2 | A_1\\} \cdot
+        \Pr\\{A_1\\}
+   \end{align} $$
