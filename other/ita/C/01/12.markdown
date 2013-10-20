@@ -1,0 +1,12 @@
+> $\star$ Use induction on all integers $k$ such that $0 \le k \le n/2$ to
+> prove inequality (C.6) and use equation (C.3) to extend it to all integers
+> $k$ such that $0 \le k \le n$.
+
+**(UNSOLVED)** I get this far:
+
+$$ \binom{n}{k} = \frac{n!}{k!(n-k)!} \frac{n-k+1}{k}\frac{n!}{(k-1)!(n-k+1)!}
+              \le \frac{n!}{k!(n-k)!} \frac{n^n}{(k-1)^{k-1}(n-k+1)^{n-k+1}} $$
+
+And then I get stuck.
+
+I'm pretty certain (C.3) is easy to apply.
