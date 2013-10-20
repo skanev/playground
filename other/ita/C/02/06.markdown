@@ -1,0 +1,35 @@
+> $\star$ Describe a procedure that takes as input two integers $a$ and $b$
+> such that $0 < a < b$ and, using fair coin flips, produces as output heads
+> with probability $a/b$ and tails with probability $(b-a)/b$. Give a bound on
+> the expected number of coin flips, which should be $\mathcal{O}(1)$. (Hint:
+> represent $a/b$ in binary.)
+
+This is actually tricky. Fortunatelly, [this answer][answer] helper me.
+
+[answer]: http://math.stackexchange.com/questions/63207/produce-output-with-certain-probability-using-fair-coin-flips
+
+You represent $a/b$ as binary. Then you start flipping coins and expect each
+flip to match a digit (0 for heads, 1 for tails). If you expect a 0, but get 1,
+you return tail. If you expect 1 and get a 0, you return heads. Otherwise, you
+keep doing it.
+
+To put it otherwise, just the flips produce a random number in binary. If you
+expect 0, but get 1, then you have produced a number greated than $a/b$.
+Otherwise, you have produced a number less than it.
+
+The probability of terminating is $1/2$ at each flip. The expected number of
+throws is:
+
+$$ \sum_{r=1}^{\infty}\frac{r}{2^r}
+   = \frac{1/2}{1/4}
+   = 2 $$
+
+Don't know when this came from? Well, for $k < 1$:
+
+$$ \sum_{k=0}^{\infty}kx^k = \frac{x}{(1 - x)^2} $$
+
+How do you get that, you ask? You just integrate this sum:
+
+$$ \sum_{k=0}^{\infty}x^k = \frac{1}{1-x} $$
+
+Mindblowing.
