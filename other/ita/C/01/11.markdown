@@ -1,0 +1,33 @@
+> $\star$ Argue that for any integers $n \ge 0, j \ge 0, k \ge 0$ and $j + k \le n$,
+>
+> $$ \binom{n}{j+k} \le \binom{n}{j}\binom{n-j}{k} $$
+>
+> Provide both an algebraic proof and an argument based on a method for
+> choosing $j + k$ items out of $n$. Give an example in which equality does not
+> hold.
+
+First, let's establish that, $j!k! \le (j+k)!$. Both sides have the same number
+of terms, but the right side has $k$ terms more - $(j+1)(j+2)\ldots(j+k)$ -
+that are greater than the corresponding terms on the left side
+$1\cdot2\cdot\ldots k$.
+
+Thus:
+
+$$ \binom{n}{j} \binom{n-j}{k}
+   = \frac{n!}{j!(n-j)!} \frac{(n-j)!}{k!(n-j-k)!}
+   = \frac{n!}{j!k!(n-j-k)!}
+   \ge \frac{n!}{(j+k)!(n-j-k)!}
+   = \binom{n}{j+k}
+$$
+
+As for the argument, the right side is the number of ways in which we can:
+
+1. Choose $j$ elements out of $n$
+2. Choose $k$ elements out of the remaining $n-j$ elements
+
+There are more ways to do that than just choosing $j+k$ elements out of $n$,
+because this implies some ordering in the choice. For example, if $j = k = 1$,
+there are two ways to pick two elements (each one first) with this approach,
+but only one otherwise.
+
+If $n = 4, j = k = 1$, then equality does not hold.
