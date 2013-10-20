@@ -1,0 +1,25 @@
+> $\star$ By differentiating the entropy function $H(\lambda)$, show that it
+> achieves its maximum value at $\lambda = 1/2$. What is $H(1/2)$?
+
+Phew, it took me a while to figure out that I've forgotten calculus:
+
+$$ H(\lambda) = -\lambda\lg{\lambda} - (1 - \lambda)\lg(1 - \lambda) \\\\
+   \begin{align}
+     H'(\lambda) &= -\lg{\lambda} - \frac{\lambda 1}{\lambda \ln2} + \lg(1 - \lambda) - \frac{(1-\lambda)}{(1-\lambda)(-1)\ln2} \\\\
+           &= \lg\frac{1 - \lambda}{\lambda} - \lg{e} + \lg{e} \\\\
+           &= \lg\frac{1 - \lambda}{\lambda}
+   \end{align} $$
+
+Let's find a critical point:
+
+$$ H'(\lambda) = 0 \\\\
+   \Downarrow \\\\
+   \lg\frac{1 - \lambda}{\lambda} = 0 \\\\
+   \Downarrow \\\\
+   \frac{1-\lambda}{\lambda} = 1 \\\\
+   \Downarrow \\\\
+   \lambda = 1/2 $$
+
+Because $H'(1/4) = \lg{3} > 0$ and $H'(3/4) = \lg(1/3) < 0$, we know that it is a maxima.
+
+$$ H(1/2) = - \lg(1/2)/2 -\lg(1/2)/2 = - \lg{1/2} = 1 $$
