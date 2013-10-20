@@ -1,0 +1,29 @@
+> $\star$ Two events $A$ and $B$ are **conditionally independent**, given $C$,
+> if
+>
+> $$ \Pr\\{A \cap B | C\\} = \Pr\\{A | C\\} \cdot \Pr\\{B | C\\} $$
+>
+> Give a simple but nontrivial example of two events that are not independent
+> but are conditionally independent given a third event.
+
+Two people use the same coin.
+
+* **A** - person 1 tosses heads
+* **B** - person 2 tosses heads
+* **C** - the coin is biased (falls heads only) - happens one in three times
+
+Thus:
+
+$$
+\Pr\\{A\\} = \frac 1 3 \cdot 1 + \frac 2 3 \cdot \frac 1 2 = \frac 2 3 \\\\
+\Pr\\{B\\} = \frac 1 3 \cdot 1 + \frac 2 3 \cdot \frac 1 2 = \frac 2 3 \\\\
+\Pr\\{A \cap B\\} = \frac 1 3 \cdot 1 + \frac 2 3 \cdot \frac 1 4 = \frac 1 2
+$$
+
+The two events are not independent, because:
+
+$$ \frac 2 3 = \Pr\\{A \cap B\\} \neq \Pr\\{A\\} \cdot \Pr\\{B\\} = \frac 4 9 $$
+
+However, they are conditionally independent, because:
+
+$$ 1 = \Pr\\{A \cap B | C \\} = \Pr\\{A | C\\} \cdot \Pr\\{B | C\\} = 1 $$
