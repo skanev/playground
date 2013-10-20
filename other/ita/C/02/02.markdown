@@ -1,0 +1,15 @@
+> Prove **Boole's inequality**: For any finite or countably infinte sequence of
+> events $A_1, A_2, \ldots$,
+>
+> $$ \Pr\\{A_1 \cup A_2 \cup \ldots \\} \le \Pr\\{A_1\\} + \Pr\\{A_2\\} + \ldots $$
+
+$$ \begin{align}
+   \Pr\\{A_1 \cup A_2 \cup \cdots\\} &=
+                             \Pr\\{A_1\\} +
+                             \Pr\\{A_2 \cup A_3 \cup \cdots\\} -
+                             \Pr\\{A_1 \cap (A_2 \cup A_3 \cup \cdots)\\} \\\\
+                       & \le \Pr\\{A_1\\} + \Pr\\{A_2 \cup A_3 \cup \cdots\\} \\\\
+                       & \le \Pr\\{A_1\\} + \Pr\\{A_2\\} + \Pr\\{A_3 \cup A_4 \cup \cdots\\}
+   \end{align} $$
+
+Strictly speaking, we should use some induction, but you get the idea.
