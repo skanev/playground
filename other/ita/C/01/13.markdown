@@ -1,0 +1,15 @@
+> $\star$ Use Stirling's approximation to prove that
+>
+> $$ \binom{2n}{n} = \frac{2^{2n}}{\sqrt{\pi n}}(1 + \mathcal{O}(1/n)) $$
+
+So:
+
+$$ \begin{align}
+   \binom{2n}{n} &= \frac{(2n)!}{n!(2n-n)!} = \frac{(2n)!}{(n!)^2} \\\\
+     &= \frac{\sqrt{2 \pi 2 n}\big(\frac{2n}{e}\big)^{2n}\Big(1 + \Theta(\frac{1}{n})\Big)}
+            {2 \pi n \big(\frac{n}{e}\big)^{2n}\Big(1 + \Theta(\frac{1}{n})\Big)^2} \\\\
+     &= \frac{1}{\sqrt{\pi n}} \frac{2^{2n}n^{2n}}{n^{2n}}(1 + \mathcal{O}(1/n)) \\\\
+     &= \frac{2^{2n}}{\sqrt{\pi n}}(1 + \mathcal{O}(1/n))
+   \end{align} $$
+
+There is a little hand-waving at the end, but it is good enough.
