@@ -1,0 +1,8 @@
+> Professor Rosencrantz flips a fair coin. Professor Guildenstern flips a fair
+> coin twice. What is the probability that Professor Rosencrantz obtains more
+> heads than professor Guildenstern?
+
+Let us call $G_n$ and $R_n$ the number of heads each professor has. The answer
+is:
+
+$$ \Pr\\{R_n = 1\\}.\Pr\\{G_n = 0\\} = \frac{1}{2}.\frac{1}{4} = \frac{1}{8} $$
