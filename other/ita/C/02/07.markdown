@@ -1,0 +1,30 @@
+> $\star$ Show how to construct a set of $n$ events that are pairwise
+> independent but such that no subset of $k > 2$ of them is mutually
+> independent.
+
+Get a dice with $n^2$ sides (you can actually construct one of those). Assign
+the numbers $1 \ldots n$ to $n$ colors, non of which is black. Use each color
+to paint $n-1$ sides, paint one side striped with all colors, and paint the
+rest black. Here's a table:
+
+|         |  1  |  2  |  3  | ... | n |
+|:-------:|:---:|:---:|:---:|:---:|:-:|
+|  **1**  |  1  |  2  |  3  | ... | n |
+|  **2**  |  1  |  2  |  3  | ... | n |
+|  **3**  |  1  |  2  |  3  | ... | n |
+|   ...   | ... | ... | ... | ... | n |
+| **n-1** |  1  |  2  |  3  | ... | n |
+|  **n**  | all |  -  |  -  | ... | - |
+
+Counting the side painted with all colors, there are $(n-1 + 1)/n^2 = 1/n$ ways
+to get each color. For any two colors, there are $1/n^2$ ways, which satisfies
+the equation for independence. However, for $k$ colors, the chances are too
+$1/n^2$, where they should be $1/n^k$ if that event was independent.
+
+Thus, each pair is independent, but each subset with three or more elements is
+not.
+
+I'm actually quite proud of this solution.
+
+There is an [interesting article](http://www.pme-math.org/journal/issues/PMEJ.Vol.9.No.9.pdf)
+in the Pi Mu Epsilon Journal, vol 9, 1993
