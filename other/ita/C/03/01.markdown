@@ -5,19 +5,19 @@
 The expectation of the sum is:
 
 $$ \begin{align}
-     E[X] &= \sum_{x=2}^{12}x\Pr\\{X = x\\} \\\\
-          &=  2 \cdot \frac 1 36 +
-              3 \cdot \frac 2 36 +
-              4 \cdot \frac 3 36 +
-              5 \cdot \frac 4 36 +
-              6 \cdot \frac 5 36 +
-              7 \cdot \frac 6 36 +
-              8 \cdot \frac 5 36 +
-              9 \cdot \frac 4 36 +
-             10 \cdot \frac 3 36 +
-             11 \cdot \frac 2 36 +
-             12 \cdot \frac 1 36 \\\\
-          &= 7
+     \E[X] &= \sum_{x=2}^{12}x\Pr\\{X = x\\} \\\\
+           &=  2 \cdot \frac 1 36 +
+               3 \cdot \frac 2 36 +
+               4 \cdot \frac 3 36 +
+               5 \cdot \frac 4 36 +
+               6 \cdot \frac 5 36 +
+               7 \cdot \frac 6 36 +
+               8 \cdot \frac 5 36 +
+               9 \cdot \frac 4 36 +
+              10 \cdot \frac 3 36 +
+              11 \cdot \frac 2 36 +
+              12 \cdot \frac 1 36 \\\\
+           &= 7
    \end{align}$$
 
 The result is as expected, the probabilities are obtained by just counting them.
@@ -36,10 +36,9 @@ As for the maximum, a table helps illustrate the probabilities:
 There is a nice geometrical interpretation here. In any case, the chance of $n$
 being the maximum of two dice is $(2n-1)/36$. Thus:
 
-$$ E[Y]
+$$ \E[Y]
    = \sum_{i=1}^{6}i\Pr\\{Y = i\\}
    = \sum_{i=1}^{6}\Bigg(i \cdot \frac{2i - 1}{36}\Bigg)
    = \frac{2\sum{i^2} - \sum{i}}{36}
    = \frac{(6 \cdot 7 \cdot 13)/6 - (6 \cdot 7)/2}{36}
-   = \frac{161}{36} = 4.47\ldots
-   $$
+   = \frac{161}{36} = 4.47\ldots $$
