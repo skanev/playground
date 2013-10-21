@@ -1,0 +1,17 @@
+> An array $A[1\ldots n]$ contains $n$ distinct numbers that are randomly
+> ordered, with each permutation of the $n$ numbers equally likely. What is the
+> expectation of the index of the maximum element in the array? What is the
+> expectation of the minimum element of the array?
+
+The expectation of the max element having an index $i$ is $\Pr\\{X = i\\} = \frac 1 n$.
+
+$$ \E[X] = \sum_{i=1}^n i \cdot \Pr\\{X = i\\}
+         = \sum_{i=1}^n i \cdot \frac 1 n
+         = \frac 1 n \sum_{i=1}^n i
+         = \frac 1 n \frac{n(n+1)}{2}
+         = \frac{n+1}{2} $$
+
+Not a surprising result.
+
+Curious: the same logic applies for the minimum element. Thus, the expectation
+for the index of the minimum element is the same.
