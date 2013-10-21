@@ -1,0 +1,15 @@
+> Argue that if $X$ and $Y$ are nonnegative random variables, then
+>
+> $$ \E[\max(X, Y)] \le \E[X] + \E[Y] $$
+
+There is a hidden assumption that $X$ and $Y$ are on the same domain
+(otherwise, you can't define $\max(X, Y)$). The expectations can be expanded as
+this:
+
+$$ \E[\max(X, Y)] = \sum n \cdot \max(\Pr\\{X = n\\}, \Pr\\{Y = n\\}) \\\\
+   \E[X] = \sum n \Pr\\{X = n\\} \qquad
+   \E[X] = \sum n \Pr\\{Y = n\\} $$
+
+Each of the summands in the first formula appears in either $\E[X]$ or $\E[Y]$.
+Their sum contains twice as many, all nonnegative. That makes it equal or
+greater.
