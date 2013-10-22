@@ -1,0 +1,7 @@
+> $\star$ Let $X$ and $Y$ be independent random variables. Prove that $f(X)$
+> and $g(Y)$ are independent for any choice of functions $f$ and $g$.
+
+**(UNSOLVED)** This is so intuitively obvious, that I have a hard time wanting to
+do it. On the other hand, intuition disagrees with many things in probability
+thoery. Either way, I have no clue what to do with $\Pr\\{f(X)\\}$, so I don't
+know how to prove it.
