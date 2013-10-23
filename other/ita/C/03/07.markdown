@@ -1,0 +1,13 @@
+> Let $S$ be a sample space, and let $X$ and $X'$ be random variables such that
+> $X(s) \ge X'(s)$ for all $s \in S$. Prove that for any real constant $t$,
+>
+> $$ \Pr\\{X \ge t\\} \ge \Pr\\{X' \ge t\\} $$
+
+Both of them, expanded, are:
+
+$$ \Pr\\{X \ge t\\} = \sum_{s \in S:X(s) \ge t}\Pr\\{s\\} \\\\
+   \Pr\\{X' \ge t\\} = \sum_{s \in S:X'(s) \ge t}\Pr\\{s\\} $$
+
+Each term of the second sum is present in the first sum, because $X(s) \ge
+X'(s)$. This makes them at least equal. There might be additional terms in the
+first sum (when $X(s) \ge t > X'(s)$. Thus it can also be greater.
