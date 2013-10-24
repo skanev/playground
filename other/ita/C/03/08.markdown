@@ -1,0 +1,12 @@
+> Which is larger: The expectation of the square of a random variable, or the
+> square of its expectation?
+
+We know that:
+
+$$ \E[f(X)] \ge f(\E[X]) $$
+
+If $f(x) = x^2$:
+
+$$ \E[X^2] \ge \E^2[X] $$
+
+The expectation of the square is larger.
