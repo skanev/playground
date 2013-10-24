@@ -1,0 +1,9 @@
+> Prove that $\Var[\alpha X] = \alpha^2 \Var[X]$ from the definition (C.27) of
+> variance.
+
+Easy. We just use the linearity of expectation:
+
+$$ \Var[\alpha X] = \E[\alpha^2 X^2] - \E^2[\alpha X]
+                  = \alpha^2 \E[X^2] - \alpha^2\E[X]
+                  = \alpha^2 (\E[X^2] - \E^2[X])
+                  = \alpha^2 \Var[X] $$
