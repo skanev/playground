@@ -1,0 +1,14 @@
+> Show that for any random variable $X$ that takes on only the values $0$ and
+> $1$, we have $\Var[X] = \E[X]\E[1-X]$.
+
+Let's first calculate the expectations:
+
+$$ \E[X] = 0 \cdot \Pr\\{X = 0\\} + 1 \cdot \Pr\\{X = 1\\} = \Pr\\{X = 1\\} \\\\
+   \E[1-X] = \Pr\\{X = 0\\} \\\\
+   \E[X]\E[1-X] = \Pr\\{X = 0\\} \cdot \Pr\\{X = 1\\} $$
+
+Now - the variance:
+
+$$ \Var[X] = \E[X^2] - \E^2[X] = \Pr\\{X = 1\\} - (\Pr\\{X = 1\\})^2
+           = \Pr\\{X = 1\\} (1 - \Pr\\{X = 1\\})
+           = \Pr\\{X = 0\\} \cdot Pr\\{X = 1\\} $$
