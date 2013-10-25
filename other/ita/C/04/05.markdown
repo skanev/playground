@@ -1,0 +1,26 @@
+> $\star$ Show that the probability of no successes in $n$ Bernoulli trials,
+> each with probability $p = 1/n$, is approximately $1/e$. Show that the
+> probability of exactly one success is also $1/e$
+
+The probability of no successes of $n$ trials is:
+
+$$ b(0;n,p) = \binom{n}{k} p^k q^{n-k}
+            = \binom{n}{0} q^n
+            = (1-p)^n
+            = \Big(1 - \frac{1}{n}\Big)^n
+            = \frac{1}{\Big(1-\frac{1}{n}\Big)^{-n}}
+$$
+
+The probability of one success of $n$ trials is:
+
+
+$$ b(1;n,p) = \binom{n}{1} \frac{1}{n} \bigg(1 - \frac{1}{n}\bigg)^{n-1}
+            = \frac{1}{\Big(1-\frac{1}{n}\Big)^{-(n-1)}}
+$$
+
+We know that:
+
+$$ e = \lim_{n \to \infty}\bigg(1 + \frac{1}{n}\bigg)^n
+     = \lim_{n \to \infty}\bigg(1 - \frac{1}{n}\bigg)^{-n} $$
+
+We can just substitute in the examples above and get approximately $1/e$.
