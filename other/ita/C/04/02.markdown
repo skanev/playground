@@ -1,0 +1,16 @@
+> How many times on average must we flip 6 fair coins before we obtain 3 heads
+> and 3 tails?
+
+The $\binom{6}{3}$ ways to have three heads and three tails. Thus:
+
+$$ \Pr\\{\text{3H3T}\\}
+     = \binom{6}{3} / 2^6
+     = 5/16 $$
+
+As for the expectation:
+
+$$ \E[\text{3H3T}] = \frac{1}{\Pr\\{\text{3H3T}\\}} = \frac{16}{5} = 3.2 $$
+
+This can be verified by the following line of Ruby:
+
+    1_000_000.times.map { 1.upto(2**32).take_while { 6.times.map { rand(2) }.count(1) != 3 }.last.to_i.succ }.inject(:+) / 1_000_000.to_f
