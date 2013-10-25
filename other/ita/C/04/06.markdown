@@ -1,0 +1,28 @@
+> $\star$ Professor Rosencrantz flips a fair coin $n$ times, and so does
+> Professor Guildenstern. Show that the probability that they get the same
+> number of heads is $\binom{2n}{n}/4^n$. (Hint: For Professor Rosencrantz,
+> call a head a success; for Professor Guildenstern, call a tail a success.)
+> Use your argument to verify the identity
+>
+> $$ \sum_{k=0}^n\binom{n}{k}^2 = \binom{2n}{n} $$
+
+Let's do what the hint says: call tails for Professor Guildenstern a success
+and heads - failure. They have the same numbers of heads when they have
+$k + (n - k) = n$ successes out of $2n$ trials.
+
+$$ \Pr\\{R=G\\} = b(n;2n;1/2)
+                = \binom{2n}{n} \frac{1}{2^n} \frac{1}{2^n}
+                = \binom{2}{n}/4^n $$
+
+Alternatively, we can just calculate the probability and see what happens:
+
+$$ \begin{align}
+   \Pr\\{R=G\\} &= \sum_{k=0}^n \Pr\\{R=k\\}\Pr\\{G=n-k\\} \\\\
+                &= \sum_{k=0}^n \binom{n}{k} \cdot \frac{1}{2^n} \cdot
+                               \binom{n}{n-k} \cdot \frac{1}{2^n} \\\\
+                &= \frac{1}{4^n} \sum_{k=0}^n \binom{n}{k} \binom{n}{n-k} \\\\
+                &= \frac{1}{4^n} \sum_{k=0}^n \binom{n}{k}^2
+  \end{align} $$
+
+Those are two ways we can express the same value. This let's us verify the
+identity.
