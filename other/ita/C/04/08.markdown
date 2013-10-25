@@ -1,0 +1,13 @@
+> $\star$ Consider $n$ Bernoulli trials, where $i = 1, 2, \ldots, n$, the $i$th
+> trial has probability $p_i$ of success, and let $X$ be the random variable
+> denoting the total number of successes. Let $p \ge p_i$ for all $i = 1, 2,
+> \ldots, n$. Prove that $1 \le k \le n$,
+>
+> $$ \Pr\\{X < k\\} \ge \sum_{i=0}^{k-1}b(i;n,p) $$
+
+Let's create another set of Bernoulli trials $Y$, each with probability $p$.
+
+$$ \Pr\\{Y < k\\} = 1 - \Pr\\{Y \ge k\\} \le 1 - \Pr\\{X \ge k\\} = \Pr\\{X < k\\} $$
+
+The inequality follows from exercise C.4-9. That's right. We haven't done it
+yet, but we're using it. That's because I'm the Doctor!
