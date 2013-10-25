@@ -1,0 +1,6 @@
+> Show that $b(k;n,p) = b(n-k;n,q)$, where $q = 1 - p$.
+
+$$ b(k;n,p) = \binom{n}{k} p^k q^{n-k}
+            = \binom{n}{n-k} p^k q^{n-k}
+            = \binom{n}{n-k} q^{n-k} p^k
+            = b(n-k;n,q) $$
