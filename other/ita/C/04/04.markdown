@@ -1,0 +1,8 @@
+> Show that value of the maximum of the binomial distribution $b(k;n,p)$ is
+> approximately $1/\sqrt{2 \pi n p q}$ where $q = 1 - p$.
+
+There is a lot of calculation to be performed here, but this is essentially an
+application of the [de Moivre-Laplace theorem][de-moivre-laplace]. It's too
+complex for me to want to bother to write it down.
+
+[de-moivre-laplace]: http://en.wikipedia.org/wiki/De_Moivre%E2%80%93Laplace_theorem
