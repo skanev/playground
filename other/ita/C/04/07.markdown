@@ -1,0 +1,10 @@
+> $\star$ Show that for $0 \le k \le n$,
+>
+> $$ b(k;n,1/2) \le 2^{nH(k/n)-n} $$
+>
+> where $H(x)$ is the entropy function (C.7)
+
+$$ b(k;n,1/2) =   \binom{n}{k}\frac{1}{2^n}
+              =   \binom{n}{n\frac{k}{n}}\frac{1}{2^n}
+              \le \frac{2^{nH(k/n)}}{2^n}
+              =   2^{nH(k/n) - n} $$
