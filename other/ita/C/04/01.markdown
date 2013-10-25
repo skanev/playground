@@ -1,0 +1,8 @@
+> Verify axiom 2 of the probability axioms for the geometric distribution.
+
+$$ \sum_{k=1}^{\infty} \Pr\\{X = k\\}
+   = \sum_{k=1}^{\infty} q^{k-1}p
+   = p \sum_{k=0}^{\infty} q^k
+   = p \frac{1}{1-q}
+   = \frac{p}{p}
+   = 1 $$
