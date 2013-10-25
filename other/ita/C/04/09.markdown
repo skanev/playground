@@ -1,0 +1,31 @@
+> $\star$ Let $X$ be the random variable for the total number of successes, in
+> a set $A$ of $n$ Bernoulli trials, where the $i$th trial has a probability
+> $p_i$ of success, and let $X'$ be the random variable for the total number of
+> successes in a second set $A'$ of $n$ Bernoulli trials, where the $i$th trial
+> has a probability $p_i' \ge p_i$ of success. Prove that $o \le k \le n$,
+>
+> $$ \Pr\\{X' \ge k\\} \ge \Pr\\{X \ge k\\} $$
+>
+> (Hint: Show how to obtain the Bernoulli trials in $A'$ by an experiment
+> involving the trials of $A$, and use the result of exercise C.3-7)
+
+Let $Y_1, Y_2, \ldots Y_n$ be indicator random variables for the events in $A$.
+
+Let $Z_1, Z_2, \ldots Z_n$ be new random variables, such that:
+
+* If $Y_i = 1$ then $Z_i = 1$
+* If $Y_i = 0$ then $Z_i = 1$ with probability $\frac{p_i' - p_i}{1-p_i}$
+
+Let's calculate $\Pr\\{Z_i\\}$:
+
+$$ \Pr\\{Z_i\\} = p_i \Pr\\{Y_i = 1\\} + (1 - p_i) \cdot \frac{p_i' - p_i}{1-p_i}
+                = p_i + p_i' - p_i
+                = p_i' $$
+
+Since we know that $p_i' \ge p_i$, we can do the following:
+
+$$ \Pr\\{X' \ge k\\} = \Pr\\{Z_1 + Z_2 + \ldots + Z_n\\}
+                   \ge \Pr\\{Y_1 + Y_2 + \ldots + Y_n\\}
+                     = \Pr\\{X \ge k\\} $$
+
+The last part can also be proven by exercise C.3-7.
