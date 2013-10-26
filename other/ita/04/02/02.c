@@ -46,11 +46,11 @@ matrix submatrix(matrix A, int x, int y, int size) {
 }
 
 #define INIT_ON_STACK(m_, size_) \
-  m_.x = 0; \
-  m_.y = 0; \
-  m_.size = size_; \
-  m_.original_size = size_; \
-  m_.data = alloca(size_ * size_ * sizeof(int));
+    m_.x = 0; \
+    m_.y = 0; \
+    m_.size = size_; \
+    m_.original_size = size_; \
+    m_.data = alloca(size_ * size_ * sizeof(int));
 
 // Adding and subtracting matrices
 

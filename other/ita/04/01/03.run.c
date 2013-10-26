@@ -13,12 +13,12 @@
 static clock_t timer_start_time;
 
 #define TIME(times, message, subarray, size) \
-  timer_start_time = clock(); \
-  for (int i = 0; i < times; i++) { \
-    answer = subarray(array, 0, size); \
-  } \
-  printf(message " = %f\n", (double) (clock() - timer_start_time) / CLOCKS_PER_SEC); \
-  check_right_answer(expected, answer);
+    timer_start_time = clock(); \
+    for (int i = 0; i < times; i++) { \
+        answer = subarray(array, 0, size); \
+    } \
+    printf(message " = %f\n", (double) (clock() - timer_start_time) / CLOCKS_PER_SEC); \
+    check_right_answer(expected, answer);
 
 void randomize_array(int array[], unsigned length, unsigned int seed) {
     srand(seed);
