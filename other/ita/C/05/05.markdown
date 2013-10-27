@@ -1,0 +1,26 @@
+> $\star$ Show that the conditions of theorem C.8 imply that
+>
+> $$ \Pr\\{\mu - X \ge r\\} \le \bigg(\frac{(n - \mu)e}{r}\bigg)^r $$
+>
+> Similarly, show that the conditions of corollary C.9 imply that
+>
+> $$ \Pr\\{np - X \ge r\\} \le \bigg(\frac{nqe}{r}\bigg)^r $$
+
+This is tricky. Let's introduce a new random variable $Y = n - X$.
+
+$$ \nu = E[Y] = E[n - X] = n - E[x] = n - \mu $$
+
+Using theorem C.8, we get:
+
+$$ \Pr\\{Y - \nu > r\\} \le \bigg(\frac{\nu e}{r}\bigg)^r \\\\
+   \Downarrow \\\\
+   \Pr\\{\mu - X \ge r\\} \le \bigg(\frac{(n - \mu)e}{r}\bigg)^r
+$$
+
+It's similar with the other one, where $qn = (1-p)n = n - np$:
+
+$$ \Pr\\{np - X\\}
+   = \Pr\\{n - X - n + np\\}
+   = \Pr\\{Y - qn > r\\}
+   \le \bigg(\frac{nqe}{r}\bigg)^r $$
+
