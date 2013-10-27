@@ -1,0 +1,15 @@
+> $\star$ Show that
+>
+> $$ \sum_{i=0}^{k-1}\binom{n}{i}a^i < (a+1)^n \frac{k}{na - k(a+1)}b(k;n,a/(a+1)) $$
+>
+> for all $a > 0$ and all $k$ such that $0 < k < na/(a+1)$.
+
+
+$$ \begin{align}
+   (a+1)^n \frac{k}{na - k(a+1)}b(k;n,a/(a+1))
+       &= (a+1)^n \frac{k \frac{1}{a+1}}{\frac{na-ak-a}{a+1}} b(k;n,a/(a+1)) & \text{(C.4)} \\\\
+       &> (a+1)^n \sum_{i=0}^{k-1}b(i;n,a/(a+1)) \\\\
+       &= (a+1)^n \sum_{i=0}^{k-1}\binom{n}{i}\frac{a^i}{(a+1)^i}\frac{1}{(a+i)^{n-i}} \\\\
+       &= (a+1)^n \frac{1}{(a+1)^n} \sum_{i=0}^{k-1}\binom{n}{i}a^i \\\\
+       &= \sum_{i=0}^{k-1}\binom{n}{i}a^i
+       \end{align} $$
