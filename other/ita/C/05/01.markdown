@@ -1,0 +1,5 @@
+> $\star$ Which is less likely: obtaining no heads when you flip a coin $n$
+> times, or obtaining fewer than $n$ heads when you flip the coin $4n$ times?
+
+**(UNSOLVED)** I can't figure out how to compare them, but testing with Ruby
+yields that it is less likely to get less than $n$ heads in $4n$ flips.
