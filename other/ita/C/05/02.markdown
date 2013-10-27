@@ -1,0 +1,16 @@
+> $\star$ Prove corollaries C.6 and C.7
+
+Let $Y$ be a random variable, indicating the number of failures.
+
+For C.6 (using C.4):
+
+$$ \Pr\\{X > k\\} = \Pr\\{Y < n-k\\}
+                  < \frac{(n-k)p}{nq - n + k}b(n-k;n,q)
+                  = \frac{(n-k)p}{k-np}\binom{n}{n-k}q^{n-k}p^k
+                  = \frac{(n-k)p}{k-np}b(k;n,p) $$
+
+For C.7 (using C.5):
+
+$$ \Pr\\{Y < n - k\\} < \frac{1}{2} \Pr\\{Y < n - k + 1\\} \\\\
+   \Downarrow \\\\
+   \Pr\\{X > k\\} < \frac{1}{2} \Pr\\{X > k - 1\\} $$
