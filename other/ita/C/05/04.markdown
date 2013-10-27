@@ -1,0 +1,12 @@
+> $\star$ Prove that if $0 < k < np$, where $0 < p < 1$ and $q = 1 - p$, then
+>
+> $$ \sum_{i=0}^{k-1}p^iq^{n-i} < \frac{kq}{np-k}
+>                                 \bigg(\frac{np}{k}\bigg)^k
+>                                 \bigg(\frac{nq}{n-k}\bigg)^{n-k} $$
+
+$$ \begin{align}
+   \sum_{i=0}^{k-1}p^iq^{n-i} &= \Pr\\{X < k\\} & \text{(C.4)} \\\\
+                              &< \frac{kq}{np - k} b(k;n,p) & \text{(C.1)} \\\\
+                              &< \frac{kq}{np - k} \bigg(\frac{np}{k}\bigg)^k
+                                                   \bigg(\frac{nq}{n-k}\bigg)^{n-k}
+   \end{align} $$
