@@ -1,0 +1,83 @@
+> $\star$ Consider a sequence of $n$ Bernoulli trials, where in the $i$th
+> trial, for $i = 1, 2, \ldots, n$, success occurs with probability $p_i$ and
+> failure occurs with probability $q_i = 1 - p_i$. Let $X$ be the random
+> variable describing the total number of successes, and let $\mu = \E[X]$.
+> Show that for $r \ge 0$,
+>
+> $$ \Pr\\{X - \mu \ge r\\} \le e^{-r^2/2n} $$
+>
+> (Hint: Prove that $p_i e^{\alpha q_i} + q_i e^{-\alpha p_i} \le e^{\alpha^2/2}$.
+> Then follow the outline of the proof of Theorem C.8, using this inequality in
+> place of inequality (C.45).)
+
+This is tricky. I spent quite a while and I don't like it. Anyway, let's first
+prove the hint.
+
+Let:
+
+$$ f(x) = e^{x^2/2} - (pe^{qx} + qe^{-px}) $$
+
+We want to prove that it is monotoneously increasing when $x \ge 0$. It is not
+very easy to show that $f'(x) > 0$, so let's show that $f'(x)$ is also
+monotoneously increasing by solving $f''(x) > 0$.
+
+$$ f'(x) = xe^{x^2/2} - pq(qe^{qx} - pe^{-px}) \\\\
+   f''(x) = e^{x^2/2} + x^2 e^{x^2/2} - pq(qe^{qx} + pe^{-px}) > 0 \\\\
+   \Downarrow \\\\
+   \text{(} x^2 e^{x^2/2} \text{ is positive)} \\\\
+   \Downarrow \\\\
+   e^{x^2/2} > pq(qe^{qx} + pe^{-px}) \\\\
+   \Downarrow \\\\
+   \text{(} pq < \frac{1}{4} \text{ from } x(1-x) - 1/4 < 0 \text{)} \\\\
+   \Downarrow \\\\
+   e^{x^2/2} > \frac{1}{4}(qe^{qx} + pe^{-px}) \\\\
+   \Downarrow \\\\
+   \text{(} p < 1, q < 1 \text{)} \\\\
+   \Downarrow \\\\
+   4e^{x^2/2} > e^{qx} + e^{-px} \\\\
+   \Downarrow \\\\
+   \text{(} e^{qx} + e^{-px} = e^{-px} (e^x + 1) < e^x + 1 \text{)} \\\\
+   \Downarrow \\\\
+   4e^{x^2/2} > e^x + 1 \\\\
+   \Downarrow \\\\
+   (e^{x^2/2} > 1) \\\\
+   \Downarrow \\\\
+   3e^{x^2/2} > e^x \\\\
+   \Downarrow \\\\
+   3e^{x^2/2 - x} > 1 \\\\
+   \Downarrow \\\\
+   3e^{\frac{(x-1)^2}{2} - \frac{1}{2}} > 1 \\\\
+   \Downarrow \\\\
+   3 > \sqrt{e}
+$$
+
+Since $f''(0) = 0$, then $f'(x)$ is increasing for $x \ge 0$.
+
+Since $f'(0) = 0$, then $f(x)$ is increasing for $x \ge 0$.
+
+Since $f(0) = 0$, then $f(x) \ge 0$, hence the inequality holds.
+
+We can just substitute it in the expectation:
+
+$$ \begin{align}
+   \E[e^{\alpha (X_i - p_i)}] &=   e^{\alpha(1-p_i)}p_i + e^{\alpha(0-p_i)}q_i \\\\
+                              &=   p_i e^{\alpha q_i} + q_i e^{- \alpha p_i} \\\\
+                              &\le e^{\alpha^2/2}
+   \end{align} $$
+
+Then:
+
+$$ \begin{align}
+   \E[e^{\alpha(X - \mu)}] &=  \prod_{i=1}^n \E[e^{\alpha(X_i - p_i)}] \\\\
+                           &\le \prod_{i=1}^n \exp(\alpha^2 / 2) \\\\
+                           &= \exp(n \alpha^2/2)
+   \end{align} $$
+
+And:
+
+$$ \begin{align}
+   \Pr\\{X - \mu \ge r\\} &\le \exp(n \alpha^2/2)/\exp(- \alpha r) \\\\
+                          &=   \exp(n\alpha^2/2 - \alpha r) \\\\
+                          &=   \exp\bigg(\frac{n r^2}{2 n^2} - \frac{r^2}{n}\bigg) \\\\
+                          &=   \exp\bigg(-\frac{r^2}{2n}\bigg)
+   \end{align} $$
