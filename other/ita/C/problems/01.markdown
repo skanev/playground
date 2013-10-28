@@ -1,0 +1,59 @@
+## Balls and bins
+
+> In this problem, we investigate the effect of various assumptions on the
+> number of ways of placing $n$ balls into $b$ distinct bins.
+>
+> 1. Suppose that the $n$ balls are distinct and their order within a bin does
+>    not matter. Argue that the number of ways of placing the balls in the bins
+>    is $b^n$.
+> 2. Suppose that the balls are distinct and that the balls in each bin are
+>    ordered. Prove that there are exactly $(b + n - 1)!/(b - 1)!$ ways to
+>    place the balls in the bins. (Hint: Consider the number of ways of
+>    arranging $n$ distinct balls and $b-1$ indistinguishable stricks in a
+>    row).
+> 3. Suppose that the balls are identical, and hence their order within a bin
+>    does not matter. Show that the number of ways of placing the balls in the
+>    bins is $\binom{b+n-1}{n}$. (Hint: Of the arrangements in part (b), how
+>    many are repeated if the balls are made identical?)
+> 4. Suppose that the balls are identical and that no bin may contain more than
+>    one balls, so that $n \le b$. Show that the number of ways of placing the
+>    balls is $\binom{b}{n}$.
+> 5. Suppose that the balls are identical and that no bin may be left empty.
+>    Assuming that $n \ge b$, show that the number of ways of placing the balls
+>    is $\binom{n-1}{b-1}$.
+
+### Distinct balls, unordered
+
+There are $b$ ways to place the first ball, then $b$ ways to place the second
+and so on. There are $n$ balls, so the total number of ways is $b^n$.
+
+### Distinct balls, ordered
+
+As the hint indicates, this is isomporhic to arranging $n + b - 1$ items, out
+of which $b - 1$ are separators. The balls before the first separator go in the
+first bin, those between the first and the second go in the second bin, etc.
+There are $(n + b - 1)!$ ways to do that, but since the order of the separators
+does not matter, $(b - 1)!$ out of those are duplicated. Thus the answer is
+$(b + n - 1)!/(b - 1)!$.
+
+### Identical balls, unordered
+
+There are $(b + n - 1)!/(b - 1)!$ ways if the balls are distinct. If they are
+made identical, $n!$ of the arrangements are repeated for each position of the
+separators. We get $\frac{(b + n - 1)!}{n!(b - 1)!} = \binom{b + n - 1}{n}$
+arrangements.
+
+### Identical balls, max 1 per bin
+
+This is reduced to selecting $n$ of the $b$ bins to put balls in, which is the
+definition of binomial coefficients - $\binom{b}{n}$.
+
+### Identical balls, no bin left empty
+
+This is fun. First, we put a ball in each bin and we're left with $n - b$ balls
+to put in $b$ bins. Now lets use part (c) - substituting $n - b$ for $n$, we
+get:
+
+$$ \binom{b + n - b - 1}{n - b} = \binom{n - 1}{n - b}
+                                = \binom{n - 1}{n - 1 - n + b}
+                                = \binom{n - 1}{b - 1} $$
