@@ -1,0 +1,14 @@
+> $\star$ Show that choosing $\alpha = \ln(r/\mu)$ minimizes the right-hand
+> side of inequality (C.47).
+
+This is simple. Let:
+
+$$ f(x) = \exp(mu e^{\alpha} - r) $$
+
+Let's explore it's critical points:
+
+$$ f'(x) = \exp(\mu e^{\alpha} - r)(\mu e^{\alpha} - r) = 0$$
+
+This has a solution for $\alpha = \ln(r/\mu)$. It's easy to see that left of
+this point $f'(x)$ is negative and right of it it is positive. Thus, it is a
+local minima.
