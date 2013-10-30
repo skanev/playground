@@ -1,0 +1,20 @@
+> $\star$ Describe an implementation of the procedure `RANDOM(a,b)` that only
+> makes calls to `RANDOM(0,1)`. What is the expected running time of your
+> procedure as a function of $a$ and $b$?
+
+Let $n = b - a$. The algorithm is as follows:
+
+1. We find the smallest integer $c$ such that $2^c \ge n$ ($c = \lceil \ln{n} \rceil$)
+2. We call `RANDOM(0, 1)` $c$ times to and get a $c$-digit binary number $r$
+3. If $r > n$ we go back to the previous step
+4. Otherwise we return $a + r$
+
+This produces a uniformly random number in that range. However, there is a
+possibility to have to repeat step 2. There is $p = n/2^c$ chance of not having
+to repeat step two. The geometric distribution suggests that on average it
+takes $1/p$ trials before we get such a number, that is $2^c/n$ trials. Since
+we perform $c$ calls to `RANDOM(0, 1)` on each trial, the expected running time
+is
+
+$$ \O\bigg(\frac{2^c}{n} c\bigg) = \O\bigg(\frac{\ln(b-a)2^{\ln(b-a)}}{b-a}\bigg)
+                                 = \O(\ln(b-a)) $$
