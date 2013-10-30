@@ -1,0 +1,20 @@
+> Show that the assumption that we are always able to determine which candidate
+> is best, in line 4 of procedure `HIRE-ASSISTANT`, implies that we know a
+> total order of the ranks of the candidates.
+
+A total order is a partial order that is a total relation ($\forall a,b \in A:
+a R b \text{ or } b R a$). A relation is a partial order if it is reflexive,
+antisymmetric and transitive.
+
+Let's assume that the relation is "is as good or better".
+
+* _Reflexive_: This is a bit trivial, but everybody is as good or better as
+  themselves.
+* _Transitive_: If A is better than B and B is better than C, then A is better
+  than C - that's also obvious.
+* _Antisymmetric_: If A is better than B, then B is not better than A.
+
+So far we have a partial order.
+
+Since we assume we can compare any two candidates, then comparison must be a
+total relation and thus we have a total order.
