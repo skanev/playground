@@ -1,0 +1,21 @@
+> In `HIRE-ASSISTANT`, assuming that the candidates are presented in a random
+> order, what is the probability that you hire exactly twice?
+
+You hire twice when you first hire is the candidate with rank $i$ and all the
+candidates with rank $k > i$ come after the candidate with rank $n$. There
+are $n - i$ better suited candidates and the probability of the best one
+coming first is $1/(n-i)$ (we can ignore the other candidates and they don't
+affect the probability). Thus, the probability for hiring twice if your first
+candidate has rank $i$ is:
+
+$$ \Pr\\{T_i\\} = \frac{1}{n}\frac{1}{n-i} $$
+
+The first part reflects the probability of picking that particular candidate
+out of $n$.
+
+The probability to hire twice is:
+
+$$ \Pr\\{T\\} = \sum_{i=1}^{n-1}\Pr\\{T_i\\}
+              = \sum_{i=1}^{n-1}\frac{1}{n}\frac{1}{n-i}
+              = \frac{1}{n} \sum_{i=1}^{n-1}\frac{1}{i}
+              = \frac{1}{n} \Big(\lg(n-1) + \O(1)\Big) $$
