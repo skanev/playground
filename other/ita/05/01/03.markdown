@@ -1,0 +1,19 @@
+> $\star$ Suppose that you want to output $0$ with probability $1/2$ and 1 with
+> probability $1/2$. At your disposal is a procedure `BIASED-RANDOM` that
+> outputs either $0$ or $1$. It outputs $1$ with some probability $p$ and $0$
+> with probability $1 - p$, where $0 < p < 1$, but you don't now what $p$ is.
+> Give an algorithm that uses `BIASED-RANDOM` as a subroutine, and returns an
+> unbiased answer, returning $0$ with probability $1/2$ and $1$ with
+> probability $1/2$. What is the expected running time of your algorithm as a
+> function of $p$?
+
+Simple!
+
+1. Generate two random numbers $x$ and $y$
+2. If they are not the same, return $x$
+3. Otherwise, repeat from step 1
+
+The change of getting [0, 1] is the same as getting [1, 0].
+
+The likelyhood of that happening is $2pq$. Thus, the expected number of trials
+is $1/(2pq)$ making the running time $\O\Big(\frac{1}{p(1-p)}\Big)$.
