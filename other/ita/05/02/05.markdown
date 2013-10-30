@@ -1,0 +1,20 @@
+> Let $A[1 \ldots n]$ be an array of $n$ distinct numbers. If $i < j$ and
+> $A[i] > A[j]$, then the pair $(i, j)$ is called an **inversion** of $A$.
+> (See Problem 2-4 for more on inversions.) Suppose that the elements of $A$
+> form a uniform random permutation of $\langle 1, 2, \ldots, n \rangle$. Use
+> indicator random variables to compute the expected number of inversions.
+
+Let $X_{ij}$ be the event that there is an inversion between $i$ and $j$. The
+probability of an inversion for each pair is $1/2$ because there are
+$\binom{n}{2}$ possible pairs and the probability of having the larger number
+first is $\frac{1}{n(n-1)}$. Dividing the two yields $1/2$. Thus we get that
+$\E[X_{ij}] = 1/2$.
+
+$$ \E[X] = \sum_{i=1}^{n-1} \sum_{j=i+1}^n \E[X_{ij}]
+         = \sum_{i=1}^{n-1} \sum_{j=i+1}^n \frac{1}{2}
+         = \frac{1}{2} \sum_{i=1}^{n-1} \sum_{j=i+1}^n 1
+         = \frac{1}{2} \sum_{i=1}^{n-1} (n-i)
+         = \frac{1}{2} \sum_{i=1}^{n-1} i
+         = \frac{n(n-1)}{4}
+         = \binom{n}{2}/2
+$$
