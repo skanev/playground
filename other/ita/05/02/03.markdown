@@ -1,0 +1,16 @@
+> Use indicator random variables to compute the expected value of the sum of
+> $n$ dice
+
+Expectation of a single die $X_i$, is unsurprisingly:
+
+$$ \E[X_k] = \sum_{i=0}^6 i \Pr\\{X_k = i\\}
+           = \frac{1 + 2 + 3 + 4 + 5 + 6}{6}
+           = \frac{21}{6}
+           = 3.5 $$
+
+As for multiple dice:
+
+$$ \E[X] = \E\Big[\sum_{i=1}^nX_i\Big]
+         = \sum_{i=1}^n \E[X_i]
+         = \sum_{i=1}^n 3.5
+         = 3.5 \cdot n $$
