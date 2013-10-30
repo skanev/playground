@@ -1,0 +1,17 @@
+> Use indicator random variables to solve the following problem, which is
+> known as the **hat-check problem**. Each of $n$ customer gives a hat to a
+> hat-check person at a restaurant. The hat-check person gives the hats back
+> to the customers in a random order. What is the expected number of
+> customers who get back their hat?
+
+The probability that each person gets their hat back is $1/n$. Let $X_i$ be the
+event that the $i$th person gets their hat back. Thus:
+
+$$ \E[X] = \E[X_1 + X_2 + \ldots + X_n]
+         = \sum_{i=1}^n \E[X_i]
+         = \sum_{i=1}^n \frac{1}{n}
+         = 1 $$
+
+Yup.
+
+One person will get their hat back. I'm surprised too.
