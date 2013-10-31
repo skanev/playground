@@ -1,0 +1,22 @@
+> $\star$ Prove that in the array $P$ in procedure `PERMUTE-BY-SORTING`, the
+> probability that all elements are unique is at least $1 - 1/n$.
+
+Let $\Pr\\{j\\}$ be the probability that the element with index $j$ is unique.
+If there are $n^3$ elements, then the $\Pr\\{j\\} = 1 - \frac{j-1}{n^3}$.
+
+$$ \begin{align}
+   \Pr\\{1 \cap 2 \cap 3 \cap \ldots\\}
+       &= \Pr\\{1\\} \cdot \Pr\\{2 | 1\\} \cdot \Pr\\{3 | 1 \cap 2\\} \cdots \\\\
+       &= 1 \bigg(1 - \frac{1}{n^3}\bigg)
+            \bigg(1 - \frac{2}{n^3}\bigg)
+            \bigg(1 - \frac{3}{n^3}\bigg)
+            \cdots \\\\
+     &\ge 1 \bigg(1 - \frac{n}{n^3}\bigg)
+            \bigg(1 - \frac{n}{n^3}\bigg)
+            \bigg(1 - \frac{n}{n^3}\bigg)
+            \cdots \\\\
+     &\ge \bigg(1 - \frac{1}{n^2}\bigg)^n \\\\
+     &\ge 1 - \frac{1}{n} \\\\
+   \end{align} $$
+
+Why does the last derivation work, you ask? Well, $(1-x)^n \ge 1 - nx$.
