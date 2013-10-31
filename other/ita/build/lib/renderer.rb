@@ -57,7 +57,7 @@ module Renderer
 
   def process(markdown_code)
     markdown_code = markdown_code.gsub(/exercise\s+([A-D]|\d+).(\d+)[-.](\d+)/i) { |text| "[#{text}](/%s/%02d/%02d.html)" % [ChapterNumber.new($1), $2, $3] }
-    markdown_code = markdown_code.gsub(/problem\s+([A-D]|\d+).(\d+)/i) { |text| "[#{text}](/%s/%02d.html)" % [ChapterNumber.new($1), $2] }
+    markdown_code = markdown_code.gsub(/problem\s+([A-D]|\d+).(\d+)/i) { |text| "[#{text}](/%s/problems/%02d.html)" % [ChapterNumber.new($1), $2] }
     markdown.render markdown_code
   end
 
