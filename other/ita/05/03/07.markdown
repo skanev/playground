@@ -1,0 +1,43 @@
+> Suppose we want to create a **random sample** of the set $\\{1, 2, 3, \ldots,
+> n\\}$, that is, an $m$-element subset $S$, where $0 \le m \le n$, such that
+> each $m$-subset is equally likely to be created. One way would be to set
+> $A[i] = i$ for $i = 1, 2, 3, \ldots, n$, call `RANDOMIZE-IN-PLACE(A)`, and
+> then take just the first $m$ array elements. This method would make $n$ calls
+> to the `RANDOM` procedure. If $n$ is much larger than $m$, we can create a
+> random sample with fewer calls to `RANDOM`. Show that the following recursive
+> procedure returns a random $m$-subset $S$ of $\\{1, 2, \ldots, n\\}$, in
+> which each $m$-subset is equally likely, while making only $m$ calls to
+> `RANDOM`:
+>
+>     RANDOM-SAMPLE(m,n)
+>     if m == 0
+>         return ∅
+>     else
+>         S = RANDOM-SAMPLE(m-1, n-1)
+>         i = RANDOM(1,n)
+>         if i ∈ S
+>             S = S ∪ {n}
+>         else
+>             S = S ∪ {i}
+>         return S
+
+Each combination should have a $1/\binom{n}{m}$ chance of showing up. Let's
+establish an invariant for `RANDOM-SAMPLE(m,n)`. We are going to go with:
+
+> `RANDOM-SAMPLE(m,n)` returns a uniformly distributed combination.
+
+We shall do induction on $m$. It's trivially so when $m$ is 1 (or 0). Let's
+assume the invariant holds for $m-1$. Let's see what happens when we pass $m$.
+
+The recursive call returns an $m-1$ sample with uniform probability. There are
+two options - either the new $m$-subset includes $n$ or not.
+
+If that happens (probability: $m/n$), the probability for each combination
+including $n$ is:
+
+$$ \frac{m}{n}\bigg(1/\binom{n-1}{m-1}\bigg) = 1/\binom{n}{m} $$
+
+If it does not (probability: $(n-m)/n$), it includes one of the $(n-m)$ numbers
+not present. The chance for each is:
+
+$$ \frac{n-m}{n}\bigg(1/\binom{n-1}{m}\bigg) = 1/\binom{n}{m} $$
