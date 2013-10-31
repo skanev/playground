@@ -1,0 +1,7 @@
+> Explain how to implement the algorithm `PERMUTE-BY-SORTING` to handle the
+> case in which two or more priorities are identical. That is, your algorithm
+> should produce a uniform random permutation, even if two or more priorities
+> are identical.
+
+This is a stupid algorithm and requires a stupid solution. Just generate new
+priorities and try again.
