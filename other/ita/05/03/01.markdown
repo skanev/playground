@@ -1,0 +1,14 @@
+> Professor Marceau objects to the loop invariant used in the proof of Lemma
+> 5.5. He questions whether it is true prior to the first iteration. He
+> reasons that we could just as easily declare that an empty subarray
+> contains no 0-permutations. Therefore, the probability that an empty
+> subarray contains a 0-permutation should be 0, thus invalidating the loop
+> invariant prior to the first iteration. Rewrite the procedure
+> `RANDOMIZE-IN-PLACE` so that its associated loop invariant applies to a
+> nonempty subarray prior to the first iteration, and modify the proof of
+> Lemma 5.5 for your procedure.
+
+I'm not going to write any code since this is trivial.
+
+We can pick up an element at random before entering the loop and replace it
+with the first one. Now our invariant holds initially for a 1-permutation.
