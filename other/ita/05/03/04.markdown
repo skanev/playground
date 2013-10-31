@@ -1,0 +1,26 @@
+> Professor Armstrong suggests the following procedure for generating a uniform
+> random permutation:
+>
+>     n = A.length
+>     let B[1..n] be a new array
+>     offset = RANDOM(1, n)
+>     for i = 1 to n
+>         dest = i + offset
+>         if dest > n
+>             dest = dest - n
+>         B[dest] = A[i]
+>     return B
+>
+> Show that each element $A[i]$ has a $1/n$ probability of winding up in any
+> particular position in $B$. Then show that Professor Armstrong is mistaken by
+> showing that the resulting permutation is not uniformly random.
+
+Both are trivial.
+
+$A[i]$ will go to $B[j]$ if $j \equiv \text{offset} + i \pmod{n}$. There is
+$1/n$ probability of that happening.
+
+It does not generate all permutations - it only generates permutations that can
+be obtained from the initial input by cycling.
+
+BTW, "Armstrong" and "cycling". Nice pun.
