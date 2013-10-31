@@ -1,0 +1,14 @@
+> Professor Kelp decides to write a procedure that produces at random any
+> permutation besides the identity permutation. He proposes the following
+> procedure:
+>
+>     PERMUTE-WITHOUT-IDENTITY(A)
+>     n = A.length
+>     for i = 1 to n - 1
+>         swap A[i] with A[RANDOM(i + 1, n)]
+>
+> Does this code do what Professor Kelp intends?
+
+It does not. It always changes the position of each element. We cannot get the
+identity permutation, but we also can't get any permutation where an element is
+at the same place.
