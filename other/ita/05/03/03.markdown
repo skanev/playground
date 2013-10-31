@@ -1,0 +1,18 @@
+> Suppose that instead of swapping element $A[i]$ with a random element from
+> the subarray $A[i \ldots n]$, we swapped it with a random element from
+> anywhere in the array:
+>
+>     PERMUTE-WITH-ALL(A)
+>     n = A.length
+>     for i = 1 to n
+>         swap A[i] with A[RANDOM(1,n)]
+>
+> Does this code produce a uniform random permutation? Why or why not?
+
+It does not. Intuitivelly, this one can go in $n^n$ different ways while there
+are $n!$ combinations. Since $n!$ does not divide $n^n$, there is no way that
+this can be a uniform distribution. (Why doesn't it divide $n^n$? That's the
+intuitive part. $n!$ is divisable by $n-1$, but $n^n$ can't be for $n > 2$).
+
+Of course, this is a popular problem and there are tons of posts and papers
+written on it. Here's [one from Coding Horror](http://www.codinghorror.com/blog/2007/12/the-danger-of-naivete.html)
