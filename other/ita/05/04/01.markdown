@@ -1,0 +1,25 @@
+> How many people must there be in a room before the probability that someone
+> has the same birthday as you do is at least $1/2$? How many people must there
+> be before the probability that at least two people have a birthday on July 4
+> is greater than $1/2$?
+
+The probability of a person not having the same birthday as me is $(n-1)/n$.
+The probability of $k$ people not having the same birthday as me is that,
+squared. We apply the same approach as the text - we take the complementary
+event and solve it for $k$:
+
+$$ 1 - \bigg(\frac{n-1}{k}\bigg)^k \ge \frac{1}{2} \\\\
+   \bigg(\frac{n-1}{k}\bigg)^k \le \frac{1}{2} \\\\
+   k\lg\bigg(\frac{n-1}{n}\bigg) \ge \lg\frac{1}{2} \\\\
+   k = \frac{\log(1/2)}{\log(364/365)} \approx 263 $$
+
+As for the other question:
+
+$$ \begin{align}
+   \Pr\\{\text{2 born on Jul 4}\\} &=
+        1 - \Pr\\{\text{1 born on Jul 4}\\} - Pr\\{\text{0 born on Jul4}\\} \\\\
+     &= 1 - \frac{k}{n}\bigg(\frac{n-1}{n}\bigg)^{k-1} - \bigg(\frac{n-1}{n}\bigg)^k \\\\
+     &= 1 - \bigg(\frac{n-1}{n}\bigg)^{k-1}\bigg(\frac{n+k-1}{n}\bigg)
+   \end{align} $$
+
+Writing a Ruby programme to find the closest integer, we get 115.
