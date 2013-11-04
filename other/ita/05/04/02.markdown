@@ -1,0 +1,8 @@
+> Suppose that we toss balls into $b$ bins until some bin contains two balls.
+> Each toss is independent, and each ball is equally likely to end up in any
+> bin. What is the expected number of ball tosses?
+
+This is just a restatement of the birthday problem. I consider this all that
+needs to be said on this subject.
+
+[More analysis can be found on wikipedia](http://en.wikipedia.org/wiki/Birthday_problem#Average_number_of_people)
