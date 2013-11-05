@@ -1,0 +1,28 @@
+> $\star$ Suppose that $n$ balls are tossed into $n$ bins, where each toss is
+> independent and the ball is equally likely to end up in any bin. What is the
+> expected number of empty bins? What is the expected number of bins with
+> exactly one ball?
+
+Both of them are $n/e$ or at least are approximatelly close to it when $n$ is
+large enough. Let's do empty bins first.
+
+Let $X_i$ be the event that all the balls fall in bins, other than the $i$th.
+
+$$ \Pr\\{X_i\\} = \bigg(\frac{n-1}{n}\bigg)^n
+                = \bigg(1 - \frac{1}{n}\bigg)^n
+                \approx \frac{1}{e} $$
+
+The expectation:
+
+$$ \E[X] = \sum_{i=1}^n\E[X_i] = \frac{n}{e} $$
+
+It's quite similar with exactly one ball. The probability is:
+
+$$ \Pr\\{Y_i\\} = n\frac{1}{n}\bigg(\frac{n-1}{n}\bigg)^{n-1}
+                = \bigg(\frac{n-1}{n}\bigg)^{n-1} \approx \frac{1}{e} $$
+
+The expectation is the same.
+
+Here's a [Math/StackExchange][question] question that clarifies it.
+
+[question]: http://math.stackexchange.com/questions/545920/expactation-of-throwing-n-balls-into-n-bins
