@@ -1,0 +1,21 @@
+> $\star$ How many people should be invited to a party in order to make it
+> likely that there are *three* people with the same birthday?
+
+The answer is $88$. I reached it by trial and error. But let's analyze it with
+indicator random variables.
+
+Let $X_{ijk}$ be the indicator random variable for the event of the people with
+indices $i$, $j$ and $k$ have the same birthday. The probability is $1/n^2$.
+Then:
+
+$$ \begin{align}
+   \E[X] &= \sum_{i=1}^n\sum_{j=i+1}^n\sum_{k=j+1}^nX_{ijk} \\\\
+         &= \sum_{i=1}^n\sum_{j=i+1}^n\sum_{k=j+1}^n\frac{1}{n^2} \\\\
+         &= \binom{n}{3}\frac{1}{n^2} \\\\
+         &= \frac{k(k-1)(k-2)}{6n^2}
+   \end{align} $$
+
+Solving this yields $94$. It's a bit more, but again, indicator random
+variables are approximate.
+
+Finding more commentary online is tricky.
