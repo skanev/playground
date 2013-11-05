@@ -1,0 +1,5 @@
+> $\star$ For the analysis of the birthday paradox, is it important that the
+> birthdays be mutually independent, or is pairwise independence sufficient?
+> Justify your answer.
+
+Pairwise independence is enough. It's sufficient for the derivation after (5.6).
