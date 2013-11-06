@@ -1,0 +1,58 @@
+## Probabilstic counting
+
+> With a $b$-bit counter, we can ordinarily only count up to $2^b - 1$. With R.
+> Morris's **probabilistic counting**, we can count up to a much larger value
+> at the expense of some loss of precision.
+>
+> We let a counter value of $i$ represent that a count of $n_i$ for
+> $i = 0, 1, \ldots, 2^b-1$, where the $n_i$ form an increasing sequence of
+> nonnegative values. We assume that the initial value of the counter is 0,
+> representing a count of $n_0 = 0$. The `INCREMENT` operation works on a
+> counter containing the value $i$ in a probabilistic manner. If $i = 2^b - 1$,
+> then the operation reports an overflow error. Otherwise, the `INCREMENT`
+> operation increases the counter by 1 with probability $1/(n_{i+1} - n_i)$,
+> and it leaves the counter unchanged with probability $1-1/(n_{i+1} - n_i)$.
+>
+> If we select $n_i = i$ for all $i \ge 0$, then the counter is an ordinary
+> one. More interesting situations arise if we select, say, $n_i = 2^{i-1}$ for
+> $i > 0$ or $n_i = F_i$ (the $i$th Fibonacci number - see Section 3.2).
+>
+> For this problem, assume that $n_{2^b-1}$ is large enough that the
+> probability of an overflow error is negligible.
+>
+> 1. Show that the expected value represented by the counter after $n$
+>    `INCREMENT` operations have been performed is exactly $n$.
+> 2. The analysis of the variance of the count represented by the counter
+>    depends on the sequence of the $n_i$. Let us consider a simple case: $n_i
+>    = 100i$ for all $i \ge 0$. Estimate the variance in the value represented
+>    by the register after $n$ `INCREMENT` operations have been performed.
+
+### Expected value
+
+Suppose at the start of the $j$th increment, the counter holds $i$, which
+represents $n_i$. If the counter increases, then the value it will increase by
+$n_{i+1} - n_i$. It happens with probability $1/(n_{i+1} - n_i)$, and so:
+
+$$ \begin{align}
+     \E[X_j] &= 0 \cdot \Pr\\{\text{stays same}\\} + 1 \cdot \Pr\\{\text{increases}\\} \\\\
+             &= 0 \cdot \bigg(1 - \frac{1}{n_{i+1} - n_i}\bigg) +
+                1 \cdot \bigg((n_{i+1} - n_i) \cdot \frac{1}{n_{i+1} - n_i}\bigg) \\\\
+             &= 1
+   \end{align} $$
+
+This is the expectation any increment. Since there are $n$ increments, the
+execpted value will be $n$.
+
+### Variance
+
+The variance of a single increment.
+
+$$ \begin{align}
+   \Var[X_j] &= \E[X_j^2] - \E^2[X_j] \\\\
+             &= \bigg(0^2 \cdot \frac{99}{100} + 100^2 \frac{1}{100}\bigg) - 1 \\\\
+             &= 99
+   \end{align} $$
+
+As for the variance of the total value:
+
+$$ \Var[X] = \Var[X_1 + X_2 + \ldots + X_n] = \sum_{i=1}^n\Var[X_i] = 99n $$
