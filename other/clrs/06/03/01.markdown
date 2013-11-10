@@ -1,0 +1,4 @@
+> Using figure 6.3 as a model, illustrate the operation of `BUILD-MAX-HEAP` on
+> the array $A = \langle 5, 3, 17, 10, 84, 19, 6, 22, 9 \rangle$.
+
+Oh boy.
