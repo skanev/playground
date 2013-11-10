@@ -1,0 +1,5 @@
+> Where in a max-heap might the smallest element reside, assuming that all
+> elements are distinct?
+
+In any of the leaves, that is, elements with index $\lfloor n/2 \rfloor + 1$
+(see exercise 6.1-7), that is, in the second half of the heap array.
