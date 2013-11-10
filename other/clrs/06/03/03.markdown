@@ -1,0 +1,22 @@
+> Show that there are at most $\lceil n/2^{h+1} \rceil$ nodes of height $h$ in
+> any $n$-element heap.
+
+First, let's observe that the number of leaves in a heap is $\lceil n/2 \rceil$
+(exercise 6.1-7). Let's prove it by induction on $h$.
+
+**Base**: $h = 0$. The number of leaves is $\lceil n/2 \rceil = \lceil n/2^{0+1} \rceil$.
+
+**Step**: Let's assume it holds for nodes of height $h-1$. Let's take a tree
+and remove all it's leaves. We get a new tree with $n - \lceil n/2 \rceil =
+\lfloor n/2 \rfloor$ elements. Note that the nodes with height $h$ in the old
+tree have height $h-1$ in the new one.
+
+We will calculate the number of such nodes in the new tree.  By the inductive
+assumption we have that $T$, the number of nodes with height $h-1$ in the new
+tree, is:
+
+$$ T = \bigg\lceil \lfloor n/2 \rfloor / 2^{h-1+1} \bigg\rceil
+     < \bigg\lceil (n/2)/2^h \bigg\rceil
+     = \bigg\lceil \frac{n}{2^{h+1}} \bigg\rceil $$
+
+As mentioned, this is also the number of nodes with height $h$ in the old tree.
