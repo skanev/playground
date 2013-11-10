@@ -1,0 +1,9 @@
+> Show that in any subtree of a max-heap, the root of the subtree contains the
+> largest value occuring anywhere in the subtree.
+
+This follows from the max-heap property.
+
+If the $i$th element is the root of the subtree, then both its children would
+be less or equal to it. Since this properties holds for their children too and
+it is transitive, all of the descendents will be less or equal to the root,
+making it the largest value.
