@@ -1,0 +1,5 @@
+> Is the array with values $\langle 23, 17, 14, 6, 13, 10, 1, 5, 7, 12 \rangle$
+> a max-heap?
+
+No. The property is violated by the next-to-last leaf (illustrated below in
+red).
