@@ -1,0 +1,5 @@
+> What are the minimum and maximum numbers of elements in a heap of height $h$?
+
+It is between $2^n$ and $2^{n+1} - 1$. For example, a heap with $2$ ($2^1$) or
+$3$ ($2^2 - 1$) will have height $1$. If there are four elements, however, the
+heap height will be $2$.
