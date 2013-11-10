@@ -1,0 +1,7 @@
+> Why do we want the loop index $i$ in line 2 of `BUILD-MAX-HEAP` to decrease
+> from $\lfloor A.length / 2 \rfloor$ to $1$ rather than increase from $1$ to
+> $\lfloor A.length/2 \rfloor$?
+
+Otherwise we won't be allowed to call `MAX-HEAPIFY`, since it will fail the
+condition of having the subtrees be max-heaps. That is, if we start with $1$,
+there is no guarantee that $A[2]$ and $A[3]$ are roots of max-heaps.
