@@ -1,0 +1,5 @@
+> What is the effect of calling `MAX-HEAPIFY(A, i)` for $i > A.heap-size / 2$?
+
+No effect. In that case, it is a leaf. Both `LEFT` and `RIGHT` return values
+that fail the comparison with the heap size and `i` is stored in `largest`.
+Afterwards the procedure just returns
