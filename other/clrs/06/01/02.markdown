@@ -1,0 +1,12 @@
+> Show that an $n$-element heap has height $\lfloor \lg{n} \rfloor$
+
+This is way too obvious, that it is hard to prove it.
+
+The number of internal nodes a complete binary tree has is $2^h - 1$ where $h$
+is the height of the tree. A heap of height $h$ has at least one additional
+node (otherwise it would be a heap of length $h-1$) and at most $2^h$
+additional nodes (otherwise it would be a heap of length $h+1$), which is
+similar to the answer in exercise 6.1-1.
+
+Thus, if $n \in (2^h, 2^{h+1} - 1)$, then the height will be $\lfloor \lg{n}
+\rfloor$.
