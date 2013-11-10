@@ -1,0 +1,5 @@
+> What is the effect of calling `MAX-HEAPIFY(A, i)` when th element $A[i]$ is
+> larger than its children?
+
+No effect. The comparisons are carried out, $A[i]$ is found to be largest and
+the procedure just returns.
