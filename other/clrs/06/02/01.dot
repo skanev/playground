@@ -1,0 +1,66 @@
+graph Illustration {
+  subgraph A {
+    node[shape=circle, fixedsize=true];
+    a1[label=27];
+    a2[label=17];
+    a3[label=3, style=filled];
+    a4[label=16];
+    a5[label=13];
+    a6[label=10];
+    a7[label=1];
+    a8[label=5];
+    a9[label=7];
+    a10[label=12];
+    a11[label=4];
+    a12[label=8];
+    a13[label=9];
+    a14[label=0];
+
+    a1 -- a2; a1 -- a3;
+    a2 -- a4; a2 -- a5; a3 -- a6;  a3 -- a7;
+    a4 -- a8; a4 -- a9; a5 -- a10; a5 -- a11; a6 -- a12; a6 -- a13; a7 -- a14;
+  }
+
+  subgraph B {
+    node[shape=circle, fixedsize=true];
+    b1[label=27];
+    b2[label=17];
+    b3[label=10]
+    b4[label=16];
+    b5[label=13];
+    b6[label=3, style=filled];
+    b7[label=1];
+    b8[label=5];
+    b9[label=7];
+    b10[label=12];
+    b11[label=4];
+    b12[label=8];
+    b13[label=9];
+    b14[label=0];
+
+    b1 -- b2; b1 -- b3;
+    b2 -- b4; b2 -- b5; b3 -- b6;  b3 -- b7;
+    b4 -- b8; b4 -- b9; b5 -- b10; b5 -- b11; b6 -- b12; b6 -- b13; b7 -- b14;
+  }
+  subgraph C {
+    node[shape=circle, fixedsize=true];
+    c1[label=27];
+    c2[label=17];
+    c3[label=10];
+    c4[label=16];
+    c5[label=13];
+    c6[label=9];
+    c7[label=1];
+    c8[label=5];
+    c9[label=7];
+    c10[label=12];
+    c11[label=4];
+    c12[label=8];
+    c13[label=3, style=filled];
+    c14[label=0];
+
+    c1 -- c2; c1 -- c3;
+    c2 -- c4; c2 -- c5; c3 -- c6;  c3 -- c7;
+    c4 -- c8; c4 -- c9; c5 -- c10; c5 -- c11; c6 -- c12; c6 -- c13; c7 -- c14;
+  }
+}
