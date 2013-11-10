@@ -1,0 +1,5 @@
+> Is an array that is in sorted order a min-heap?
+
+Yes. For any index $i$, both `LEFT(i)` and `RIGHT(i)` are larger and thus the
+elements indexed by them are greater or equal to $A[i]$ (because the array is
+sorted).
