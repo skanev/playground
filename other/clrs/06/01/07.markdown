@@ -1,0 +1,24 @@
+> Show that, with the array representation for sorting an $n$-element heap, the
+> leaves are the nodes indexed by $\lfloor n/2 \rfloor + 1,\lfloor n/2 \rfloor
+> + 2, \ldots, n$.
+
+Another very obvious one.
+
+Let's take the left child of the node indexed by $\lfloor n/2 \rfloor + 1$.
+
+$$ \text{LEFT}(\lfloor n/2 \rfloor + 1) = 2(\lfloor n/2 \rfloor + 1)
+                                        > 2(n/2 - 1) + 2
+                                        = n - 2 + 2
+                                        = n $$
+
+Since the index of the left child is larger than the number of elements in the
+heap, the node doesn't have childrens and thus is a leaf. Same goes for all
+nodes with larger indices.
+
+Note that if we take element indexed by $\lfloor n/2 \rfloor$, it will not be a
+leaf. In case of even number of nodes, it will have a left child with index $n$
+and in the case of odd number of nodes, it will have a left child with index
+$n-1$ and a right child with index $n$.
+
+This makes the number of leaves in a heap of size $n$ equal to $\lceil n/2
+\rceil$.
