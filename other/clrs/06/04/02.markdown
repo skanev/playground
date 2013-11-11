@@ -1,0 +1,19 @@
+> Argue the correctness of `HEAPSORT` using the following loop invariant:
+>
+> > At the start of each iteration of the **for** loop of lines 2-5, the
+> > subarray $A[1 \ldots i]$ is a max-heap containing the $i$ smallest elements
+> > of $A[1 \ldots n]$, and the subarray $A[i + 1 \ldots n]$ contains the $n -
+> > i$ largest elements of $A[1 \ldots n]$, sorted.
+
+**Initialization**. The subarray $A[i + 1 \ldots n]$ is empty, thus the
+invariant holds.
+
+**Maintenance**. $A[1]$ is the largest element in $A[1 \ldots i]$ and it is
+smaller than the elements in $A[i + 1 \ldots n]$. When we put it in the $i$th
+position, then $A[i \ldots n]$ contains the largest elements, sorted.
+Decreasing the heap size and calling `MAX-HEAPIFY` turns $A[1 \ldots i-1]$ into
+a max-heap. Decrementing $i$ sets up the invariant for the next iteration.
+
+**Termination**. After the loop $i = 1$. This means that $A[2 \ldots n]$ is
+sorted and $A[1]$ is the smallest element in the array, which makes the array
+sorted.
