@@ -1,0 +1,5 @@
+> Show that the worst-case running time of `HEAPSORT` is $\Omega(n\lg{n})$.
+
+This is essentially the first part of exercise 6.4-3. Whenever we have an array
+that is already sorted, we take linear time to convert it to a max-heap and
+then $n\lg{n}$ time to sort it.
