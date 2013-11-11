@@ -1,0 +1,2 @@
+> Using figure 6.4 as a model, illustrate the operation of `HEAPSORT` on the
+> array $A = \langle 5, 13, 2, 25, 7, 17, 20, 8, 4 \rangle$.

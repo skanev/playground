@@ -1,0 +1,161 @@
+graph Heapsort {
+  node[shape=circle, fixedsize=true];
+
+  subgraph A {
+    a1[label=25];
+    a2[label=13];
+    a3[label=20];
+    a4[label=8];
+    a5[label=7];
+    a6[label=17];
+    a7[label=2];
+    a8[label=5];
+    a9[label=4];
+
+    a1 -- a2; a1 -- a3;
+    a2 -- a4; a2 -- a5; a3 -- a6; a3 -- a7;
+    a4 -- a8; a4 -- a9;
+  }
+
+  subgraph B {
+    b1[label=20];
+    b2[label=13];
+    b3[label=17];
+    b4[label=8];
+    b5[label=7];
+    b6[label=4];
+    b7[label=2];
+    b8[label=5];
+    b9[label=25 style=filled];
+
+    b1 -- b2; b1 -- b3;
+    b2 -- b4; b2 -- b5; b3 -- b6; b3 -- b7;
+    b4 -- b8;
+    { edge[color=gray]
+      b4 -- b9;
+    }
+  }
+
+  subgraph C {
+    c1[label=17];
+    c2[label=13];
+    c3[label=5];
+    c4[label=8];
+    c5[label=7];
+    c6[label=4];
+    c7[label=2];
+    c8[label=20 style=filled];
+    c9[label=25 style=filled];
+
+    c1 -- c2; c1 -- c3;
+    c2 -- c4; c2 -- c5; c3 -- c6; c3 -- c7;
+    { edge[color=gray]
+      c4 -- c8; c4 -- c9;
+    }
+  }
+
+  subgraph D {
+    d1[label=13];
+    d2[label=8];
+    d3[label=5];
+    d4[label=2];
+    d5[label=7];
+    d6[label=4];
+    d7[label=17 style=filled];
+    d8[label=20 style=filled];
+    d9[label=25 style=filled];
+
+    d1 -- d2; d1 -- d3;
+    d2 -- d4; d2 -- d5; d3 -- d6;
+    { edge[color=gray]
+      d3 -- d7; d4 -- d8; d4 -- d9;
+    }
+  }
+
+  subgraph E {
+    e1[label=8];
+    e2[label=7];
+    e3[label=5];
+    e4[label=2];
+    e5[label=4];
+    e6[label=13 style=filled];
+    e7[label=17 style=filled];
+    e8[label=20 style=filled];
+    e9[label=25 style=filled];
+
+    e1 -- e2; e1 -- e3;
+    e2 -- e4; e2 -- e5;
+    { edge[color=gray]
+      e3 -- e6; e3 -- e7; e4 -- e8; e4 -- e9;
+    }
+  }
+
+  subgraph F {
+    f1[label=7];
+    f2[label=4];
+    f3[label=5];
+    f4[label=2];
+    f5[label=8  style=filled];
+    f6[label=13 style=filled];
+    f7[label=17 style=filled];
+    f8[label=20 style=filled];
+    f9[label=25 style=filled];
+
+    f1 -- f2; f1 -- f3;
+    f2 -- f4;
+    { edge[color=gray]
+      f2 -- f5; f3 -- f6; f3 -- f7; f4 -- f8; f4 -- f9;
+    }
+  }
+
+  subgraph G {
+    g1[label=5];
+    g2[label=4];
+    g3[label=2];
+    g4[label=7  style=filled];
+    g5[label=8  style=filled];
+    g6[label=13 style=filled];
+    g7[label=17 style=filled];
+    g8[label=20 style=filled];
+    g9[label=25 style=filled];
+
+    g1 -- g2; g1 -- g3;
+    { edge[color=gray]
+      g2 -- g4; g2 -- g5; g3 -- g6; g3 -- g7; g4 -- g8; g4 -- g9;
+    }
+  }
+
+  subgraph H {
+    h1[label=4];
+    h2[label=2];
+    h3[label=5  style=filled];
+    h4[label=7  style=filled];
+    h5[label=8  style=filled];
+    h6[label=13 style=filled];
+    h7[label=17 style=filled];
+    h8[label=20 style=filled];
+    h9[label=25 style=filled];
+
+    h1 -- h2;
+    { edge[color=gray]
+      h1 -- h3; h2 -- h4; h2 -- h5; h3 -- h6; h3 -- h7; h4 -- h8; h4 -- h9;
+    }
+  }
+
+  subgraph I {
+    i1[label=4];
+    i2[label=2  style=filled];
+    i3[label=5  style=filled];
+    i4[label=7  style=filled];
+    i5[label=8  style=filled];
+    i6[label=13 style=filled];
+    i7[label=17 style=filled];
+    i8[label=20 style=filled];
+    i9[label=25 style=filled];
+
+    i1 -- i2;
+    { edge[color=gray]
+      i1 -- i3; i2 -- i4; i2 -- i5; i3 -- i6; i3 -- i7; i4 -- i8; i4 -- i9;
+    }
+  }
+}
