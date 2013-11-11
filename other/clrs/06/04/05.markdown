@@ -1,0 +1,15 @@
+> $\star$ Show that when all elements are distinct, the best-case running time
+> of `HEAPSORT` is $\Omega(n\lg{n})$.
+
+Calling `MAX-HEAPIFY` in the loop of `HEAPSORT` always performs at least
+`A.heap-size - 1` exchanges. This is due to the max-heap property - the element
+at the last position is smaller than at least half of the other elements in the
+heap. When moved to the first position, it will have to be pushed down to a
+leaf position (half of the nodes are leaves) which is at least $h - 1$
+exchanges, where $h$ is the height of the heap. Thus:
+
+$$ \sum_{i=2}^{n}\lfloor\lg{i}\rfloor
+     > \sum_{i=2}^{n}\lg(i-1)
+     = \sum_{i=1}^{n-1}\lg{i}
+     = \lg\Big((i-1)!\Big)
+     = \Omega(n\lg{n}) $$
