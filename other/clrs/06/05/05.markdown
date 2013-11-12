@@ -1,0 +1,24 @@
+> Argue the correctness of `HEAP-INCREASE-KEY` using the following loop
+> invariant:
+>
+> > At the start of each iteration of the **while** loop of lines 4-6, the
+> > subarray $A[1 \ldots A.heap\text{-}size]$ satisfies the max-heap property,
+> > except that there may be one violation: $A[i]$ may be larger than
+> > $A[\text{PARENT}(i)]$.
+>
+> You may assume that the subarray $A[1 \ldots A.heap\text{-}size]$ satisfies
+> the max-heap property at the time `HEAP-INCREASE-KEY` is called.
+
+**Initialization**. $A$ is a heap except that $A[i]$ might be larger that it's
+parent, because it has been modified. $A[i]$ is larger than its children,
+because otherwise the guard clause would fail and the loop will not be entered
+(the new value is larger than the old value and the old value is larger than
+the children).
+
+**Maintenance**. When we exchange $A[i]$ with its parent, the max-heap property
+is satisfied except that now $A[\text{PARENT}(i)]$ might be larger than its
+parent. Changing $i$ to its parent maintains the invariant.
+
+**Termination**. The loop terminates whenever the heap is exhausted or the
+max-heap property for $A[i]$ and its parent is preserved. At the loop
+termination, $A$ is a max-heap.
