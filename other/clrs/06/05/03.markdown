@@ -1,0 +1,5 @@
+> Write pseudocode for the procedures `HEAP-MINIMUM`, `HEAP-EXTRACT-MIN`,
+> `HEAP-DECREASE-KEY`, and `MIN-HEAP-INSERT` that implement a min-priority
+> queue with a min-heap.
+
+Pseudocode? Why, let's do some real code!
