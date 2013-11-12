@@ -1,0 +1,11 @@
+> Show how to implement a first-in, first-out queue with a priority queue. Show
+> how to implement a stack with a priority queue. (Queues and stacks are
+> defined in section 10.1).
+
+Both are simple. For a stack we keep adding elements in increasing priority,
+while in a queue we add them in decreasing priority. For the stack we can set
+the new priority to `HEAP-MAXIMUM(A) + 1`. For the queue we need to keep track
+of it and decrease it on every insertion.
+
+Both are not very efficient. Furthermore, if the priority can overflow or
+underflow, so will eventually need to reassign priorities.
