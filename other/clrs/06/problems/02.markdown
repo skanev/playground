@@ -1,0 +1,31 @@
+## Analysis of d-ary heaps
+
+> A **d-ary heap** is like a binary heap, but (with one possible exception)
+> non-leaf nodes have $d$ children instead of 2 children.
+>
+> 1. How would you represent a $d$-ary heap in an array?
+> 2. What is the height of a $d$-ary heap of $n$ elements in terms of $n$ and
+>    $d$?
+> 3. Give an efficient implementation of `EXTRACT-MAX` in a $d$-ary max-heap.
+>    Analyze its running time in terms of $d$ and $n$.
+> 4. Give an efficient implementation of `INSERT` in $d$-ary max-heap. Analyze
+>    its running time in terms of $d$ and $n$.
+> 5. Give an efficient implementation of `INCREASE-KEY(A, i, k)`, which flags
+>    an error if $k < A[i]$, but otherwise sets $A[i] = k$ and then updates the
+>    $d$-ary max-heap structure appropriately. Analyze its running time in
+>    terms of $d$ and $n$.
+
+### Representation
+
+We just modify `LEFT`, `RIGHT` and `PARENT`. We can get the $k$-th child of the
+$i$th node with $d i + k - 1$ and the parent with $\lfloor i/d \rfloor$ (when
+indexing is 1-based).
+
+### Height
+
+Of course it's $\log_dn$.
+
+### Implementation
+
+The implementation is below. The complexity of the three
+procedures is $\O(\log_dn)$.
