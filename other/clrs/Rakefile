@@ -19,13 +19,13 @@ end
 namespace :test do
   desc 'Run the tests for an exercise'
   task :exercise, :chapter, :section, :number do |t, args|
-    exercise = Exercise.new args[:chapter], args[:section], args[:number]
+    exercise = Exercise.new ChapterNumber.new(args[:chapter]), args[:section], args[:number]
     exercise.run_tests
   end
 
   desc 'Run the tests of a problem'
   task :problem, :chapter, :number do |t, args|
-    problem = Problem.new args[:chapter], args[:number]
+    problem = Problem.new ChapterNumber.new(args[:chapter]), args[:number]
     problem.run_tests
   end
 end
@@ -33,13 +33,13 @@ end
 namespace :run do
   desc 'Run the code of an exercise'
   task :exercise, :chapter, :section, :number do |t, args|
-    exercise = Exercise.new args[:chapter], args[:section], args[:number]
+    exercise = Exercise.new ChapterNumber.new(args[:chapter]), args[:section], args[:number]
     exercise.run_all
   end
 
   desc 'Run the code of a problem'
   task :problem, :chapter, :number do |t, args|
-    problem = Problem.new args[:chapter], args[:number]
+    problem = Problem.new ChapterNumber.new(args[:chapter]), args[:number]
     problem.run_all
   end
 end
