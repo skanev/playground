@@ -1,0 +1,32 @@
+## Building a heap using insertion
+
+> We can build a heap by repeatedly calling `MAX-HEAP-INSERT` to insert the
+> elements into the heap. Consider the following variation of the
+> `BUILD-MAX-HEAP` procedure.
+>
+>     BUILD-MAX-HEAP'(A)
+>       A.heap-size = 1
+>       for i = 2 to A.length
+>           MAX-HEAP-INSERT(A, A[i])
+>
+> 1. Do the procedures `BUILD-MAX-HEAP` and `BUILD-MAX-HEAP'` always create the
+>    same heap when run on the same input array? Prove that they do, or provide
+>    a counterexample.
+> 2. Show that in the worst case, `BUILD-MAX-HEAP'` requires $\Theta(n\lg{n})$
+>    time to build a $n$-element heap.
+
+### Same heaps?
+
+No. They produce different heaps. This is illustrated with $\langle 1, 2, 3, 4,
+5, 6 \rangle$. Results are shown below.
+
+### Complexity
+
+`MAX-HEAP-INSERT` is a $\Theta(\lg{n})$ operation in the worst case and it gets
+called $n - 1$ times. `MAX-HEAP-INSERT` might need to pull each element up to
+the beginning of the heap, that is, $\lg{k}$ operations whatever $k$ currently
+is. The worst case happens when the array is sorted. Thus the complexity is:
+
+$$ \sum_{i=2}^{n}\lg{i} = \lg(n!) = \Theta(n\lg{n})$$
+
+The above is due to exercise 3.2.3.
