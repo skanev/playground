@@ -86,6 +86,11 @@ void abort_test() {
   test_last_assert_line = __LINE__; \
   assert_same_arrays(a, b, sizeof(a) / sizeof(a[1]), sizeof(b) / sizeof(b[1]))
 
+#define ASSERT_SAME_ARRAYS_S(a, b, s) \
+  test_last_assert_file = __FILE__; \
+  test_last_assert_line = __LINE__; \
+  assert_same_arrays(a, b, s, s)
+
 void assert_same_arrays(int a[], int b[], int l1, int l2) {
   if (l1 != l2)
     goto report_failure;
