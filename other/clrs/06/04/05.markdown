@@ -1,15 +1,31 @@
 > $\star$ Show that when all elements are distinct, the best-case running time
 > of `HEAPSORT` is $\Omega(n\lg{n})$.
 
-Calling `MAX-HEAPIFY` in the loop of `HEAPSORT` always performs at least
-`A.heap-size - 1` exchanges. This is due to the max-heap property - the element
-at the last position is smaller than at least half of the other elements in the
-heap. When moved to the first position, it will have to be pushed down to a
-leaf position (half of the nodes are leaves) which is at least $h - 1$
-exchanges, where $h$ is the height of the heap. Thus:
+This proved to be quite tricky. My initial solution was wrong. Also, heapsort
+appeared in 1964, but the lower bound was proved by Schaffer and Sedgewick
+in 1992. It's evil to put this an exercise.
 
-$$ \sum_{i=2}^{n}\lfloor\lg{i}\rfloor
-     > \sum_{i=2}^{n}\lg(i-1)
-     = \sum_{i=1}^{n-1}\lg{i}
-     = \lg\Big((i-1)!\Big)
-     = \Omega(n\lg{n}) $$
+Let's assume that the heap is a full binary tree with $n = 2^k - 1$. There are
+$2^{k-1}$ leaves and $2^{k-1} - 1$ inner nodes.
+
+Let's look at sorting the first $2^{k-1}$ elements of the heap. Let's consider
+their arrangement in the heap and color the leaves to be red and the inner
+nodes to be blue. The colored nodes are a subtree of the heap (otherwise there
+would be a contradiction). Since there are $2^{k-1}$ colored nodes, at most
+$2^{k-2}$ are red, which means that at least $2^{k-2} - 1$ are blue.
+
+While the red nodes can jump directly to the root, the blue nodes need to
+travel up before they get removed. Let's count the number of swaps to move the
+blue nodes to the root. The minimal case of swaps is when (1) there are
+$2^{k-2} - 1$ blue nodes and (2) they are arranged in a binary tree. If there
+are $d$ such blue nodes, then there would be $i = \lg{d}$ levels, each
+containing $2^i$ nodes with length $i$. Thus the number of swaps is:
+
+$$ \sum_{i=0}^{\lg{d}}i2^i = 2 + (\lg{d} - 2)2^{\lg{d}} = \Omega(d\lg{d}) $$
+
+And now for a lazy (but cute) trick. We've figured out a tight bound on sorting
+half of the heap. We have the following recurrence:
+
+$$ T(n) = T(n/2) + \Omega(n\lg{n}) $$
+
+Applying the master method, we get that $T(n) = \Omega(n\lg{n}) $.
