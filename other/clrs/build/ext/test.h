@@ -126,6 +126,37 @@ void assert_equals(int a, int b) {
   }
 }
 
+#define ASSERT_EQUALS(a, b) \
+  test_last_assert_file = __FILE__; \
+  test_last_assert_line = __LINE__; \
+  assert_equals(a, b)
+
+void assert_true(int v) {
+    if (!v) {
+        test_report_assertion_error("assert_true");
+        fprintf(stderr, "expected a truth\n");
+        abort_test();
+    }
+}
+
+void assert_false(int v) {
+    if (v) {
+        test_report_assertion_error("assert_false");
+        fprintf(stderr, "expected a faslity\n");
+        abort_test();
+    }
+}
+
+#define ASSERT_TRUE(a) \
+  test_last_assert_file = __FILE__; \
+  test_last_assert_line = __LINE__; \
+  assert_true(a)
+
+#define ASSERT_FALSE(a) \
+  test_last_assert_file = __FILE__; \
+  test_last_assert_line = __LINE__; \
+  assert_false(a)
+
 /*
  * Defining tests
  */
