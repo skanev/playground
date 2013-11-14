@@ -46,7 +46,7 @@ The last step is valid, because $\lg{g(n)} \geq 1$.
 
 ### e. $ f(n) = O((f(n))^2) $
 
-**Correct¹**. $0 \leq f(n) \leq cf^2(n)$ is trivial when $f(n) \geq 1$.
+**Correct**. $0 \leq f(n) \leq cf^2(n)$ is trivial when $f(n) \geq 1$.
 
 It would be incorrect if $f(n) < 1$ for all $n$, but we are usually not
 interested in such functions.
