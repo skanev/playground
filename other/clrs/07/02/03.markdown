@@ -1,0 +1,7 @@
+> Show that the running time of `QUICKSORT` is $\Theta(n^2)$ when the array $A$
+> contains distict elements and is sorted in decreasing order.
+
+In this case `PARTITION` always returns $p$ because all the elements are
+greated than the pivot. While the **if** will never be executed, we still get
+one empty partition and the recurrence is $T(n) = T(n-1) + \Theta(n)$ (even if
+its body is not executed, the **for** is still $\Theta(n)$).
