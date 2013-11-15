@@ -1,0 +1,14 @@
+> $\star$ Argue that for any constant $0 < \alpha \le 1/2$, the probability is
+> approximately $1 - 2\alpha$ that on a random input array, `PARTITION`
+> produces a split more balanced than $1 - \alpha$ to $\alpha$.
+
+Oh, this is nice!
+
+In order to produce a worse split than $\alpha$ to $1 - \alpha$, `PARTITION`
+must pick a pivot that will be either within the smallest $\alpha n$ elements
+or the largest $\alpha n$ elements. The probability of either is
+(approximately) $\alpha n / n = \alpha$ and the probability of both is
+$2\alpha$. Thus, the probability of having a better partition is the complement,
+$1 - 2\alpha$.
+
+Sweet!
