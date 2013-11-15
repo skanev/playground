@@ -1,0 +1,6 @@
+> Why do we analyze the expected running time of a randomized algorithm and not
+> its worst-case running time?
+
+The worst-case running time is not triggered by a specific output, but occurs
+randomly. We're not interested in it, since we cannot reproduce it reliably.
+Instead, it is factored in the analysis of the expected running time.
