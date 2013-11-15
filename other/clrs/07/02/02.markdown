@@ -1,0 +1,5 @@
+> What is the running time of `QUICKSORT` when all elements of the array $A$
+> have the same value?
+
+It is $\Theta(n^2)$, since one of the partitions is always empty (see exercise
+7.1.2).
