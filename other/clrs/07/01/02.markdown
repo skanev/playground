@@ -1,0 +1,9 @@
+> What value of $q$ does `PARTITION` return when all elements in the array $A[p
+> \ldots r]$ have the same value? Modify `PARTITION` so that $q = \lfloor
+> (p+r)/2 \rfloor$ when all elements in the array $A[p \ldots r]$ have the same
+> value.
+
+It returns $r$.
+
+We can modify `PARTITION` by counting the number of comparisons in which $A[j]
+= A[r]$ and then subtracting half that number from the pivot index.
