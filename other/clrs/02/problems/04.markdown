@@ -24,11 +24,11 @@ $(n-1) + (n-2) + \cdots + 1 = \frac{n(n-1)}{2}$ inversions.
 
 ### 3. Relationship with insertion sort
 
-Insertion sort performs the body of the inner loop once for each insertion.
+Insertion sort performs the body of the inner loop once for each inversion.
 Due to the nature of the algorithm, on each $k$-th iteration, if $A[1..k]$ has
 $m$ inversions with $A[k]$, they are in $A[k-m..k-1]$ (since the elements
 before $k$ are sorted). Thus, the inner loop needs to execute its body $m$
-times. This proces does not introduce new inversions and each outer loop
+times. This process does not introduce new inversions and each outer loop
 iteration resolves exactly $m$ inversions, where $m$ is the distance the
 element is "pushed towards the front of the array".
 
