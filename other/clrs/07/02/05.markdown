@@ -1,0 +1,20 @@
+> Suppose that the splits at every level of quicksort are in proportion $1 -
+> \alpha$ to $\alpha$, where $0 < \alpha \le 1/2$ is a constant. Show that the
+> minumum depth of a leaf in the recursion tree is approximately
+> $-\lg{n}/lg{\alpha}$ and the maximum depth is approximately
+> $-\lg{n}/\lg(1-\alpha)$. (Don't worry about integer round-off)
+
+The minimum depth of the tree is the solution of $n\alpha^x \le 1$:
+
+$$ n\alpha^x \le 1 \\\\
+   \Downarrow \\\\
+   \alpha^x \le \frac 1 n \\\\
+   \Downarrow \\\\
+   x \ge \log_{\alpha}\frac{1}{n} \\\\
+   \Downarrow \\\\
+   \log_{\alpha}\frac{1}{n} = \log_{1/\alpha}
+                            = \frac{\lg{n}}{\lg(1/\alpha)}
+                            = - \frac{\lg{n}}{\lg{\alpha}}
+$$
+
+In the same way, the maximum depth is $\log_{1/(1-\alpha)}n = - \frac{\lg{n}}{\lg(1-\alpha)}$
