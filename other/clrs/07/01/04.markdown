@@ -1,0 +1,3 @@
+> How would you modify `QUICKSORT` to sort into nonincreasing order?
+
+We only need to flip the condition on line 4.
