@@ -1,0 +1,268 @@
+graph Partition {
+  node [shape=box style=filled fillcolor=white];
+
+  subgraph cluster_A {
+    a1[label=13];
+    a2[label=19];
+    a3[label=3];
+    a4[label=5];
+    a5[label=12];
+    a6[label=8];
+    a7[label=7];
+    a8[label=4];
+    a9[label=21];
+    a10[label=2];
+    a11[label=6];
+    a12[label=11 fillcolor=black fontcolor=white];
+
+    { rank=same; a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12; }
+    { edge[style=invis];
+      a1 -- a2 -- a3 -- a4 -- a5 -- a6 -- a7 -- a8 -- a9 -- a10 -- a11 -- a12;
+    }
+  }
+
+  subgraph cluster_B {
+    b1[label=13 fillcolor="#dddddd"];
+    b2[label=19];
+    b3[label=3];
+    b4[label=5];
+    b5[label=12];
+    b6[label=8];
+    b7[label=7];
+    b8[label=4];
+    b9[label=21];
+    b10[label=2];
+    b11[label=6];
+    b12[label=11 fillcolor=black fontcolor=white];
+
+    { rank=same; b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12; }
+    { edge[style=invis];
+      b1 -- b2 -- b3 -- b4 -- b5 -- b6 -- b7 -- b8 -- b9 -- b10 -- b11 -- b12;
+    }
+  }
+
+  subgraph cluster_C {
+    c1[label=13 fillcolor="#dddddd"];
+    c2[label=19 fillcolor="#dddddd"];
+    c3[label=3];
+    c4[label=5];
+    c5[label=12];
+    c6[label=8];
+    c7[label=7];
+    c8[label=4];
+    c9[label=21];
+    c10[label=2];
+    c11[label=6];
+    c12[label=11 fillcolor=black fontcolor=white];
+
+    { rank=same; c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12; }
+    { edge[style=invis];
+      c1 -- c2 -- c3 -- c4 -- c5 -- c6 -- c7 -- c8 -- c9 -- c10 -- c11 -- c12;
+    }
+  }
+
+  subgraph cluster_D {
+    d1[label=3 fillcolor="#999999"];
+    d2[label=19 fillcolor="#dddddd"];
+    d3[label=13 fillcolor="#dddddd"];
+    d4[label=5];
+    d5[label=12];
+    d6[label=8];
+    d7[label=7];
+    d8[label=4];
+    d9[label=21];
+    d10[label=2];
+    d11[label=6];
+    d12[label=11 fillcolor=black fontcolor=white];
+
+    { rank=same; d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12; }
+    { edge[style=invis];
+      d1 -- d2 -- d3 -- d4 -- d5 -- d6 -- d7 -- d8 -- d9 -- d10 -- d11 -- d12;
+    }
+  }
+
+  subgraph cluster_E {
+    e1[label=3 fillcolor="#999999"];
+    e2[label=5 fillcolor="#999999"];
+    e3[label=13 fillcolor="#dddddd"];
+    e4[label=19 fillcolor="#dddddd"];
+    e5[label=12];
+    e6[label=8];
+    e7[label=7];
+    e8[label=4];
+    e9[label=21];
+    e10[label=2];
+    e11[label=6];
+    e12[label=11 fillcolor=black fontcolor=white];
+
+    { rank=same; e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12; }
+    { edge[style=invis];
+      e1 -- e2 -- e3 -- e4 -- e5 -- e6 -- e7 -- e8 -- e9 -- e10 -- e11 -- e12;
+    }
+  }
+
+  subgraph cluster_F {
+    f1[label=3 fillcolor="#999999"];
+    f2[label=5 fillcolor="#999999"];
+    f3[label=13 fillcolor="#dddddd"];
+    f4[label=19 fillcolor="#dddddd"];
+    f5[label=12 fillcolor="#dddddd"];
+    f6[label=8];
+    f7[label=7];
+    f8[label=4];
+    f9[label=21];
+    f10[label=2];
+    f11[label=6];
+    f12[label=11 fillcolor=black fontcolor=white];
+
+    { rank=same; f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12; }
+    { edge[style=invis];
+      f1 -- f2 -- f3 -- f4 -- f5 -- f6 -- f7 -- f8 -- f9 -- f10 -- f11 -- f12;
+    }
+  }
+
+  subgraph cluster_G {
+    g1[label=3 fillcolor="#999999"];
+    g2[label=5 fillcolor="#999999"];
+    g3[label=8 fillcolor="#999999"];
+    g4[label=19 fillcolor="#dddddd"];
+    g5[label=12 fillcolor="#dddddd"];
+    g6[label=13 fillcolor="#dddddd"];
+    g7[label=7];
+    g8[label=4];
+    g9[label=21];
+    g10[label=2];
+    g11[label=6];
+    g12[label=11 fillcolor=black fontcolor=white];
+
+    { rank=same; g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12; }
+    { edge[style=invis];
+      g1 -- g2 -- g3 -- g4 -- g5 -- g6 -- g7 -- g8 -- g9 -- g10 -- g11 -- g12;
+    }
+  }
+
+  subgraph cluster_H {
+    h1[label=3 fillcolor="#999999"];
+    h2[label=5 fillcolor="#999999"];
+    h3[label=8 fillcolor="#999999"];
+    h4[label=7 fillcolor="#999999"];
+    h5[label=12 fillcolor="#dddddd"];
+    h6[label=13 fillcolor="#dddddd"];
+    h7[label=19 fillcolor="#dddddd"];
+    h8[label=4];
+    h9[label=21];
+    h10[label=2];
+    h11[label=6];
+    h12[label=11 fillcolor=black fontcolor=white];
+
+    { rank=same; h1, h2, h3, h4, h5, h6, h7, h8, h9, h10, h11, h12; }
+    { edge[style=invis];
+      h1 -- h2 -- h3 -- h4 -- h5 -- h6 -- h7 -- h8 -- h9 -- h10 -- h11 -- h12;
+    }
+  }
+
+  subgraph cluster_I {
+    i1[label=3 fillcolor="#999999"];
+    i2[label=5 fillcolor="#999999"];
+    i3[label=8 fillcolor="#999999"];
+    i4[label=7 fillcolor="#999999"];
+    i5[label=4 fillcolor="#999999"];
+    i6[label=13 fillcolor="#dddddd"];
+    i7[label=19 fillcolor="#dddddd"];
+    i8[label=12 fillcolor="#dddddd"];
+    i9[label=21];
+    i10[label=2];
+    i11[label=6];
+    i12[label=11 fillcolor=black fontcolor=white];
+
+    { rank=same; i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12; }
+    { edge[style=invis];
+      i1 -- i2 -- i3 -- i4 -- i5 -- i6 -- i7 -- i8 -- i9 -- i10 -- i11 -- i12;
+    }
+  }
+
+  subgraph cluster_J {
+    j1[label=3 fillcolor="#999999"];
+    j2[label=5 fillcolor="#999999"];
+    j3[label=8 fillcolor="#999999"];
+    j4[label=7 fillcolor="#999999"];
+    j5[label=4 fillcolor="#999999"];
+    j6[label=13 fillcolor="#dddddd"];
+    j7[label=19 fillcolor="#dddddd"];
+    j8[label=12 fillcolor="#dddddd"];
+    j9[label=21 fillcolor="#dddddd"];
+    j10[label=2];
+    j11[label=6];
+    j12[label=11 fillcolor=black fontcolor=white];
+
+    { rank=same; j1, j2, j3, j4, j5, j6, j7, j8, j9, j10, j11, j12; }
+    { edge[style=invis];
+      j1 -- j2 -- j3 -- j4 -- j5 -- j6 -- j7 -- j8 -- j9 -- j10 -- j11 -- j12;
+    }
+  }
+
+  subgraph cluster_K {
+    k1[label=3 fillcolor="#999999"];
+    k2[label=5 fillcolor="#999999"];
+    k3[label=8 fillcolor="#999999"];
+    k4[label=7 fillcolor="#999999"];
+    k5[label=4 fillcolor="#999999"];
+    k6[label=2 fillcolor="#999999"];
+    k7[label=19 fillcolor="#dddddd"];
+    k8[label=12 fillcolor="#dddddd"];
+    k9[label=21 fillcolor="#dddddd"];
+    k10[label=13 fillcolor="#dddddd"];
+    k11[label=6];
+    k12[label=11 fillcolor=black fontcolor=white];
+
+    { rank=same; k1, k2, k3, k4, k5, k6, k7, k8, k9, k10, k11, k12; }
+    { edge[style=invis];
+      k1 -- k2 -- k3 -- k4 -- k5 -- k6 -- k7 -- k8 -- k9 -- k10 -- k11 -- k12;
+    }
+  }
+
+  subgraph cluster_L {
+    l1[label=3 fillcolor="#999999"];
+    l2[label=5 fillcolor="#999999"];
+    l3[label=8 fillcolor="#999999"];
+    l4[label=7 fillcolor="#999999"];
+    l5[label=4 fillcolor="#999999"];
+    l6[label=2 fillcolor="#999999"];
+    l7[label=6 fillcolor="#999999"];
+    l8[label=12 fillcolor="#dddddd"];
+    l9[label=21 fillcolor="#dddddd"];
+    l10[label=13 fillcolor="#dddddd"];
+    l11[label=19 fillcolor="#dddddd"];
+    l12[label=11 fillcolor=black fontcolor=white];
+
+    { rank=same; l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12; }
+    { edge[style=invis];
+      l1 -- l2 -- l3 -- l4 -- l5 -- l6 -- l7 -- l8 -- l9 -- l10 -- l11 -- l12;
+    }
+  }
+
+  subgraph cluster_M {
+    m1[label=3 fillcolor="#999999"];
+    m2[label=5 fillcolor="#999999"];
+    m3[label=8 fillcolor="#999999"];
+    m4[label=7 fillcolor="#999999"];
+    m5[label=4 fillcolor="#999999"];
+    m6[label=2 fillcolor="#999999"];
+    m7[label=6 fillcolor="#999999"];
+    m8[label=11 fillcolor=black fontcolor=white];
+    m9[label=21 fillcolor="#dddddd"];
+    m10[label=13 fillcolor="#dddddd"];
+    m11[label=19 fillcolor="#dddddd"];
+    m12[label=12 fillcolor="#dddddd"];
+
+    { rank=same; m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12; }
+    { edge[style=invis];
+      m1 -- m2 -- m3 -- m4 -- m5 -- m6 -- m7 -- m8 -- m9 -- m10 -- m11 -- m12;
+    }
+  }
+
+
+  { edge[style=invis];
+    a1 -- b1 -- c1 -- d1 -- e1 -- f1 -- g1 -- h1 -- i1 -- j1 -- k1 -- l1 -- m1;
+  }
+}
