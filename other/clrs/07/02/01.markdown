@@ -1,0 +1,12 @@
+> Use the substitution method to prove that the recurrence $T(n) = T(n-1) +
+> \Theta(n)$ has the solution $T(n) = \Theta(n^2)$, as claimed at the beginning
+> of section 7.2
+
+We represent $\Theta(n)$ as $c_2n$ and we guess that $T(n) \le c_1n^2$
+
+$$ \begin{align}
+   T(n) &=   T(n-1) + c_2n \\\\
+        &\le c_1(n-1)^2 + c_2n \\\\
+        &=   c_1n^2 - 2c_1n + c_1 + c_2n & (2c_1 > c_2, n \ge c_1/(2c_1 - c_2))\\\\
+        &\le c_1n^2
+   \end{align} $$
