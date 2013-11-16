@@ -1,0 +1,87 @@
+## Hoare partition correctness
+
+> The version of `PARTITION` given in this chapter is not the original
+> partitioning algorithm. Here is the original partition algorithm, which is
+> due to C.A.R. Hoare:
+>
+>     HOARE-PARTITION(A, p, r)
+>       x = A[p]
+>       i = p - 1
+>       j = r + 1
+>       while TRUE
+>           repeat
+>               j = j - 1
+>           until A[j] ≤ x
+>           repeat
+>               i = i + 1
+>           until A[i] ≥ x
+>           if i < j
+>               exchange A[i] with A[j]
+>           else return j
+>
+> 1. Demonstrate the operation of `HOARE-PARTITION` on the array $A = \langle
+>    13, 19, 9, 5, 12, 8, 7, 4, 11, 2, 6, 21 \rangle$, showing the values of
+>    the array and auxiliary values after each iteration of the **while** loop
+>    in lines 4-13.
+>
+> The next three questions ask you to give a careful argument that the
+> procedure `HOARE-PARTITION` is correct. Assuming that the subarray $A[p..r]$
+> contains at least two elements, prove the following:
+>
+> 2. The indices $i$ and $j$ are such that we never access an element of $A$
+>    outside the subarray $A[p..r]$.
+> 3. When `HOARE-PARTITION` terminates, it returns a value $j$ such that $p \le
+>    j < r$.
+> 4. Every element of $A[p..j]$ is less than or equal to every element of
+>    $A[j + 1..r]$ when `HOARE-PARTITION` terminates.
+>
+> The `PARTITION` procedure in section 7.1 separates the pivot value
+> (originally in $A[r]$) from the two partitions it forms. The
+> `HOARE-PARTITION` procedure, on the other hand, always places the pivot value
+> (originally in $A[p]$) into one of the two parititions $A[p..j]$ and
+> $A[j + 1..r]$. Since $p \le j < r$, this split is always nontrivial.
+>
+> 5. Rewrite the `QUICKSORT` procedure to use `HOARE-PARTITION`.
+
+### Demonstration
+
+At the end of the loop, the variables have the following values:
+
+    x = 13
+    j = 9
+    i = 10
+
+### Correctness
+
+The indices will not walk of the array. At the first check $i < j$, $i = p$ and
+$j \ge p$ (because $A[p] = x$). If $i = j$, the algorithm will terminate
+without accessing "invalid" elements. If $i < j$, the next loop will also have
+indices $i$ and $j$ within the array, (because $i \le r$ and $j \ge p$). Note
+that if one of the indices gets to the end of the array, then $i$ won't be less
+or equal to $j$ any more.
+
+As for the return value, it will be at least one less than $j$. At the first
+iteration, either (1) $A[p]$ is the maximum element and then $i = p$ and $j = p
+< r$ or (2) it is not and $A[p]$ gets swapped with $A[j]$ where $j \le r$. The
+loop will not terminate and on the next iteration, $j$ gets decremented (before
+eventually getting returned). Combining those two cases we get $p \le j < r$.
+
+Finally, it's easy to observe the following invariant:
+
+> Before the condition comparing $i$ to $j$, all elements $A[p..i-1] \le x$ and
+> all elements $A[j+1..r] \ge x$.
+
+**Initialization**. The two **repeat** blocks establish just this condition.
+
+**Maintenance**. By exchanging $A[i]$ and $A[j]$ we make the $A[p..i] \le x$
+and $A[j..r] \ge x$. Incrementing $i$ and decrementing $j$ maintain this
+invariant.
+
+**Termination**. The loop terminates when $i \ge j$. The invariant still holds
+at termination.
+
+The third bit follows directly from this invariant.
+
+### Implementation
+
+There's some C code below.

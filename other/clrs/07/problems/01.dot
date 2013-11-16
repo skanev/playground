@@ -1,0 +1,87 @@
+graph Partition {
+  node[shape=box style=filled fillcolor=white];
+
+  subgraph cluster_A {
+    a1[label=13 fillcolor=black fontcolor=white];
+    a2[label=19];
+    a3[label=9];
+    a4[label=5];
+    a5[label=12];
+    a6[label=8];
+    a7[label=7];
+    a8[label=4];
+    a9[label=11];
+    a10[label=2];
+    a11[label=6];
+    a12[label=21];
+
+    { rank=same; a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12; }
+    { edge[style=invis];
+      a1 -- a2 -- a3 -- a4 -- a5 -- a6 -- a7 -- a8 -- a9 -- a10 -- a11 -- a12;
+    }
+  }
+
+  subgraph cluster_B {
+    b1[label=6 fillcolor=lightgray];
+    b2[label=19];
+    b3[label=9];
+    b4[label=5];
+    b5[label=12];
+    b6[label=8];
+    b7[label=7];
+    b8[label=4];
+    b9[label=11];
+    b10[label=2];
+    b11[label=13 fillcolor=black fontcolor=white];
+    b12[label=21 fillcolor=lightgray];
+
+    { rank=same; b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12; }
+    { edge[style=invis];
+      b1 -- b2 -- b3 -- b4 -- b5 -- b6 -- b7 -- b8 -- b9 -- b10 -- b11 -- b12;
+    }
+  }
+
+  subgraph cluster_C {
+    c1[label=6 fillcolor=lightgray];
+    c2[label=2 fillcolor=lightgray];
+    c3[label=9];
+    c4[label=5];
+    c5[label=12];
+    c6[label=8];
+    c7[label=7];
+    c8[label=4];
+    c9[label=11];
+    c10[label=19 fillcolor=lightgray];
+    c11[label=13 fillcolor=black fontcolor=white];
+    c12[label=21 fillcolor=lightgray];
+
+    { rank=same; c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12; }
+    { edge[style=invis];
+      c1 -- c2 -- c3 -- c4 -- c5 -- c6 -- c7 -- c8 -- c9 -- c10 -- c11 -- c12;
+    }
+  }
+
+  subgraph cluster_D {
+    d1[label=6 fillcolor=lightgray];
+    d2[label=2 fillcolor=lightgray];
+    d3[label=9 fillcolor=lightgray];
+    d4[label=5 fillcolor=lightgray];
+    d5[label=12 fillcolor=lightgray];
+    d6[label=8 fillcolor=lightgray];
+    d7[label=7 fillcolor=lightgray];
+    d8[label=4 fillcolor=lightgray];
+    d9[label=11 fillcolor=lightgray];
+    d10[label=19 fillcolor=black fontcolor=white];
+    d11[label=13 fillcolor=lightgray];
+    d12[label=21 fillcolor=lightgray];
+
+    { rank=same; d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12; }
+    { edge[style=invis];
+      d1 -- d2 -- d3 -- d4 -- d5 -- d6 -- d7 -- d8 -- d9 -- d10 -- d11 -- d12;
+    }
+  }
+
+  { edge[style=invis];
+    a1 -- b1 -- c1 -- d1;
+  }
+}
