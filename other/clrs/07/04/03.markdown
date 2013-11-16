@@ -1,0 +1,18 @@
+> Show that the expression $q^2 + (n - q - 1)^2$ achieves a maximum over $q =
+> 0, 1, \ldots, n-1$ when $q = 0$ and $q = n - 1$.
+
+$$ \begin{align}
+   f(q)   &= q^2 + (n - q - 1)^2 \\\\
+   f'(q)  &= 2q - 2(n - q - 1) = 4q - 2n + 2 \\\\
+   f''(q) &= 4 \\\\
+   \end{align} $$
+
+$f'(q) = 0$ when $q = \frac{1}{2}n - \frac{1}{4}$. $f'(q)$ is also continious.
+$\forall q : f''(q) > 0$, which means that $f'(q)$ is negative left of $f'(q) =
+0$ and positive right of it, which means that this is a local minima. In this
+case, $f(q)$ is decreasing in the beginning of the interval and increasing in
+the end, which means that those two points are the only candidates for a
+maximum in the interval.
+
+$$ f(0) = (n - 1)^2 \\\\
+   f(n-1) = (n - 1)^2 + 0^2 $$
