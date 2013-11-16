@@ -1,0 +1,39 @@
+> We can improve the running time of quicksort in practice by taking advantage
+> of the fast running time of insertion sort when its input is "nearly" sorted.
+> Upon calling quicksort on a subarray with fewer than $k$ elements, let it
+> simply return without sorting the subarray. After the top-level call to
+> quicksort returns, run insertion sort on the entire array to finish the
+> sorting process. Argue that this sorting algorithm runs in $\O(nk + n\lg(n/k))$
+> expected time. How should we pick $k$, both in theory and practice?
+
+In the quicksort part of the proposed algorithm, the recursion stops at level
+$\lg(n/k)$, which makes the expected running time $\O(n\lg(n/k))$. However,
+this leaves $n/k$ non-sorted, non-intersecting subarrays of (maximum) length
+$k$.
+
+Because of the nature of the insertion sort algorithm, it will first sort fully
+one such subarray before consider the next one. Thus, it has the same
+complexity as sorting each of those arrays, that is $\frac{n}{k}\O(k^2) = \O(nk).$
+
+In theory, if we ignore the constant factors, we need to solve:
+
+$$ n\lg{n} \ge nk + n\lg{n/k} \\\\
+   \Downarrow \\\\
+   \lg{n} \ge k + \lg{n} - \lg{k} \\\\
+   \Downarrow \\\\
+   \lg{k} \ge k $$
+
+Which is not possible.
+
+If we add the constant factors, we get:
+
+$$ c_qn\lg{n} \ge c_ink + c_qn\lg(n/k) \\\\
+   \Downarrow \\\\
+   c_q\lg{n} \ge c_ik + c_q\lg{n} - c_q\lg{k} \\\\
+   \Downarrow \\\\
+   \lg{k} \ge \frac{c_i}{c_q}k $$
+
+Which indicates that there might be a good candidate. Furthermore, the
+lower-order terms should be taken into consideration too.
+
+In practice, $k$ should be chosed by experiment.
