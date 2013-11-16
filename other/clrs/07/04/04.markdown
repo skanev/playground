@@ -1,0 +1,13 @@
+> Show that `RANDOMIZED-QUICKSORT`'s expected running time is
+> $\Omega(n\lg{n})$.
+
+We use the same reasoning for the expected number of comparisons, we just take
+in in a different direction.
+
+$$ \begin{align}
+   \E[X] &=   \sum_{i=1}^{n-1} \sum_{j=i+1}^n \frac{2}{j-i+1} \\\\
+         &=   \sum_{i=1}^{n-1} \sum_{k=1}^{n-i} \frac{2}{k + 1} & (k \ge 1) \\\\
+         &\ge \sum_{i=1}^{n-1} \sum_{k=1}^{n-i} \frac{2}{2k} \\\\
+         &\ge \sum_{i=1}^{n-1} \Omega(\lg{n}) \\\\
+         &=   \Omega(n\lg{n})
+   \end{align} $$
