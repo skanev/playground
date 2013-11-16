@@ -1,0 +1,7 @@
+> Show that quicksort's best-case running time is $\Omega(n\lg{n})$.
+
+The best case happens when the partition is even, that is:
+
+$$ T(n) = 2T(n/2) + \Theta(n) $$
+
+Using the master method, we get the solution $\Theta(n\lg{n})$.
