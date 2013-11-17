@@ -1,0 +1,56 @@
+## Quicksort with equal element values
+
+> The analysis of the expected running time of randomized quicksort in section
+> 7.4.2 assumes that all element values are distinct. In this problem. we
+> examine what happens when they are not.
+>
+> 1. Suppose that all element values are equal. What would be randomized
+>    quick-sort's running time in this case?
+> 2. The `PARTITION` procedure returns an index $q$ such that each element of
+>    $A[p \ldots q - 1]$ is less than or equal to $A[q]$ and each element of
+>    $A[q + 1 \ldots r]$ is greater than $A[q]$. Modify the `PARTITION`
+>    procedure to produce a procedure `PARTITION'(A, p, r)` which permutes the
+>    elements of $A[p \ldots r]$ and returns two indices $q$ and $t$ where $p
+>    \le q \le t \le r$, such that:
+>    <ul>
+>      <li>all elements of $A[q \ldots t]$ are equal,</li>
+>      <li>each element of $A[p \ldots q - 1]$ is less than $A[q]$, and</li>
+>      <li>each element of $A[t + 1 \ldots r]$ is greater than $A[q]$.</li>
+>    </ul>
+>    Like `PARTITION`, your `PARTITION'` procedure should take $\Theta(r - p)$
+>    time.
+> 3. Modify the `RANDOMIZED-QUICKSORT` procedure to call `PARTITION'`, and name
+>    the new procedure `RANDOMIZED-QUICKSORT'`. Then modify the `QUICKSORT`
+>    procedure to produce a procedure `QUICKSORT'(p, r)` that calls
+>    `RANDOMIZED-PARTITION'` and recurses only on partitions of elements not
+>    know to be equal to each other.
+> 4. Using `QUICKSORT'`, how would you adjust the analysis of section 7.4.2 to
+>    avoid the assumption that all elements are distinct?
+
+### Running time
+
+It will be $\Theta(n^2)$, because each split will be (n-1)-to-1 (see exercise
+7.1-2).
+
+### Implementation
+
+The code is below.
+
+`PARTITION'` is very similar to `PARTITION`, except that after it completes
+arranging the elements around a pivot $q$, it moves all elements $t > q: A[t] =
+x$ right after $q$. That way we get a chuck of equal elements after the pivot.
+
+The procedure makes another pass at the array, which is at most $n$ more time
+and becuse $\Theta(n) + \Theta(n) = \Theta(n) = \Theta(r - p)$ we fulfill the
+condition.
+
+### Analysis
+
+The analysis does not change much. Section 7.4.2 uses the knowledge that the
+elements are distinct in order to determine when two elements cannot be
+compared. It will still be true that in any interval $Z_{ij}$, two elements
+will get compared only if $z_i$ or $z_j$ gets picked as a pivot first. This
+would not hold with `PARTITION'` if there are repeated elements.
+
+Note that with this implementation, the number of comparisons increases, but
+only by a constant factor. The results from the analysis are the same.
