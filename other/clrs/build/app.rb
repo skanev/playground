@@ -17,6 +17,13 @@ get '/index.?:format?' do
   Renderer.render_catalog catalog
 end
 
+get '/:chapter/problems/:number.png' do
+  problem = Problem.new ChapterNumber.new(params[:chapter]), params[:number]
+
+  content_type 'image/png'
+  Graph.render problem.graph_path
+end
+
 get '/:chapter/problems/:number.?:format?' do
   problem = Problem.new ChapterNumber.new(params[:chapter]), params[:number]
   Renderer.render_problem problem
