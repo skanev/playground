@@ -1,0 +1,55 @@
+## Stack depth for quicksort
+
+> The `QUICKSORT` algorithm of Section 7.1 contains two recursive calls to
+> itself. After `QUICKSORT` calls `PARTITION`, it recursively sorts the left
+> subarray and then it recursively sorts the right subarray. The second
+> recursive call in `QUICKSORT` is not really necessary; we can avoid it by
+> using an iterative control structure. This technique, called **tail
+> recursion**, is provided automatically by good compilers. Consider the
+> following version of quicksort, which simulates tail recursion:
+>
+>     TAIL-RECURSIVE-QUICKSORT(A, p, r)
+>       while p < r
+>           // Partition and sort left subarray
+>           q = PARTITION(A, p, r)
+>           TAIL-RECURSIVE-QUICKSORT(A, p, q - 1)
+>           p = q + 1
+>
+> 1. Argue that `TAIL-RECURSIVE-QUICKSORT(A, 1, A.length)` correctly sorts the
+>    array $A$.
+>
+> Compilers usually execute recursive procedures by using a **stack** that
+> contains pertinent information, including the parameter values, for each
+> recursive call. The information for the most recent call is at the top of the
+> stack, and the information for the initial call is at the bottom. Upon
+> calling a procedure, its information is **pushed** onto the stack; when it
+> terminates, its information is **popped**. Since we assume that array
+> parameters are represented by pointers, the information for each procedure
+> call on the stack requires $\O(1)$ stack space. The **stack depth** is the
+> maximum amount of stack space used at any time during a computation.
+>
+> 2. Describe a scenario in which `TAIL-RECURSIVE-QUICKSORT`'s stack depth is
+>    $\Theta(n)$ on an $n$-element input array.
+> 3. Modify the code for `TAIL-RECURSIVE-QUICKSORT` so that the worst-case
+>    stack depth is $\Theta(\lg{n})$. Maintain the $\O(n\lg{n})$ expected
+>    running time of the algorithm.
+
+### Argue correctness
+
+The original version partitions the array and then calls `QUICKSORT` one on
+each side. This version does the same, although in a different fashion -
+instead of calling `TAIL-RECURSIVE-QUICKSORT`, it just changes `p` and restarts
+the loop. It amounts to the same.
+
+This is a straightforward tail-call unrolling.
+
+### Linear stack depth
+
+This will happen whenever partition returns $r$. That is, whenever the array is
+sorted.
+
+### Modified algorithm
+
+We are always doing a tail-recursive call on the second partition. We can
+modify the algorithm to do the tail recursion on the larger partition. That
+way, we'll consume less stack.
