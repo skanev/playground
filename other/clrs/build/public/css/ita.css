@@ -7,3 +7,5 @@
 
 blockquote { margin: 2em 0; }
 blockquote p { margin: .7em 0; }
+blockquote ul { margin-top: .7em;  margin-bottom: .7em; }
+blockquote ol > li { margin-top: .5em;  margin-bottom: .5em; }
