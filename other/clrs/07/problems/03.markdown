@@ -1,0 +1,91 @@
+## Alternative quicksort analysis
+
+> An alternative analysis of the running time of randomized quicksort focuses
+> on the expected running time of each individual recursive call to
+> `RANDOMIZED-QUICKSORT`, rather than on the number of comparisons performed.
+>
+> 1. Argue that, given an array of size $n$, the probability that any
+>    particular element is chosen as the pivot is $1/n$. Use this to define
+>    indicator random variables $X_i = I\\{i\text{th smallest element is chosen
+>    as the pivot}\\}$. What is $\E[X_i]$?
+> 2. Let $T(n)$ be a random variable denoting the running time of quicksort on
+>    an array of size $n$. Argue that
+>    $$ \E[T(n)] = \E\bigg[\sum_{q=1}^nX_q(T(q-1) + T(n-q) + \Theta(n))\bigg] \tag{7.5} $$
+> 3. Show that we can rewrite equation (7.5) as
+>    $$ \E[T(n)] = \frac{2}{n}\sum_{q=2}^{n-1}\E[T(q)] + \Theta(n) \tag{7.6} $$
+> 4. Show that
+>    $$ \sum_{k=2}^{n-1}k\lg{k} \le \frac{1}{2}n^2\lg{n} - \frac{1}{8}n^2 \tag{7.7} $$
+>    (<i>Hint</i>: Split the summation into two parts, one for $k = 2, 3,
+>    \ldots, \lceil n/2 \rceil - 1$ and one for $k = \lceil n/2 \rceil, \ldots,
+>    n - 1$.
+> 5. Using the bound from equation (7.7), show that the recurrence in equation
+>    (7.6) has the solution $\E[T(n)] = \Theta(n\lg{n})$. (<i>Hint</i>: Show,
+>    by substitution, that $\E[T(n)] \le an\lg{n}$ for sufficiently large $n$
+>    and for some positive constant $a$.)
+
+### Choosing a pivot
+
+`PARTITION` is equally likely to pick any element as a pivot. Since there are
+$n$ elements, the probability of one being picked is $1/n$. For the same
+reason, $\E[X_i] = 1/n$.
+
+### Running time of quicksort
+
+Let the $q$th smallest element be the pivot. There are $n$ possible choices for
+it, each with chance $X_q$. Each will solve the problem by breaking it down in
+two parts of size $q - 1$ and $n - q$ and adding a linear factor. The formula
+in (7.5) follows by the definition of expectation.
+
+### The rewrite
+
+$$ \begin{align}
+   \E[T(n)] &= \E\bigg[\sum_{q=1}^nX_q(T(q-1) + T(n-q) + \Theta(n))\bigg] \\\\
+            &= \sum_{q=1}^n\frac{1}{n}(\E[T(q-1)] + \E[T(n-q)] + \Theta(n))\bigg] \\\\
+            &= \frac{1}{n}\sum_{q=1}^n\E[T(q-1)]
+             + \frac{1}{n}\sum_{q=1}^n\E[T(n - q)]
+             + \frac{1}{n}\sum_{q=1}^n\Theta(n) \\\\
+            &= \frac{1}{n}\sum_{q=0}^{n-1}\E[T(q)]
+             + \frac{1}{n}\sum_{q=0}^{n-1}\E[T(n - q + 1)]
+             + \Theta(n) \\\\
+            &= \frac{1}{n}\sum_{q=0}^{n-1}\E[T(q)]
+             + \frac{1}{n}\sum_{q=0}^{n-1}\E[T(q)]
+             + \Theta(n) \\\\
+            &= \frac{2}{n}\sum_{q=0}^{n-1}\E[T(q)] + \Theta(n) \\\\
+            &= \frac{2}{n}\sum_{q=2}^{n-1}\E[T(q)]
+             + \frac{2\E[T(0)]}{n}
+             + \frac{2\E[T(1)]}{n}
+             + \Theta(n) \\\\
+            &= \frac{2}{n}\sum_{q=2}^{n-1}\E[T(q)] + \Theta(n)
+   \end{align} $$
+
+### The bound
+
+$$ \begin{align}
+   \sum_{k=2}^{n-1}k\lg{k}
+   &=   \sum_{k=2}^{\lceil n/2 \rceil - 1}k\lg{k} + \sum_{k=\lceil n/2 \rceil}^{n - 1}k\lg{k} \\\\
+   &\le \sum_{k=2}^{n/2}k\lg{k} + \sum_{k=n/2 + 1}^{n}k\lg{k} \\\\
+   &\le \sum_{k=2}^{n/2}k\lg(n/2) + \sum_{k=n/2 + 1}^{n}k\lg{n} \\\\
+   &=   \lg(n/2)\sum_{k=2}^{n/2}k\ + \lg{n}\sum_{k=n/2 + 1}^{n}k \\\\
+   &=   (\lg{n} - \lg{2})\bigg(\frac{(n/2)(n/2 + 1)}{2}\bigg) +
+          \lg{n}\bigg(\frac{n(n+1)}{2} - \frac{(n/2)(n/2 + 1)}{2}\bigg) \\\\
+   &=   \lg{n}\frac{n(n+1)}{2} - \frac{(n/2)(n/2 + 1)}{2} \\\\
+   &=   \frac{1}{2}\lg{n}(n^2 + 2n + 1) - \frac{1}{8}(n^2 + 2n + 1/8) \\\\
+   &=   \frac{1}{2}n^2\lg{n} - \frac{1}{8}n^2 - \frac{8n\lg{n} + 4\lg{n} - 2n - 1/8}{8} \\\\
+   &\le \frac{1}{2}n^2\lg{n} - \frac{1}{8}n^2
+   \end{align} $$
+
+### The solution
+
+We guess $\E[T(n)] \le an\lg{n}$:
+
+$$ \begin{align}
+   \E[T(n)] &=   \frac{2}{n}\sum_{q=2}^{n-1}\E[T(q)] + \Theta(n) \\\\
+            &\le \frac{2}{n}\sum_{q=2}^{n-1}an\lg{n} + \Theta(n) & \text{(by the guess)} \\\\
+            &\le \frac{2a}{n}\bigg(\frac{1}{2}n^2\lg{n} - \frac{1}{8}n^2\bigg)
+                 + \Theta(n) & \text{(by 7.7)} \\\\
+            &=   an\lg{n} - \frac{a}{4}n + \Theta(n) & \text{(by }\Theta\text{-notation)} \\\\
+            &\le an\lg{n}
+   \end{align} $$
+
+Note that $\Theta$-notation allows us to pick $a$ and $n$ such that the last
+derivation is possible.
