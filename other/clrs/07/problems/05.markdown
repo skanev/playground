@@ -1,0 +1,74 @@
+## Median-of-3 partition
+
+> One way to improve the `RANDOMIZED-QUICKSORT` procedure is to partition
+> around a pivot that is chosen more carefully than by picking a random element
+> from the subarray. One common approach is the **median-of-3** method: choose
+> the pivot as the median (middle element) of a set of 3 elements randomly
+> selected from the subarray. (See exercise 7.4-6.) For this problem, let us
+> assume that the elements of the input array $A[1 \ldots n]$ are distinct and
+> that $n \ge 3$. We denote the sorted output array by $A'[1 \ldots n]$. Using
+> the median-of-3 method to choose the pivot element $x$, define $p_i = \Pr\\{x
+> = A'[i]\\}$.
+>
+> 1. Give an exact formula for $p_i$ as a function of $n$ and $i$ for $i = 2,
+>    3, \ldots, n - 1$. (Note that $p_1 = p_n = 0$.)
+> 2. By what amount have we increased the likelihood of choosing the pivot as
+>    $x = A'[\lfloor(n+1)/2\rfloor]$, the median of $A[1 \ldots n]$, compared with
+>    the ordinary implementation? Assume that $n \to \infty$, and give the
+>    limiting ratio of these probabilities.
+> 3. If we define a "good" split to mean choosing the pivot as $x = A'[i]$,
+>    where $n/3 \le i \le 2n/3$, by what amount have we increased the
+>    likelihood of getting a good split compared with the ordinary
+>    implementation? (<i>Hint</i>: Approximate the sum by an integral.)
+> 4. Argue that in the $\Omega(n\lg{n})$ running time of quicksort, the
+>    median-of-3 method affects only the constant factor.
+
+### Probability
+
+There are $n!/(n-3)!$ 3-permutations of all possible picks. In order to have
+the $i$th element, we need to pick one smaller, the $i$th element and one
+larger. There are $i - 1$ ways to pick a smaller one and $n-i$ ways to pick the
+larger. There are $3! ways to arrange how the three elements are picked. Thus:
+
+$$ p_i = \frac{6(i-1)(n-i)}{n(n-1)(n-2)} $$
+
+### Improvement
+
+$$ \lim_{n \to \infty}\frac{6(i-1)(n-i)}{n(n-1)(n-2)}/\frac{1}{n}
+ = \lim_{n \to \infty}\frac{6n(n/2 - 1)(n/2)}{(n-1)(n-2)}
+ = \lim_{n \to \infty}\frac{6(n^2 - 2n)}{4(n^2 - 3n + 2)}
+ = \frac{6}{4} $$
+
+We get a $1.5$ improvement, which does not seem that much.
+
+### Improvement
+
+From exercise 7.2-6 we know that we get a "good" split with probability $1 -
+2(1/3) = 1/3$. As for the probability of getting a good split with median-of-3:
+
+$$ \begin{align}
+   \lim_{n \to \infty}\sum_{i=n/3}^{2n/3}\frac{6(i-1)(n-i)}{n(n-1)(n-2)} &=
+     \lim_{n \to \infty}\frac{6}{n(n-1)(n-2)}\sum_{i=n/3}^{2n/3}(i-1)(n-i) \\\\
+     &= \lim_{n \to \infty}\binom{n}{3}\int_{n/3}^{2n/3}(i-1)(n-1)\mathrm{d}i \\\\
+        & \quad \Bigg( \int(i-1)(n-1)\mathrm{d}i = \frac{1}{6}(3ni^2 - 6ni - 2i^3 + 3i^2) \Bigg) \\\\
+     &= \lim_{n \to \infty}\binom{n}{3}\frac{1}{6}\bigg[
+          \frac{36}{27}n^3 - \frac{16}{27}n^3 + o(n^3) -
+          \frac{9}{27}n^3 + \frac{2}{27}n^3 + o(n^3)
+        \bigg] \\\\
+    &= \lim_{n \to \infty}\frac{1}{n(n-1)(n-2)} \frac{13}{27}(n^3 + o(n^3)) \\\\
+    &= \lim_{n \to \infty}\frac{13}{27}\frac{n^3 + o(n^3)}{n^3 + o(n^3)} \\\\
+    &= \frac{13}{27}
+   \end{align} $$
+
+Thus, as $n$ grows, the chance of getting a "good" split converges to $13/27$. The improvement is:
+
+$$ \frac{13}{27} \div \frac{1}{3} = \frac{39}{27} \approx 1.444(4) $$
+
+### Improvement
+
+The running time would improve if the new approach can always pick a good
+split. Unfortunatelly, it can't. It makes it impossible for one of the splits
+to be empty, but it can still pick a $1$-to-$n-2$ split. It improves the
+probability of a good split and adds some overhead to picking the pivot, but it
+makes no hard guarantees on the quality of the split. Thus, the algorithm
+remains $\Omega(n\lg{n})$ and $\O(n^2)$.
