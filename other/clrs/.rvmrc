@@ -1,3 +1,1 @@
-export LC_ALL=en_US.utf-8
-export LANG=en_US.utf-8
 rvm --create 2.0.0@playground
