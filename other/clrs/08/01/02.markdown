@@ -1,0 +1,20 @@
+> Obtain asymptotically tight bounds on $\lg(n!)$ without using Stirling's
+> approximation. Instead, evaluate the summation $\sum_{k=1}^n\lg{k}$ using
+> techniques from section A.2.
+
+First we show that it is $\O(n\lg{n})$:
+
+$$ \sum_{k=1}^n\lg{k} \le \sum_{k=1}^n\lg{n} = n\lg{n} = \O(n\lg{n})$$
+
+Next we show that it is $\Omega(n\lg{n})$:
+
+$$ \begin{align}
+   \sum_{k=1}^n\lg{k} &=   \sum_{k=1}^{\lfloor n/2 \rfloor}\lg{k} +
+                           \sum_{k=\lfloor n/2 \rfloor + 1}^n\lg{k} \\\\
+                      &\ge \sum_{k=\lfloor n/2 \rfloor + 1}^n\lg{k} \\\\
+                      &\ge \sum_{k=n/2}^n\lg{k} \\\\
+                      &\ge \sum_{k=n/2}^n\lg{n/2} \\\\
+                      &\ge (n/2)\lg(n/2) \\\\
+                      &=   \frac{1}{2}n\lg{n} - \frac{1}{2}n \\\\
+                      &=   \Omega(n\lg{n})
+   \end{align} $$
