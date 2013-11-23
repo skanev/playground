@@ -1,0 +1,21 @@
+> Show that there is no comparison sort whose running time is linear for at
+> least half of the $n!$ inputs of length $n$. What about a fraction $1/n$ of
+> the inputs of length $n$? What about a fraction $1/2^n$?
+
+If it is linear for at least half of the inputs, then using the same reasoning
+as in the text, it must hold that:
+
+$$ \frac{n!}{2} \le 2^n $$
+
+This holds only for small values for $n$. Same goes for the other:
+
+$$ \frac{n!}{n} \le 2^n $$
+
+And:
+
+$$ \frac{n!}{2^n} \le 2^n \Leftrightarrow n! \le 4^n $$
+
+All those have solutions for small $n < n_0$, but don't hold for larger values.
+
+In contrast, insertion sort gets its work done in $\Theta(n)$ time in the best
+case. But this is a $1/n!$ fraction of the inputs, which is smaller than $1/2^n$.
