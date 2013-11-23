@@ -1,0 +1,6 @@
+> What is the smallest possible depth of a leaf in a decision tree for a
+> comparison sort?
+
+It's $\Theta(n)$, or more precisely, $n-1$. This is the minimal number of
+comparisons we need to perform in order to check if an array is sorted and
+return it. It's what insertion sort does.
