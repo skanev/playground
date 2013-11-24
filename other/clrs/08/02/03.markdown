@@ -1,0 +1,10 @@
+> Suppose that we were to rewrite the for loop header in line 10 of the
+> `COUNTING-SORT` as
+>
+>     for j = 1 to A.length
+>
+> Show that the algorithm still works properly. Is the modified algorithm
+> stable?
+
+It will work properly, but they are not stable. Equal elements will appear in
+reverse order in the sorted array.
