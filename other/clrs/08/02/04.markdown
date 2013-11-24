@@ -1,0 +1,10 @@
+> Describe an algorithm that, given $n$ integers in the range $0$ to $k$,
+> preprocesses its input and then answers any query about how many of the $n$
+> integers fall into a range $[a..b]$ in $\O(1)$ time. Your algorithm should
+> use $\Theta(n+k)$ preprocessing time.
+
+This is not even challenging.
+
+We just take the part of `COUNTING-SORT` that builds up the array `C`. Whenever
+we want to count the number of integers in $[a..b]$, we take `C[b] - C[a-1]`
+(where `C[-1] = 0`). This yields the number of integers in the given range.
