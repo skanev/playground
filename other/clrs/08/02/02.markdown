@@ -1,0 +1,9 @@
+> Prove that `COUNTING-SORT` is stable.
+
+An informal argument will suffice.
+
+Let's say that two elements at indices $i_1 < i_2$ are equal to each other. In
+the sorted array, they take place at indices $j_1 + 1 = j_2$. Since the
+`COUNTING-SORT` processes the input array in reverse order, $A[i_2]$ is put in
+$B[j_2]$ first and then $A[i_1]$ is put in $A[j_2]$. Since the two elements
+preserve their order, the algorithm is stable.
