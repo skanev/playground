@@ -1,0 +1,12 @@
+> Which of the following sorting algorithms are stable: insertion sort, merge
+> sort, heapsort, and quicksort? Give a simple scheme that makes any sorting
+> algorithm stable. How much additional time and space does your scheme entail?
+
+**Stable**: Insertion sort, merge sort
+
+**Not stable**: Heapsort, quicksort
+
+We can make any algorithm stable by mapping the array to an array of pairs,
+where the first element in each pair is the original element and the second is
+its index. Then we sort lexicographically. This scheme takes additional
+$\Theta(n)$ space.
