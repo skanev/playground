@@ -1,0 +1,22 @@
+> Using figure 8.3 as a model, illustrate the operation of `RADIX-SORT` on the
+> following list of English words: `COW`, `DOG`, `SEA`, `RUG`, `ROW`, `MOB`,
+> `BOX`, `TAB`, `BAR`, `EAR`, `TAR`, `DIG`, `BIG`, `TEA`, `NOW`, `FOX`.
+
+Again, ASCII is way simpler for this. I miss solving all my problems with ASCII :/
+
+    COW        SEA        TAB        BAR
+    DOG   =>   TEA   =>   BAR   =>   BIG
+    SEA        MOB        EAR        BOX
+    RUG        TAB        TAR        COW
+    ROW        DOG        SEA        DIG
+    MOB        RUG        TEA        DOG
+    BOX        DIG        DIG        EAR
+    TAB        BIG        BIG        FOX
+    BAR        BAR        MOB        MOB
+    EAR        EAR        DOG        NOW
+    TAR        TAR        COW        ROW
+    DIG        COW        ROW        RUG
+    BIG        ROW        NOW        SEA
+    TEA        NOW        BOX        TAB
+    NOW   =>   BOX   =>   FOX   =>   TAR
+    FOX        FOX        RUG        TEA
