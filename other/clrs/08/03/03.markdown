@@ -1,0 +1,21 @@
+> Use induction to prove that radix sort works. Where does your proof need the
+> assumption that the intermediate sort is stable?
+
+We can take the following invariant:
+
+> At the beginning of the **for** loop, the array is sorted on the last $i - 1$
+> digits.
+
+**Initialization**. The array is trivially sorted on the last 0 digits.
+
+**Maintenance**. Let's assume that the array is sorted on the last $i - 1$
+digits. After we sort on the $i$th digit, the array will be sorted on the last
+$i$ digits. It is obvious that elements with different digit in the $i$th
+position are ordered accordingly; in the case of the same $i$th digit, we still
+get a correct order, because we're using a stable sort and the elements were
+already sorted on the last $i - 1$ digits.
+
+**Termination**. The loop terminates when $i = d + 1$. Since the invariant
+holds, we have the numbers sorted on $d$ digits.
+
+We use the assumption in the maintenance explanation.
