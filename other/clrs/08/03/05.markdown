@@ -1,0 +1,24 @@
+> $\star$ In the first card-sorting algorithm in this section, exactly how many
+> sorting passes are needed to sort $d$-digit decimal numbers in the worst
+> case? How many piles of cards would an operator need to keep track of in the
+> worst case?
+
+The algorithm becomes exponential. Here's a simple breakdown for sorting
+n-digits numbers in base 3.
+
+    - sort all on first digit into 3 piles
+      - sort pile with first digit = 0 into 3 piles on second digit
+        - sort pile with second digit = 0 on third digit
+          ...
+        - sort pile with second digit = 1 on third digit
+          ...
+        - sort pile with third digit = 1 on third digit
+          ...
+      - sort pile with first digit = 1 into 3 piles on second digit
+        ..
+      ...
+
+This is exponential. We need to perform $\Theta(k^d)$ passes. Furthermore, we
+need to keep track of $\Theta(nk)$ piles.
+
+Those correspond to space and time.
