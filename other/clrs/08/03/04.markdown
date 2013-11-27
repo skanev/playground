@@ -1,0 +1,4 @@
+> Show how to sort $n$ integers in the range $0$ to $n^3 - 1$ in $\O(n)$ time.
+
+We use radix sort. In this case, we have 2-digit numbers in base $n$. This
+makes `RADIX-SORT` to be $\Theta(2(n + n)) = \Theta(4n) = \Theta(n)$.
