@@ -1,0 +1,25 @@
+#!/usr/bin/env zsh
+
+emulate -R zsh
+
+cd ${0%/*}
+
+hooks_dir="$(git rev-parse --git-dir)/hooks"
+
+for hook in *; do
+  if [[ $hook = ${0:t} ]]; then
+    continue
+  fi
+
+  target="$hooks_dir/$hook"
+
+  if [[ ! -f $target ]]; then
+    print "Linking $hook..."
+    ln -fs ${hook:a} $target
+  elif [[ -h $target ]]; then
+    print "$hook already linked."
+  else
+    print "[ERROR] $hook already exists!"
+    return 1
+  fi
+done

@@ -1,0 +1,33 @@
+#!/usr/bin/env zsh
+emulate -L zsh
+setopt extendedglob
+
+files=("${(@f)$(git diff --cached --name-only)}")
+
+case $files[1] in
+  (#b)other/clrs/([0-9][0-9])/([0-9][0-9]|problems)/([0-9][0-9]).*)
+    prefix=${files[1]%%.*}
+
+    # The filenames are sorted. If the first and the last have the same prefix,
+    # then every element in the file has this prefix.
+    if [[ ${files[(I)$prefix*]} -ne $#files ]]; then
+      return 0
+    fi
+
+    chapter=${match[1]#0}
+    section=${match[2]#0}
+    exercise=${match[3]#0}
+
+    if [[ $section = 'problems' ]]; then
+      message="clrs; problem $chapter.$exercise - "
+    else
+      message="clrs; exercise $chapter.$section.$exercise - "
+    fi
+
+    sed -i -e "1i\\
+      $message\\
+      " $1
+    ;;
+  *)
+    ;;
+esac
