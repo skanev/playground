@@ -33,6 +33,24 @@ case $files[1] in
       $message\\
       " $1
     ;;
+
+  (#b)scheme/eopl/([0-9][0-9])/([0-9][0-9]).scm)
+    chapter=${match[1]}
+    exercise=${match[2]}
+
+    # Abort if files are not for the same exercise
+    for file in $files; do
+      [[ $file != scheme/eopl/$chapter(/$exercise|/tests/${exercise}-tests).scm ]] && return 0
+    done
+
+    # Abort if commit message already enetered
+    [[ -n $(head -n 1 $1) ]] && return 0
+
+    sed -i -e "1i\\
+      eopl; exercise ${chapter#0}.$exercise - \\
+      " $1
+    ;;
+
   *)
     ;;
 esac
