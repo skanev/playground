@@ -1,0 +1,12 @@
+> Explain why the worst-case running time for bucket sort is $\Theta(n^2)$.
+> What simple change to the algorithm preserves its linear average-case running
+> time and makes its worst-case running time $\O(n\lg{n})$.
+
+If all the keys fall in the same bucket and they happen to be in reverse order,
+we have to sort a single bucket with $n$ items in reversed order with insertion
+sort. This is $\Theta(n^2)$.
+
+We can use merge sort or heapsort to improve the worst-case running time.
+Insertion sort was chosen, because it operates well on linked lists. If we use
+another sorting algorithm, we have to convert each list to an array, which
+might slow down the algorithm in practice.
