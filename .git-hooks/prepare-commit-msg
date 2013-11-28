@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
-emulate -L zsh
+emulate -LR zsh
 setopt extendedglob
 
 files=("${(@f)$(git diff --cached --name-only)}")
@@ -10,7 +10,12 @@ case $files[1] in
 
     # The filenames are sorted. If the first and the last have the same prefix,
     # then every element in the file has this prefix.
-    if [[ ${files[(I)$prefix*]} -ne $#files ]]; then
+    if [[ $files[-1] != $prefix.* ]]; then
+      return 0
+    fi
+
+    # Don't do anything if a commit message is already present
+    if [[ -n $(head -n 1 $1) ]]; then
       return 0
     fi
 
