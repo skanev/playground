@@ -1,0 +1,64 @@
+> $\star$ We are given $n$ points in the unit circle, $p_i = (x_i, y_i)$, such
+> that $0 < x_i^2 + y_i^2 \le 1$ for $i = 1, 2, \ldots, n$. Suppose that the
+> points are uniformly distributed; that is, the probability of finding a point
+> in any region of the circle is proportional to the area of that region.
+> Design an algorithm with an average-case running time of $\Theta(n)$ to sort
+> the $n$ points by their distances $d_i = \sqrt{x_i^2 + y_i^2}$ from the
+> origin. (<i>Hint:</i> Design the bucket sizes in `BUCKET-SORT` to reflect the
+> uniform distribution of the points in the unit circle.)
+
+The unit circle has area $\pi 1^2 = \pi$. We need to split it in $n$ discs,
+each having area $\pi / n$. The radius of such a disc is $\pi(b^2 - a^2)$,
+where $b$ is the radius of the outer edge and $a$ is the radius of the inner
+edge of the disc.
+
+Let the points $a_0, a_1, a_2, \ldots a_n$ divide the circle in n dics, the
+$i$th disc having radiuses $a_i$ and $a_{i-1}$. We know that $a_0 = 0$ and $a_n
+= 1$. For any two discs we have:
+
+$$ \pi^2 \pi(a_i^2 - a_{i-1}^2) = \pi(a_j^2 - a_{j-1}^2) = \frac{\pi}{n} \\\\
+   \Downarrow \\\\
+   a_i^2 - a_{i-1}^2 = a_j^2 - a_{j-1}^2 = \frac{1}{n} \\\\
+   \Downarrow \\\\
+   a_i^2 = \frac{1}{n} + a_{i-1}^2 $$
+
+We get the following recurrence:
+
+$$ \begin{align}
+   a_0 &= 0 \\\\
+   a_i &= \sqrt{1/n + a_{i-1}^2}
+   \end{align} $$
+
+If we check some small values, we see the following pattern:
+
+$$ \pi n^2 $$
+
+$$ \begin{align}
+   a_0 & = 0 = \frac{1}{\sqrt n} \\\\
+   a_1 & = \sqrt{\frac{1}{n} + \frac{1}{n}} = \frac{\sqrt 2}{\sqrt n} \\\\
+   a_2 & = \sqrt{\frac{1}{n} + \frac{2}{n}} = \frac{\sqrt 2}{\sqrt n} \\\\
+   & \ldots \\\\
+   a_i & = \frac{\sqrt i}{\sqrt n}
+   \end{align} $$
+
+The last step is easy to prove by induction. If we assume it for $i \le k$, then:
+
+$$ a_{k+1} = \sqrt{\frac{1}{n} + a_k^2}
+           = \sqrt{\frac{1}{n} + \frac{k}{n}}
+           = \frac{\sqrt{k+1}}{\sqrt n} $$
+
+Thus, we create buckets for the following intervals:
+
+$$ \bigg[0, \frac{1}{\sqrt n} \bigg),
+   \bigg[\frac{1}{\sqrt n}, \frac{\sqrt 2}{\sqrt n}\bigg) \cdots
+   \bigg[\frac{\sqrt{n-1}}{\sqrt n}, 1 \bigg] $$
+
+And distribute elements according to their distance. To calculate the bucket
+$k$ for a distance $d$ in constant time, just take:
+
+$$ k = \begin{cases}
+    \lfloor d^2n \rfloor + 1 & \text{if } d < 1, \\\\
+    n & \text{id } d = 1
+  \end{cases} $$
+
+...for 1-based buckets.
