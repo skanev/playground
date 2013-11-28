@@ -1,0 +1,14 @@
+> Let $X$ be a random variable that is equal to the number of heads in two
+> flips of a fair coin. What is $\E[X^2]$? What is $\E^2[X]$.
+
+First let's see what $\E[X]$ is:
+
+$$ \E[X] = 2 \cdot \frac{1}{4} + 1 \cdot \frac{1}{2} + 0 \cdot \frac{1}{4} = 1 $$
+
+Next we take $\E[X^2]$:
+
+$$ \E[X^2] = \E[X] \cdot \E[X] = 1 $$
+
+Finally $\E^2[X]$:
+
+$$ \E^2[X] = \E[X] \cdot \E[X] = 1 $$
