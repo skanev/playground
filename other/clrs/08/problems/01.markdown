@@ -1,0 +1,98 @@
+## Probabilistic lower bounds on comparison sorting
+
+> In this problem, we prove a probabilistic $\Omega(n\lg{n})$ on the running
+> time of any deterministic or randomized comparison sort on $n$ distinct input
+> elements. We begin by examining a deterministic comparison sort $A$ with
+> decision tree $T_A$. We assume that every permutation of $A$'s inputs is
+> equally likely.
+>
+> 1. Suppose that each leaf of $T_A$ is labeled with the probability that it is
+>    reached given a random input. Prove that exactly $n!$ leaves are labeled
+>    $1/n!$ and the rest are labeled $0$.
+> 2. Let $D(T)$ denote the external path length of a decision tree $T$; that
+>    is, $D(T)$ is the sum of the depths of all the leaves of $T$. Let $T$ be a
+>    decision tree with $k > 1$ leaves, and let $LT$ and $RT$ be the left and
+>    right subtrees of $T$. Show that $D(T) = D(LT) + D(RT) + k$
+> 3. Let $d(k)$ be the minimum value of $D(T)$ over all decision trees $T$ with
+>    $k > 1$ leaves. Show that $d(k) = \min_{1 \le i \le k - 1} \\{d(i) +
+>    d(k-i) + k\\}$. (<i>Hint</i>: Consider a decision tree $T$ with $k$
+>    leaves that achieves the minimum. Let $i_0$ be the number of leaves in
+>    $LT$ and $k - i_0$ the number of leaves in $RT$.)
+> 4. Prove that for a given value of $k > 1$ and $i$ in the range $i \le i \le
+>    k - 1$, the function $i\lg{i} + (k-i)\lg(k-i)$ is minimized at $i = k/2$.
+>    Conclude that $d(k) = \Omega(k\lg{k})$.
+> 5. Prove that $D(T_A) = \Omega(n!\lg(n!))$, and conclude that the
+>    average-case time to sort $n$ elements is $\Omega(n\lg{n})$.
+>
+> Now consider a *randomized* comparison sort $B$. We can extend the
+> decision-tree model to handle randomization by incorporating two kinds of
+> nodes: ordinary comparison nodes and "randomization" nodes. A randomization
+> node models a random choice of the form `RANDOM(1,r)` made by algorithm $B$;
+> the node has $r$ children, each of which is equally likely to be chosen
+> during an execution of the algorithm.
+>
+> 6. Show that for any randomized comparison sort $B$, there exists a deterministic
+>    comparison sort $A$ whose expected number of comparisons is no more than
+>    those made by $B$.
+
+### Probability labels
+
+There are $n!$ permutations that the algorithm can perform and each
+corresponds to one of the $n!$ possible inputs. Each permutation will be a
+leaf in this tree and since the inputs are equally likely, the probability of
+reaching one will be $1/n!$. If the decision tree has more leaves, they will
+be unreachable.
+
+This is an intuitive argument. It's easy to see that it is so if you think
+about it, but a formal proof seems tricky to me.
+
+### External path length
+
+If we take a node in the tree, all paths go either through the left or the
+right child. Both children have the same paths as the node itself, except that
+they are shorter by one. Thus, $D(T) = D(LT) + D(RT) +
+\mathrm{LEAVES}(LT) + \mathrm{LEAVES}(RT) = D(LT) + D(RT) + k$.
+
+### Minimal external path length
+
+If we take a tree with $k$ leaves that achieves the minimal external path,
+we know from the previous point that:
+
+$$ D(T) = D(LT) + D(RT) + k $$
+
+There are $k - 1$ possible pairs of left-right children and one of them is the
+minimum. That is:
+
+$$ d(k) = D(T) = D(LT) + D(RT) + k = \min_{1 \le i \le k-1}\\{d(i) + d(k-i) + k\\} $$
+
+### Minimal value
+
+Let:
+
+$$ \begin{align}
+      f(i) &= i\lg{i} + (k-i)\lg(k-i) \\\\
+     f'(i) &= \lg{i} + 1 - \lg(k-i) - 1 = \lg\frac{i}{k-i} \\\\
+     f'(i) = 0 & \Leftrightarrow \lg\frac{i}{k-i} = 0 \Rightarrow i/(k-i) = 1 \Rightarrow i = \frac k 2
+   \end{align} $$
+
+Since $f'(i)$ is monotonously increasing, $i = k/2$ is a local minimum.
+
+Intuitively said, the minimum is reached when the tree is balanced (as in the
+way merge sort halves is decision-tree on each step.
+
+### Average-case time
+
+In $T_A$ there are $n!$ leaves, thus $D(n) > d(k) = \Omega(n!\lg(n!))$. Each
+permutation has an equal probability of $1/n!$, thus the expected time to sort
+it is:
+
+$$ \frac{\Omega(n!\lg(n!))}{n!} = \Omega(n\lg(n!)) = \Omega(n\lg{n}) $$
+
+### The randomized algorithm
+
+A deterministic algorithm $A$ corresponding to $B$ would be one that has made
+its "random" choices in advance. To construct it we just remove the randomized
+nodes by replacing them by a child we pick. The new result is a subtree (in
+respect to the non-randomized nodes) and its number of choices is less than or
+equal to the one of the randomized algorithm. Since any subtree we pick is
+$\Omega(n\lg{n})$, this implies that $B$ is $\Omega(n\lg{n})$.
