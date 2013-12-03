@@ -5,53 +5,53 @@ setopt extendedglob
 files=("${(@f)$(git diff --cached --name-only)}")
 
 case $files[1] in
-  (#b)other/clrs/([0-9][0-9])/([0-9][0-9]|problems)/([0-9][0-9]).*)
-    prefix=${files[1]%%.*}
+    (#b)other/clrs/([0-9][0-9])/([0-9][0-9]|problems)/([0-9][0-9]).*)
+        prefix=${files[1]%%.*}
 
-    # The filenames are sorted. If the first and the last have the same prefix,
-    # then every element in the file has this prefix.
-    if [[ $files[-1] != $prefix.* ]]; then
-      return 0
-    fi
+        # The filenames are sorted. If the first and the last have the same prefix,
+        # then every element in the file has this prefix.
+        if [[ $files[-1] != $prefix.* ]]; then
+            return 0
+        fi
 
-    # Don't do anything if a commit message is already present
-    if [[ -n $(head -n 1 $1) ]]; then
-      return 0
-    fi
+        # Don't do anything if a commit message is already present
+        if [[ -n $(head -n 1 $1) ]]; then
+            return 0
+        fi
 
-    chapter=${match[1]#0}
-    section=${match[2]#0}
-    exercise=${match[3]#0}
+        chapter=${match[1]#0}
+        section=${match[2]#0}
+        exercise=${match[3]#0}
 
-    if [[ $section = 'problems' ]]; then
-      title=$(head -n 1 $prefix.markdown)
-      message="clrs; problem $chapter.$exercise - ${(L)title##\#\# }"
-    else
-      message="clrs; exercise $chapter.$section.$exercise - "
-    fi
+        if [[ $section = 'problems' ]]; then
+            title=$(head -n 1 $prefix.markdown)
+            message="clrs; problem $chapter.$exercise - ${(L)title##\#\# }"
+        else
+            message="clrs; exercise $chapter.$section.$exercise - "
+        fi
 
-    sed -i -e "1i\\
-      $message\\
-      " $1
-    ;;
+        sed -i -e "1i\\
+        $message\\
+        " $1
+        ;;
 
-  (#b)scheme/eopl/([0-9][0-9])/([0-9][0-9]).scm)
-    chapter=${match[1]}
-    exercise=${match[2]}
+    (#b)scheme/eopl/([0-9][0-9])/([0-9][0-9]).scm)
+        chapter=${match[1]}
+        exercise=${match[2]}
 
-    # Abort if files are not for the same exercise
-    for file in $files; do
-      [[ $file != scheme/eopl/$chapter(/$exercise|/tests/${exercise}-tests).scm ]] && return 0
-    done
+        # Abort if files are not for the same exercise
+        for file in $files; do
+            [[ $file != scheme/eopl/$chapter(/$exercise|/tests/${exercise}-tests).scm ]] && return 0
+        done
 
-    # Abort if commit message already enetered
-    [[ -n $(head -n 1 $1) ]] && return 0
+        # Abort if commit message already enetered
+        [[ -n $(head -n 1 $1) ]] && return 0
 
-    sed -i -e "1i\\
-      eopl; exercise ${chapter#0}.$exercise - \\
-      " $1
-    ;;
+        sed -i -e "1i\\
+        eopl; exercise ${chapter#0}.$exercise - \\
+        " $1
+        ;;
 
-  *)
-    ;;
+    *)
+        ;;
 esac
