@@ -24,7 +24,8 @@ case $files[1] in
     exercise=${match[3]#0}
 
     if [[ $section = 'problems' ]]; then
-      message="clrs; problem $chapter.$exercise - "
+      title=$(head -n 1 $prefix.markdown)
+      message="clrs; problem $chapter.$exercise - ${(L)title##\#\# }"
     else
       message="clrs; exercise $chapter.$section.$exercise - "
     fi
