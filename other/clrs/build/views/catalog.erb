@@ -1,6 +1,6 @@
 <% @catalog.chapters.each do |chapter| %>
   <h2>Chapter <%= chapter.number %></h2>
-  <table class="table table-condensed table-bordered table-compact">
+  <table class="table table-condensed table-bordered table-compact catalog">
     <% max_width = chapter.sections.map(&:exercises).map(&:size).+([chapter.problems.size]).max %>
     <tbody>
       <% chapter.sections.each do |section| %>
