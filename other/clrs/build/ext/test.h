@@ -1,5 +1,7 @@
 #include <stdio.h>
+#include <stdarg.h>
 #include <setjmp.h>
+
 #include "debug_helpers.h"
 
 /*
@@ -142,7 +144,7 @@ void assert_true(int v) {
 void assert_false(int v) {
     if (v) {
         test_report_assertion_error("assert_false");
-        fprintf(stderr, "expected a faslity\n");
+        fprintf(stderr, "expected a falsity\n");
         abort_test();
     }
 }
@@ -156,6 +158,24 @@ void assert_false(int v) {
   test_last_assert_file = __FILE__; \
   test_last_assert_line = __LINE__; \
   assert_false(a)
+
+void fail(const char *message, ...) {
+    va_list args;
+    va_start(args, message);
+
+    test_report_assertion_error("fail");
+
+    fprintf(stderr, "Failure:\n  ");
+    vfprintf(stderr, message, args);
+    fprintf(stderr, "\n");
+
+    abort_test();
+}
+
+#define FAIL(...) \
+  test_last_assert_file = __FILE__; \
+  test_last_assert_line = __LINE__; \
+  fail(__VA_ARGS__)
 
 /*
  * Defining tests
