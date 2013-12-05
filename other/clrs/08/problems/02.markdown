@@ -1,0 +1,55 @@
+## Sorting in place in linear time
+
+> Suppose that we have an array of $n$ data records and that the key of each
+> record has the value 0 or 1. An algorithm for sorting such a set of records
+> might posses some subset of the following three desirable characteristics:
+>
+> 1. The algorithm runs in $\O(n)$ time
+> 2. The algorithm is stable.
+> 3. The algorithm sorts in place, using no more than a constant amount of
+>    storage space in addition to the original array.
+>
+> Do the following:
+>
+> 1. Give an algorithm that satisfies criteria 1 and 2 above
+> 2. Give an algorithm that satisfies criteria 1 and 3 above
+> 3. Give an algorithm that satisfies criteria 2 and 3 above
+> 4. Can you use any of your algorithms from parts (a)-(c) as the sorting
+>    method used in line 2 of `RADIX-SORT`, so that `RADIX-SORT` sorts $n$
+>    records with $b$-bit keys in $\O(bn)$ time? Explain how or why not.
+> 5. Suppose that the $n$ records have keys in the range $1$ to $k$. Show how
+>    to modify counting sort so that it sorts the records in place in
+>    $\O(n+k)$ time. You may use $\O(k)$ storage outside the input array. Is
+>    your algorithm stable? (<i>Hint</i>: How would you do it for $k = 3$?)
+
+### Algorithms
+
+1. This can be done with counting sort. We need two variables to track the
+   numbers/indices of ones and zeroes and $\Theta(n)$ space to make a copy.
+2. This can be done with approach similar to Hoare partition in problem 7.1
+3. I can't think of a stable in-place algorithm so bubble-sort will do
+
+### Usage in radix sort
+
+Only the first one (the counting sort variant) can be used. The second is not
+stable, which is a requirement for radix sort, and the third takes
+$\Theta(n^2)$ time, which will turn the compound sorting algorithm
+$\Theta(bn^2)$.
+
+### In place counting sort
+
+We build an array of counts as in `COUNTING-SORT`, but we perform the sorting
+differently. We start with `i = 0` and then.
+
+    while i ≤ A.length
+        if A[i] is correctly placed
+            i = i + 1
+        else
+            put A[i] in place, exchanging with the element there
+
+On each step we're either (1) incrementing `i` or (2) putting an element in
+its place. The algorithm terminates because eventually we run out of misplaced
+elements and have to increment `i`.
+
+There are some details about checking whether `A[i]` is correctly placed that
+are in the C code.
