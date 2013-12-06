@@ -1,0 +1,38 @@
+## Sorting variable-length items
+
+> 1. You are given an array of integers, where different integers may have
+>    different number of digits, but the total number of digits over *all* the
+>    integers in the array is $n$. Show how to sort the array in $\O(n)$ time.
+> 2. You are given an array of strings, where different strings may have
+>    different numbers of characters, but the total number of characters over
+>    all the strings is $n$. Show how to sort the strings in $\O(n)$ time.<br>
+>    (Note that the desired order here is the standard alphabetical order; for
+>    example; $\mathrm{a} < \mathrm{ab} < \mathrm{b}$.)
+
+### The numbers
+
+For the numbers, we can do this:
+
+1. Group the numbers by number of digits and order the groups
+2. Radix sort each group
+
+Let's analyze the number of steps. Let $G_i$ be the group of numbers with $i$
+digits and $c_i = |G_i|$. Thus:
+
+$$ T(n) = \sum_{i=1}{n}c_i \cdot i = n $$
+
+### The strings
+
+For the strings, we can do this:
+
+1. Groups the strings by length and order the groups
+2. Starting $i$ on the maximum length and going down to 1, perform counting
+   sort on the $i$th character. Make sure to include only groups that have an
+   $i$th character.
+
+If the groups are subsequent subarrays in the original array, we're performing
+counting sort on a subarray ending on the last index of the original array.
+
+### The implementation
+
+The C code is a bit clever, but this is an exercise, not a production system.
