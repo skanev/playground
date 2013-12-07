@@ -1,0 +1,62 @@
+## Water jugs
+
+> Suppose that you are given $n$ red and $n$ blue water jugs, all of different
+> shapes and sizes. All red jugs hold different amounts of water, as do the
+> blue ones. Moreover, for every red jug, there is a blue jug that holds the
+> same amount of water, and vice versa.
+>
+> Your task is to find a grouping of the jugs into pairs of red and blue jugs
+> that hold the same amount of water. To do so, you may perform the following
+> operation: pick a pair of jugs in which one is red and one is blue, fill the
+> red jug with water, and then pour the water into the blue jug. This
+> operation will tell you whether the red or the blue jug can hold more water,
+> or that they have the same volume. Assume that such a comparison takes one
+> time unit. Your goal is to find an algorithm that makes a minimum number of
+> comparisons to determine the grouping. Remember that you man not directly
+> compare two red jugs or two blue jugs.
+>
+> 1. Describe a deterministic algorithm that user a $\Theta(n^2)$ comparisons
+>    to group the jugs into pairs.
+> 2. Prove a lower bound of $\Omega(n\lg{n})$ for the number of comparisons
+>    that an algorithm solving this problem must make.
+> 3. Give a randomized algorithm whose expected number of comparisons is
+>    $\O(n\lg{n})$, and prove that this bound is correct. What is the
+>    worst-case number of comparisons for your algorithm?
+
+### Deterministic algorithm
+
+We compare each red jug with each blue jug and pair them on the first match.
+
+### Lower bound
+
+We approach it in a similar fashion as section 8.1. The difference is that the
+nodes in this decision tree have three children, instead of two (it's a
+3-tree!). If both sets of jugs are ordered, then a pairing is a
+$n$-permutation that maps each red jug to a blue one. Since there are $n!$
+possible outputs, they should be present as leaves in the decision tree. If
+the length of the tree is $l$ we get a similar inequality:
+
+$$ n! \le l \le 3^h$$
+
+Again, taking the logarithms, we get:
+
+$$ h \ge lg(n!) = \Omega(n\lg{n}) $$
+
+### Randomized algorithm
+
+We can use an approach similar to quicksort. The partition function should
+work as follows:
+
+1. Choose, at random, a red jug for a pivot ($\O(1)$)
+2. Pick a corresponding blue jug ($\O(n)$)
+3. Partition the blue jugs around the red pivot and put the blue pivot in
+   place ($\O(n)$)
+4. Partition the red jugs around the blue pivot and but the red pivot in place
+   ($\O(n)$).
+
+We're only comparing red and blue jugs.
+
+The analysis is similar to the one of quicksort in section 7.4. There is some
+effort to translate the argument to having two arrays and additional
+comparisons, but the work is not hard. I will not present it here, since I
+think the applicability of the same argument is obvious.
