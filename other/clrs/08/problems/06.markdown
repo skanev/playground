@@ -1,0 +1,63 @@
+## Lower bound on merging sorted lists
+
+> The problem of merging two sorted lists arises frequently. We have seen a
+> procedure for it as the subroutine `MERGE` in Section 2.3.1. In this
+> problem, we will prove a lower bound of $2n - 1$ on the worst-case number of
+> comparisons required to merge two sorted lists, each containing $n$ items.
+>
+> First we will show a lower bound of $2n - o(n)$ comparisons by using a
+> decision tree.
+>
+> <ol type="a">
+>   <li>Given $2n$ numbers, compute the number of possible ways to divide them
+>       into two sorted lists, each with $n$ numbers.
+>   <li>Using a decision tree and your answer to part (a), show that any
+>       algorithm that correctly merges two sorted lists must perform $2n -
+>       o(n)$ comparisons.
+> </ol>
+>
+> Now we will show a slightly tighter $2n - 1$ bound.
+>
+> <ol type="a" start="3">
+>   <li>Show that if two elements are consecutive in the sorted order and from
+>   different lists, then they must be compared.
+>   <li>Use your answers to the previous part to show a lower bound of $2n -
+>       1$ comparisons for merging two sorted lists.
+> </ol>
+
+### The first bound
+
+This can be reduced to a counting problem: in how many ways can we pick $n$
+items out of $2n$ items? That way we pick the first sorted list and each such
+pick determines a single, unique second list. In exercise C.1-13 we already
+proved that:
+
+$$ \binom{2n}{n} = \frac{2^{2n}}{\sqrt{\pi n}}(1 + \O(1/n)) $$
+
+Using the familiar reasoning, if there are $l$ leaves in the decision tree and
+its height is $h$, the following inequality must hold:
+
+$$ \frac{2^{2n}}{\sqrt{\pi n}}(1 + \O(1/n)) \le l \le 2^h $$
+
+Taking the logarithm of the leftmost and rightmost parts (and inverting their
+positions) we get;
+
+$$ \begin{align}
+   h & \ge \lg\bigg(\frac{2^{2n}}{\sqrt{\pi n}}(1 + \O(1/n))\bigg) \\\\
+     & = \lg{2^{2n}} - \lg\sqrt{\pi n} + \lg(1 + O(1/n)) \\\\
+     & = 2n - \o(n)
+   \end{align} $$
+
+### The tighter bound
+
+If we don't compare two consecutive elements, we don't know which one comes
+first. They are completely indistinguishable when comparing to the other
+elements. We have no way in determining which one should come first. (Note
+that if they were in the same sorted list, we don't need to compare them,
+since we already have that information).
+
+If the sorted order of the elements is $\langle a_1, b_2, a_2, b_2, \ldots,
+a_n, b_n \rangle$ and we have the two lists $\langle a_1, a_2, \ldots, a_n
+\rangle$ and $\langle b_1, b_2, \ldots, b_n \rangle$, then there are $2n - 1$
+pairs of elements that need to be compared. Any algorithm that handles this
+case must perform $2n - 1$ comparisons in the worst case.
