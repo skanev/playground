@@ -1,0 +1,213 @@
+## The 0-1 sorting lemma and columnsort
+
+> A **compare-exchange** operation on two array elements $A[i]$ and $A[j]$,
+> where $i < j$ has the form:
+>
+>     COMPARE-EXCHANGE(A, i, j)
+>       if A[i] > A[j]
+>           exchange A[i] with A[j]
+>
+> After the compare-exchange operation, we know that $A[i] \le A[j]$.
+>
+> An **obvlivious compare-exchange algorithm** operates solely by a sequence
+> of prespecified compare-exchange operations. The indices of the positions
+> compared in the sequence must be determined in advance, and although they
+> can depend on the number of elements being sorted, they cannot depend on the
+> values being sorted, nor can they depend on the result of any prior
+> compare-exchange operation. For example, here is insertion sort expressed as
+> an oblivious compare-exchange algorithm:
+>
+>     INSERTION-SORT(A)
+>       for j = 2 to A.length
+>           for i = j - 1 downto 1
+>               COMPARE-EXCHANGE(A, i, i + 1)
+>
+> The **0-1 sorting lemma** provides a powerful way to prove that an oblivious
+> compare-exchange algorithm produces a sorted result. It states that if an
+> oblivious compare-exchange algorithm correctly sorts all input sequences
+> consisting of only 0s and 1s, then it correctly sorts all inputs containing
+> arbitrary values.
+>
+> You will prove the 0-1 sorting lemma by proving its contrapositive: if an
+> oblivious compare-exchange algorithm fails to sort an input containing
+> arbitrary values, then it fails to sort some 0-1 input. Assume that an
+> oblivious compare-exchange algorithm X fails to correctly sort the array
+> $A[1..n]$. Let $A[p]$ be the smallest value in $A$ that algorithm X puts
+> into the wrong location, and let $A[q]$ be the value that algorithm X moves
+> to the location into which $A[p]$ should have gone. Define an array
+> $B[1..n]$ of 0s and 1s as follows:
+>
+> $$ B[i] = \begin{cases}
+>             0 & \text{ if } A[i] \le A[p] \\\\
+>             1 & \text{ if } A[i] > A[p]
+>           \end{cases} $$
+>
+> <ol type="a">
+>   <li>Argue that $A[q] > A[p]$, so that $B[p] = 0$ and $B[q] = 1$.
+>   <li>To complete the proof 0-1 sorting lemma, provide that algorithm X
+>   fails to sort array $B$ correctly.
+> </ol>
+>
+> Now you will use the 0-1 sorting lemma to prove that a particular sorting
+> algorithm works correctly. The algorithm, **columnsort**, works on a
+> rectangular array of $n$ elements. The array has $r$ rows and $s$ columns
+> (so that $n = rs$), subject to three restrictions:
+>
+> * $r$ must be even,
+> * $s$ must be a divisor of r, and
+> * $r \ge 2s^2$.
+>
+> When columnsort comletes, the array is sorted in **column-major order**:
+> reading down the columns, from left to right, the elements monotonically
+> increase.
+>
+> Columnsort operates in eight steps, regardless of the value of $n$. The odd
+> steps are all the same: sort each column individually. Each even step is a
+> fixed permutation. Here are the steps:
+>
+> 1. Sort each column.
+> 2. Transpose the array, but reshape it back to $r$ rows and $s$ columns. In
+>    other words, turn the leftmost column into the top $r/s$ rows, in order;
+>    turn the next column into the next $r/s$ rows, in order; and so on.
+> 3. Sort each column.
+> 4. Perform the inverse of the permutation performed in step 2.
+> 5. Sort each column.
+> 6. Shift the top half of each column into the bottom half of the same
+>    column, and shift the bottom half of each column into the top half of the
+>    next column to the right. Leave the top half of the leftmost column
+>    empty. Shift the bottom half of the last column into the top last column
+>    into the top half of a new rightmost column, and leave the bottom half of
+>    this new column empty.
+> 7. Sort each column
+> 8. Perform the inverse of the permutation performed in step 6.
+>
+> Figure 8.5 shows an example of the steps of columnsort with $r = 6$ and $s =
+> 3$. (Even though this example violated the requirement that $r \ge 2s^2$, it
+> happens to work.)
+>
+> <ol type="a" start="3">
+>   <li>Argue that we can treat columnsort as an oblivious compare-exchange
+>   algorithm, even if we do not know what sorting method the odd steps are.
+> </ol>
+>
+> Although it might seem hard to believe that columnsort actually sorts, you
+> will use the 0-1 sorting lemma to prove that it does. The 0-1 dorting lemma
+> applies because we can treat columnsort as an oblivious compare-exchange
+> algorithm. A couple of definitions will help you apply the 0-1 sorting
+> lemma. We say that an area of an array is **clean** if we know that it
+> contains either all 0s or all 1s. Otherwise, the area might contain mixed 0s
+> and 1s, and it is dirty. From here on, assume that the input array contains
+> only 0s and 1s, and that we can treat it as an array with $r$ rows and $s$
+> columns.
+>
+> <ol type="a" start="4">
+>   <li>Prove that after steps 1-3, the array consists of some clean rows of
+>   0s at the top, some clean rows of 1s at the bottom, and at most $s$ dirty
+>   rows between them
+>   <li>Prove that after step 4, the array, read in column-major order, starts
+>   with a clean area of 0s, ends with a clean area of 1s, and has a dirty
+>   area of at most $s^2$ elements in the middle.
+>   <li>Prove that steps 5-8 produce a fully sorted 0-1 output. Conclude that
+>   columnsort correctly sorts all inputs containing arbitrary values.
+>   <li>Now suppose that $s$ does not divide $r$. Prove that after steps 1-3,
+>   the array consists of some clean rows of 0s at the top, some clean rows of
+>   1s at the bottom, and at most $2s - 1$ dirty rows between them. How large
+>   must $r$ be, compared with $s$, for columnsort to correctly sort when $s$
+>   does not divide $r$?
+>   <li>Suggest a simple change to step 1 that allow us to maintain the
+>   requirement that $r \ge 2s^2$ when $s$ does not divide $r$, and prove that
+>   with your change, columnsort correctly sorts.
+> </ol>
+
+This one is tricky. I would not have been able to solve it by myself. I had
+help from those two:
+
+* [The 0-1 sorting principle][0-1-lemma]
+* [Stupid Column Sort Tricks][csort-tricks]
+
+### Proof of the 0-1 sorting lemma
+
+We know that $A[q] > A[p]$ by definition ($A[q]$ is misplaced, but it cannot
+be smaller than $A[p]$, since $A[p]$ is the smallest misplaced element). From
+this it follows that $B[p] = 0$ and $B[q] = 1$.
+
+To prove the rest, we need to establish that a monotonous mapping and a
+compare-exchange operation commutate, that is, they can be applied in any
+order. This makes sense, since if the mapping is applied first, the order of
+the elements would not change (because the mapping is monotonic) and the
+compare-exchange would have the same result.
+
+An oblivious compare-exchange algorithm can be regarded as a sequence of
+compare-exchange operations. Thus, it doesn't matter if the monotonous mapping
+is applied before the fist or after the last compare-exchange operation.
+
+Applying that to $A$ and $B$, we conclude that $B[q] = 1$ and $B[p] = 0$. We
+know that $q < p$, otherwise $A[q]$ there would have been a smaller misplaced
+element. From this we gather that $B[q] > B[p]$ and $q < p$, which means that
+the array is unsorted.
+
+There is a more formal proof in [the first link][0-1-lemma].
+
+### Applicability
+
+Since the even-numbered steps perform things _blindly_, we can suspect that
+the algorithm has some elements of obliviousness in it.
+
+If we perform the odd numbered steps with an oblivious compare-exchange
+algorithm, then columnsort is obviously oblivious and we can apply the 0-1
+sorting lemma. Since we can treat those steps as "black boxes", we can replace
+the sorting algorithm with any other algorithm that produces the same result
+(that is, any sorting algorithm) and the resulting columnsort would still
+sort.
+
+### Correctness
+
+After the first step, each column becomes a sequences of 0s followed by a
+sequence of 1s. In this sense, there is only one `0 → 1` transition in each
+column. Since $s$ divides $r$, each column will map to $r/s$ rows. One of
+those rows will contain the `0 → 1` transition. The others will contain only
+0s or 1s. That is, each column will map to at most one dirty row and the rest
+will be clean.
+
+After the transposition, and second sorting, the clean rows of 0s will move to
+the top and the clean rows of 1s will move to the bottom. We're left with at
+most $s$ dirty rows in the middle.
+
+After the reversal of the permutation, the $s$ dirty rows will map to a
+sequence of $s^2$. All the other elements are clean.
+
+The dirty sequence is at least half a column long now. It either fits in one
+column or crosses over in the next one. All columns left of it contain only 0s
+and all columns right of it contain only 1s.
+
+If the result is contained in a single column, step 5 will result in a sorting
+in column major mode and the subsequent steps will not interfere with it.
+
+If not, step 6 arranges the columns in a way that the dirty subsequence will
+fill a single column. Sorting all column cleans it and we have a sorted array.
+
+Note that sorting the half-columns is unnecessary - step 5 already sorted
+them.
+
+### When s does not divide r
+
+If $s$ does not divide $r$, a row can contain not only a `0 → 1` transition,
+but also a `1 → 0` transitions. There would be at most $s - 1$ of those,
+resulting to a dirty region of $2s - 1$.
+
+We can make $r$ to be at least $2(2s - 1)^2$. As for the change to step one,
+we can either pad the array with $+ \infty$ until $s$ divides $r$, or we can
+chop off a small part of the array and sort it separately. The latter will be
+more efficient, since it does not require moving the array.
+
+Finally, all of that turns to be unnecessary - columnsort works without the
+divisibility restriction. Details can be found in [the paper][csort-tricks].
+
+### Implementation
+
+Surprising as it is, columnsort smokes the stdlib implementation of quicksort.
+I thought the overhead was to much, but it appears that it is not. Of course,
+the crossover point will vary.
+
+[0-1-lemma]: http://www.iti.fh-flensburg.de/lang/algorithmen/sortieren/networks/nulleinsen.htm
+[csort-tricks]: http://www.cs.dartmouth.edu/reports/TR2003-444.pdf
