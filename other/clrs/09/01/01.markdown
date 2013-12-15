@@ -1,0 +1,14 @@
+> Show that the second smallest of $n$ elements can be found with $n + \lceil
+> \lg{n} \rceil - 2$ comparisons in the worst case. (<i>Hint:</i> Also find
+> the smallest element.)
+
+We can compare the elements in a tournament fashion - we split them into
+pairs, compare each pair and then proceed to compare the winners in the same
+fashion. We need to keep track of each "match" the potential winners have
+participated in.
+
+We select a winner in $n - 1$ matches. At this point, we know that the second
+smallest element is one of the $\lg{n}$ elements that lost to the smallest ­
+each of them is smaller than the ones it has been compared to, prior to
+losing. In another $\lceil \lg{n} \rceil - 1$ comparisons we can find the
+smallest element out of those. This is the answer we are looking for.
