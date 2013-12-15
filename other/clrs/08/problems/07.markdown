@@ -9,7 +9,7 @@
 >
 > After the compare-exchange operation, we know that $A[i] \le A[j]$.
 >
-> An **obvlivious compare-exchange algorithm** operates solely by a sequence
+> An **oblivious compare-exchange algorithm** operates solely by a sequence
 > of prespecified compare-exchange operations. The indices of the positions
 > compared in the sequence must be determined in advance, and although they
 > can depend on the number of elements being sorted, they cannot depend on the
@@ -57,7 +57,7 @@
 > * $s$ must be a divisor of r, and
 > * $r \ge 2s^2$.
 >
-> When columnsort comletes, the array is sorted in **column-major order**:
+> When columnsort completes, the array is sorted in **column-major order**:
 > reading down the columns, from left to right, the elements monotonically
 > increase.
 >
