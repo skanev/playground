@@ -1,0 +1,3 @@
+> Write an iterative version of `RANDOMIZED-SELECT`.
+
+With pleasure.
