@@ -1,0 +1,15 @@
+> Show that `RANDOMIZED-SELECT` never makes a recursive call to a 0-length
+> array.
+
+The are two cases where it appears that `RANDOMIZED-SELECT` can make a call to
+a 0-length array:
+
+1. Line 8 with $k = 1$. But for this to happen, $i$ needs to be 0. And that
+   cannot happen since the initial call is supposed to pass a nonzero $i$ and
+   the recursive calls either pass $i$ unmodified or pass $i - k$ where $i >
+   k$.
+2. Line 9 with $q = r$. But for this to happen, $i$ must be greater than $k$,
+   that is $i > q - p + 1 = r - p + 1$, that is, $i$ needs to be greater than
+   the number of elements in the array. Initially that is not true and both
+   recursive calls maintain an invariant that $i$ is less or equal to the
+   number of elements in $A[p..q]$.
