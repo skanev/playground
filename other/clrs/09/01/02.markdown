@@ -1,0 +1,21 @@
+> $\star$ Prove the lower bound of $\lceil 3n/2 \rceil - 2$ comparisons in the
+> worst case to find both the maximum and minimum of $n$ numbers.
+> (<i>Hint:</i> Consider how many numbers are potentially either the maximum
+> or minimum, and investigate how a comparison affects these counts.)
+
+Each comparison can reduce both the potential minimums and maximums by one.
+Note that this is now always the case if we make two comparisons to infer that
+$a < b$ and $a < c$, we have excluded two elements from the potential minimums
+($b$ and $c$), but only one from the potential maximums ($a$).
+
+We can optimize by splitting the input in pairs and comparing each pair. After
+$n/2$ comparisons, we have reduced the potential minimums and potential
+maximums to $n/2$ each. Furthermore, those two sets are disjoint so now we
+have two problems, one minimum and one maximum, each of size $n/2$. The total
+number of comparisons is:
+
+$$ n/2 + 2(n/2 - 1) = n/2 + n - 2 = 3n/2 - 2 $$
+
+This assumes that $n$ is even. If $n$ is odd we need one additional comparison
+in order to determine whether the last element is a potential minimum or
+maximum. Hence the ceiling.
