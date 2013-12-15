@@ -1,0 +1,6 @@
+> Argue that the indicator random variable $X_k$ and the value
+> $T(\max(k-1,n-k))$ are independent.
+
+Picking the pivot in one partitioning does not affect the probabilities of the
+subproblem. That is, the call to `RANDOM` in `RANDOMIZED-PARTITION` produces a
+result, independent from the call in the next iteration.
