@@ -1,0 +1,70 @@
+> In the algorithm `SELECT`, the input elements are divided into groups of 5.
+> Will the algorithm work in linear time if they are divided into groups of 7?
+> Argue that `SELECT` does not run in linear time if groups of 3 are used.
+
+### Groups of 7
+
+The algorithm will work if the elements are divided in groups of 7. On each
+partitioning, the minimum number of elements that are less than (or greater
+than) $x$ will be:
+
+$$ 4 \bigg(\bigg\lceil \frac{1}{2} \Big\lceil \frac{n}{7} \Big\rceil \bigg\rceil
+           - 2 \bigg) \ge \frac{2n}{7} - 8 $$
+
+The partitioning will reduce the subproblem to size at most $5n/7 + 8$. This
+yields the following recurrence:
+
+$$ T(n) = \begin{cases}
+            \O(1) & \text{ if } n < n_0 \\\\
+            T(\lceil n/7 \rceil) + T(5n/7 + 8) + \O(n) & \text{ if } n \ge n_0
+          \end{cases} $$
+
+We guess $T(n) \le cn$ and bound the non-recursive term with $an$:
+
+$$ \begin{align}
+   T(n) & \le c\lceil n/7 \rceil + c(5n/7 + 8) + an \\\\
+        & \le cn/7 + c + 5cn/7 + 8c + an \\\\
+        & = 6cn/7 + 9c + an \\\\
+        & = cn + (-cn/7 + 9c + an) \\\\
+        & \le cn \\\\
+        & = \O(n)
+   \end{align} $$
+
+The last step holds when $(-cn/7 + 9c + an) \le 0$. That is:
+
+$$ -cn/7 + 9c + an \le 0 \\\\
+   \Downarrow \\\\
+   c(n/7 - 9) \ge an \\\\
+   \Downarrow \\\\
+   \frac{c(n - 63)}{7} \ge an \\\\
+   \Downarrow \\\\
+   c \ge \frac{7an}{n - 63}
+$$
+
+By picking $n_0 = 126$ and $n \le n_0$, we get that $n/(n - 63) \le 2$. Then
+we just need $c \ge 14a$.
+
+### Groups of 3
+
+The algorithm will not work for groups of three. The number of elements that
+are less than (or greater than) the median-of-medians is:
+
+$$ 2 \bigg(\bigg\lceil \frac{1}{2} \Big\lceil \frac{n}{3} \Big\rceil \bigg\rceil
+           - 2 \bigg) \ge \frac{n}{3} - 4 $$
+
+The recurrence is thus:
+
+$$ T(n) = T(\lceil n/3 \rceil) + T(2n/3 + 4) + \O(n) $$
+
+We're going to prove that $T(n) = \omega(n)$ using the substitution method. We
+guess that $T(n) > cn$ and bound the non-recursive term with $an$.
+
+$$ \begin{align}
+   T(n) & > c\lceil n/3 \rceil + c(2n/3 + 2) + an \\\\
+        & > cn/3 + c + 2cn/3 + 2c + an \\\\
+        & = cn + 3c + an & (c > 0, a > 0, n > 0)\\\\
+        & > cn \\\\
+        & = \omega(n)
+   \end{align} $$
+
+The calculation above holds for any $c > 0$.
