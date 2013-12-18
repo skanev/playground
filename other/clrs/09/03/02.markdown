@@ -1,0 +1,17 @@
+> Analyze `SELECT` to show that if $n \ge 140$, then at least $\lceil n/4
+> \rceil$ elements are greater than the median-of-medians $x$ and at least
+> $\lceil n/4 \rceil$ elements are less than $x$.
+
+The problem can be reduced to the following inequality:
+
+$$ \frac{3n}{10} - 6 \ge \bigg\lceil \frac{n}{4} \bigg\rceil \\\\
+   \Downarrow \\\\
+   \frac{3n}{10} - 6 \ge \frac{n}{4} + 1 \\\\
+   \Downarrow \\\\
+   \frac{3n}{10} - 7 \ge \frac{n}{4} \\\\
+   \Downarrow \\\\
+   12n - 280 \ge 10n \\\\
+   \Downarrow \\\\
+   2n \ge 280 \\\\
+   \Downarrow \\\\
+   n \ge 140 $$
