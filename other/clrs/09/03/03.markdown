@@ -1,0 +1,18 @@
+> Show how quicksort can be made to run in $\O(n\lg{n})$ time in the worst
+> case, assuming that all elements are distinct.
+
+If we rewrite `PARTITION` to use the same approach as `SELECT`, it will
+perform in $\O(n)$ time, but the smallest partition will be at least
+one-fourth of the input (for large enough $n$, as illustrated in
+exercise 9.3.2). This will yield a worst-case recurrence of:
+
+$ T(n) = T(n/4) + T(3n/4) + \O(n) $
+
+As of exercise 4.4.9, we know that this is $\Theta(n\lg{n})$.
+
+And that's how we can prevent quicksort from getting quadratic in the worst
+case, although this approach probably has a constant that is too large for
+practical purposes.
+
+Another approach would be to find the median in linear time (with `SELECT`)
+and partition around it. That will always give an even split.
