@@ -1,0 +1,26 @@
+> $\star$ Suppose that an algorithm uses only comparisons to find the $i$th
+> smallest element in a set of $n$ elements. Show that it can also find the
+> $i - 1$ smaller elements and the $n - i$ larger elements without performing
+> any additional comparisons.
+
+A strict proof might require a more advanced proof apparatus than I command
+(like graphs and adversary algorithms, for example?), so I will just sketch it
+briefly.
+
+In order to determine the $i$th order statistic, any algorithm needs to
+establish in some way that there are $i - 1$ elements smaller than the result
+and $n - i$ elements larger than the result. We can visualize the algorithm as
+a directed graph, where all the elements are edges. Each comparison introduces
+a node from the smaller to the larger element. To produce a result, there must
+be $i - 1$ elements that (transitively) point to the $i$th order statistic and
+$n - i$ elements that the $i$th order statistic (transitively) points to.
+There cannot be more (property of the order statistics) and if there are less,
+then there are elements whose position in regard to the $i$th order statistic
+is undetermined.
+
+In order to find the result, the algorithm needs to build the knowledge
+presented in such a graph and it can use it to return the sets of smaller and
+larger elements.
+
+As an example, both algorithms presented in the chapter leave the array
+partitioned around the $i$th order statistic.
