@@ -1,0 +1,14 @@
+> Suppose that you have a "black-box" worst-case linear time median
+> subroutine. Give a simple, linear-time algorithm that solves the selection
+> problem for an arbitrary order statistic.
+
+We find the median in linear time partition the array around it (again, in
+linear time). If the median index (always $\lceil n/2 \rceil$) equals $n$ we
+return the median. Otherwise, we recurse either in the lower or upper part of
+the array, adjusting $n$ accordingly.
+
+This yields the following recurrence:
+
+$$ T(n) = T(n/2) + \O(n) $$
+
+Applying the master method, we get an upper bound of $\O(n)$.
