@@ -1,0 +1,22 @@
+> The $k$th **quantiles** of an $n$-element set are $k - 1$ order statistics
+> that divide the sorted set into $k$ equal-sized sets (to within 1). Give an
+> $\O(n\lg{k})$-time algorithm to list the $k$th quantiles of a set.
+
+1. If $k = 1$ we return an empty list.
+2. If $k$ is even, we find the median, partition around it, solve two similar
+   subproblems of size $\lfloor n / 2 \rfloor$ and return their solutions plus
+   the median.
+3. If $k$ is odd, we find the $\lfloor k/2 \rfloor$ and $\lceil k/2 \rceil$
+   boundaries and the we reduce to two subproblems, each with size less than
+   $n/2$.
+The worst case recurrence is:
+
+$$ T(n, k) = 2T(\lfloor n/2 \rfloor, k / 2) + O(n) $$
+
+Which is the desired bound ­ $\O(n\lg{k})$.
+
+This works easily when the number of elements is $ak + k - 1$ for a positive
+integer $a$. When they are a different number, some care with rounding needs
+to be taken in order to avoid creating two segments that differ by more than
+1.
+
