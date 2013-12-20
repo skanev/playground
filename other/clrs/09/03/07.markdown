@@ -1,0 +1,11 @@
+> Describe an $\O(n)$-time algorithm that, given a set $S$ of $n$ distinct
+> numbers and a positive integer $k \le n$, determines the $k$ numbers in $S$
+> that are closest to the median of $S$.
+
+This is a fun exercise.
+
+1. We find the median of the array in linear time
+2. We find the distance of each other element to the median in linear time
+3. We find the $k$-th order statistic of the distance, again, in linear time
+4. We select only the elements that have distance lower than or equal to the
+   $k$-th order statistic
