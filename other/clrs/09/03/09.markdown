@@ -1,0 +1,24 @@
+> Professor Olay is consulting for an oil company, which is planning a large
+> pipeline running east to west through an oil fields of $n$ wells. The
+> company wants to connect a spur pipeline from each well directly to the main
+> pipeline along a shortest route (either north or south), as shown on Figure
+> 9.2. Given the $x$- and $y$- coordinates of the wells, how should the
+> professor pick the optimal location of the main pipeline, which would be the
+> one that minimizes the total length of the spurs? Show how to determine the
+> optimal location in linear time.
+
+We just find the median of the $y$ coordinates. The $x$ coordinates are
+irrelevant.
+
+Let's assume that $n$ is odd. There are $\lfloor n / 2 \rfloor$ south of the
+median and the same amount of wells north of the median. Let the pipeline pass
+through the median. We shall reason about why this location is optimal.
+
+Suppose we move the pipeline one meter north. This reduces the total pipe
+length with $\lfloor n/2 \rfloor$ meters for the pipes north of the median,
+but adds another $\lceil n/2 \rceil$ for the pipes south of median, including
+the median itself. The more we move north, the more the total pipe length will
+increase. The same reasoning holds if we move the main pipeline south.
+
+If $n$ is even, then any location between the lower and upper median is
+optimal.
