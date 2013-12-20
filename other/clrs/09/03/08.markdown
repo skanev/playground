@@ -1,0 +1,29 @@
+> Let $X[1..n]$ and $Y[1..n]$ be two arrays, each containing $n$ numbers
+> already in sorted order. Give an $\O(\lg{n})$-time algorithm to find the
+> median of all $2n$ elements in arrays $X$ and $Y$.
+
+This was fun!
+
+1. If the two arrays are of length $1$, we pick the lower of the two elements
+2. We the two medians of the array
+3. We take the lower part of the array with the greater median and the upper
+   part of the array with the lesser median. If each array has $n$ elements,
+   we take the first/last $\lfloor n / 2 \rfloor$ elements
+4. We solve the problem for the new arrays
+
+Let's reason about why this works. Since we have $2n$ elements, we know that
+the length is an even number and we're looking for a lower median. We need to
+observe that the median we're looking for is between the medians of the two
+arrays. Let's elaborate on that.
+
+Let's assume that the median is at position $k$ in array $A$. This means that
+there are $k - 1$ elements less than the median in $A$ and $n - k$ elements
+greater than the median in $B$. If $k < n / 2$ then the median of $A$ will be
+greater than the final median, but the median of $B$ will be lesser than it.
+It's the other way around for $k \ge n / 2$. Thus the median of the two arrays
+is always between the medians of each.
+
+Step 3 removes the same number of elements from each array, half of which are
+greater than the median and half of which are less than it. This reduces the
+subproblem to two smaller arrays that are sorted and their elements have the
+same median.
