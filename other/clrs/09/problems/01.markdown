@@ -1,0 +1,36 @@
+## Largest i numbers in sorted order
+
+> Given a set of $n$ numbers, we wish to find the $i$ largest in sorted order
+> using a comparison based algorithm. Find the algorithm that implements each
+> of the following methods with the best asymptotic worst-case running time,
+> and analyze the running time of the algorithms in terms of $n$ and $i$.
+>
+> <ol type="a">
+>   <li>Sort the numbers, and list the $i$ largest
+>   <li>Build a max-priority queue from the numbers, and call
+>       `EXTRACT-MAX` $i$ times
+>   <li>Use an order-statistic algorithm to find the $i$th largest number,
+>       partition around that number, and sort the $i$ largest numbers.
+> </ol>
+
+### Sorting
+
+We can sort with any of the $n\lg{n}$ algorithms, that is, merge sort or heap
+sort and then just take the first $i$ elements linearly.
+
+This will take $n\lg{n} + i$ time.
+
+### Max-priority queue
+
+We can build the heap linearly and then take each of the largest $i$ elements
+in logarithmic time.
+
+This takes $n + i\lg{n}$.
+
+### Partition and sort
+
+Let's assume we use the `SELECT` algorithm from the chapter. We can find the
+$i$th order statistic and partition around it in $n$ time and then we need to
+do a sort in $i\lg{i}$.
+
+This takes $n + i\lg{i}$
