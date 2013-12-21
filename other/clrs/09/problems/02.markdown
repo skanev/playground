@@ -1,0 +1,87 @@
+## Weighted median
+
+> For $n$ distinct elements $x_1, x_2, \ldots, x_n$ with positive weights
+> $w_1, w_2, \ldots, w_n$ such that $\sum_{i=1}^n w_i = 1$, the **weighted
+> (lower) median** is the element $x_k$ satisfying
+>
+> $$ \sum_{x_i < x_k} w_i < \frac{1}{2} $$
+> and
+> $$ \sum_{x_i > x_k} w_i \le \frac{1}{2} $$
+>
+> For example, if the elments are $0.1, 0.35, 0.05, 0.1, 0.15, 0.05, 0.2$ and
+> each element equals its weight (that is, $w_i = x_i$ for $i = 1, 2, \ldots,
+> 7$, then the median is $0.1$, but the weighted median is $0.2$.
+>
+> <ol type="a">
+>   <li>Argue that the median of $x_1, x_2, \ldots, x_n$ is the weighted
+>   median of $x_i$ with weights $w_i = 1/n$ for $i = 1, 2, \ldots, n$.
+>   <li>Show how to compute the weighted median of $n$ elements in
+>   $\O(n\lg{n})$ worst-case time using sorting.
+>   <li>Show how to compute the weighted median in $\Theta(n)$ worst-case time
+>   using a linear-time median algorithm such as `SELECT` from Section 9.3.
+> </ol>
+>
+> The **post-office location problem** is defined as follows. We are given $n$
+> points $p_1, p_2, \ldots, p_n$ with associated weights $w_1, w_2, \ldots,
+> w_n$. We wish to find a point $p$ (not necessarily one of the input points)
+> that minimizes the sum $\sum_{i=1}^n w_i d(p,p_i)$, where $d(a, b)$ is the
+> distance between the points $a$ and $b$.
+>
+> <ol type="a" start="4">
+>   <li>Argue that the weighted median is a best solution for the
+>   1-dimensional post-office location problem, in which points are simply
+>   real numbers and the distance between points $a$ and $b$ is $d(a,b) = |a -
+>   b|$.
+>   <li>Find the best solution for the 2-dimensional post-office location
+>   problem, in which the points are $(x,y)$ coordinate pairs and the distance
+>   between points $a = (x_1, y_1)$ and $b = (x_2, y_2)$ is the **Manhattan
+>   distance** given by $d(a, b) = |x_1 - x_2| + |y_1 - y_2|$.
+> </ol>
+
+### Median and weighted median
+
+If the weights all elements are $1/n$, then the sum of the weights of the
+elements, smaller than the median, is $\lfloor \frac{n - 1}{2} \rfloor
+\frac{1}{n}$ and the sum of the weights of the larger elements is $\lceil
+\frac{n - 1}{2} \rceil \frac{1}{n}$. This satisfies the condition for weighted
+median. Furthermore, choosing a smaller or greater value will not hold in the
+condition.
+
+### Computing with sorting
+
+1. Sort the array
+2. Start walking the array from left to right, accumulating the weights of the
+   elements encountered
+3. The first element with accumulated weight $w \ge 1/2$ is the weighted
+   median
+
+### Computing in linear time
+
+It's a very similar to `SELECT`, but instead of passing $i$, we pass a number
+around which the weights should partition (initially $1/2$). We find a good
+pivot in linear time and we partition around it. When we sum the weights in
+the lower part of the array and the weights in the upper part. If they fulfill
+the condition, we have our weighted median.
+
+### 1-dimensional post-office location problem
+
+I'll present an informal argument, since it is convincing enough. A more
+formal one can be found in the instructor's manual.
+
+The situation is similar to exercise 9.3.8. Let's assume that we pick the
+weighted median as the solution and then start moving left or right. As we
+move away from the weighted median (in any direction), we're moving towards
+elements with combined weight less than $1/2$ and away from elements wight
+combined weight greater than $1/2$. Every "step" we take, we're increasing the
+total distance.
+
+### 2-dimensional post-office location problem with Manhattan distance
+
+The solution is finding $(x_m, y_m)$ where those are the weighted medians of
+the $x$- and $y$- coordinates.
+
+I'm not even going to start proving this formally, since it requires
+mathematics above my current comfort level. Reasoning informally, by the
+definition of Manhattan distance, the $x$ coordinates and the $y$ coordinates
+are independent ­ we can rearrange the $x$ in any way we want, without
+affecting the $y$ coordinate of the solution and vice-versa.
