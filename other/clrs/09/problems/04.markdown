@@ -1,0 +1,131 @@
+## Alternative analysis of randomized selection
+
+> In this problem, we use indicator random variables to analyze the
+> `RANDOMIZED-SELECT` procedure in a manner akin to our analysis of
+> `RANDOMIZED-QUICKSORT` in section 7.4.2.
+>
+> As in the quicksort analysis, we assume that all the elements are distinct,
+> and we rename the elements of the input array $A$ as $z_1, z_2, \ldots,
+> z_n$, where $z_i$ is the $i$th smallest element. Thus, the call
+> `RANDOMIZED-SELECT(A,1,n,k)` returns $z_k$.
+>
+> For $i \le i < j \le n$, let
+>
+> $$ X_{ijk} = I\\{z_i \text{ is compared with } z_j \text{ sometime during
+>    the execution of the algorithm to find } z_k \\} $$
+>
+> <ol type="a">
+>   <li>Give an exact expression for $\E[X_{ijk}]$. (<i>Hint:</i> Your
+>   expression may have different values, depending on the values of $i$, $j$,
+>   and $k$.)
+>   <li>Let $X_k$ denote the total number of comparisons between elements of
+>   array $A$ when finding $z_k$. Show that
+>   $$ \E[X_k] \le 2 \bigg(
+>        \sum_{i=1}^k \sum_{j=k}^n \frac{1}{j - i + 1} +
+>        \sum_{j=k+1}^n \frac{j - k - 1}{j - k + 1} +
+>        \sum_{i=1}^{k-2} \frac{k - i - 1}{k - i + 1}
+>        \bigg) $$
+>   <li>Show that $\E[X_k] \le 4n$.
+>   <li>Conclude that, assuming all elements of array $A$ are distinct,
+>   `RANDOMIZED-SELECT` runs in expected time $\O(n)$.
+> </ol>
+
+### Expectation of exchanging two elements
+
+The situation is very similar to the quicksort analysis, although $k$ matters.
+$z_i$ and $z_j$ will be compared if one of them is the first element to get
+picked as a pivot in the smallest interval containing $i$, $j$ and $k$. The
+exact expression depends on the position of $k$ in regards to the other two:
+
+$$ \E[X_{ijk}] =
+     \begin{cases}
+       2 / (k - i + 1) & \text{if } i < j \le k \\\\
+       2 / (j - i + 1) & \text{if } i \le k \le j \\\\
+       2 / (j - k + 1) & \text{if } k \le i < j
+     \end{cases}
+$$
+
+### The expected number of comparisons
+
+It's a long derivation:
+
+$$ \begin{align}
+   \E[X_k] &= \sum_{i=1}^{n-1}   \sum_{j=i+1}^n \E[X_{ijk}] \\\\
+           &= \sum_{i=1}^k       \sum_{j=i+1}^n \E[X_{ijk}]
+            + \sum_{i=k+1}^{n-1} \sum_{j=i+1}^n \E[X_{ijk}] \\\\
+           &= \sum_{i=1}^k \bigg(\sum_{j=i+1}^{k-1}\E[X_{ijk}]
+                                 + \sum_{j=k}^n\E[X_{ijk}] \bigg)
+            + \sum_{i=k+1}^{n-1}\sum_{j=i+1}^n\E[X_{ijk}] \\\\
+           &= \sum_{i=1}^k       \sum_{j=i+1}^{k-1} \E[X_{ijk}]
+            + \sum_{i=1}^k       \sum_{j=k}^n       \E[X_{ijk}]
+            + \sum_{i=k+1}^{n-1} \sum_{j=i+1}^n     \E[X_{ijk}] \\\\
+           &= \sum_{i=1}^{k-2}   \sum_{j=i+1}^{k-1} \E[X_{ijk}]
+            + \sum_{i=1}^k       \sum_{j=k}^n       \E[X_{ijk}]
+            + \sum_{i=k+1}^{n-1} \sum_{j=i+1}^n     \E[X_{ijk}] \\\\
+           &= \sum_{i=1}^{k-2}   \sum_{j=i+1}^{k-1} \frac{2}{k - i + 1}
+            + \sum_{i=1}^k       \sum_{j=k}^n       \frac{2}{j - i + 1}
+            + \sum_{i=k+1}^{n-1} \sum_{j=i+1}^n     \frac{2}{j - k + 1} \\\\
+           &= 2\bigg(
+                \sum_{i=1}^k       \sum_{j=k}^n       \frac{1}{j - i + 1}
+              + \sum_{i=k+1}^{n-1} \sum_{j=i+1}^n     \frac{1}{j - k + 1}
+              + \sum_{i=1}^{k-2}   \sum_{j=i+1}^{k-1} \frac{1}{k - i + 1}
+              \bigg) \\\\
+           &= 2\bigg(
+                \sum_{i=1}^k       \sum_{j=k}^n       \frac{1}{j - i + 1}
+              + \sum_{i=k+1}^{n-1} \sum_{j=i+1}^n     \frac{1}{j - k + 1}
+              + \sum_{i=1}^{k-2}   \frac{k - i - 1}{k - i + 1}
+              \bigg) \\\\
+           &= 2\bigg(
+                \sum_{i=1}^k       \sum_{j=k}^n       \frac{1}{j - i + 1}
+              + \sum_{j=k+2}^n     \sum_{i=k+1}^{j-1} \frac{1}{j - k + 1}
+              + \sum_{i=1}^{k-2}   \frac{k - i - 1}{k - i + 1}
+              \bigg) & \text{(note below)} \\\\
+           &= 2\bigg(
+                \sum_{i=1}^k       \sum_{j=k}^n       \frac{1}{j - i + 1}
+              + \sum_{j=k+2}^n     \frac{j - k - 1}{j - k + 1}
+              + \sum_{i=1}^{k-2}   \frac{k - i - 1}{k - i + 1}
+              \bigg) \\\\
+           &\le 2\bigg(
+                \sum_{i=1}^k       \sum_{j=k}^n       \frac{1}{j - i + 1}
+              + \sum_{j=k+1}^n     \frac{j - k - 1}{j - k + 1}
+              + \sum_{i=1}^{k-2}   \frac{k - i - 1}{k - i + 1}
+              \bigg) \\\\
+   \end{align} $$
+
+The last noted derivation is valid because of the following iversonian
+equation:
+
+$$ [k+1 \le i \le n - 1][i+1 \le j \le n] =
+   [k+1 \le i < i + 1 < j \le n] =
+   [k + 1 < j \le n][k + 1 \le i < j]$$
+
+Concrete mathematics helped a lot!
+
+### Bounding to 4n
+
+Let's take the expressions in parts. The last two are straightforward enough:
+
+$$ \sum_{j=k+1}^n\frac{j-k-1}{j-k+1} + \sum_{i=1}^{k-2}\frac{k-i-1}{k-i+1}
+   \le \sum_{j=k+1}^n 1 + \sum_{i=1}^{k-2} 1
+   = n - k + k - 2
+   \le n $$
+
+This one is a bit trickier for me:
+
+$$ \sum_{i=1}^k \sum_{j=k}^n \frac{1}{j - i + 1} $$
+
+It contains terms of the form $1/m$ where $1 \le m \le n$. It contains $1/1$
+at most once, $1/2$ at most twice, $1/3$ at most three times and so on. Thus,
+the sum of the expressions $1/m$ for each $m$ is at most $1$ and there are $n$
+such different expressions, which bounds the whole sum to $n$.
+
+There should be a way to manipulate the sums to prove that, but I cannot find
+it. In any case, both expressions are at most $2n$, which means that $\E[X_k]
+\le 4n$.
+
+### Conclusion
+
+Well, it's rather obvious, isn't it? The number of operations in
+`RANDOMIZED-SELECT` are linear to the number of comparisons, and the expected
+number of comparisons are bound by a linear function, which means that the
+expected running time is linear.
