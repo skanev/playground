@@ -1,0 +1,60 @@
+> Using figure 10.2 as a model, illustrate the result of each operation in the
+> sequence `ENQUEUE(Q, 4)`, `ENQUEUE(Q, 1)`, `ENQUEUE(Q, 3)`, `DEQUEUE(Q)`,
+> `ENQUEUE(Q, 8)`, and `DEQUEUE(Q)` on an initially empty queue `Q` stored in
+> array `Q[1..6]`.
+
+Again, ASCII art to the rescue:
+
+      +---+---+---+---+---+---+
+      |   |   |   |   |   |   |
+      +---+---+---+---+---+---+
+        ^
+        Q.head = Q.tail = 1
+
+    ENQUEUE(Q, 4)
+      +---+---+---+---+---+---+
+      | 4 |   |   |   |   |   |
+      +---+---+---+---+---+---+
+        ^   ^
+        Q.head = 1
+        Q.tail = 2
+
+    ENQUEUE(Q, 1)
+      +---+---+---+---+---+---+
+      | 4 | 1 |   |   |   |   |
+      +---+---+---+---+---+---+
+        ^       ^
+        Q.head = 1
+        Q.tail = 3
+
+    ENQUEUE(Q, 3)
+      +---+---+---+---+---+---+
+      | 4 | 1 | 3 |   |   |   |
+      +---+---+---+---+---+---+
+        ^           ^
+        Q.head = 1
+        Q.tail = 4
+
+    DEQUEUE(Q)
+      +---+---+---+---+---+---+
+      | 4 | 1 | 3 |   |   |   |
+      +---+---+---+---+---+---+
+            ^       ^
+            Q.head = 2
+            Q.tail = 4
+
+    ENQUEUE(Q, 8)
+      +---+---+---+---+---+---+
+      | 4 | 1 | 3 | 8 |   |   |
+      +---+---+---+---+---+---+
+            ^           ^
+            Q.head = 2
+            Q.tail = 5
+
+    DEQUEUE(Q)
+      +---+---+---+---+---+---+
+      | 4 | 1 | 3 | 8 |   |   |
+      +---+---+---+---+---+---+
+                ^       ^
+                Q.head = 3
+                Q.tail = 5
