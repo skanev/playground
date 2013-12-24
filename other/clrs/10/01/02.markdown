@@ -1,0 +1,8 @@
+> Explain how to implement two stacks in one array $A[1..n]$ in such a way
+> that neither stack overflows unless the total number of elements in both
+> stacks together is $n$. The `PUSH` and `POP` operations should run in
+> $\O(1)$ time.
+
+The first stack starts at $1$ and grows up towards $n$, while the second
+starts form $n$ and grows down towards $1$. Stack overflow happens when an
+element is pushed when the two stack pointers are adjacent.
