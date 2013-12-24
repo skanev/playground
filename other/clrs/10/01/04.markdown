@@ -1,0 +1,39 @@
+> Rewrite `ENQUEUE` and `DEQUEUE to detect underflow and overflow of a queue.
+
+I shall go with the pseudo-code version, since I'm too lazy to bother figuring
+out how to test it in C.
+
+We need to do a slight modification, since the current version provides no way
+to tell whether a queue is empty or full. We should have `Q.head == NIL` when
+the queue is empty and `Q.head == Q.tail` when the queue is full. An empty
+queue is initializes with `NIL` in its head and `Q.tail = `. We need to update
+`Q.head` when a `DEQUEUE` operation causes the queue to become empty.
+
+    ENQUEUE(Q, x)
+      if Q.head == Q.tail
+          error "Queue overflow"
+
+      Q[Q.tail] = x
+
+      if Q.head == NIL
+          Q.head = Q.tail
+
+      if Q.tail == Q.length
+          Q.tail = 1
+      else
+          Q.tail = Q.tail + 1
+
+    DEQUEUE(Q)
+      if Q.head == NIL
+          error "Queue underflow"
+
+      x = Q[Q.head]
+
+      if Q.head == Q.length
+          Q.head = 1
+      else
+          Q.head = Q.head + 1
+
+      if Q.head == Q.tail
+          Q.head = NIL
+      return x
