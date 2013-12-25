@@ -1,0 +1,9 @@
+> Implement the dictionary operations `INSERT`, `DELETE`, and `SEARCH` using
+> singly linked, circular lists. What are the running times of your
+> procedures?
+
+I assume this should use a sentinel. Otherwise, there is no good way to
+terminate the search. We can track a pointer and abort when we reach it again,
+but not all languages allow us to compare pointers that way.
+
+The C implementation uses the trick from exercise 10.2.4.
