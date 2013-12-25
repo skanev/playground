@@ -1,0 +1,3 @@
+> Give a $\Theta(n)$-time nonrecursive procedure that reverses a singly linked
+> list of $n$ elements. The procedure should use no more than a constant
+> storage beyond that needed for the list itself.
