@@ -1,0 +1,7 @@
+> Can you implement the dynamic-set operation `INSERT` on a singly linked list
+> in $\O(1)$ time? How about `DELETE`?
+
+You can implement `INSERT` in constant time by prepending it to the list.
+
+You cannot implement `DELETE` in constant time, unless you pass to it as an
+argument the predecessor of the element you are deleting.
