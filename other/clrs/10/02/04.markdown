@@ -1,0 +1,15 @@
+> As written, each loop iteration in the `LIST-SEARCH'` procedure requires two
+> tests: one for `x ≠ L.nil` and one for `x.key ≠ k`. Show how to eliminate
+> the test for `x ≠ L.nil` in each iteration.
+
+We can set the key of the sentinel and then return the sentinel itself. It's
+somehow weird, but it can work in some contexts:
+
+    LIST-SEARCH'(L, k):
+      x = L.nil.next
+      L.nil.key = k
+      while x.key ≠ k
+          x = x.net
+      return x
+
+I have implemented this in exercise 10.2.5.
