@@ -1,0 +1,9 @@
+> Implement a queue by using a singly linked list `L`. The operations
+> `ENQUEUE` and `DEQUEUE` should still take $\O(1)$ time.
+
+This is also too simple to be worth implementing.
+
+The `ENQUEUE` operation inserts an element in the beginning of the list and
+the `DEQUEUE` operation removes an element from the end of the list. In this
+case we need to keep track of the last element of the list. We can do that
+with a sentinel.
