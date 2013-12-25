@@ -1,0 +1,14 @@
+> $\star$ Explain how to implement doubly linked lists using only one pointer
+> value `x.np` per item instead of the usual two (`next` and `prev`). Assume
+> that all pointer values can be interpreted as $k$-bit integers, and define
+> `x.np = x.next XOR x.prev`, the $k$-bit "exclusive-or" of `x.next` and
+> `x.prev`. (The value `NIL` is represented by 0). Be sure to describe what
+> information you need to access the head of the list. Show how to implement
+> the `SEARCH`, `INSERT` and `DELETE` operations on such a list. Also show how
+> to reverse such a list in $\O(1)$ time.
+
+We can find the pointer to the next item by XOR-ing `np` with the pointer to
+the previous item and vice-versa. If the previous pointer of the head of the
+list is to NIL and the next pointer of the tail is to NIL, then we only need a
+pointer to either end of the list to access it. Reversing the list is just
+swapping the head and the tail.
