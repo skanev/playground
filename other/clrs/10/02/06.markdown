@@ -1,0 +1,9 @@
+> The dynamic-set operation `UNION` takes two disjoint sets $S_1$ and $S_2$ as
+> input, and it returns a set $S = S_1 \cup S_2$ consisting of all the
+> elements $S_1$ and $S_2$. The sets $S_1$ and $S_2$ are usually destroyed by
+> the operation. Show how to support `UNION` in $\O(1)$ time using a suitable
+> list data structure.
+
+If both sets are a doubly linked lists, we just point link the last element of
+the first list to the first element in the second. If the implementation uses
+sentinels, we need to destroy one of them.
