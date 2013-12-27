@@ -1,0 +1,2 @@
+> Write the procedures `ALLOCATE-OBJECT` and `FREE-OBJECT` for a homogeneous
+> collection of objects implemented by the single-array representation.
