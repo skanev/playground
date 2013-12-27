@@ -1,0 +1,7 @@
+> Why don't we need to set or reset the `prev` attributes of objects in the
+> implementation of the `ALLOCATE-OBJECT` and `FREE-OBJECT` procedures?
+
+Because we're not using them. Having a singly linked free list is sufficient.
+We don't need the `prev` attribute and we don't even need the `key` attribute.
+Whenever we allocate and free objects, we're setting those fields anyway, so
+it does not matter that we don't reset them.
