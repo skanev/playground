@@ -1,0 +1,14 @@
+> It is often desirable to keep all elements of a doubly linked list compact
+> in storage, using, for example, the first $m$ index locations in the
+> multiple-array representation. (This is the case in a paged, virtual-memory
+> computing environment.) Explain how to implement the procedures
+> `ALLOCATE-OBJECT` and `FREE-OBJECT` so that the representation is compact.
+> Assume that there are no pointers to elements of the linked list outside the
+> list itself. (<i>Hint:</i> Use the array implementation of a stack.)
+
+We can allocate elements in the beginning of the array. Whenever we
+deallocate an element, other than the last (in the stack), we need to shift
+all elements after it left and then update all the indices that point beyond
+the deleted element (by decrementing them). This will take linear time. As an
+optimization, whenever we deallocate the last element in the array, we don't
+need to scan the array and update pointers.
