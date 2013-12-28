@@ -1,0 +1,17 @@
+> Draw the binary tree rooted at index 6 that is represented by the following
+> attributes:
+>
+> | index |  key |  left | right |
+> |:-----:|:----:|:-----:|:-----:|
+> |    1  |  12  |   7   |   3   |
+> |    2  |  15  |   8   |  NIL  |
+> |    3  |   4  |  10   |  NIL  |
+> |    4  |  10  |   5   |   9   |
+> |    5  |   2  |  NIL  |  NIL  |
+> |    6  |  18  |   1   |   4   |
+> |    7  |   7  |  NIL  |  NIL  |
+> |    8  |  14  |   6   |   2   |
+> |    9  |  21  |  NIL  |  NIL  |
+> |   10  |   5  |  NIL  |  NIL  |
+
+This is a subtree, that does not contain two of the elements.

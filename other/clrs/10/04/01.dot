@@ -1,0 +1,20 @@
+graph {
+  node[shape="circle"];
+  n1[label="12"];
+  n2[label="15"];
+  n3[label="4"];
+  n4[label="10"];
+  n5[label="2"];
+  n6[label="18"];
+  n7[label="7"];
+  n8[label="14"];
+  n9[label="21"];
+  n10[label="5"];
+
+  n6 -- n1; n6 -- n4;
+
+  n1 -- n7; n1 -- n3;
+  n4 -- n5; n4 -- n9;
+
+  n3 -- n10;
+}
