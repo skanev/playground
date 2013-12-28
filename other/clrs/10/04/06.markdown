@@ -1,0 +1,14 @@
+> $\star$ The left-child, right-sibling representation of an arbitrary rooted
+> tree uses three pointers in each node: _left-child_, _right-sibling_, and
+> _parent_. From any node, its parent can be reached and identified in
+> constant time and all its children can be reached and identified in time
+> linear in the number of children. Show how to use only two pointers and one
+> boolean value in each node so that the parent of a node or all of its
+> children can be reached and identified in time linear in the number of
+> children.
+
+The two pointers will be _left-child_ and _next_. The boolean should be called
+_last-sibling_. Identifying the children is by starting with _left-child_ and
+moving through _next_ until the last sibling is reached. Identifying the
+parent is moving through _next_ until the last sibling is reached and then
+moving through it once again.
