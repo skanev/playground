@@ -1,0 +1,20 @@
+> $\star$ Write an $\O(n)$-time nonrecursive procedure that, given an $n$-node
+> binary tree prints out the key of each node. Use no more than constant extra
+> space outside the tree itself and do not modify the tree, even temporarily,
+> during the procedure.
+
+This is tricky. We need a pointer to the parent. We keep track of the previous
+pointer (starting with NIL) and do the following.
+
+1. If we're coming from the parent, move to the left child
+2. If we're coming from the left child, move to the right child
+3. If we're coming from the right child, move to the parent
+
+To handle cases of less than two children, we skip to the next step if the
+conditions allow for it. That is:
+
+* If there is only a right child, and we're coming form the parent, we move to
+  the right child
+* If we come from the left child, but there is no right child, we move to the
+  parent.
+* If we there are no children, we move to the parent.
