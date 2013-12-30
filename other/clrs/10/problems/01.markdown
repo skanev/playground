@@ -1,0 +1,18 @@
+## Comparisons among lists
+
+> For each of the four types of lists in the following table, what is
+> the asymptotic worst-case running time fore each dynamic-set
+> operation listed?
+
+|                     | unsorted, singly linked | sorted, singly linked | unsorted, doubly linked | sorted, doubly linked |
+|:--------------------|:-----------------------:|:---------------------:|:-----------------------:|:---------------------:|
+| `SEARCH(L, k)`      | linear                  | linear                | linear                  | linear                |
+| `INSERT(L, x)`      | constant                | linear                | constant                | linear                |
+| `DELETE(L, x)`      | linear                  | linear                | constant                | constant              |
+| `SUCCESSOR(L, x)`   | linear                  | constant              | linear                  | constant              |
+| `PREDECESSOR(L, x)` | linear                  | linear                | linear                  | constant              |
+| `MINIMUM(L, k)`     | linear                  | constant              | linear                  | constant              |
+| `MAXIMUM(L, k)`     | linear                  | linear                | linear                  | linear                |
+
+* `MAXIMUM` assumes that we don't keep track of the tail of the list. If it
+  does, we can make the algorithms linear when the list is sorted
