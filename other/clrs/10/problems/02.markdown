@@ -1,0 +1,41 @@
+## Mergeable heaps using linked lists
+
+> A **mergeable heap** supports the following operations: `MAKE-HEAP` (which
+> creates an empty mergeable heap), `INSERT`, `MINIMUM`, `EXTRACT-MIN`, and
+> `UNION`. Show how to implement mergeable heaps using linked lists in each of
+> the following cases. Try to make each operation as efficient as possible.
+> Analyze the running time of each operation in terms of the size of the
+> dynamic set(s) being operated on.
+>
+> <ol type="a">
+>   <li>Lists are sorted.
+>   <li>Lists are unsorted.
+>   <li>Lists are unsorted, and dynamic sets to be merged are disjoint.
+> </ol>
+
+There isn't a difference in my implementation between the sorted and unsorted
+lists. There will be a difference between (a) and (b) if we don't allow
+repetitions in the lists, but since this will make insertion linear, I find it
+better to let insert create duplicates and them remove them on `EXTRACT-MIN`.
+That way the latter is linear (even if with a larger constant),  but `UNION`
+can be implemented constantly with doubly-linked lists.
+
+I've chosen singly-linked lists for no good reason. Mostly because I did not
+realize `UNION` is going to take linear time with such an implementation (in
+order to find the last element of the first list). If we switch to
+doubly-linked, we can make it constant easily.
+
+I find this problem too simple to bother further.
+
+Otherwise, the running times are as follows
+
+|               | sorted   | unsorted |
+|:--------------|:--------:|:--------:|
+| `MAKE-HEAP`   | constant | constant |
+| `INSERT`      |  linear  | constant |
+| `MINIMUM`     | constant |  linear  |
+| `EXTRACT-MIN` | constant |  linear  |
+| `UNION`       |  linear  |  linear* |
+
+As I noted, `UNION` can be made constant if we keep track of the last element
+of the list.
