@@ -1,0 +1,164 @@
+## Searching a sorted compact list
+
+> Exercise 10.3-4 asked how we might maintain an $n$-element list compactly in
+> the first $n$ positions of an array. We shall assume that the keys are
+> distinct and that the compact list is also sorted, that is, `key[i] <
+> key[next[i]]` for all $i = 1, 2, \ldots, n$ such that `next[i] ≠ NIL`. We
+> will also assume that we have a variable $L$ that contains the index of the
+> first element on the list. Under these assumptions, you will show that we
+> can use the following randomized algorithm to search the list in
+> $\O(\sqrt{n})$ expected time.
+>
+>     COMPACT-LIST-SEARCH(L, n, k)
+>       i = L
+>       while i ≠ ␀ and key[i] < k
+>           j = RANDOM(1, n)
+>           if key[i] < key[j] and key[j] ≤ k
+>               i = j
+>               if key[i] == k
+>                   return i
+>           i = next[i]
+>       if i == ␀ or key[i] > k
+>           return ␀
+>
+> If we ignore lines 3-7 of the procedure, we have an ordinary algorithm for
+> searching a sorted linked list, in which index $i$ points to each position
+> of the list in turn. The search terminates once the index $i$ "falls off"
+> the end of the list or once `key[i] ≥ k`. In the latter case, if `key[i] =
+> k`, clearly we have found a key with value $k$. If, however, `key[i] > k`,
+> then we will never find a key with the value $k$, and so terminating the
+> search was the right thing to do.
+>
+> Lines 3-7 attempt to skip ahead to a randomly chosen position $j$. Such a
+> skip benefits us if `key[j]` is larger than `key[i]` and no larger than $k$;
+> in such a case, $j$ marks a position in the list that $i$ would have to
+> reach during an ordinary list search. Because the list is compact, we know
+> that in any choice of $j$ between $1$ and $n$ indexes some object in the
+> list rather than a slot on the free list.
+>
+> Instead of analyzing the performance of `COMPACT-LIST-SEARCH` directly, we
+> shall analyze a related algorithm, `COMPACT-LIST-SEARCH'`, which executes
+> two separate loops. This algorithm takes an additional parameter $t$ which
+> determines an upper bound on the number of iterations of the first loop.
+>
+>     COMPACT-LIST-SEARCH(L, n, k)
+>       i = L
+>       for q = 1 to t
+>           j = RANDOM(1, n)
+>           if key[i] < key[j] and key[j] ≤ k
+>               i = j
+>               if key[i] == k
+>                   return i
+>       while i ≠ ␀ and key[i] < k
+>           i = next[i]
+>       if i == ␀ or key[i] > k
+>           return ␀
+>       else
+>           return i
+>
+> To compare the execution of the algorithms `COMPACT-LIST-SEARCH(L, n, k)`
+> and `COMPACT-LIST-SEARCH(L, n, k, t)`, assume that the sequence of integers
+> returned by the calls of `RANDOM(1, n)` is the same for both algorithms.
+>
+> <ol type="a">
+>   <li>Suppose that <code>COMPACT-LIST-SEARCH(L, n, k)</code> takes $t$
+>   iterations of the <strong>while</strong> loop of lines 2-8. Argue that
+>   <code>COMPACT-LIST-SEARCH'(L, n, k, t)</code> returns the same answer and
+>   that total number of iterations of both the <strong>for</strong> and
+>   <strong>while</strong> loops within <code>COMPACT-LIST-SEARCH'</code> is
+>   at least $t$.
+> </ol>
+>
+> In the call `COMPACT-LIST-SEARCH'(L, n, k, t)`, let $X_t$ be the random
+> variable that describes the distance in the linked list (that is, through
+> the chain of _next_ pointers) from position $i$ in the desired key $k$ after
+> $t$ iterations of the **for** loop of lines 2-7 have occurred.
+>
+> <ol type="a" start="2">
+>   <li>Argue that the expected running time of <code>COMPACT-LIST-SEARCH'(L,
+>   n, k, t)</code> is $\O(t + \E[X_t])$.
+>   <li>Show that $\E[X_t] \le \sum_{r=1}^n(1 - r/n)^t$. (<i>Hint:</i> Use
+>   equation (C.25).)
+>   <li>Show that $\sum_{r=0}^{n-1} r^t \le n^{t+1}/(t + 1)$.
+>   <li>Prove that $\E[X_t] \le n/(t+1)$.
+>   <li>Show that <code>COMPACT-LIST-SEARCH'(L, n, k, t)</code> runs in $\O(t
+>   + n/t)$ expected time.
+>   <li>Conclude that <code>COMPACT-LIST-SEARCH</code> runs in $\O(\sqrt{n})$
+>   expected time.
+>   <li>Why do we assume that all keys are distinct in
+>   <code>COMPACT-LIST-SEARCH</code>? Argue that random skips do not
+>   necessarily help asymptotically when the list contains repeated key
+>   values.
+> </ol>
+
+This is a very interesting problem.
+
+First, let's note that `COMPACT-LIST-SEARCH` a number of iterations, less or
+equal to those of `COMPACT-LIST-SEARCH'`. If the first version found the
+element on a random skip-ahead in $t$ iterations, so will the second version.
+If not, the last $k$ iterations only advanced the pointer until the result was
+found. Furthermore, none of the last $t - k$ iterations made a skip-ahead (by
+the definition of $k$. Since the second version does not advance inbetween
+skip-aheads, it has to perform $k$ additional iterations of its **while** loop
+until the result is found.
+
+Note also, that the first version minimizes the number of iterations. That is,
+$t$ is picked in an optimal way.
+
+Let's move on to the math. The expected running time of `COMPACT-LIST-SEARCH'`
+is indeed $\O(t + \E[X_t])$, since it either finds the element in $t$
+skip-aheads, or it has to move forward a number of times, equal to the
+distance to $X_t$. Note that if the key is not present, this distance will
+either be the successor of that key or the last element of the array, so the
+analysis still holds.
+
+Let's find the value of the expectation. The probability of having a distance
+at least $r$ is the probability less than $r$. The probability of having
+distance less than $k$ when $t = 1$ is $(n-r)/n$, thus:
+
+$$ \Pr\\{X_t \ge r\\} = \bigg(\frac{n - r}{n}\bigg)^t
+                      = \bigg(1 - \frac{r}{n}\bigg)^t$$
+
+That is, one of the `RANDOM` calls should advance to the desired distance,
+while the rest should advance to elements before it.
+
+Using the (C.25), we get:
+
+$$ \E[X_t] = \sum_{r=1}^{\infty} \Pr\\{X_t \ge r\\}
+           = \sum_{r=1}^n \Pr\\{X_t \ge r\\}
+           = \sum_{r=1}^n \bigg(1 - \frac{r}{n}\bigg)^t $$
+
+The probability of getting distance, larger than $n$ is 0, so that's why we
+can bound the sum index to $n$.
+
+We can show (d) by approximating the sum with an integral with (A.11):
+
+$$ \sum_{r=0}^{n-1} r^t \le \int_0^n x^t dx = \frac{n^{t+1}}{t+1} $$
+
+This lets us give an upper bound on the expectation:
+
+$$ \begin{align}
+   \E[X_t] &= \sum_{r=1}^n \bigg(1 - \frac{r}{n}\bigg)^t \\\\
+           &= \sum_{r=0}^{n-1} \bigg(\frac{r}{n}\bigg)^t \\\\
+           &= \frac{1}{n^t} \sum_{r=0}^{n-1} r^t \\\\
+           &\le \frac{1}{n^t} \cdot \frac{n^{t+1}}{t + 1} \\\\
+           &= \frac{n}{t+1}
+   \end{align} $$
+
+The expected running time of `COMPACT-LIST-SEARCH'(L, n, k, t)` is thus:
+
+$$ \O(t + \E[X_t]) = \O(t + n/(t+1)) = \O(t + n/t) $$
+
+Since `COMPACT-LIST-SEARCH` minimizes this running time, we need to find the
+minimum of $t + n/t$. The first derivative is $1 - n/t^2$ which is zero at
+$\sqrt{n}$ and this is a local minimum. It's also the minimum in the interval
+$[1,n]$.
+
+This makes the expected running time of the first version of the algorithm
+$\O(\sqrt{n})$.
+
+As for duplicates, we won't be able to conclude (c) if there are duplicates.
+The algorithm is able to skip ahead only if the value found by `RANDOM` is
+greater than the current. For example, if we have a list of `0`s and we're
+looking for a `1`, the algorithm will still need to iterate to the end of the
+list, since it will not skip-ahead at all.
