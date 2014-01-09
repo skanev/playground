@@ -1,0 +1,15 @@
+> A **bit vector** is simply an array of bits (0s and 1s). A bit vector of
+> length $m$ takes much less space than an array of $m$ pointers. Describe how
+> to use a bit vector to represent a dynamic set of distinct elements with no
+> satellite data. Dictionary operations should run in $\O(1)$ time.
+
+The elements have to be numbers.
+
+Each bit in the bit vector represents whether an element is present (1) or not
+present (0) in the dynamic set. This is sufficient when we're not storing
+satellite data. We need to use some binary operations (`&`, `|`) in order to
+modify the bit vector or query it.
+
+The operations are pretty straightforward. The only tricky part is the bit
+vector size. If a dynamic set is to store the element `1000`, then the vector
+needs to be at least `1000` bits.
