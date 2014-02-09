@@ -1,0 +1,32 @@
+> $\star$ We wish to implement a dictionary by using direct addressing on a
+> _huge_ array. At the start, the array entries may contain garbage, and
+> initializing the entire array is impractical because of its size. Describe a
+> scheme for implementing a direct-address dictionary on a huge array. Each
+> stored object should use $\O(1)$ space; the operations `SEARCH`, `INSERT`,
+> and `DELETE` should take $\O(1)$ time. (<i>Hint:</i> Use an additional
+> array, treated somewhat like a stack whose size is the number of keys
+> actually stored in the dictionary, to help determine whether a given entry
+> in the huge array is valid or not.)
+
+I don't really understand why this is an exercise - it's far to tricky for the
+common good. Anyhow.
+
+As the hint suggests, we use an addition stack. Each stack item will contain a
+pointer in the huge array. Each cell in the huge array will contain the index
+of the stack item.
+
+When we `INSERT` a new item, we push the pointer address in the huge array on
+the stack and set the value of that cell to the stack index.
+
+When we `SEARCH`, we get the value in the array. If it is a valid stack index
+(that is, if the value is $n$, the stack has at most $n$ items) and the value
+at that position of the stack is the original pointer, then we have a match.
+Otherwise, we don't.
+
+When we `DELETE` there would be a hole in the stack. We can fix it by moving
+the top item to the hole and updating the value in the huge array.
+
+If we need satellite data, we can keep it in a parallel stack that we also
+modify on those operations.
+
+There is an elaboration on this algorithm in the Instructor's Manual.
