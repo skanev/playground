@@ -27,5 +27,5 @@ Of course it's $\log_dn$.
 
 ### Implementation
 
-The implementation is below. The complexity of the three
-procedures is $\O(\log_dn)$.
+The implementation is below. The complexity of `EXTRACT-MAX` is
+$\O(d\log_dn)$, while the other two are $\O(\log_dn)$.
