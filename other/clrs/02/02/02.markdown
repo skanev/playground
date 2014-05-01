@@ -53,4 +53,4 @@ is:
 
 $$ (n - 1)(n + 6) $$
 
-Both are clearly $\Theta(n)$.
+Both are clearly $\Theta(n^2)$.
