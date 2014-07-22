@@ -9,7 +9,7 @@
 > which Professor Caesar's algorithm would be asymptotically faster than
 > Strassen's algorithm?
 
-To fall in case 1 of the master theorem, we need to have $a < 16$. In that case,
-the algorithm will be $T(n) = \Theta(n^{\log_4{a}})$. To be faster, we need
-$\log_4{a} < \log_{2}7$, which is $a < 14$. Thus, the largest integer value will
-be $13$.
+To fall in third case of the master theorem, we need to have $a < 16$. In that case,
+the algorithm will be $T(n) = \Theta(n^2)$. For the second case, with $a = 16$, $T(n) = \Theta(n^2 \log n)$. In the first case of the master theorem, to be faster than Strassen, we need
+$\log_4{a} < \log_{2}7$, which is $a < 7^2 = 49$. Thus, the largest integer value will
+be $48$.
