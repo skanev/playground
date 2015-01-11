@@ -1,4 +1,4 @@
 > What does *FIND-MAXIMUM-SUBARRAY* return when all elements of $A$ are
 > negative?
 
-It will return a single-element array with the largest negative integer.
+It will return the index from i to j of array A whose sum is the smallest negative integer as well as the actual sum itself.
