@@ -78,7 +78,7 @@ $$ \begin{align}
 
 ### 10. $T(n) = \sqrt{n}T(\sqrt{n}) + n$
 
-We guess $T(n) \le cn\lg{n}\lg{n}$:
+We guess $T(n) \le cn\lg\lg{n}$:
 
 $$ \begin{align}
    T(n) &\le \sqrt{n}c\sqrt{n}\lg\lg\sqrt{n} + n \\\\
