@@ -7,7 +7,7 @@ $$ f(n) \leq cn^k $$
 
 and take the logarithm of each side, we get:
 
-$$ \lg{f(n)} \leq c_1k\lg{n} $$
+$$ \lg{f(n)} \leq \lg{c} + k\lg{n} $$
 
 Thus, a function is polynomially bound if $\lg{f(n)} = \Theta(\lg{n})$.
 
