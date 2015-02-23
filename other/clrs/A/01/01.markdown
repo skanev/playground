@@ -1,0 +1,8 @@
+> Find a simple formula for $\sum_{k=0}^{n} (2k - 1).$
+
+$$ \begin{align}
+	\sum_{k=0}^{n} (2k - 1)	&= 2 \sum_{k=0}^{n} k - (n + 1) \\
+				&= n(n + 1) - (n + 1) \\
+				&= (n + 1)(n - 1)
+\end{align}$$
+
