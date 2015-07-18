@@ -36,6 +36,12 @@ module Renderer
     CodeRay.scan(code, language).div
   end
 
+  def render_about
+    render_view 'layout', make_context do
+      render_view 'about', make_context
+    end
+  end
+
   private
 
   def render_view(name, context, &block)

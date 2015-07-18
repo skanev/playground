@@ -12,6 +12,10 @@ get '/' do
   Renderer.render_catalog catalog
 end
 
+get '/about.?:format?' do
+  Renderer.render_about
+end
+
 get '/index.?:format?' do
   catalog = Catalog.new SOLUTION_ROOT
   Renderer.render_catalog catalog
