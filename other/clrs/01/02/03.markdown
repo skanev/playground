@@ -2,4 +2,4 @@
 > is $ 100n\^{2} $ runs faster than an algorithm whose running time is $
 > 2\^{n} $ on the same machine?
 
-At $ n > 15 $, the first algorithm runs faster.
+At $ n > 14 $, the first algorithm runs faster.
