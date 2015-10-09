@@ -45,7 +45,7 @@ We assume that we have no exponentiation in the language. Thus:
     y = 0
     for i = 0 to n
         m = 1
-        for k = 1 to n
+        for k = 1 to i
             m = m·x
         y = y + aᵢ·m
 
