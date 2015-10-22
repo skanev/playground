@@ -78,7 +78,24 @@ $$ \begin{align}
 
 ### 10. $T(n) = \sqrt{n}T(\sqrt{n}) + n$
 
-We guess $T(n) \le cn\lg\lg{n}$:
+Let $n = 2^m$, or $m = \lg{n}$. We use this to get another recurrence in hopes of being able to use the master theorem on it:
+
+$$ \begin{align}
+   T(2^m) &= \sqrt{2^m}T(\sqrt{2^m}) + 2^m \\\\
+        &= 2^{m/2}T(2^{m/2}) + 2^m \\\\
+   Q(m) &= 2^{m/2} Q(m/2) + 2^m
+\end{align} $$
+
+We still cannot use the master theorem. Now multiply $Q(m)$ by $\frac{1}{2^m}$ to get: $R(m) = R(m/2) + 1$. Now we can use the master theorem to compare $f(n) = 1$ and $n^{log_b a} = n^{log_2 1} = n^0 = 1$. Since $n^{log_b a} = f(n)$:
+
+$$ \begin{align}
+   R(m) &= \Theta(1 \times \lg{m}) \\\\
+   Q(m) &= \Theta(2^m \lg{m}) \\\\
+   T(m) &= \Theta(2^{\lg{n}} \lg{\lg{n}}) \\\\
+        & = \Theta(n \lg{\lg{n}})
+\end{align}$$
+
+We verify $T(n) \le cn\lg\lg{n}$:
 
 $$ \begin{align}
    T(n) &\le \sqrt{n}c\sqrt{n}\lg\lg\sqrt{n} + n \\\\
