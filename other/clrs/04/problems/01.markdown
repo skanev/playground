@@ -18,4 +18,4 @@
 4. $\Theta(n^2)$ (master method)
 5. $\Theta(n^{\log_2{7}})$ (master method)
 6. $\Theta(\sqrt{n}\lg_{n})$ (master method)
-7. $T(n) = n^2 + T(n - 2) = n^2 + (n - 2)^2 + T(n - 4) = \sum_{i=0}^{n/2}(n -2i)^2 = \Theta(n^3)$
+7. $T(n) = n^2 + T(n - 2) = n^2 + (n - 2)^2 + T(n - 4) = \sum_{i=0}^{n/2}(n -2i)^2 = \Theta(n^2)$
