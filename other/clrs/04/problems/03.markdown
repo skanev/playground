@@ -37,7 +37,7 @@ $$ \begin{align}
    T(n) & = 2T(n/2) + \frac{n}{\lg{n}} = 4(n/4) + 2\frac{n/2}{\lg(n/2)} + \frac{n}{\lg{n}}
           = 4T(n/4) + \frac{n}{\lg{n} - 1} + \frac{n}{\lg{n}} \\\\
         & = nT(1) + \sum_{i=0}^{\lg{n} - 1}\frac{n}{\lg{n}-i}
-          = nT(1) + n\sum_{i=1}^{\lg{n}}\frac{1}{\lg{n}} \\\\
+          = nT(1) + n\sum_{i=1}^{\lg{n}}\frac{1}{i} \\\\
         & = \Theta(n\lg\lg{n})
    \end{align} $$
 
