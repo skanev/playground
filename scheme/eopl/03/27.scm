@@ -68,9 +68,9 @@
 (define (apply-procedure proc1 val)
   (cases proc proc1
     (procedure (var body saved-env trace?)
-      (if trace? (printf "enter: ~a = ~v\n" var val))
+      (when trace? (printf "enter: ~a = ~v\n" var val))
       (let ((result (value-of body (extend-env var val saved-env))))
-        (if trace? (printf "exit: ~a\n" var))
+        (when trace? (printf "exit: ~a\n" var))
         result))))
 
 (define-datatype expval expval?
