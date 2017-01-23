@@ -11,7 +11,7 @@
                       '(+ -)
                       (list
                         (op (number 2) '(*) (list (number 66)))
-                        (op (number 5) '() ()))))
+                        (op (number 5) '() '()))))
 ))
 
 (exit (run-tests eopl-B.01-tests))
