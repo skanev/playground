@@ -1,0 +1,113 @@
+require 'term/ansicolor'
+
+class Exercise
+  class << self
+    def next
+      current_chapter = chapters(false).last
+      last_exercise   = exercises_in_chapter(current_chapter).last
+      next_exercise   = last_exercise.to_i + 1
+
+      new current_chapter, next_exercise
+    end
+
+    def each
+      chapters.each do |chapter|
+        exercises_in_chapter(chapter).each do |number|
+          yield new chapter, number
+        end
+      end
+    end
+
+    def each_with_test
+      each do |exercise|
+        next unless exercise.has_test?
+        yield exercise
+      end
+    end
+
+    private
+
+    def chapters
+      Dir['*'].grep(/^(\d+)$/).sort.map(&:to_i)
+    end
+
+    def exercises_in_chapter(chapter)
+      chapter = format "%02d", chapter.to_i
+      Dir["#{chapter}/*"].grep(%r{^(?:\d+)/(\d+)$}) { $1.to_i }.sort
+    end
+  end
+
+  def initialize(chapter, number)
+    @chapter = chapter.to_i
+    @number = number.to_i
+  end
+
+  def name
+    format "%d.%02d", @chapter, @number
+  end
+
+  def run
+    Dir.chdir path do
+      files = Dir.glob('*.go').reject { |name| name.end_with?('_test.go') }
+      raise "Don't know how to run multiple files yet" if files.count != 1
+      file = files.first
+
+      system "go run #{file}"
+    end
+  end
+
+  def run_test(stdout: true)
+    raise "No tests found in #{path}" unless has_test?
+
+    Dir.chdir path do
+      command = "go test"
+      command += " > /dev/null 2>&1" unless stdout
+
+      system command
+    end
+  end
+
+  def has_test?
+    Dir["#{path}/*_test.go"] != []
+  end
+
+  private
+
+  def path
+    format "%02d/%02d", @chapter, @number
+  end
+end
+
+class Run < Thor
+  include Term::ANSIColor
+
+  desc :exercise, 'Runs an exercise or its tests'
+  method_option :chapter, type: :numeric, desc: 'The chapter number'
+  method_option :number, type: :numeric, desc: 'The exercise number'
+  def exercise(chapter, number)
+    exercise = Exercise.new(chapter, number)
+    exercise.run
+  end
+
+  desc :test, 'Runs the tests of an exercise'
+  method_option :chapter, type: :numeric, desc: 'The chapter number'
+  method_option :number, type: :numeric, desc: 'The exercise number'
+  def test(chapter, number)
+    exercise = Exercise.new(chapter, number)
+    exercise.run_test stdout: false
+  end
+
+  desc :all, 'Runs all the tests'
+  def all
+    Exercise.each_with_test do |exercise|
+      print bold("#{exercise.name}: ")
+      success = exercise.run_test stdout: false
+      unless success
+        puts red("FAILURE")
+        exit(1) unless success
+      end
+    end
+
+    puts green("OK")
+  end
+end
