@@ -47,24 +47,26 @@ class Exercise
   end
 
   def run
-    Dir.chdir path do
-      files = Dir.glob('*.go').reject { |name| name.end_with?('_test.go') }
-      raise "Don't know how to run multiple files yet" if files.count != 1
-      file = files.first
+    files = Dir.glob('*.go').reject { |name| name.end_with?('_test.go') }
+    raise "Don't know how to run multiple files yet" if files.count != 1
+    file = files.first
 
-      system "go run #{file}"
-    end
+    cd { system "go run #{file}" }
   end
 
   def run_test(stdout: true)
     raise "No tests found in #{path}" unless has_test?
 
-    Dir.chdir path do
-      command = "go test"
-      command += " > /dev/null 2>&1" unless stdout
+    command = "go test"
+    command += " > /dev/null 2>&1" unless stdout
 
-      system command
-    end
+    cd { system command }
+  end
+
+  def run_benchmark
+    raise "No tests found in #{path}" unless has_test?
+
+    cd { system "go test -bench=. -benchmem" }
   end
 
   def has_test?
@@ -72,6 +74,10 @@ class Exercise
   end
 
   private
+
+  def cd
+    Dir.chdir(path) { yield }
+  end
 
   def path
     format "%02d/%02d", @chapter, @number
@@ -97,12 +103,22 @@ class Run < Thor
     exit exercise.run_test ? 0 : 1
   end
 
+  desc :benchmark, 'Runs the benchmark of an exercise'
+  method_option :chapter, type: :numeric, desc: 'The chapter number'
+  method_option :number, type: :numeric, desc: 'The exercise number'
+  def benchmark(chapter, number)
+    exercise = Exercise.new(chapter, number)
+    exit exercise.run_benchmark ? 0 : 1
+  end
+
   desc :all, 'Runs all the tests'
   def all
     Exercise.each_with_test do |exercise|
       print bold("#{exercise.name}: ")
       success = exercise.run_test stdout: false
-      unless success
+      if success
+        puts "success"
+      else
         puts red("FAILURE")
         exit(1) unless success
       end
