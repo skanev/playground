@@ -94,7 +94,7 @@ class Run < Thor
   method_option :number, type: :numeric, desc: 'The exercise number'
   def test(chapter, number)
     exercise = Exercise.new(chapter, number)
-    exercise.run_test stdout: false
+    exit exercise.run_test ? 0 : 1
   end
 
   desc :all, 'Runs all the tests'
