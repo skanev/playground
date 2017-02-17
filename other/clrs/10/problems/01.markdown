@@ -15,4 +15,4 @@
 | `MAXIMUM(L, k)`     | linear                  | linear                | linear                  | linear                |
 
 * `MAXIMUM` assumes that we don't keep track of the tail of the list. If it
-  does, we can make the algorithms linear when the list is sorted
+  does, we can make the algorithms constant when the list is sorted
