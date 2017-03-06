@@ -50,4 +50,4 @@ Well, ASCII art to the rescue.
       | 4 | 1 | 8 |   |   |   |
       +---+---+---+---+---+---+
             ^
-            S.top = 3
+            S.top = 2
