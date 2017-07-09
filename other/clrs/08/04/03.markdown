@@ -7,7 +7,7 @@ $$ \E[X] = 2 \cdot \frac{1}{4} + 1 \cdot \frac{1}{2} + 0 \cdot \frac{1}{4} = 1 $
 
 Next we take $\E[X^2]$:
 
-$$ \E[X^2] = \E[X] \cdot \E[X] = 1 $$
+$$ \E[X^2] = 4 \cdot \frac{1}{4} + 1 \cdot \frac{1}{2} + 0 \cdot \frac{1}{4} = 1.5 $$
 
 Finally $\E^2[X]$:
 
