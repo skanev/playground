@@ -10,13 +10,15 @@ def partition(numbers, start = 0, end = None):
 
         if value == pivot_value:
             repetitions += 1
+        else:
+            repetitions = 0;
 
         if value <= pivot_value:
             numbers[pivot], numbers[i] = numbers[i], numbers[pivot]
             pivot += 1
 
     numbers[pivot], numbers[last] = numbers[last], numbers[pivot]
-    return pivot - repetitions // 2
+    return (pivot + 1) - repetitions // 2
 
 def quicksort(numbers, start = 0, end = None):
     end = end if end else len(numbers)
