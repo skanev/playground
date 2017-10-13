@@ -10,7 +10,7 @@
           smallest = l
       else
           smallest = i
-      if r ≤ A.heap-size and A[r] < A[i]
+      if r ≤ A.heap-size and A[r] < A[smallest]
           smallest = r
       if smallest ≠ i
           exchange A[i] with A[smallest]
