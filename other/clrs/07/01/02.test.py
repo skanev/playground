@@ -15,8 +15,9 @@ class PartitionTest(unittest.TestCase):
       self.assertEqual(numbers, [3, 5, 8, 7, 4, 2, 6, 11, 21, 13, 19, 12])
 
     def test_partition_with_repetition(self):
-      self.assertEqual(partition([2, 2, 2, 2, 2, 2]), 3)
-      self.assertEqual(partition([1, 2, 2, 2, 3, 2]), 3)
+      self.assertEqual(partition([2, 2, 2, 2, 2, 2]), 2)
+      self.assertEqual(partition([1, 2, 2, 2, 3, 2]), 2)
+      self.assertEqual(partition([5, 2, 4, 7, 5, 1, 5, 9, 5, 1, 10, 5]), 6)
 
     def test_quicksort(self):
       numbers  = [13, 19, 3, 5, 12, 8, 7, 4, 21, 2, 6, 11]

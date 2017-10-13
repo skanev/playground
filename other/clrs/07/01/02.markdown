@@ -5,5 +5,4 @@
 
 It returns $r$.
 
-We can modify `PARTITION` by counting the number of comparisons in which $A[j]
-= A[r]$ and then subtracting half that number from the pivot index.
+We can modify `PARTITION` by moving numbers smaller than the pivot to the leftmost and numbers equal to the pivot after the smaller group. At last we return the count of smaller group plus half of count the equal numbers.
