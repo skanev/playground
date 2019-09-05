@@ -21,9 +21,9 @@ We guess $T(n) \ge cn^2$:
 
 $$ \begin{align}
    T(n) & \ge c(n - 1)^2 + c(n/2)^2 + n \\\\
-        & \ge cn^2 - 2cn + 1 + cn^2/4 + n \\\\
-        & \ge (5/4)cn^2 + (1 - 2c)n + 1 \\\\
-        & \ge cn^2 + (1 - 2c)n + 1 & (c < 1/2)\\\\
+        & \ge cn^2 - 2cn + c + cn^2/4 + n \\\\
+        & \ge (5/4)cn^2 + (1 - 2c)n + c \\\\
+        & \ge cn^2 + (1 - 2c)n + c & (c < 1/2)\\\\
         & \ge cn^2 \\\\
         & = O(n^2)
    \end{align} $$
