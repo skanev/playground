@@ -17,7 +17,7 @@
 3. $\Theta(n^2\lg{n})$ (master method)
 4. $\Theta(n^2)$ (master method)
 5. $\Theta(n^{\log_2{7}})$ (master method)
-6. $\Theta(\sqrt{n}\lg_{n})$ (master method)
+6. $\Theta(\sqrt{n}\lg{n})$ (master method)
 7. $\Theta(n^3)$ by the following:
 
 $$ \begin{align}
