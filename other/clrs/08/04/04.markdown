@@ -13,7 +13,8 @@ where $b$ is the radius of the outer edge and $a$ is the radius of the inner
 edge of the ring.
 
 We look at the $k$th ring, defined by outer radius $d_{k}$ and inner radius $d_{k - 1}$.
-Since we're dividing the circle into concentric rings, we have that the outer radius
+Since we're dividing the circle into concentric rings, there are $k - 1$ rings, each with
+area $\frac{1}{n}$, contained within the inner radius. So this means our outer radius
 defines a disc of area $\frac{k}{n}\pi$ and the inner radius defines one of area $\frac{k - 1}{n}\pi$.
 So what we have is
 
