@@ -7,45 +7,27 @@
 > origin. (<i>Hint:</i> Design the bucket sizes in `BUCKET-SORT` to reflect the
 > uniform distribution of the points in the unit circle.)
 
-The unit circle has area $\pi 1^2 = \pi$. We need to split it in $n$ discs,
-each having area $\pi / n$. The radius of such a disc is $\pi(b^2 - a^2)$,
+The unit circle has area $\pi 1^2 = \pi$. We can divide it into $n$ concentric rings,
+each having area $\pi / n$. The radius of such a ring is $\pi(b^2 - a^2)$,
 where $b$ is the radius of the outer edge and $a$ is the radius of the inner
-edge of the disc.
+edge of the ring.
 
-Let the points $a_0, a_1, a_2, \ldots a_n$ divide the circle in n dics, the
-$i$th disc having radiuses $a_i$ and $a_{i-1}$. We know that $a_0 = 0$ and $a_n
-= 1$. For any two discs we have:
+We look at the $k$th ring, defined by outer radius $d_{k}$ and inner radius $d_{k - 1}$.
+Since we're dividing the circle into concentric rings, we have that the outer radius
+defines a disc of area $\frac{k}{n}\pi$ and the inner radius defines one of area $\frac{k - 1}{n}\pi$.
+So what we have is
 
-$$ \pi^2 \pi(a_i^2 - a_{i-1}^2) = \pi(a_j^2 - a_{j-1}^2) = \frac{\pi}{n} \\\\
-   \Downarrow \\\\
-   a_i^2 - a_{i-1}^2 = a_j^2 - a_{j-1}^2 = \frac{1}{n} \\\\
-   \Downarrow \\\\
-   a_i^2 = \frac{1}{n} + a_{i-1}^2 $$
+$$\frac{1}{n}\pi = \frac{k}{n}\pi - \frac{k - 1}{n}\pi = \pi d_{k}^2 - \pi d_{k - 1}^2$$.
+ 
+All we need to do is solve for $d_{k}$ in $\pi d_{k}^2 = \frac{k}{n}\pi$ for general $k$.
+Fortunately, this is pretty straightforward:
 
-We get the following recurrence:
+$\pi d_{k}^2 = \frac{k}{n}\pi \rightarrow d_{k}^2 = \frac{k}{n} \rightarrow d_{k} = \sqrt{\frac{k}{n}}$.
 
-$$ \begin{align}
-   a_0 &= 0 \\\\
-   a_i &= \sqrt{1/n + a_{i-1}^2}
-   \end{align} $$
+Verifying what we've just done, we have
 
-If we check some small values, we see the following pattern:
-
-$$ \pi n^2 $$
-
-$$ \begin{align}
-   a_0 & = 0 = \frac{1}{\sqrt n} \\\\
-   a_1 & = \sqrt{\frac{1}{n} + \frac{1}{n}} = \frac{\sqrt 2}{\sqrt n} \\\\
-   a_2 & = \sqrt{\frac{1}{n} + \frac{2}{n}} = \frac{\sqrt 2}{\sqrt n} \\\\
-   & \ldots \\\\
-   a_i & = \frac{\sqrt i}{\sqrt n}
-   \end{align} $$
-
-The last step is easy to prove by induction. If we assume it for $i \le k$, then:
-
-$$ a_{k+1} = \sqrt{\frac{1}{n} + a_k^2}
-           = \sqrt{\frac{1}{n} + \frac{k}{n}}
-           = \frac{\sqrt{k+1}}{\sqrt n} $$
+$\pi d_{k}^2 - \pi d_{k - 1}^2 = \pi (\sqrt{\frac{k}{n}})^2 - \pi (\sqrt{\frac{k - 1}{n}})^2 
+   = \pi \frac{k}{n} - \pi \frac{k - 1}{n} = \pi \frac{1}{n}$
 
 Thus, we create buckets for the following intervals:
 
