@@ -2,7 +2,7 @@ GEM
   remote: http://rubygems.org/
   specs:
     coderay (1.0.8)
-    ffi (1.2.0)
+    ffi (1.14.2)
     guard (1.6.1)
       listen (>= 0.6.0)
       lumberjack (>= 1.0.2)
