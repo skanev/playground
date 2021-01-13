@@ -1,0 +1,20 @@
+> Suppose we use a hash function $h$ to hash $n$ distinct keys into an array $T$
+> of length $m$. Assuming simple uniform hashing, what is the expected number of
+> collisions? More precisely, what is the expected cardinality of $ \\{ \\{ k, l
+> \\} : k \neq l \text{ and } h(k) = h(l) \\} $?
+
+Let's use an indicator random variable $I_{kl} = 1$ when there is a collision of
+keys $k$ and $l$. We know that
+
+$$ \Pr \\{ I_{kl} = 1 \\} = \frac{1}{m} = \E[I_{kl}] $$
+
+So the expectation of the total number of collisions is:
+
+$$
+    \E \Big[ \sum_{ k \neq l } { I_{kl} } \Big]
+        = \sum_{ k \neq l }{ \E[I_{kl}] }
+        = \sum_{ k \neq l }{ I_{kl} }
+        = \sum_{ k \neq l }{ \frac{1}{m} }
+        = \binom{n}{2} \frac{1}{m}
+        = \frac{ n (n - 1) }{ 2m }
+$$
