@@ -137,6 +137,7 @@ void assert_true(int v) {
     if (!v) {
         test_report_assertion_error("assert_true");
         fprintf(stderr, "expected a truth\n");
+        fprintf(stderr, "\n");
         abort_test();
     }
 }
@@ -145,6 +146,7 @@ void assert_false(int v) {
     if (v) {
         test_report_assertion_error("assert_false");
         fprintf(stderr, "expected a falsity\n");
+        fprintf(stderr, "\n");
         abort_test();
     }
 }
@@ -158,6 +160,34 @@ void assert_false(int v) {
   test_last_assert_file = __FILE__; \
   test_last_assert_line = __LINE__; \
   assert_false(a)
+
+void assert_null(void *v) {
+    if (v) {
+        test_report_assertion_error("assert_null");
+        fprintf(stderr, "expected null\n");
+        fprintf(stderr, "\n");
+        abort_test();
+    }
+}
+
+void assert_not_null(void *v) {
+    if (!v) {
+        test_report_assertion_error("assert_not_null");
+        fprintf(stderr, "expected not null\n");
+        fprintf(stderr, "\n");
+        abort_test();
+    }
+}
+
+#define ASSERT_NULL(a) \
+  test_last_assert_file = __FILE__; \
+  test_last_assert_line = __LINE__; \
+  assert_null(a)
+
+#define ASSERT_NOT_NULL(a) \
+  test_last_assert_file = __FILE__; \
+  test_last_assert_line = __LINE__; \
+  assert_not_null(a)
 
 void fail(const char *message, ...) {
     va_list args;

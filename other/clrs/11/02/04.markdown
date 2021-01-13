@@ -1,0 +1,91 @@
+> Suggest how to allocate and deallocate storage for elements within the hash
+> table itself by linking all unused slots into a free list. Assume that one
+> slot can store a flag and either one element plus a pointer or two pointers.
+> All dictionary and free-list operations should run in $\O(1)$ expected time.
+> Does the free list need to be doubly linked or does a singly linked free list
+> suffice?
+
+Oh, wow. That was a doozy.
+
+First of all, in my 15+ years of professional programming and 20+ years of just
+coding, this is absolutely the first time I implement a hash table. Can you
+believe it? It's worth a celebration.
+
+Second, this is a bit exotic. It involves a few things:
+
+* Doubly linked lists with sentinels
+* Maintaining a free list
+* Hash tables
+
+## Explanation
+
+The key phrase in the problem definition is "expected time". There's no way to
+solve this in constant time if every key hashes to the same bucket.
+
+### How?
+
+Well, each element of the table is either:
+
+* `{free : boolean = false, value : element, next : pointer}`, when the slot is
+  taken. `element` holds the value of the stored item, and `next` points to the
+  next node in the chain.
+* `{free : boolean = true, prev : pointer, next : pointer}`, when the slot is
+  empty. `prev` and `next` form a doubly linked list with a sentinel stored in
+  the hash table.
+
+When we initialize the hash table, we need to iterate it and make sure that each
+slot is linked together in a free list.
+
+To allocate a slot, we remove it from the free list by modifying `prev` and
+`next` to point to each other, and setting `free` to false.
+
+To return a slot to the free list, we set `free` to true and insert it in the
+beginning.
+
+### Searching
+
+Nothing really changes, apart from a small optimization - if the head of a chain
+in a bucket hashes to a value, different than the bucket index, we can treat
+this slot as empty (it's hosting an element for another chain). We don't need to
+walk it.
+
+### Inserting
+
+There are three possibilities:
+
+1. The bucket slot is empty. We allocate the slot (setting `free = true` and
+   removing it from the free list), and put the element in there with an empty
+   `next`.
+
+2. The bucket slot contains an element with the same hash value. We allocate a
+   new slot, and insert it after the head of the chain (avoids moving items).
+
+3. The bucket slot contains an element with a different hash value. This means
+   the slot is hosting an element from another chain. We need to relocate it to
+   another empty slot and update the chain by starting from the head (which we
+   can find with the hash value) and finding the pointer we need to update. Once
+   the element has been reallocated, we can insert like in step 2.
+
+### Deleting
+
+We hash the value to `h` and lookup the `h`-th slot.
+
+While the slot's value matches the value we need to delete, we copy the next
+element in the chain over, and free its slot. We repeat that until the chain is
+empty, or until it starts with an element with the same hash, but different
+value.
+
+We proceed with the rest of the chain to remove the other elements that match
+the value, returning slots to the free list.
+
+### Does the free list need to be doubly linked?
+
+Yes.
+
+Otherwise, reserving a free slot will be linear to the size of the free list
+(e.g. the size of the hash), because we're not interested in _any_ free slot,
+but rather _a specific_ free slot.
+
+## Code
+
+If the above didn't make sense, hopefully the code below might:
