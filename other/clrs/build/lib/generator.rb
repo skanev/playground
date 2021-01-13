@@ -8,7 +8,6 @@ module Generator
     FileUtils.mkdir_p 'target/compiled'
     Dir.chdir 'target/compiled' do
       copy_static_files
-      generate_about
       generate_catalog catalog
       generate_solutions catalog
     end
@@ -35,10 +34,6 @@ module Generator
         generate_problem problem
       end
     end
-  end
-
-  def generate_about
-    write_file 'about.html', Renderer.render_about
   end
 
   def generate_catalog(catalog)

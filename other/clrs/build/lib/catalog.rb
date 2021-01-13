@@ -52,6 +52,6 @@ class Catalog
     pattern = "#{pattern}.#{extension}" if extension
     matches = Dir.chdir(dir) { Dir.glob(pattern) }
     matches = matches.map { |name| name.gsub(/\.#{extension}$/, '') } if extension
-    matches.map(&block)
+    matches.sort.map(&block)
   end
 end

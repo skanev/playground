@@ -11,6 +11,11 @@ task :clean do
   Pathname(__FILE__).dirname.join('target/bin').rmtree
 end
 
+desc 'Start a local server for files'
+task :server do
+  system 'rackup'
+end
+
 desc 'Copies all the files to ita.skanev.com'
 task :deploy => :build do
   system 'scp -r target/compiled/* ita.skanev.com:~/www'
