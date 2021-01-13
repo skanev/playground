@@ -1,0 +1,27 @@
+> Professor Marley hypothesizes that he can obtain substantial performance gains
+> by modifying the chaining scheme to keep each list in sorted order. How does
+> the professor's modification affect the running time for successful searches,
+> unsuccessful searches, insertions, and deletions?
+
+I'm not sure the professor is right.
+
+If we assume with delete with a key (instead of a pointer to an element), we
+have the following times (with regards to the number of collisions) without
+sorting:
+
+| operation | complexity     |
+|-----------|----------------|
+| `SEARCH`  | linear (both)  |
+| `INSERT`  | constant       |
+| `DELETE`  | linear         |
+
+The only thing that changes when we sort the list, is that instead of prepending
+the item to the list, we have to find its right place, making `INSERT` linear:
+
+| operation | complexity     |
+|-----------|----------------|
+| `SEARCH`  | linear (both)  |
+| `INSERT`  | **linear**     |
+| `DELETE`  | linear         |
+
+I'm not sure what the professor had in mind, but I believe he was mistaken.
