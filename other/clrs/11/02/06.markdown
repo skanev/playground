@@ -1,0 +1,43 @@
+> Suppose we have stored $n$ keys in a hash table of size $m$, with collisions
+> resolved by chaining, and that we know the length of each chain, including the
+> length $L$ of the longest chain. Describe a procedure that selects a key
+> uniformly at random from among the keys in the hash table and returns it in
+> expected time $\O(L \cdot (1 + 1 / \alpha))$.
+
+Think about the hash table as a matrix with $m$ rows and $L$ columns. The first
+element of chain with hash $k$ is put in the first column of the $k$-th row, the
+second is put in the second column of the $k$-th row and so on. Essentially,
+each row contains a chain followed by some empty elements.
+
+The procedure is:
+
+1. Keep picking a random cell in that table (that is, pick a number
+   `s = rand(m * L)`, row `s / L` and column `s % L`) until we get a non-empty
+   one.
+2. Walk the linked list for the chosen row until we get to the chosen column.
+
+Note that when step 1 picks a non-empty element, it does so uniformly. That is,
+each element has equal chance of getting picked.
+
+We need to calculate the time for the first step (say $A$) and add it to the
+time of the second step (say $B$).
+
+The probability to pick an element in step 1 is:
+
+$$ \Pr \\{ \text{not empty} \\} = \frac{n}{mL} = \frac{\alpha}{L} $$
+
+The expected number of trials to pick a non-empty element is modelled by the
+geometric distribution (Bernoulli trials, (C.32)), and has $\E[X] = 1 / p$. That
+is, on average we expect the following number of trials:
+
+$$ A = \frac{L}{\alpha} = \O( L / \alpha ) $$
+
+Once we have picked up the `i`th row and the `j`th column, we need to walk the
+linked list on row `i` and advance `j` elements. Worst case, that takes $L$
+steps, because the longest chain has that many elements. That is:
+
+$$ B = \O(L) $$
+
+And thence, the expected time is:
+
+$$ A + B = \O(L / \alpha) + \O(L) = \O( L \cdot ( 1 + 1 / \alpha ) ) $$
