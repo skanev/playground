@@ -1,0 +1,30 @@
+> Suppose that we are storing a set of $n$ keys into a hash table of size $m$.
+> Show that if the keys are drawn from a universe $U$ with $\| U \| > nm$ then
+> $U$ has a subset of size $n$ consisting of keys that all hash to the same
+> slot, so that the worst-case searching time for hashing with chaining is
+> $\Theta(n)$.
+
+Obvious statement is obvious. Oh well.
+
+We are hashing elements into $m$ distinct buckets. Let $h$ be the hash function,
+that is for $u \in U$ we have $0 \le h(u) < m$.
+
+Furthermore, let $C(k)$ be the number of elements in $U$ that hash to $k$.
+
+We need to demonstrate that there is some $j: 0 \le j < m$ for which there are are at
+least $n$ elements $x_i \in U$ (where for $i \in \\{1, 2, \dots, n\\} )$ such
+that $h(x_i) = j$, that is, there exists a $k$ such that $C(k) \ge n$.
+
+Let's assume this is incorrect, that is, every $j$ has at most $n - 1$ elements
+hashing into it, or in other words $C(x) \le n - 1$ for every $x$. We know that
+every element of $U$ needs to hash to one of $m$ values, that is:
+
+$$
+    \sum_{i = 0}^{i<m}{ C(i) } = \| U \| \gt nm \\\\
+    \Downarrow \\\\
+    C(0) + \sum_{i = 1}^{i<m}{ C(i) } \gt nm \\\\
+    \Downarrow \\\\
+    C(0) \gt nm - \sum_{i = 1}^{i<m}{ C(i) } \ge nm - \sum_{i=1}^{i<m}{(n - 1)} = nm - (m - 1)(n - 1)\\\\
+$$
+
+
