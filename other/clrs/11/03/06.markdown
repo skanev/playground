@@ -1,0 +1,37 @@
+> $\star$ Let $U$ be the set of $n$-tuples of values drawn from $\mathbb{Z}\_p$,
+> and let $B = \mathbb{Z}\_p$, where $p$ is prime. Define the hash function $h_b
+> : U \rightarrow B$ for $b \in \mathbb{Z}_p$ on an input $n$-tuple $ \langle
+> a\_0, a\_1, \ldots , a\_{n-1} \rangle $ from $U$ as
+>
+> $$
+>     h_b( \langle a_0, a_1, \ldots, a_{n-1} \rangle ) =
+>     \left( \sum_{j=0}^{n-1}{a_j b^j} \right) \bmod p
+> $$
+>
+> and let $\mathscr{H} = \left\\{ h\_b : b \in \mathbb{Z}\_p \right\\}$. Argue
+> that $\mathscr{H}$ is $((n - 1)/p)$-universal according to the definition of
+> $\epsilon$-universal in Exercise 11.3-5. (_Hint:_ See Exercise 31.4-4).
+
+Let's figure out when when we have a colliding pair. We need to have:
+
+$$ h_b(k) = h_b(l) $$
+
+Which is better written as:
+
+$$ h_b(k) - h_b(l) = 0 \mod p $$
+
+Well, if we calculate the difference:
+
+$$
+    h_b(k) - h_b(l) = \sum_{j=0}^{n-1}{k_j b^j} - \sum_{j=0}^{n-1}{l_j b^j}
+                    = \sum_{j=0}^{n-1}{(k_j - l_j) b^j}
+$$
+
+Which is a polynomial of the $(n-1)$-th degree. The referred exercise is a
+theorem, that tells us this polynomial would have a most $n-1$ zeroes modulo
+$p$.
+
+There are $p$ possible functions, at most $n-1$ of which will cause any pair to
+have a collision, therefore:
+
+$$ \Pr\\{ h(k) = h(l) \\} \le \frac{n-1}{p} $$
