@@ -1,0 +1,118 @@
+> $\star$ Define a family $\mathscr{H}$ of hash functions from a finite set $U$
+> to a finite set $B$ to be **$\epsilon$-universal** if for all pairs of
+> distinct elements $k$ and $l$ in $U$,
+>
+> $$ \Pr\\{ h(k) = h(l) \\} \le \epsilon $$
+>
+> where the probability is over the choice of the hash function $h$ drawn at
+> random from the family $\mathscr{H}$. Show that an $\epsilon$-universal family
+> of hash functions must have
+>
+> $$ \epsilon \ge \frac{1}{|B|} - \frac{1}{|U|} $$
+
+I've found this a bit tricky, especially with (1) trying to wrap my brain around
+the notation, and (2) sticking to the formalism. Let's try to build some
+intuition here, and then use it to fill potential holes in a more formal proof.
+
+To save some typing, let $b = |B|$ and $u = |U|$.
+
+The assertion tells use that $Pr \\{ h(k) = h(l) \\} \ge \frac{1}{b} -
+\frac{1}{u} = (u - b) / bu$. If $b \ge u$, this means that we can design the
+function so that there are no collisions. If $b$ is lower, there are bound to be
+some collisions, however. For example, if $b = 5$ and $u = 8$, at most 4
+elements can be stored without any collisions. The other 4 will collide to the
+same hash value. Alternatively, 6 elements can be mapped into three pairwise
+collisions, and the other two can be without any collisions.
+
+Let's sketch both, assuming without any loss of generality, that $B = \\{1, 2, 3,
+4, 5\\}$ and $U = \\{ 1, 2, \ldots, 8 \\} $. $h_1$ will spread the collisions
+evenly, where $h_2$ will put them in a single bucket.
+
+| $v \in U$  | $h_1(v)$ | $h_2(v)$|
+|------------|----------|---------|
+| 1          | **1**    | 1       |
+| 2          | **1**    | 2       |
+| 3          | **2**    | 3       |
+| 4          | **2**    | 4       |
+| 5          | **3**    | **5**   |
+| 6          | **3**    | **5**   |
+| 7          | 4        | **5**   |
+| 8          | 5        | **5**   |
+
+Colliding elements are in **bold**.
+
+Which one is better? Note that it depends on whether we're talking about
+non-colliding elements, or no-colliding pairs. $h_2$ has fewer colliding
+elements (4), but more colliding pairs ($\\{5, 6\\}, \\{5, 7\\}, \\{5, 8\\},
+\\{6, 7\\}, \\{6, 8\\}, \\{7, 8\\}$). On the other hand, $h_1$ has 6 colliding
+elements, but only 4 colliding pairs. Note that if $k$ elements are mapped to
+the same value in $B$, there are $\binom{k}{2}$ pairs that collide.
+
+Let's consider how to minimize the number of colliding pairs.
+
+Again, let's assume that $U = \\{1, 2, \ldots, |U| \\}$ and $B = \\{1, 2,
+\ldots, |B| \\}$. This is OK, because however we pick the original $U$ and $B$,
+there is a trivial bijection to the first few natural numbers.
+
+Let $c_i$ be the number of pairs for elements that map to $i \in B$. The total
+number of collisions, $C$, is then:
+
+$$ C = \sum_{i=1}^{b}{\binom{c_i}{2}} = \frac{1}{2} \sum_{i=1}^{k}{c_i (c_i - 1)} $$
+
+Let's do a bit of hand-waving. What's better in order to minimize $C$ - (1) to
+distribute the collisions evenly across the buckets, or (2) to let $b - 1$
+elements be without collisions, and put the remaining $u - b + 1$ elements go in
+the same bucket? In the first approach ($C_1$), each bucket would have at most
+$\binom{\lceil u/b \rceil}{2}$ pairs that collide. In the other approach, we
+would have $C_2 = \binom{u - b + 1}{2}$ total collisions for a single bucket.
+
+For $h_1(x)$, we have:
+
+$$
+    C_1 = \sum_{i=1}^{b} \binom{\lceil u/b \rceil}{2}
+        = b \frac{ \lceil u/b \rceil ( \lceil u/b - 1 \rceil ) } { 2 }
+        \le b \frac{ (u/b) (u/b - 1) } { 2 }
+        = \frac { u (u - b) } { 2b }
+$$
+
+For $h_2(x)$ we have:
+
+$$
+    C_2 = \binom{u - b + 1}{2} = \frac{ (u - b + 1)(u - b) }{2}
+        = \frac{u^2 + u + b^2 - 2bu - b }{2}
+$$
+
+It appears that $C_1$ is smaller and always minimizes the number of collisions.
+Plug in some concrete values to convince yourself (e.g. with $u = 1000$ and $b =
+970$, $C_1$ is $15$, but $C_2$ is $456$; with a bigger in $u$ and $b$, we get a
+much bigger difference between the number of collisions).
+
+Let's try this another way – lower bound for number of colliding pairs:
+
+$$
+    C = \sum_{i=1}^{b}{c_i (c_i - 1) }
+      = \sum_{i=1}^{b}{c_i^2} - \sum_{i=1}^{b}{c_i}
+      = \sum_{i=1}^{b}{c_i^2} - |U| $$
+
+The final bit, $|U| = \sum{c_i}$, is because each element from $U$ maps to a
+particular bucket $i$ and is counted once and only once.
+
+We also notice that (sort of):
+
+$$ c_i \ge \frac{u}{b} $$
+
+And:
+
+$$ \sum_{i=1}^{b}{c_i} \ge \sum_{i=1}^{b}{\frac{u^2}{b^2}} = \frac{u^2}{b} $$
+
+Thus, finally:
+
+$$
+    \epsilon \ge \Pr\\{h(k) = h(l)\\}
+      = \frac{ \sum_{i=1}^{b}{ c_i (c_i - 1) } } { u(u - 1) }
+      \ge \frac { \sum_{i=1}^{b}{c_i^2} - \sum_{i=1}^{b}{c_i} } {u^2}
+      \ge \frac { \frac{u^2}{b} - u } {u^2}
+      = \frac {u^2 - ub }{u^2b}
+      = \frac{u - b}{ub}
+      = \frac{1}{b} - \frac{1}{u}
+$$
