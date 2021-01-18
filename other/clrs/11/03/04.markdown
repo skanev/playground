@@ -1,0 +1,8 @@
+> Consider a hash table of size $m = 1000$ and a corresponding hash function
+> $h(k) = \lfloor m (kA \bmod 1) \rfloor$ for $A = (\sqrt{5} - 1)/2$. Compute
+> the locations to which the keys 61, 62, 63, 64, and 65 are mapped.
+
+It would have been nice if we could $m$ was a power of 2, in which case we could
+have bit-shifted.
+
+Otherwise, he's the answer, along with some Python code to generate it
