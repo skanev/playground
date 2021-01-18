@@ -63,6 +63,7 @@
 ;   b - a = 0,   2ⁱ - 1
 ;   b - a ≥ 1,   2ⁱ - 1 + 2ⁱ⁻¹ + (b-a-1)2ⁱ
 
+(define stream-take '())
 (define the-empty-stream empty-stream)
 (define stream-null? stream-empty?)
 (define stream-car stream-first)

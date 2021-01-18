@@ -137,20 +137,20 @@
         (apply-rules query-pattern frame history)))
     frame-stream))
 
-(define (conjoin conjuncts frame-stream history)
+(define (con-join conjuncts frame-stream history)
   (if (empty-conjunction? conjuncts)
       frame-stream
-      (conjoin (rest-conjuncts conjuncts)
+      (con-join (rest-conjuncts conjuncts)
                (qeval (first-conjunct conjuncts)
                       frame-stream
                       history)
                history)))
 
-(define (disjoin disjuncts frame-stream history)
+(define (dis-join disjuncts frame-stream history)
   (if (empty-disjunction? disjuncts)
       empty-stream
       (interleave (qeval (first-disjunct disjuncts) frame-stream history)
-                  (disjoin (rest-disjuncts disjuncts)
+                  (dis-join (rest-disjuncts disjuncts)
                            frame-stream
                            history))))
 
@@ -482,8 +482,8 @@
   (set! THE-ASSERTIONS '())
   (set! THE-RULES '())
 
-  (put 'and 'qeval conjoin)
-  (put 'or 'qeval disjoin)
+  (put 'and 'qeval con-join)
+  (put 'or 'qeval dis-join)
   (put 'not 'qeval negate)
   (put 'lisp-value 'qeval lisp-value)
   (put 'always-true 'qeval always-true))

@@ -149,6 +149,7 @@
         (apply-rules query-pattern frame history)))
     frame-stream))
 
+(define conjoin '())
 (define (conjoin conjuncts frame-stream history)
   (if (empty-conjunction? conjuncts)
       frame-stream
@@ -158,6 +159,7 @@
                       history)
                history)))
 
+(define disjoin '())
 (define (disjoin disjuncts frame-stream history)
   (if (empty-disjunction? disjuncts)
       empty-stream

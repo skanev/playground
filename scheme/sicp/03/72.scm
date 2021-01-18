@@ -4,6 +4,7 @@
 ; be written as the sum of two squares in three different ways (showing how
 ; they can be so written).
 
+(define stream-take '())
 (define the-empty-stream empty-stream)
 (define stream-null? stream-empty?)
 (define stream-car stream-first)

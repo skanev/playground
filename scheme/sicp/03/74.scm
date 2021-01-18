@@ -31,12 +31,13 @@
 ; Alyssa's boss, Eva Lu Ator, walks by and suggests that this program is
 ; approximately equivalent to the following one, which uses the generalized
 ; version of stream-map from exercise 3.50
-; 
+;
 ;   (define zero-crossings
 ;     (stream-map sign-change-detector sense-data <expression>))
 ;
 ; Complete the program by supplying the indicated <expression>.
 
+(define stream-take '())
 (define the-empty-stream empty-stream)
 (define stream-null? stream-empty?)
 (define stream-car stream-first)

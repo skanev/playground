@@ -19,6 +19,7 @@
 ; In that expression, a₀b₀ is the first element of the series and the rest is
 ; the remaining elements. The solution is at the end.
 
+(define stream-take '())
 (define the-empty-stream empty-stream)
 (define stream-null? stream-empty?)
 (define stream-car stream-first)

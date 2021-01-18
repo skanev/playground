@@ -9,6 +9,7 @@
 ;   (define (sqrt x tolerance)
 ;     (stream-limit (sqrt-stream x) tolerance))
 
+(define stream-take '())
 (define the-empty-stream empty-stream)
 (define stream-null? stream-empty?)
 (define stream-car stream-first)

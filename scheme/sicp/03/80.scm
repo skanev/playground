@@ -47,6 +47,7 @@
 ; Wow. The electronics here are beyond me. To be honest - the math too.
 ; Anyway:
 
+(define stream-take '())
 (define the-empty-stream empty-stream)
 (define stream-null? stream-empty?)
 (define stream-car stream-first)

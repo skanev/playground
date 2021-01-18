@@ -222,6 +222,7 @@
         (apply-rules query-pattern env)))
     env-stream))
 
+(define conjoin '())
 (define (conjoin conjuncts env-stream)
   (if (empty-conjunction? conjuncts)
       env-stream
@@ -229,6 +230,7 @@
                (qeval (first-conjunct conjuncts)
                       env-stream))))
 
+(define disjoin '())
 (define (disjoin disjuncts env-stream)
   (if (empty-disjunction? disjuncts)
       empty-stream

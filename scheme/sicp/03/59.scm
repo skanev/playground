@@ -55,6 +55,7 @@
 ; This is ridiculously easy. So easy, I'm shocked how much time it took to
 ; input the exercise in comparison to solving it.
 
+(define stream-take '())
 (define the-empty-stream empty-stream)
 (define stream-null? stream-empty?)
 (define stream-car stream-first)

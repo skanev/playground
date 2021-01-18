@@ -42,6 +42,7 @@
 ;
 ; Fill in the missing expressions in the places marked <??> above.
 
+(define stream-take '())
 (define the-empty-stream empty-stream)
 (define stream-null? stream-empty?)
 (define stream-car stream-first)

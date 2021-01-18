@@ -15,6 +15,7 @@
 ; write a procedure invert-unit-series that computes 1/S for a power series S
 ; with constant term 1. You will need to use mul-series from exercise 3.60.
 
+(define stream-take '())
 (define the-empty-stream empty-stream)
 (define stream-null? stream-empty?)
 (define stream-car stream-first)

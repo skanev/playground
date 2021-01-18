@@ -4,6 +4,7 @@
 ; the stream of all pairs of integers (i, j) (without the condition i ≤ j).
 ; Hint: You will need to mix in an additional stream.
 
+(define stream-take '())
 (define the-empty-stream empty-stream)
 (define stream-null? stream-empty?)
 (define stream-car stream-first)

@@ -17,6 +17,7 @@
 ;   ln2-stream-euler takes 12 steps to tolerance 0.0001
 ;   ln2-stream-accelarated takes 4 steps to tolerance 0.0001
 
+(define stream-take '())
 (define the-empty-stream empty-stream)
 (define stream-null? stream-empty?)
 (define stream-car stream-first)

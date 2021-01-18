@@ -20,9 +20,9 @@
               (combine-lists (cdr a) (cdr b)))))
   (map (lambda (floors) (combine-lists '(baker cooper fletcher miller smith) floors))
        (filter (lambda (floors) (apply solution? floors))
-               (permutations 5))))
+               (permute 5))))
 
-(define (permutations n)
+(define (permute n)
   (define (insert-into n items)
     (if (null? items)
         (list (cons n '()))
@@ -32,7 +32,7 @@
   (if (= n 1)
       '((1))
       (flat-map (lambda (items) (insert-into n items))
-                (permutations (- n 1)))))
+                (permute (- n 1)))))
 
 (define (flat-map proc items)
   (if (null? items)

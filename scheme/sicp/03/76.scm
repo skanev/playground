@@ -9,6 +9,7 @@
 ; succesive input stream elements. Then use smooth as a component to implement
 ; the zero-crossing detector in a more modular style.
 
+(define stream-take '())
 (define the-empty-stream empty-stream)
 (define stream-null? stream-empty?)
 (define stream-car stream-first)

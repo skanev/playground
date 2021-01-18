@@ -22,6 +22,7 @@
 ; neither i nor j is divisable by 2, 3, or 5 and the pairs are ordered
 ; according to the sum 2i + 3j + 5ij.
 
+(define stream-take '())
 (define the-empty-stream empty-stream)
 (define stream-null? stream-empty?)
 (define stream-car stream-first)

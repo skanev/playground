@@ -7,6 +7,7 @@
 ; signal an error.) Show how to use div-series together with the result of
 ; exercise 3.59 to generate the power series for tangent.
 
+(define stream-take '())
 (define the-empty-stream empty-stream)
 (define stream-null? stream-empty?)
 (define stream-car stream-first)

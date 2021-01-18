@@ -182,6 +182,7 @@
         (apply-rules query-pattern frame)))
     frame-stream))
 
+(define conjoin '())
 (define (conjoin conjuncts frame-stream)
   (if (empty-conjunction? conjuncts)
       frame-stream
@@ -189,6 +190,7 @@
                (qeval (first-conjunct conjuncts)
                       frame-stream))))
 
+(define disjoin '())
 (define (disjoin disjuncts frame-stream)
   (if (empty-disjunction? disjuncts)
       empty-stream

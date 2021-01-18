@@ -64,6 +64,7 @@
   (amb (find-assertions query-pattern frame)
        (apply-rules query-pattern frame)))
 
+(define conjoin '())
 (define (conjoin conjuncts frame)
   (if (empty-conjunction? conjuncts)
       frame
@@ -71,6 +72,7 @@
         (require (matched? match))
         (conjoin (rest-conjuncts conjuncts) match))))
 
+(define disjoin '())
 (define (disjoin disjuncts frame)
   (if (empty-disjunction? disjuncts)
       (amb)

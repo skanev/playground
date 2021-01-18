@@ -10,11 +10,6 @@
 (define stream-car stream-first)
 (define stream-cdr stream-rest)
 
-(define (stream-take stream n)
-  (if (= n 0)
-      '()
-      (cons (stream-car stream) (stream-take (stream-cdr stream) (- n 1)))))
-
 (define random-modulus 4294967296)
 (define random-init (modulo (current-milliseconds) random-modulus))
 

@@ -4,6 +4,7 @@
 ; returns the stream whose elements are S₀, S₀ + S₁, S₀ + S₁ + S₂, ... . For
 ; example, (partial-sums integers) should be the stream 1, 3, 6, 10, 15
 
+(define stream-take '())
 (define the-empty-stream empty-stream)
 (define stream-null? stream-empty?)
 (define stream-car stream-first)

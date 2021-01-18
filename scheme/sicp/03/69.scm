@@ -5,6 +5,7 @@
 ; to generate the stream of all Pythagorean triples of positive integers, i.e.
 ; the triples (i, j, k) such that i ≤ j and i² + j² = k².
 
+(define stream-take '())
 (define the-empty-stream empty-stream)
 (define stream-null? stream-empty?)
 (define stream-car stream-first)

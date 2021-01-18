@@ -10,6 +10,7 @@
 ; the same weight. Write a procedure to generate the Ramanujan numbers. The
 ; first such number is 1,729. What are the next five?
 
+(define stream-take '())
 (define the-empty-stream empty-stream)
 (define stream-null? stream-empty?)
 (define stream-car stream-first)

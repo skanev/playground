@@ -7,6 +7,7 @@
 ; to reset the sequence to a specified value and that produces the desired
 ; stream of random numbers. Don't use assignment in your solution.
 
+(define stream-take '())
 (define the-empty-stream empty-stream)
 (define stream-null? stream-empty?)
 (define stream-car stream-first)
