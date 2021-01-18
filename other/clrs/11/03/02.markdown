@@ -1,0 +1,23 @@
+> Suppose that we hash a string of $r$ characters into $m$ slots by treating it
+> as a radix-128 number and then using the division method. We can easily
+> represent the number $m$ as a 32-bit computer word, but the string of $r$
+> characters, treated as a radix-128 number, takes many words. How can we apply
+> the division method to compute the hash value of the string without using more
+> than a constant number of words of storage outside the string itself?
+
+Yes, this follows pretty easily from the laws of modulo arithmetic. We need to
+observe that if the string is $s = \langle a_n, \ldots, a\_1, a\_0 \rangle$,
+then its hash $h(s)$ is going to be:
+
+$$
+    \begin{align}
+      h(s) &= \left( \sum_{i=0}^{n}{a_i \cdot {128}^{i}} \right) \bmod m \\\\
+           &= \sum_{i=0}^{n}{ \Big( \left( a_i \cdot {128}^{i} \right) \bmod m \Big) } \\\\
+           &= \sum_{i=0}^{n}{ \Big( ( a_i \bmod m ) ( {128}^{i} \bmod m ) \Big) } \\\\
+    \end{align}
+$$
+
+We can easily compute $a_i \bmod m$ without extra memory. To compute ${128}^{i}
+\bmod m$ without extra memory, we just need to observe that $k^i \bmod m =
+k(k^{i-1} \bmod m) \bmod m$, that is, we can compute the module for each power
+incrementally, without ever needing unbound memory.
