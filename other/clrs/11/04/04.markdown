@@ -1,0 +1,46 @@
+> $\star$ Suppose that we use double hashing to resolve collisions – that is, we
+> use the hash function $h(k, i) = (h_1(k) + i h_2(k)) \bmod m$. Show that if
+> $m$ and $h_2(k)$ greatest common divisor $d \ge 1$ for some key $k$, then an
+> unsuccessful search for key $k$ examines $(1/d)$th of the hash table before
+> returning to slot $h_1(k)$. Thus, when $d = 1$, so that $m$ and $h_2(k)$ are
+> relatively prime, the search may examine the entire hash table (_Hint:_ See
+> Chapter 31).
+
+This is a bit obvious.
+
+As the book made the argument either, the probe starts with $h_1(k)$ and then
+steps $h_2(k)$ places to check the next until it wraps around. If $\gcd(h_2(k),
+m) = d$, then probing would loop through $m/d$ elements before returning to
+starting position.
+
+For example, if $h_1(k) = 3$, $h_2(k) = 2$ and $m = 10$, we'll probe the
+following sequence: $3, 5, 7, 9, 1, 3, \ldots$, that is, we're looking only at
+the odd numbers.
+
+But, eh, let's try to make a formal argument.
+
+If $\gcd(h_2(k), m) = d$, let's define $s = m/d$ and $c = h_2(k)/d$, both of
+which are integers. The probe sequence $f_k(i)$ is defined to be:
+
+$$ f_k(i) = \left( h_1(k) + i h_2(k) \right) \mod m $$
+
+Let's unpack the right part:
+
+$$
+    \begin{align}
+      f_k(i) &= \left( h_1(k) + i h_2(k) \right) \bmod m \\\\
+             &= \big( h_1(k) \bmod m \big) + \big( icd \bmod m \big) \\\\
+             &= C + \big( icd \bmod m \big)
+    \end{align}
+$$
+
+...where $=$ implies "modulo m". $C$ is constant in regards to $i$ and the only
+variable is $icd$. Note that function is $s$-periodic modulo $m$, because we
+have:
+
+$$ f_k(i + s) = C + (i + s)cd = C + icd + scd = C + icd = f_k(i) $$
+
+Because $scd = mc = 0$ (modulo m). This means it can take $s$ distinct values,
+which means the probe sequence examines $s/m$th of the table before returning to
+the initial slot. $s/m = s/(sd) = 1/d$, which is what the exercise asks us to
+prove.
