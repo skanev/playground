@@ -1,0 +1,128 @@
+## Hashing and authentication
+
+> Let $\mathscr{H}$ be a class of hash functions in which each hash function $h
+> \in \mathscr{H}$ maps the universe $U$ of keys to $\\{0, 1, \ldots, m - 1\\}$.
+> We say that $\mathscr{H}$ is **k-universal** if, for every fixed sequence of
+> $k$ distinct keys $\langle x^{(1)}, x^{(2)}, \ldots, x^{(k)} \rangle$ and for
+> any $h$ chosen at random from $\mathscr{H}$, the sequence $\langle h(x^{(1)}),
+> h(x^{(2)}), \ldots, h(x^{(k)}) \rangle$ is equally likely to be any of the
+> $m^k$ sequences of length $k$ with elements drawn from $\\{0, 1, \ldots, m -
+> 1\\}$.
+>
+> **a.** Show that if the family $\mathscr{H}$ of hash functions is 2-universal,
+> then it is universal.
+>
+> **b.** Suppose that the universe $U$ is the set of $n$-tuples of values drawn
+> from $\mathbb{Z}\_p = \\{0, 1, \ldots, p - 1\\}$, where $p$ is prime. Consider
+> an example $x = \langle x\_0, x\_1, \ldots, x_{n-1} \rangle \in U$. For
+> any $n$-tuple $a = \langle a_0, a_1, \ldots, a_{n-1} \rangle \in U$, define
+> the hash function $h_a$ by
+>
+> $$ h_a(x) = \left( \sum_{j=0}^{n-1} a_j x_j \right) \bmod p $$
+>
+> Let $\mathscr{H} = \\{h_a\\}$. Show that $\mathscr{H}$ is universal, but not
+> 2-universal. (_Hint:_ Find a key for which all hash functions in $\mathscr{H}$
+> produce the same value.)
+>
+> **c.** Suppose that we modify $\mathscr{H}$ slightly from part (b): for any $a
+> \in U$ and for any $b \in \mathbb{Z}_p$, define
+>
+> $$ h_{ab}'(x) = \left( \sum_{j=0}^{n-1} a_j x_j + b \right) \bmod p $$
+>
+> and $\mathscr{H}' = \\{h_{ab}'\\}$. Argue that $\mathscr{H}'$ is 2-universal.
+> (_Hint:_ Consider fixed $n$-tuples $x \in U$ and $y \in U$, with $x_i \ne y_i$
+> for some $i$. What happens to $h_{ab}'(x)$ and $h_{ab}'(y)$ and $a_i$ and $b$
+> over range $\mathbb{Z}_p$?)
+>
+> **d.** Suppose that Alice and Bob secretly agree on a hash function $h$ from a
+> 2-universal family $\mathscr{H}$ of hash functions. Each $h \in \mathscr{H}$
+> maps from a universe of keys $U$ to $\mathbb{Z}_p$, where $p$ is prime. Later,
+> Alice sends a message $m$ to BoB over the Internet, where $m \in U$. She
+> authenticates this message to Bob by also sending an authentication tag $t =
+> h(m)$, and Bob checks that the pair $(m, t)$ he receives indeed satisfies $t =
+> h(m)$. Suppose that an adversary intercepts $(m, t)$ en route and tries to
+> fool Bob by replacing the pair $(m, t)$ with a different pair $(m', t')$.
+> Argue that the probability that the adversary succeeds in fooling Bob into
+> accepting $(m', t')$ is at most $1/p$, no matter how much computing power the
+> adversary has, and even if the adversary knows the family $\mathscr{H}$ of
+> hash functions used.
+
+### a. 2-universal implies universal
+
+This is pretty much by the definition. 2-universal means that the tuple/pair
+$\langle a, b \rangle$ is equally likely to be any of the $m^2$ possible pairs,
+$m$ of which contain the same element repeating, placing the chance of collision
+at $1/m$, which is the requirement for "universal".
+
+### b. One possible family of hash functions
+
+In order to convince ourselves that it's universal, we need to establish an
+upper bound on the probability of $h_a(x) = h_a(y)$ when $x \ne y$. This holds
+when:
+
+$$ \sum_{j=0}^{n-1} (x_k - y_k)a_j = 0 \mod p $$
+
+...or fully we're looking for:
+
+$$ \Pr\\{ \sum_{j=0}^{n-1} (x_k - y_k)a_j \bmod p = 0 \\} \le \frac{1}{p} $$
+
+Let's acknowledge that $(x_k - y_k)$ is fixed, and the only thing we're
+considering is the possible values for $a\_j$. Furthermore, let's also note that
+$a_j < p$.
+
+Now let's establish for which tuples the above condition holds. If we fix the
+first $n - 1$ elements of the tuple, we're left with a choice of the last one.
+Since $a_{n-1} < p$, there is only one possible value for the last element that
+will be produce a sum equal to 0 modulo $p$. All other will be $\ne p$. That is,
+$1$ in every $p$ functions will produce a collision, and the overall probability
+is $1/p$, which is the requirement for universality.
+
+It's not 2-universal, however, because all functions of the family produce
+$h_a(x) = 0$ when $x = \langle 0, 0, \ldots, 0 \rangle$.
+
+### c. A better family of functions
+
+At this point it gets pretty intuitive that this is 2-universal, because it
+eliminates the problem with the zeroes. Following the hint, if we have two
+tuples that differ only for some it, that is $x_i \ne y_i$, we'll have
+$h_{ab}'(x) = h_{ab}'(y)$ only when:
+
+$$ a_i x_i + b = a_i y_i + b \mod p $$
+
+Or rather:
+
+$$ a_i (x_i - y_i) + b = 0 \mod p $$
+
+Since $x_i - y_i$ is fixed, and both $a_i < p$ and $b < p$, there is only one
+value of $b$ that satisfies the equation for a given value of $a_i$. That is,
+there are $p/p^2 = 1/p$ pairs which collide.
+
+This argument can be formalized, but honestly, it's not worth it.
+
+### d. Hash fingerprints, but with more words
+
+Well, there if the adversary has $(m, t)$ and they would like to craft $m'$,
+they need to calculate $t'$ correctly. They can limit the family of functions in
+$\mathscr{H}$ to only those that produce $h(m) = t$. But even then, 2-universal
+implies that for $\langle m, m' \rangle$, any of the possible $\langle t, t'
+\rangle$ are equality likely (probability $1/p^2$), which in turn means that for
+any fixed $t$, any of the $p$ possible values of $t'$ is equally likely as well.
+
+With no additional information, the only thing our adversary can do is pick any
+of the subset they identified, and they have only $1/p$ chance to get it right
+_for the next message_.
+
+---
+
+It's worth noting two things:
+
+1. If the adversary had multiple pairs of $(m_i, t_i)$, they can narrow it down
+   further, assuming they can compute the subset of the family $\mathscr{H}$.
+   Now, if the family is $(i+1)$-universal, they are back to looking at $1/p$
+   probability after the $i$th message.
+
+2. The functions in the family can be [picked in a way][one-way-fn], where the
+   adversary cannot easily identify the ones for which $h(m) = t$ given $m$ and
+   $t$, given that $P \ne NP$.
+
+[one-way-fn]: https://en.wikipedia.org/wiki/One-way_function
