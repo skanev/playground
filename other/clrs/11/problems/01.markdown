@@ -1,0 +1,99 @@
+## Longest-probe bound for hashing
+
+> Suppose that we use an open-addressed hash table of size $m$ to store $n \le
+> m/2$ items.
+>
+> a. Assuming uniform hashing, show that for $i = 1, 2, \ldots, n$, the
+>    probability is at most $2^{-k}$ that the $i$th insertion requires strictly
+>    more than $k$ probes.
+>
+> b. Show that for $i = 1, 2, \ldots, n$, the probability is $\O(1/n^2)$ that
+>    the $i$th insertion requires more than $2\lg{n}$ probes.
+>
+> Let the random variable $X_i$ denote the number of probes required by the
+> $i$th insertion. You have shown in part (b) that $\Pr\\{X_i > 2\lg{n}\\} =
+> \O(1/n^2)$. Let the random variable $X = \max_{1 \le i \le n} X_i$ denote the
+> maximum number of probes required by any of the $n$ insertions.
+>
+> c. Show that $\Pr\\{X > 2 \lg{n}\\} = \O(1/n)$
+>
+> d. Show that the expected length $\E[X]$ of the longest probe sequence is
+> $\O(\lg{n})$.
+
+Alright.
+
+### a. Number of probes
+
+From the text we know that:
+
+$$
+    \Pr\\{ X \ge i \\} = \Pr\\{ X > i - 1 \\} = \frac{n}{m} \cdot \frac{n-1}{m-1}
+       \cdots \frac{n-i+2}{m-i+2} \le \left( \frac{n}{m} \right)^{i-1} =
+       \alpha^{i-1}
+$$
+
+Since we know that $n \le m/2$, we know that:
+
+$$
+    \Pr\\{X > k\\} = \Pr\\{X \ge k+1 \\}
+                  \le \left( \frac{n}{m} \right)^k
+                  \le \left( \frac{m}{2m} \right)^k
+                  = \left( \frac{1}{2} \right)^k
+                  = 2^{-k}
+$$
+
+### b. Insertion requiring more than $2\lg{n}$ probes
+
+Well, just substitute in the previous with $k = 2\lg{n} = \lg{n^2}$:
+
+$$ \Pr\\{X > \lg{n^2}\\} \le 2^{-\lg{n^2}} = \frac{1}{n^2} = \O(1/n^2) $$
+
+### c. Probability for longest probe
+
+$$
+    \begin{aligned}
+      \Pr\\{X > 2\lg{n}\\} &= \Pr\\{\bigcup_{i=1}^n \left( X_i > 2\lg{n} \right) \\} && \\\\
+                           &\le \sum_{i=1}^{n} \Pr\\{X_i > 2\lg{n} \\} &&
+                                \text{since } \Pr\\{A \cup B\\} \le \Pr\\{A\\} + \Pr\\{B\\} \\\\
+                           &\le \sum_{i=1}^{n} \frac{1}{n^2} &&
+                                \text{because of (b)} \\\\
+                           &= \frac{n}{n^2} \\\\
+                           &= \O(1/n)
+    \end{aligned}
+$$
+
+### d. Expectation of the longest probe sequence
+
+Here's a weird way to do it that I lifted from the Instructor's Manual after I
+gave up. The point is to split the expectation into two parts:
+
+$$
+    \begin{align}
+      \E[X] &= \sum_{k=1}^{n} k \Pr \\{ X = k \\} \\\\
+            &= \sum_{k=1}^{\lceil 2\lg{n} \rceil} k \Pr\\{X = k\\} + \sum_{\lceil 2\lg{n} \rceil + 1}^n k \Pr\\{X = k\\} \\\\
+            &\le \sum_{k=1}^{\lceil 2\lg{n} \rceil} \lceil 2\lg{n} \rceil \cdot \Pr\\{X = k\\} + \sum_{\lceil 2\lg{n} \rceil + 1}^n n \cdot \Pr\\{X = k\\} \\\\
+            &= \lceil 2\lg{n} \rceil \sum_{k=1}^{\lceil 2\lg{n} \rceil} \Pr\\{X = k\\} + n \sum_{\lceil 2\lg{n} \rceil + 1}^n \Pr\\{X = k\\} \\\\
+    \end{align}
+$$
+
+We can then simplify the two parts of the sum.
+
+We know that $X$ takes only one value, so the sum of probabilities in the left
+part is at most $1$.
+
+We know from (c) that the sum in the right part is $\O(n)$.
+
+Thus:
+
+$$
+    \begin{align}
+      \E[X] &\le \lceil 2 \lg{n} \rceil \cdot 1 + n \cdot \O(1/n) \\\\
+            &= \lceil 2 \lg{n} \rceil + \O(1) \\\\
+            &= \O(\lg{n})
+    \end{align}
+$$
+
+### Take-away
+
+This is basically saying that as long we keep half of the hash table empty, we
+can expect the longest probe to be no more than $\lg{n}$.
