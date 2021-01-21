@@ -1,0 +1,93 @@
+## Quadratic probing
+
+> Suppose that we are given a key $k$ to search for in a hash table with
+> positions $0, 1, \ldots, m - 1$, and suppose that we have a hash function $h$
+> mapping the key space into the set $\\{0, 1, \ldots, m - 1\\}$. The search
+> scheme is as follows:
+>
+> 1. Compute the value of $j = h(k)$, and set $i = 0$.
+> 2. Probe in position $j$ for the desired key $k$. If you find it, or if this
+>    position is empty, terminate the search.
+> 3. Set $i = i + 1$. If $i$ now equals $m$, the table is full, so terminate the
+>    search. Otherwise, set $j = (i + j) \bmod m$, and return to step 2.
+>
+> Assume that $m$ is a power of $2$.
+>
+> a. Show that this scheme is an instance of the general "quadratic probing"
+> scheme by exhibiting the appropriate constants $c_1$ and $c_2$ for equation
+> (11.5).
+>
+> b. Prove that this algorithm examines every table position in the worst case.
+
+
+### a. Is it quadratic?
+
+Observing what this process yields, and let's calculate a few values for $f(k,
+i)$ produced by this method.
+
+$$
+    \begin{align}
+    & f(k, 0) = h(k) + 0 & = C + 0 \\\\
+    & f(k, 1) = f(0) + 1 = h(k) + 1 &= C + 1 \\\\
+    & f(k, 2) = f(1) + 2 = f(0) + 1 + 2 = h(k) + 3 &= C + 3 \\\\
+    & f(k, 3) = f(2) + 3 = f(1) + 2 + 3 = f(0) + 1 + 2 + 3 = h(k) + 6 &= C + 6 \\\\
+    \end{align}
+$$
+
+Or generally:
+
+$$ f(k, i) = f(k, i - 1) + i $$
+
+Which is a recurring relation that we can use induction to prove that
+
+$$ f(k, i) = h(k) + \sum_{j=0}^{j} j = h(k) + \frac{n(n+1)}{2} $$
+
+(because the sum is just an arithmetic progression)
+
+This fits equation (11.5) with $c_1 = c_2 = 1/2$, because:
+
+$$ f(k, i) = h(k) + \frac{1}{2}i + \frac{1}{2}i^2 $$
+
+### b. Does it examine every position?
+
+Had to consult the Instructor Manual yet again.
+
+Let's assume it doesn't. This means that there are two separate values $a$ and
+$b$ such that $0 \le a < b < m$ for which $f(k, a) = f(k, b)$ modulo $m$, that
+is:
+
+$$
+    h(k) + \frac{a(a + 1)}{2} = h(k) \frac{b(b + 1)}{2} \mod m \\\\
+    \Downarrow \\\\
+    \frac{a(a + 1)}{2} = \frac{b(b + 1)}{2} \mod m \\\\
+    \Downarrow \\\\
+    \frac{a(a + 1)}{2} - \frac{b(b + 1)}{2} = 0 \mod m \\\\
+    \Downarrow \\\\
+    \frac{a^2 + a - b^2 - b}{2} = 0 \mod m \\\\
+    \Downarrow \\\\
+    \frac{a^2 + a + ab - b^2 - b -ab}{2} = 0 \mod m \\\\
+    \Downarrow \\\\
+    \frac{(a - b)(a + b + 1)}{2} = 0 \mod m
+$$
+
+The final part means that there is an integer $r$ so that:
+
+$$
+    \frac{(a - b)(a + b + 1)}{2} = rm \\\\
+    \Downarrow \\\\
+    (a - b)(a + b + 1) = 2rm \\\\
+    \Downarrow \\\\
+    (a - b)(a + b + 1) = r \cdot 2^{p+1}
+$$
+
+The last step is because we know that $m$ is a power of $2$, that is there is an
+integer $p$ such that $m = 2^p$.
+
+Now, since $a$ and $b$ are both integers, this means that $a - b$ and $a + b +
+1$ are integers as well, and more importantly, one of them is even, and another
+one is odd. That is, at least one of them is not dividable by $2$. This means
+the other is dividable by $2^{p+1}$. But it can't be $(a - b)$ because $a - b <
+m < 2^{p+1}$. It can't be $(a + b + 1)$, because $a + b + 1 \le (m - 1) + (m -
+2) + 1 = 2m - 2 < 2^{p+1}$. We've reacted a contradiction, which means that
+$f(k, a) \ne f(k, b)$, for $0 \le a < b < m$, which means that the algorithm
+will exhaust all slots before it reaches $m$.
