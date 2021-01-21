@@ -1,0 +1,16 @@
+> Consider an open-address hash table with uniform hashing. Give upper bounds on
+> the expected number of probes in an unsuccessful search and on the expected
+> number of problems in a successful search when the load factor is $3/4$ and
+> when it is $7/8$.
+
+Those come directly from our formulas:
+
+| $\alpha$ | Unsuccessful | Successful |
+|----------|--------------|------------|
+| $3/4$    | $4$          | $1.84839$  |
+| $7/8$    | $8$          | $2.37650$  |
+
+What I find interesting, is that successful searches are dramatically less
+probes than unsuccessful searches. This implies that with uniform hashing the
+load factor can be pretty high if we're using the hash looking things up as
+opposed to checking if an element exists.
