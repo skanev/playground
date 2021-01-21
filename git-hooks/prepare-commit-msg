@@ -4,7 +4,11 @@ message = File.read(ARGV[0])
 
 prefixes = [
   [%r{^other/clrs/(\d+)/(\d+)/(\d+)\.},    -> { "clrs; exercise #{$1.to_i}.#{$2.to_i}.#{$3.to_i} – " }],
-  [%r{^other/clrs/(\d+)/problems/(\d+)\.}, -> { "clrs; problem #{$1.to_i}.#{$2.to_i} – " }],
+  [%r{^other/clrs/(\d+)/problems/(\d+)\.}, -> {
+    chapter, number = $1, $2
+    title = File.read("other/clrs/#$1/problems/#$2.markdown")[/\A#+\s+(.*)/, 1].downcase rescue "FAILED TO GET TITLE"
+    "clrs; problem #{chapter.to_i}.#{number.to_i} – #{title}"
+  }],
 ]
 
 files = `git diff-index --cached --name-only HEAD`.split("\n")
