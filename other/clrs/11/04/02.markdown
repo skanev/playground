@@ -1,0 +1,29 @@
+> Write pseudocode for `HASH-DELETE` as outlined in the text and modify
+> `HASH-INSERT` to handle the special value `DELETED`.
+
+Deleting an element:
+
+    HASH-DELETE(T, k)
+      i = 0
+      repeat
+          j = h(k, i)
+          if T[j] == k
+              T[j] == DELETED
+          i = i + 1
+      until T[j] == NIL or i == m
+
+
+As for searching, interestingly enough we don't need to modify it, as long as
+`k` is never `DELETED` and `DELETED != NIL`.
+
+    HASH-SEARCH(T, k)
+      i = 0
+      repeat
+          j = h(k, i)
+          if T[j] == k
+              return j
+          i = i + 1
+          until T[j] == NIL or i == m
+      return NIL
+
+
