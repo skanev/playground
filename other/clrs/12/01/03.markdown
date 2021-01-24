@@ -1,0 +1,16 @@
+> Give a nonrecursive algorithm that performs an inorder tree walk. (_Hint:_ An
+> easy solution uses a stack as an auxiliary data structure. A more complicated,
+> but elegant, solution uses no stack but assumes that we can test two points of
+> equality.)
+
+We already implemented that in Exercise 10.4.5.
+
+The summarize:
+
+1. We need the node to have a pointer to the parent.
+2. We keep track of a current node (starting at root) and a previous node
+   (starting at nil)
+3. At each step, we use the previous node to determine which is the last element
+   element we visited. If it's the parent, we proceed to the left child. If it's
+   the left child, we print/mark the element and continue to the right child. If
+   it's the right child, we move up.
