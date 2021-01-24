@@ -1,0 +1,8 @@
+graph {
+  node[shape=circle];
+  4; 2; 1 3;
+  null[shape=point];
+
+  4 -- 2; 4 -- null;
+  2 -- 1; 2 --3;
+}

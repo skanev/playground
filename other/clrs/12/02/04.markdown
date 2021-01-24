@@ -1,0 +1,10 @@
+> Professor Bunyan thinks he has discovered a remarkable property of binary
+> search trees. Suppose that the search for key $k$ in a binary search tree ends
+> up in a leaf. Consider three sets: $A$, the keys to the left of the search
+> path; $B$, the keys on the search path; and $C$, the keys to the right of the
+> search path. Professor Bunyan claims that any three keys $a \in A$, $b \in B$,
+> and $c \in C$ must satisfy $a \le b \le c$. Give a smallest possible
+> counterexample to the professor's claim.
+
+In the tree below, $B = \\{4, 2, 1\\}$ and $C = \\{3\\}$, but for $b = 4$ and $c
+= 3$ we don't have $b \le c$.
