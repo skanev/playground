@@ -1,0 +1,16 @@
+> Consider a binary search tree $T$ whose keys are distinct. Show that if the
+> right subtree of a node $x$ in $T$ is empty and $x$ has a successor $y$, then
+> $y$ is the lowest ancestor of $x$ whose left child is also an ancestor of $x$.
+> (Recall that every node is its own ancestor)
+
+The successor is clearly not in the left child, as those elements are smaller.
+We can then start examining the parents. If $x$ is on the right child of the
+parent, $x$ is going to be maxim element in the parent. We can continue
+considering parents, this way, until we reach one, $K$, that has the current
+tree on the left. We know that $x < K.key$. We also know that $K.right$ will
+contain bigger elements. So far $K.key$ is the smaller element we've
+encountered, bigger than $x$.
+
+If we keep going up the tree, we will either find ourselves on the left site of
+the parent $P$, which means $K.key < P.key$ or the right side, in which case we
+know that $P.key < x$.
