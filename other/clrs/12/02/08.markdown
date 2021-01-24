@@ -1,0 +1,10 @@
+> Prove that no matter what node we start at in a heigh-$h$ binary search tree,
+> $k$ successive calls to `TREE-SUCCESSOR` take $\O(k + h)$ time.
+
+This algorithm will walk a number of full subtrees, plus at most two partial
+paths to the common ancestor of the first and last node. The subtrees will be
+$\O(k)$ (since we visit each edge twice) and the partial paths will be $\O(h)$
+since we may need to skip until we find a parent on the way up and then skip
+until we find a minimum on the way down.
+
+Yeah, informal, I know.
