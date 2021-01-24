@@ -21,7 +21,14 @@ get '/:chapter/problems/:number.png' do
   problem = Problem.new ChapterNumber.new(params[:chapter]), params[:number]
 
   content_type 'image/png'
-  Graph.render problem.graph_path
+  Graph.render_png problem.graph_path
+end
+
+get '/:chapter/problems/:number.svg' do
+  problem = Problem.new ChapterNumber.new(params[:chapter]), params[:number]
+
+  content_type 'image/svg+xml'
+  Graph.render_svg problem.graph_path
 end
 
 get '/:chapter/problems/:number.?:format?' do
@@ -33,7 +40,14 @@ get '/:chapter/:section/:number.png' do
   exercise = Exercise.new ChapterNumber.new(params[:chapter]), params[:section], params[:number]
 
   content_type 'image/png'
-  Graph.render exercise.graph_path
+  Graph.render_png exercise.graph_path
+end
+
+get '/:chapter/:section/:number.svg' do
+  exercise = Exercise.new ChapterNumber.new(params[:chapter]), params[:section], params[:number]
+
+  content_type 'image/svg+xml'
+  Graph.render_svg exercise.graph_path
 end
 
 get '/:chapter/:section/:number.?:format?' do

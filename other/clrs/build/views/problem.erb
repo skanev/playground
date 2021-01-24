@@ -2,7 +2,7 @@
 <%= yield %>
 <% if @problem.graph? %>
   <hr />
-  <img src="<%= "#{@problem.location}.png" %>" />
+  <img src="<%= "#{@problem.location}.svg" %>" />
 <% end %>
 <% @problem.run_languages.each do |language| %>
   <hr />
