@@ -1,0 +1,19 @@
+> Show that if a node in a binary search tree has two children, then its
+> successor has no left child and its predecessor has no right child.
+
+Let's say we have a tree $T$ with left subtree $L$ and right subtree $R$ and
+parent $P$. Let's also assume distinct keys.
+
+Having two children implies that both the successor and the predecessor is going
+to be among them. To illustrate this, let's consider the successor. It can't be
+to the right of an ancestor $A$, because this makes $T$ on the left of $A$,
+therefore making $A$ a better candidate as $T < A$. It can't be that ancestor
+either, because $T < R$ and $R < A$, making $R$ a better candidate than $A$.
+Furthermore, if $R$ exists, it's going to contain the (it can't be in $L$, as
+those elements are smaller).
+
+Furthermore, if the successor (somewhere in $R$) had a left child, that would be
+a better candidate for a successor, since it's smaller than $R$ but still bigger
+than $T$.
+
+Same logic applies for the predecessor.
