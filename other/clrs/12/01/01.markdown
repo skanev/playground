@@ -1,0 +1,6 @@
+> For the set of $\\{1, 4, 5, 10, 16, 17, 21\\}$ of keys, draw binary search
+> trees of heights 2, 3, 4, 5 and 6.
+
+Graphviz is, again, unideal to visualize this, but let's try
+
+Worth noting that heigh is defined so the heigh of a leaf is 0.

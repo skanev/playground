@@ -1,0 +1,86 @@
+graph {
+  node[shape="circle"];
+
+  a1[label="1"];
+  a4[label="4"];
+  a5[label="5"];
+  a10[label="10"];
+  a16[label="16"];
+  a17[label="17"];
+  a21[label="21"];
+
+  a10 -- a4; a10 -- a17;
+  a4 -- a1; a4 -- a5; a17 -- a16; a17 -- a21;
+
+  b1[label="1"];
+  b4[label="4"];
+  b5[label="5"];
+  b10[label="10"];
+  b16[label="16"];
+  b16l[shape=point];
+  b17[label="17"];
+  b17l[shape=point];
+  b21[label="21"];
+  b5r[shape=point];
+  b4r[shape=point];
+
+  b10 -- b5; b10 -- b16;
+  b5 -- b4; b5 -- b5r; b16 -- b16l; b16 -- b17;
+  b4 -- b1; b4 -- b4r; b17 -- b17l; b17 -- b21;
+
+  c1[label="1"];
+  c4[label="4"];
+  c5[label="5"];
+  c10[label="10"];
+  c10r[shape=point];
+  c16[label="16"];
+  c17[label="17"];
+  c17l[shape=point];
+  c21[label="21"];
+  c5r[shape=point];
+  c4r[shape=point];
+
+  c16 -- c10;
+  c10 -- c5; c10 -- c10r; c16 -- c17;
+  c5 -- c4; c5 -- c5r;
+  c4 -- c1; c4 -- c4r; c17 -- c17l; c17 -- c21;
+
+  d1[label="1"];
+  d4[label="4"];
+  d5[label="5"];
+  d10[label="10"];
+  d10r[shape=point];
+  d16[label="16"];
+  d16r[shape=point];
+  d17[label="17"];
+  d21[label="21"];
+  d5r[shape=point];
+  d4r[shape=point];
+
+  d17 -- d16; d17 -- d21;
+  d16 -- d10; d16 -- d16r;
+  d10 -- d5; d10 -- d10r;
+  d5 -- d4; d5 -- d5r;
+  d4 -- d1; d4 -- d4r;
+
+  e1[label="1"];
+  e4[label="4"];
+  e5[label="5"];
+  e10[label="10"];
+  e10r[shape=point];
+  e16[label="16"];
+  e16r[shape=point];
+  e17[label="17"];
+  e21[label="21"];
+  e5r[shape=point];
+  e4r[shape=point];
+  e21r[shape=point];
+  e17r[shape=point];
+
+  e21 -- e17; e21 -- e21r;
+  e17 -- e16; e17 -- e17r;
+  e16 -- e10; e16 -- e16r;
+  e10 -- e5; e10 -- e10r;
+  e5 -- e4; e5 -- e5r;
+  e4 -- e1; e4 -- e4r;
+}
