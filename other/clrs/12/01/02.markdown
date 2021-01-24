@@ -1,0 +1,23 @@
+> What is the difference between the binary-search-tree property and the
+> min-heap property (see page 153)? Can the min-heap property be used to print
+> out the keys of an $n$-node tree in sorted order in $\O(n)$ time? Show how, or
+> explain why not.
+
+The min-heap property established that each node in the tree is smaller than its
+children, without distinguishing between them. The binary-search tree property
+is somehow similar, but defines a strict relation between the node and its two
+children.
+
+The min-help can indeed be used to print out the keys, but not in linear time,
+for two reasons.
+
+First, and generally, Theorem 8.1 proves the well-established fact that sorting
+with comparison has a lower bound of $\Omega(n \lg n)$, and sorting in $\O(n)$
+will be a contradiction.
+
+Second, and more specifically, the algorithm would require removing the minimal
+element from the heap on each print. Finding the element is $\O(1)$, but
+removing it and while maintaining the min-heap property is an $\O(\lg n)$
+operation, which will in turn make it a $\O(n \lg n)$ algorithm.
+
+And basically, this is just the description of heap sort.
