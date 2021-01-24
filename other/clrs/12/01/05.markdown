@@ -1,0 +1,12 @@
+> Argue that since sorting $n$ elements takes $\Omega(n \lg n)$ time in the
+> worst case in the comparison model, any comparison-based algorithm for
+> constructing a binary search tree from an arbitrary list of $n$ elements takes
+> $\Omega(n \lg n)$ time in the worst case.
+
+Let's make a reductio ad absurdum argument.
+
+Let's assume that there exists $\o(n \lg n)$ algorithm for constructing a binary
+search tree of $n$ elements. We can then use it to create a tree of $n$ elements
+and then use an inorder walk to gather the elements in an array in $\Omega(n)$ time.
+This way we will produce an sorted array in $\o(n \lg n)$ worst-case time, which
+contradicts with the lower bound on comparison sort.
