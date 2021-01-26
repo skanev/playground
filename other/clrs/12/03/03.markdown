@@ -1,0 +1,18 @@
+> We can sort a given set of $n$ numbers by first building a binary search tree
+> containing these numbers (using `TREE-INSERT` repeatedly to insert the numbers
+> one by one) and then printing the numbers by an inorder tree walk. What are
+> the worst-case and best-case running times for this sorting algorithm?
+
+The worst case is going to be $\Theta(n^2)$, which will be achieved if we insert
+elements in decreasing or increasing order. On each step we will need to walk
+what is essentially a linked list and append at it's end. That will perform
+$\sum_{i=1}^{n} i = n(n + 1)/2 = \Theta(n^2)$ operations.
+
+In the best case we will insert each node at the highest level that has at least
+empty position. We can then insert 1 element with 1 operation, 2 elements with 2
+operations, 4 elements with 3 operations, 8 elements with 4 operations and so
+on. This is the well-known $\Theta(n \lg n)$.
+
+If we slightly modify our algorithm to be able to insert directly at the root,
+we can achieve this in linear time, but only if we are already inserting the
+elements in sorted order.
