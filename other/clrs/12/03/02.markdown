@@ -1,0 +1,14 @@
+> Suppose that we construct a binary search tree by repeatedly inserting
+> distinct values into the tree. Argue that the number of nodes examined in
+> searching for a value in the tree is one plus the number of nodes examined
+> when the value was first inserted into the tree.
+
+With the current implementation of `TREE-INSERT` (one that does not
+self-balance), we are looking for a path from to root to the parent of the node
+we are about to insert. Let's assume that that number is $n$. When we
+subsequently search, we are going to walk exactly the same path (there is no
+other option, really) until we reach the same parent. Then we will examine one
+more node, which is the node we inserted previously, that is $n+1$ in total.
+
+This argument holds, since we're always inserting distinct values, and there is
+only one possible path to resulting to the value we're searching for.
