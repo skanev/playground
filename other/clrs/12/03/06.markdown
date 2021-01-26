@@ -1,0 +1,32 @@
+> When node $z$ in `TREE-DELETE` has two children, we could choose node $y$ as
+> its predecessor rather than its successor. What other changes to `TREE-DELETE`
+> would be necessary if we did so? Some have argued that a fair strategy, giving
+> equal priority to predecessor and successor, yields better empirical
+> performance. How might `TREE-DELETE` be changed to implement such a fair
+> strategy?
+
+We need to write a symmetrical function:
+
+    TREE-DELETE(T, z)
+        if z.left = NIL
+            TRANSPLANT(T, z, z.right)
+        else if z.right == NIL
+            TRANSPLANT(T, z, z.left)
+        else
+            y = TREE-MAXIMUM(z.left)
+
+            if y.p != z
+                TRANSPLANT(T, y, y.left)
+                y.left = z.left
+                y.left.p = y
+
+            TRANSPLANT(T, z, y)
+            y.right = z.right
+            y.right.p = y
+
+Basically, call `TREE-MAXIMUM` and swap `left` and `right`.
+
+Beware of the code above; I've not even proven it correct, let alone tested it.
+
+As for implementing a fair strategy – we can have both versions of the function
+and then randomly decide which node to choose.
