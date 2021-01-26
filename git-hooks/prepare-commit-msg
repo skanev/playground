@@ -2,6 +2,8 @@
 
 message = File.read(ARGV[0])
 
+exit 0 unless message.start_with? "\n"
+
 prefixes = [
   [%r{^other/clrs/(\d+)/(\d+)/(\d+)\.},    -> { "clrs; exercise #{$1.to_i}.#{$2.to_i}.#{$3.to_i} – " }],
   [%r{^other/clrs/(\d+)/problems/(\d+)\.}, -> {
