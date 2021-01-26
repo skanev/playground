@@ -1,0 +1,167 @@
+> Suppose that instead of each node $x$ keeping the attribute $x.p$ pointing to
+> $x$'s parent, it keeps $x.succ$, pointing to $x$'s successor. Give pseudocode
+> for `SEARCH`, `INSERT`, and `DELETE` on a binary search tree $T$ using this
+> representation. These procedures should operate in time $\O(h)$, where $h$ is
+> the height of the tree $T$. (_Hint:_ You may wish to implement a subroutine
+> that returns the parent of a node.)
+
+I've got to admin, I was skeptical about this one. It was quite a good exercise,
+however, as it forces you to internalize a lot about binary search trees and
+their predecessor/successor invariants.
+
+The pseudocode and the C code differ a bit, as the C code is a bit more
+complicated to avoid a few extra steps. It even can be optimized a bit further,
+but it's not worth the complexity. The asymptotic bounds are going to be the
+same as the pseudocode
+
+### Some thoughts
+
+I pondered a bit about why it would be useful to keep track of the successor
+instead of the parent. I may be missing something, but I can find a single
+advantage – the tree can be walked inorder without extra space and a bit more
+optimally. Another benefit is that it simplifies finding the successor of the
+deleted node in `DELETE`. Apart from that, not keeping track of the parent
+introduces some overhead, especially when deleting.
+
+### Notable differences
+
+The pseudocode needs two change in two significant ways:
+
+* As the parent is no longer findable through a pointer, we need to walk the
+  three from the root and find it. On the flip side, we don't need to update
+  parent pointers.
+
+* Whenever we remove a node, we need to preserve the invariant of the successor
+  field. This means that we need to find the predecessor of the node we are
+  deleting, and have it successor point to the deleted node's successor.
+
+### Pseudocode
+
+`SEARCH` remains unchanged:
+
+    TREE-SEARCH(x, k)
+        if x = NIL or k == x.key
+            return x
+        if k < x.key
+            return TREE-SEARCH(x.left, k)
+        else
+            return TREE-SEARCH(x.right, k)
+
+`INSERT` needs to allocate the correct successor of the newly inserted node and
+update it's predecessor. Since we're only inserting leaf nodes, both predecessor
+and successor are findable through their invariants:
+
+* The predecessor is going to be the last parent at which we branched right. It
+  might be the parent of the inserted node, if we put it at the left position.
+
+* The successor is going to be the last parent at which at branched left.
+
+* Notably, we don't need to explore the new node's children, as they don't exist
+  because it's a leaf node.
+
+    TREE-INSERT(T, z)
+        y = NIL
+        x = T.root
+        pred = NIL
+
+        while x != NIL
+            y = x
+            if z.key < x.key
+                z.succ = x
+                x = x.left
+            else
+                pred = x
+                x = x.right
+
+        if y == NIL
+            T.root = z
+        else if z.key < y.key
+            y.left = z
+        else
+            y.right = z
+            pred = y
+
+        if pred != NIL
+            pred.succ = z
+
+The final one, `DELETE` is a bit more complicated. It needs `TREE-PARENT`, that
+finds the parent of a node, starting from the root, and `TREE-PREDECESSOR` that
+finds finds the predecessor of a node, starting from the root. It also needs
+a modified version of `TRANSPLANT`. Since those are pretty self-explanatory,
+let's start with `DELETE` and explore them afterwards.
+
+It's worth noting that we don't need to call `TREE-MINIMUM` on `z.right` in the
+two-children case, as we already know its successor.
+
+    TREE-DELETE(T, z)
+        pred = TREE-PREDECESSOR(z)
+
+        if z.left == NIL
+            TRANSPLANT(T, z, z.right)
+        else if z.right == NIL
+            TRANSPLANT(T, z, z.left)
+        else
+            y = z.succ
+
+            if (z.right != y)
+                TRANSPLANT(T, y, y.right)
+                y.right = z.right
+
+            TRANSPLANT(T, z, y)
+            y.left = z.left
+
+        if pred != NIL
+            pred.succ = z.succ
+
+Node that `y.p != z` needs to be changed to `z.right != y`, which means the same
+thing.
+
+`TRANSPLANT` now needs to explicitly find the parent:
+
+    TRANSPLANT(T, u, v)
+        p = TREE-PARENT(T, u)
+
+        if p == NIL
+            T.root = v
+        else if u == p.left
+            p.left = v
+        else
+            p.right = v
+
+The notable change here is that we don't need to update the `v`'s parent, as we
+don't keep track of it.
+
+Finally, `TREE-PREDECESSOR` is fairly needs to start from the root, instead of
+the node:
+
+    TREE-PREDECESSOR(T, x)
+        y = NIL
+        z = T.root
+
+        while z != x
+            if z.key < x.key
+                y = z
+                z = z.right
+            else
+                z = z.left
+
+        z = z.left
+
+        while z != NIL
+            y = z
+            z = z.right
+
+        return y
+
+The first loop traverses the tree from the root to `x`, keeping track of the
+last right branch to mark it as a potential predecessor. When it finishes, `z`
+equals `x`. If there is no left child, we're done, and the ancestor is the
+predecessor. If there is a left child, we follow it and keep going left, until
+there are no no mode left children to follow. The last is essentially what
+`TREE-MINIMUM` does. We could change the order of the loops (find the minimum of
+the left child and go through the root only if it doesn't exist). While it will
+improve the constant, it's asymptotically the same.
+
+The C code merges `TREE-PREDECESSOR` and `TREE-PARENT` into one.
+
+It's pretty easy to illustrate that the result is $\O(h)$, so I won't bother.
