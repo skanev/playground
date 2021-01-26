@@ -96,7 +96,6 @@ int state_took_column(sort_state_t *state, int index) {
         next_indices[state->exhausted] += k;
         return next;
     } else {
-        int next = next_indices[s];
         next_indices[s] += k;
         return s;
     }
