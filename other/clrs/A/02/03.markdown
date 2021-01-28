@@ -1,0 +1,13 @@
+> Show that the $n$th harmonic number is $\Omega(\lg{n})$ by splitting the summation.
+
+$$
+\begin{align}
+	\sum_{k=1}^{n} \frac{1}{k}
+&\ge \sum_{i=0}^{\lfloor\lg{n}\rfloor - 1} \sum_{j=0}^{2^i - 1} \frac{1}{2^i + j} \\
+&\ge \sum_{i=0}^{\lfloor\lg{n}\rfloor - 1} \sum_{j=0}^{2^i - 1} \frac{1}{2^{i+1}} \\
+&= \sum_{i=0}^{\lfloor{\lg{n}\rfloor - 1}}\frac{1}{2} \\
+&= \frac{\lfloor\lg{n}\rfloor}{2}
+\end{align}
+$$
+$\implies H_i = \sum_{k=1}^{n} \frac{1}{k} = \Omega(\lg{n})$
+

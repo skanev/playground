@@ -1,0 +1,11 @@
+> Find an asymptotic upper bound on the summation $\sum_{k=0}^{\lfloor \lg{n} \rfloor}\lceil n / 2^k \rceil$.
+
+$$
+\begin{align}
+	\sum_{k=0}^{\lfloor \lg{n} \rfloor}\lceil n / 2^k \rceil
+&= n \frac{1 - \left(\frac{1}{2}\right)^{\lg{n}}}{1-\frac{1}{2}} \\
+&= 2n(1-\frac{1}{n}) \\
+&= 2n - 2 \\
+&= O(n)
+\end{align}
+$$

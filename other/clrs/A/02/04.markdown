@@ -1,0 +1,10 @@
+> Approximate $\sum_{k=1}^{n} k^3$ with an integral.
+
+$$
+\begin{align}
+\int_{0}^{n} k^3 dk &\le& \sum_{k=1}^{n} k^3 &\le& \int_{1}^{n+1} k^3 dk \\
+\frac{1}{4}\left[k^4\right]_0^n &\le& \sum_{k=1}^{n} k^3 &\le& \frac{1}{4}\left[k^4\right]_1^{n+1} \\
+\frac{1}{4} n^4 &\le&  \sum_{k=1}^{n} k^3 &\le& \frac{1}{4}[(n+1)^4-1]
+\end{align}
+$$
+

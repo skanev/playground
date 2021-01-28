@@ -1,0 +1,9 @@
+> Evaluate the product $\prod_{k=1}^{n} 2 \cdot 4^k$
+
+$$
+\begin{align}
+	\prod_{k=1}^{n} 2 \cdot 4^k	&= 2^n \cdot 4^{n(n + 1) / 2} \\
+					&= 2^{n(n + 2)}
+\end{align}
+$$
+

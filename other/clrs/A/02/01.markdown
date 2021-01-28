@@ -1,0 +1,22 @@
+> Show that $\sum_{k=1}^{n} 1/k^2$
+
+$$
+\begin{align}
+	\int_{1}^{n+1} \frac{1}{k^2} dk
+&= -\left[\frac{1}{k}\right]_{1}^{n+1} \\
+&= 1 - \frac{1}{n + 1} \\
+&= \Omega(1)
+\end{align}
+$$
+
+I am not sure whether the following is correct:
+
+$$
+\begin{align}
+	\int_{1/2}^{n} \frac{1}{k^2} dk
+&= -\left[\frac{1}{k}\right]_{1/2}^{n} \\
+&= \frac{1}{2} - \frac{1}{n} \\
+&= O(1)
+\end{align}
+$$
+
