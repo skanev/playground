@@ -1,0 +1,14 @@
+> Show that the notion of a randomly chosen binary search tree on $n$ keys,
+> where each binary search tree of $n$ keys is equally likely to be chosen, is
+> different from the notion of a randomly built binary search tree given in this
+> section. (_Hint:_ List the possibilities when $n = 3$.)
+
+With the elements 1, 2 and 3, there are only $5$ possible binary search trees:
+
+    1             1            2           3           3
+      \             \        /  \        /           /
+        2             3     1    3      1          2
+          \         /                    \       /
+            3     2                       2     1
+
+There are, however $3! = 6$ by the definition of the chapter.
