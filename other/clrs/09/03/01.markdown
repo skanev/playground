@@ -21,14 +21,14 @@ $$ T(n) = \begin{cases}
 
 We guess $T(n) \le cn$ and bound the non-recursive term with $an$:
 
-$$ \begin{align}
+$$ \begin{aligned}
    T(n) & \le c\lceil n/7 \rceil + c(5n/7 + 8) + an \\\\
         & \le cn/7 + c + 5cn/7 + 8c + an \\\\
         & = 6cn/7 + 9c + an \\\\
         & = cn + (-cn/7 + 9c + an) \\\\
         & \le cn \\\\
         & = \O(n)
-   \end{align} $$
+   \end{aligned} $$
 
 The last step holds when $(-cn/7 + 9c + an) \le 0$. That is:
 
@@ -59,12 +59,12 @@ $$ T(n) = T(\lceil n/3 \rceil) + T(2n/3 + 4) + \O(n) $$
 We're going to prove that $T(n) = \omega(n)$ using the substitution method. We
 guess that $T(n) > cn$ and bound the non-recursive term with $an$.
 
-$$ \begin{align}
+$$ \begin{aligned}
    T(n) & > c\lceil n/3 \rceil + c(2n/3 + 2) + an \\\\
         & > cn/3 + c + 2cn/3 + 2c + an \\\\
         & = cn + 3c + an & (c > 0, a > 0, n > 0)\\\\
         & > cn \\\\
         & = \omega(n)
-   \end{align} $$
+   \end{aligned} $$
 
 The calculation above holds for any $c > 0$.

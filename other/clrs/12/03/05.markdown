@@ -5,7 +5,7 @@
 > the height of the tree $T$. (_Hint:_ You may wish to implement a subroutine
 > that returns the parent of a node.)
 
-I've got to admin, I was skeptical about this one. It was quite a good exercise,
+I've got to admit, I was skeptical about this one. It was quite a good exercise,
 however, as it forces you to internalize a lot about binary search trees and
 their predecessor/successor invariants.
 

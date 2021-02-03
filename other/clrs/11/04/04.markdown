@@ -27,11 +27,11 @@ $$ f_k(i) = \left( h_1(k) + i h_2(k) \right) \mod m $$
 Let's unpack the right part:
 
 $$
-    \begin{align}
+    \begin{aligned}
       f_k(i) &= \left( h_1(k) + i h_2(k) \right) \bmod m \\\\
              &= \big( h_1(k) \bmod m \big) + \big( icd \bmod m \big) \\\\
              &= C + \big( icd \bmod m \big)
-    \end{align}
+    \end{aligned}
 $$
 
 ...where $=$ implies "modulo m". $C$ is constant in regards to $i$ and the only

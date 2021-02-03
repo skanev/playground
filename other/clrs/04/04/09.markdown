@@ -14,7 +14,7 @@ $$ T(n) = \sum_{i=0}^{\log_{1/\alpha}n}cn + \Theta(n)
 
 There is another way to show it. Let $\beta = 1 - \alpha$. Thus:
 
-$$ \begin{align}
+$$ \begin{aligned}
    T(n) = & T(\alpha n) + T(\beta n) + cn \\\\
         = & T(\alpha^2 n) + 2T(\alpha \beta n) + T(\beta^2 n) + cn + c \alpha n  + c \beta n \\\\
          = & T(\alpha^2 n) + 2T(\alpha \beta n) + T(\beta^2 n) + 2cn \\\\
@@ -26,7 +26,7 @@ $$ \begin{align}
              c \alpha^2 n + 2c \alpha \beta n + c \beta ^ 2 n + 2cn \\\\
          = & T(\alpha^3 n) + 3T(\alpha^2 \beta n) + 3T(\alpha \beta^2 n) + T(\beta^3 n) + 3cn \\\\
          = & \ldots
-   \end{align} $$
+   \end{aligned} $$
 
 This goes until $\alpha^kn \le 1$, after which we have $T(n) = \mathcal{O}(1) + ckn$.
 Well:
@@ -38,12 +38,12 @@ $$ \alpha^k = \frac{1}{n} \Rightarrow
 
 Let's verify with substitution. We guess $T(n) \le dn\lg{n}$:
 
-$$ \begin{align}
+$$ \begin{aligned}
    T(n) & \le d \alpha n \lg(\alpha n) + c \beta n \lg(\beta n) + cn \\\\
         & \le d \alpha n \lg{n} + d \beta n \lg{n} + d \alpha n \lg\alpha + d \beta n \lg\beta + cn \\\\
         & \le d n \lg{n} + \big(d (\alpha \lg\alpha + \beta \lg\beta) + c\big)n & (d(\alpha\lg\alpha + \beta\lg\beta) + c \le 0)\\\\
         & \le d n \lg{n}
-   \end{align} $$
+   \end{aligned} $$
 
 In this case:
 
@@ -53,9 +53,9 @@ I can't proove it, but $-1 \le \alpha\lg\alpha + \beta\lg\beta\big < 0 $.
 
 And the other way around. We guess $T(n) \ge dn\lg{n}$:
 
-$$ \begin{align}
+$$ \begin{aligned}
    T(n) & \ge d \alpha n \lg(\alpha n) + c \beta n \lg(\beta n) + cn \\\\
         & \ge d \alpha n \lg{n} + d \beta n \lg{n} + d \alpha n \lg\alpha + d \beta n \lg\beta + cn \\\\
         & \ge d n \lg{n} + \big(d (\alpha \lg\alpha + \beta \lg\beta) + c\big)n & (d(\alpha\lg\alpha + \beta\lg\beta) + c \ge 0)\\\\
         & \ge d n \lg{n}
-   \end{align} $$
+   \end{aligned} $$

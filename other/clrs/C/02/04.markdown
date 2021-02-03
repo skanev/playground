@@ -4,7 +4,7 @@
 
 Very obvious if you think about it, but anyway:
 
-$$ \begin{align}
+$$ \begin{aligned}
    \Pr\\{A|B\\} + \Pr\\{\overline A | B\\}
            &= \frac{\Pr\\{A \cap B\\}}{\Pr\\{B\\}} +
               \frac{\Pr\\{\overline A \cap B\\}}{\Pr\\{B\\}} \\\\
@@ -13,4 +13,4 @@ $$ \begin{align}
            &= \frac{\Pr\\{(A \cup \overline A) \cap B)}{\Pr\\{B\\}} \\\\
            &= \frac{\Pr\\{B\\}}{\Pr\\{B\\}} \\\\
            &= 1
-   \end{align} $$
+   \end{aligned} $$

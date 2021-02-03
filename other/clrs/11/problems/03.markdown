@@ -26,12 +26,12 @@ Observing what this process yields, and let's calculate a few values for $f(k,
 i)$ produced by this method.
 
 $$
-    \begin{align}
+    \begin{aligned}
     & f(k, 0) = h(k) + 0 & = C + 0 \\\\
     & f(k, 1) = f(0) + 1 = h(k) + 1 &= C + 1 \\\\
     & f(k, 2) = f(1) + 2 = f(0) + 1 + 2 = h(k) + 3 &= C + 3 \\\\
     & f(k, 3) = f(2) + 3 = f(1) + 2 + 3 = f(0) + 1 + 2 + 3 = h(k) + 6 &= C + 6 \\\\
-    \end{align}
+    \end{aligned}
 $$
 
 Or generally:

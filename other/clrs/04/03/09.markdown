@@ -4,31 +4,31 @@
 
 Let's go this way:
 
-$$ \begin{align}
+$$ \begin{aligned}
        T(n) & = 3T(\sqrt{n}) + \lg{n} & \text{rename } m = \lg{n} \\\\
      T(2^m) & = 3T(2^{m/2}) + m \\\\
        S(m) & = 3S(m/2) + m
-   \end{align} $$
+   \end{aligned} $$
 
 Now we guess $S(m) \le cm^{\lg{3}} + dm$:
 
-$$ \begin{align}
+$$ \begin{aligned}
      S(m) & \le 3\Big(c(m/2)^{\lg{3}} + d(m/2)\Big) + m \\\\
           & \le cm^{\lg{3}} + (\frac{3}{2}d + 1)m & (d \le -2) \\\\
           & \le cm^{\lg{3}} + dm
-   \end{align} $$
+   \end{aligned} $$
 
 Then we guess $S(m) \ge cm^{\lg{3}} + dm$:
 
-$$ \begin{align}
+$$ \begin{aligned}
      S(m) & \ge 3\Big(c(m/2)^{\lg{3}} + d(m/2)\Big) + m \\\\
           & \ge cm^{\lg{3}} + (\frac{3}{2}d + 1)m & (d \ge -2) \\\\
           & \ge cm^{\lg{3}} + dm
-   \end{align} $$
+   \end{aligned} $$
 
 Thus:
 
-$$ \begin{align}
+$$ \begin{aligned}
      S(m) & = \Theta(m^{\lg{3}}) \\\\
      T(n) & = \Theta(\lg^{\lg{3}}{n})
-   \end{align} $$
+   \end{aligned} $$

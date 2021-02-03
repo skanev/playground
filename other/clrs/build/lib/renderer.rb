@@ -9,9 +9,9 @@ module Renderer
     end
   end
 
-  def render_exercise(exercise)
+  def render_exercise(exercise, catalog = nil)
     exercise_markdown = File.read exercise.markdown_path
-    context           = make_context exercise: exercise, base: '../../'
+    context           = make_context catalog: catalog, solution: exercise, exercise: exercise, base: '../../'
 
     render_view 'layout', context do
       render_view 'exercise', context do
@@ -20,9 +20,9 @@ module Renderer
     end
   end
 
-  def render_problem(problem)
+  def render_problem(problem, catalog = nil)
     problem_markdown = File.read problem.markdown_path
-    context          = make_context problem: problem, base: '../../'
+    context          = make_context catalog: catalog, solution: problem, problem: problem, base: '../../'
 
     render_view 'layout', context do
       render_view 'problem', context do
@@ -34,6 +34,11 @@ module Renderer
   def render_code(path, language)
     code = File.read path
     CodeRay.scan(code, language).div
+  end
+
+  def render_css
+    scss = File.read PUBLIC_ROOT.join('css/clrs.scss')
+    SassC::Engine.new(scss).render
   end
 
   private
@@ -56,8 +61,8 @@ module Renderer
   end
 
   def process(markdown_code)
-    markdown_code = markdown_code.gsub(/exercise\s+([A-D]|\d+).(\d+)[-.](\d+)/i) { |text| "[#{text}](/%s/%02d/%02d.html)" % [ChapterNumber.new($1), $2, $3] }
-    markdown_code = markdown_code.gsub(/problem\s+([A-D]|\d+).(\d+)/i) { |text| "[#{text}](/%s/problems/%02d.html)" % [ChapterNumber.new($1), $2] }
+    markdown_code = markdown_code.gsub(/exercise\s+([A-D]|\d+).(\d+)[-.](\d+)(?!<\/a>)/i) { |text| "[#{text}](/%s/%02d/%02d.html)" % [ChapterNumber.new($1), $2, $3] }
+    markdown_code = markdown_code.gsub(/problem\s+([A-D]|\d+).(\d+)(?!<\/a>)/i) { |text| "[#{text}](/%s/problems/%02d.html)" % [ChapterNumber.new($1), $2] }
     markdown.render markdown_code
   end
 

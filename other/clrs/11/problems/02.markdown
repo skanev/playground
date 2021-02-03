@@ -102,12 +102,12 @@ $$
 We now plug $k_0$ in to get Lovecraftian:
 
 $$
-  \begin{align}
+  \begin{aligned}
     3 &< \frac{ c \lg n }{ \lg n \lg \lg n } \left( \lg \frac{ c \lg n }{ \lg \lg n } - \lg e \right) \\\\
       &= \frac{ c }{ \lg \lg n } \left( \lg c + \lg \lg n - \lg \lg \lg n - \lg e \right) \\\\
       &= c \left( \frac{\lg c}{\lg \lg n} + \frac{\lg \lg n}{\lg \lg n} - \frac{\lg \lg \lg n}{\lg \lg n} - \frac{\lg e}{\lg \lg n} \right) \\\\
       &= c \left(1 + \frac{ \lg c - \lg e }{ \lg \lg n } - \frac{ \lg \lg n }{ \lg \lg \lg n } \right)
-  \end{align}
+  \end{aligned}
 $$
 
 Now for the hand-waving. First, we notice that picking the necessary $c$ depends
@@ -138,13 +138,13 @@ $$ P_k \le n \mathcal{Q}_k < n \frac{1}{n^3} = 1/n^2 $$
 This is simpler:
 
 $$
-  \begin{align}
+  \begin{aligned}
     \E[M] &= \sum_{k=0}^{n} k \cdot \Pr \\{ M = k \\} \\\\
           &= \sum_{k=0}^{k_0} k \cdot \Pr \\{ M = k \\} + \sum_{k=k_0 + 1}^{n} k \cdot \Pr \\{ M = k \\} \\\\
           &\le \sum_{k=0}^{k_0} k_0 \cdot \Pr \\{ M = k \\} + \sum_{k=k_0 + 1}^{n} n \cdot \Pr \\{ M = k \\} \\\\
           &= k_0 \cdot \sum_{k=0}^{k_0} \Pr \\{ M = k \\} + n \cdot \sum_{k=k_0 + 1}^{n} \Pr \\{ M = k \\} \\\\
           &= k_0 \cdot \Pr\\{ M \le k_0 \\} + n \cdot \Pr \\{ M > k_0 \\}
-  \end{align}
+  \end{aligned}
 $$
 
 Which is the long expression we needed to prove.
@@ -161,12 +161,12 @@ $$
 We know that $\Pr\\{M \le k_0\\} \le 1$ (probability axiom), so:
 
 $$
-  \begin{align}
+  \begin{aligned}
     \E[M] &= k_0 \cdot \Pr\\{ M \le k_0 \\} + n \cdot \Pr \\{ M > k_0 \\} \\\\
           &\le k_0 + n \cdot \frac{1}{n} \\\\
           &= \frac{c \lg n}{\lg \lg n} + 1 \\\\
           &= \O(\lg n / \lg \lg n)
-  \end{align}
+  \end{aligned}
 $$
 
 How is one supposed to figure this out, I have no idea. Maybe by reading Knuth.

@@ -42,11 +42,11 @@ $$ \frac{2^{2n}}{\sqrt{\pi n}}(1 + \O(1/n)) \le l \le 2^h $$
 Taking the logarithm of the leftmost and rightmost parts (and inverting their
 positions) we get;
 
-$$ \begin{align}
+$$ \begin{aligned}
    h & \ge \lg\bigg(\frac{2^{2n}}{\sqrt{\pi n}}(1 + \O(1/n))\bigg) \\\\
      & = \lg{2^{2n}} - \lg\sqrt{\pi n} + \lg(1 + O(1/n)) \\\\
      & = 2n - \o(n)
-   \end{align} $$
+   \end{aligned} $$
 
 ### The tighter bound
 

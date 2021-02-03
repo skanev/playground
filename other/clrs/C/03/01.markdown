@@ -4,7 +4,7 @@
 
 The expectation of the sum is:
 
-$$ \begin{align}
+$$ \begin{aligned}
      \E[X] &= \sum_{x=2}^{12}x\Pr\\{X = x\\} \\\\
            &=  2 \cdot \frac 1 36 +
                3 \cdot \frac 2 36 +
@@ -18,7 +18,7 @@ $$ \begin{align}
               11 \cdot \frac 2 36 +
               12 \cdot \frac 1 36 \\\\
            &= 7
-   \end{align}$$
+   \end{aligned}$$
 
 The result is as expected, the probabilities are obtained by just counting them.
 

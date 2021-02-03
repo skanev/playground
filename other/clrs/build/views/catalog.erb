@@ -1,3 +1,24 @@
+<h1>Introduction to Algorithms solutions</h1>
+
+<p>Hi!</p>
+<p>
+  Welcome to my solutions to the exercises and problems of Introduction to
+  Algorithms, 3rd edition, lovingly abbreviated as
+  <abbr title="Cormen, Leiserson, Rivest, Stein">CLRS</abbr>.
+</p>
+<p><img src="img/cover.jpg" alt="Introduction to Algorithms cover" /></p>
+<p>
+  Don't trust a single word! While mistakes were not intended, they were surely
+  made. I'm doing this for fun – I have neither the energy nor the patience to
+  double-check everything. If you find an error, please don't contact me to fix
+  it.
+</p>
+<p>
+  This is a journey in progress. I'm neither in a hurry, not hell-bent on
+  getting there. I'll add new solutions over time, but am not adhering to a
+  schedule.
+</p>
+
 <% @catalog.chapters.each do |chapter| %>
   <h2>Chapter <%= chapter.number %></h2>
   <table class="table table-condensed table-bordered table-compact catalog">
@@ -8,7 +29,7 @@
           <th>Section <%= section.number %></th>
           <% section.exercises.each do |exercise| %>
             <td>
-              <a href="<%= '%s/%02d/%02d.html' % exercise.components %>">
+              <a href="<%= exercise.html_url %>">
                 <%= exercise.name %>
               </a>
             </td>
@@ -23,7 +44,7 @@
           <th>Problems</th>
           <% chapter.problems.each do |problem| %>
             <td>
-              <a href="<%= '%s/problems/%02d.html' % problem.components %>">
+              <a href="<%= problem.html_url %>">
                 <%= problem.name %>
               </a>
             </td>

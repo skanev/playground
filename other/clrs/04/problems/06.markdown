@@ -100,10 +100,10 @@ $$ A[j, a] + A[i, b] \le A[i, a] + A[j, b] $$
 
 But:
 
-$$ \begin{align}
+$$ \begin{aligned}
    & A[j, a] \ge A[i, a] & (a_i \text{ is minimal}) \\\\
    & A[i, b] \ge A[j, b] & (b_j \text{ is minimal}) \\\\
-   \end{align} $$
+   \end{aligned} $$
 
 Which implies that:
 
@@ -113,10 +113,10 @@ $$ A[j, a] + A[i, b] \ge A[i, a] + A[j, b] \\\\
 
 Which in turn implies that either:
 
-$$ \begin{align}
+$$ \begin{aligned}
    &A[j, b] < A[i, b] \Rightarrow A[i, a] > A[j, a] && \Rightarrow a_i \text{ is not minimal} \\\\
    &A[j, b] = A[i, b] && \Rightarrow b_j \text{ is not the leftmost minimal}
-   \end{align} $$
+   \end{aligned} $$
 
 ### Part four
 
@@ -127,25 +127,25 @@ $$ \mu_{i-1} \le \mu_i \le \mu_{i+1} $$
 For $i = 2k + 1$, $k \ge 0$, finding $\mu_i$ takes $\mu_{i+1}-\mu_{i-1} + 1$
 steps at most, since we only need to compare with those numbers. Thus:
 
-$$ \begin{align}
+$$ \begin{aligned}
    T(m, n) &= \sum_{i=0}^{m/2-1}\Big(\mu_{2i + 2} - \mu_{2i} + 1\Big) \\\\
            &= \sum_{i=0}^{m/2-1}\mu_{2i+2} - \sum_{i=0}^{m/2-1}\mu_{2i} + m/2 \\\\
            &= \sum_{i=1}^{m/2}\mu{2i} - \sum_{i=0}^{m/2-1}\mu{2i} + m/2 \\\\
            &= \mu_m - \mu_0 + m/2 \\\\
            &= n + m/2 \\\\
            &= O(m + n)
-   \end{align} $$
+   \end{aligned} $$
 
 ### Part five
 
 The divide time is $O(1)$, the conquer part is $T(m/2)$ and the merge part is
 $O(m+n)$. Thus:
 
-$$ \begin{align}
+$$ \begin{aligned}
    T(m) &= T(m/2) + cn + dm \\\\
         &= cn + dm + cn + dm/2 + cn + dm/4 + \ldots \\\\
         &= \sum_{i=0}^{\lg{m}-1}cn + \sum_{i=0}^{\lg{m}-1}\frac{dm}{2^i} \\\\
         &= cn\lg{m} + dm\sum_{i=0}^{\lg{m} - 1} \\\\
         &< cn\lg{m} + 2dm \\\\
         &= O(n\lg{m} + m)
-   \end{align} $$
+   \end{aligned} $$

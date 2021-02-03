@@ -33,12 +33,12 @@ Suppose at the start of the $j$th increment, the counter holds $i$, which
 represents $n_i$. If the counter increases, then the value it will increase by
 $n_{i+1} - n_i$. It happens with probability $1/(n_{i+1} - n_i)$, and so:
 
-$$ \begin{align}
+$$ \begin{aligned}
      \E[X_j] &= 0 \cdot \Pr\\{\text{stays same}\\} + 1 \cdot \Pr\\{\text{increases}\\} \\\\
              &= 0 \cdot \bigg(1 - \frac{1}{n_{i+1} - n_i}\bigg) +
                 1 \cdot \bigg((n_{i+1} - n_i) \cdot \frac{1}{n_{i+1} - n_i}\bigg) \\\\
              &= 1
-   \end{align} $$
+   \end{aligned} $$
 
 This is the expectation any increment. Since there are $n$ increments, the
 execpted value will be $n$.
@@ -47,11 +47,11 @@ execpted value will be $n$.
 
 The variance of a single increment.
 
-$$ \begin{align}
+$$ \begin{aligned}
    \Var[X_j] &= \E[X_j^2] - \E^2[X_j] \\\\
              &= \bigg(0^2 \cdot \frac{99}{100} + 100^2 \frac{1}{100}\bigg) - 1 \\\\
              &= 99
-   \end{align} $$
+   \end{aligned} $$
 
 As for the variance of the total value:
 

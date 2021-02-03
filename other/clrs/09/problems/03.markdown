@@ -53,32 +53,32 @@ Manual.
 
 We can prove (b) by induction. This is the step:
 
-$$ \begin{align}
+$$ \begin{aligned}
    U_i(n) &= \lfloor n/2 \rfloor + U_i(\lceil n/2 \rceil) + T(2i) \\\\
           &= \lfloor n/2 \rfloor + \lceil n/2 \rceil +
              \O(T(2i)\lg(\lfloor n/2 \rfloor / i)) + T(2i) \\\\
           &= n + \O(T(2i)\lg(n/i)) + T(2i) \\\\
           &= n + \O(T(2i)\lg(n/i))
-   \end{align} $$
+   \end{aligned} $$
 
 This is a bit more sloppy that doing it with the substitution method, but that
 feels like grunt work to me at this point.
 
 The other two are obvious:
 
-$$ \begin{align}
+$$ \begin{aligned}
    U_i(n) &= n + \O(T(2i)\lg(n/i)) \\\\
           &= n + \O(\O(1)\lg(n/i)) \\\\
           &= n + \O(\lg{n} - \lg{i}) \\\\
           &= n + \O(\lg{n} - \O(1)) \\\\
           &= n + \O(\lg{n})
-   \end{align} $$
+   \end{aligned} $$
 
-$$ \begin{align}
+$$ \begin{aligned}
    U_i(n) &= n + \O(T(2i)\lg(n/i)) \\\\
           &= n + \O(T(2n/k)\lg(n/(n/k))) \\\\
           &= n + \O(T(2n/k)\lg{k}) \\\\
-   \end{align} $$
+   \end{aligned} $$
 
 Again, this reasoning is sloppy, but I don't feel like applying the
 substitution method.

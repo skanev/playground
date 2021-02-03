@@ -17,6 +17,10 @@ module Solution
     location_path.sub_ext '.dot'
   end
 
+  def html_url
+    "#{location}.html"
+  end
+
   def languages
     @languages ||= EXTENSIONS.
       select { |_, ext| extension_exists? ext }.

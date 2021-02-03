@@ -10,11 +10,11 @@ observe that if the string is $s = \langle a_n, \ldots, a\_1, a\_0 \rangle$,
 then its hash $h(s)$ is going to be:
 
 $$
-    \begin{align}
+    \begin{aligned}
       h(s) &= \left( \sum_{i=0}^{n}{a_i \cdot {128}^{i}} \right) \bmod m \\\\
            &= \sum_{i=0}^{n}{ \Big( \left( a_i \cdot {128}^{i} \right) \bmod m \Big) } \\\\
            &= \sum_{i=0}^{n}{ \Big( ( a_i \bmod m ) ( {128}^{i} \bmod m ) \Big) } \\\\
-    \end{align}
+    \end{aligned}
 $$
 
 We can easily compute $a_i \bmod m$ without extra memory. To compute ${128}^{i}

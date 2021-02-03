@@ -1,49 +1,57 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= @exercise && @exercise.title || @problem && @problem.title || 'Introduction to Algorithms study group' %> </title>
+    <title><%= @exercise && @exercise.title || @problem && @problem.title || 'Introduction to Algorithms solutions' %> </title>
+
     <meta charset="utf-8">
     <% if @base %>
       <base href="<%= @base %>">
     <% end %>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="css/ita.css">
-    <script type="application/javascript" src="js/jquery.js"></script>
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-        jax: ["input/TeX", "output/HTML-CSS"],
-        messageStyle: 'none',
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-          displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-          processEscapes: true
-        },
-        TeX: {
-          Macros: {
-            E: "\\mathrm{E}",
-            O: "\\mathcal{O}",
-            o: "\\mathcal{o}",
-            Var: "\\mathrm{Var}",
-          },
-        },
-        "HTML-CSS": { availableFonts: ["TeX"] }
-      });
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/latest/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="css/clrs.css" />
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false},
+          ],
+          macros: {
+            "\\E": "\\mathrm{E}",
+            "\\O": "\\mathcal{O}",
+            "\\o": "\\mathcal{o}",
+            "\\Var": "\\mathrm{Var}",
+          }
+        });
+    });
     </script>
-    <script type="application/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
   </head>
+
   <body>
-    <div class="navbar navbar-inverse navbar-static-top">
-      <div class="navbar-inner">
-        <ul class="nav">
-          <li><a class="brand">Introduction to Algorithms</a></li>
-          <li><a href="index.html">Exercise index</a></li>
+    <% if @solution && @catalog %>
+      <nav class="header">
+        <ul class="solution-nav">
+          <% if before = @catalog.previous(@solution) %>
+            <li class="before"><a href="<%= before.html_url %>">← <%= before.name %></a></li>
+          <% end %>
+          <% if after = @catalog.next(@solution) %>
+            <li class="after"><a href="<%= after.html_url %>"><%= after.name %> →</a></li>
+          <% end %>
+          <li class="index"><a href="index.html">Solution index</a></li>
         </ul>
-      </div>
-    </div>
+      </nav>
+    <% end %>
+
     <div class="container">
       <%= yield %>
     </div>
+
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

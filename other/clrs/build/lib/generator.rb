@@ -8,6 +8,7 @@ module Generator
     FileUtils.mkdir_p 'target/compiled'
     Dir.chdir 'target/compiled' do
       copy_static_files
+      generate_css
       generate_catalog catalog
       generate_solutions catalog
     end
@@ -21,18 +22,22 @@ module Generator
     FileUtils.cp_r '../../build/public/img', 'img'
   end
 
+  def generate_css
+    write_file 'css/clrs.css', Renderer.render_css
+  end
+
   def generate_solutions(catalog)
     catalog.chapters.each do |chapter|
       chapter.sections.each do |section|
         section.exercises.each do |exercise|
-          generate_exercise exercise
+          generate_exercise exercise, catalog
           generate_graph exercise if exercise.graph?
         end
       end
 
       chapter.problems.each do |problem|
-        generate_problem problem
-          generate_graph problem if problem.graph?
+        generate_problem problem, catalog
+        generate_graph problem if problem.graph?
       end
     end
   end
@@ -41,12 +46,12 @@ module Generator
     write_file 'index.html', Renderer.render_catalog(catalog)
   end
 
-  def generate_exercise(exercise)
-    write_file "#{exercise.location}.html", Renderer.render_exercise(exercise)
+  def generate_exercise(exercise, catalog)
+    write_file "#{exercise.location}.html", Renderer.render_exercise(exercise, catalog)
   end
 
-  def generate_problem(problem)
-    write_file "#{problem.location}.html", Renderer.render_problem(problem)
+  def generate_problem(problem, catalog)
+    write_file "#{problem.location}.html", Renderer.render_problem(problem, catalog)
   end
 
   def generate_graph(solution)

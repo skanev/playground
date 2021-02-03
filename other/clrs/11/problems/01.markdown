@@ -68,12 +68,12 @@ Here's a weird way to do it that I lifted from the Instructor's Manual after I
 gave up. The point is to split the expectation into two parts:
 
 $$
-    \begin{align}
+    \begin{aligned}
       \E[X] &= \sum_{k=1}^{n} k \Pr \\{ X = k \\} \\\\
             &= \sum_{k=1}^{\lceil 2\lg{n} \rceil} k \Pr\\{X = k\\} + \sum_{\lceil 2\lg{n} \rceil + 1}^n k \Pr\\{X = k\\} \\\\
             &\le \sum_{k=1}^{\lceil 2\lg{n} \rceil} \lceil 2\lg{n} \rceil \cdot \Pr\\{X = k\\} + \sum_{\lceil 2\lg{n} \rceil + 1}^n n \cdot \Pr\\{X = k\\} \\\\
             &= \lceil 2\lg{n} \rceil \sum_{k=1}^{\lceil 2\lg{n} \rceil} \Pr\\{X = k\\} + n \sum_{\lceil 2\lg{n} \rceil + 1}^n \Pr\\{X = k\\} \\\\
-    \end{align}
+    \end{aligned}
 $$
 
 We can then simplify the two parts of the sum.
@@ -86,11 +86,11 @@ We know from (c) that the sum in the right part is $\O(n)$.
 Thus:
 
 $$
-    \begin{align}
+    \begin{aligned}
       \E[X] &\le \lceil 2 \lg{n} \rceil \cdot 1 + n \cdot \O(1/n) \\\\
             &= \lceil 2 \lg{n} \rceil + \O(1) \\\\
             &= \O(\lg{n})
-    \end{align}
+    \end{aligned}
 $$
 
 ### Take-away

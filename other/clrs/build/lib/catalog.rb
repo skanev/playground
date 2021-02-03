@@ -1,6 +1,13 @@
 class Catalog
   Chapter = Struct.new(:number, :sections, :problems)
   Section = Struct.new(:number, :exercises)
+  Position = Struct.new(:before, :after)
+
+  class << self
+    def locate
+      new Pathname(__FILE__).join('../../..')
+    end
+  end
 
   def initialize(root_dir)
     @root = root_dir
@@ -10,7 +17,46 @@ class Catalog
     @chapters ||= find_chapters
   end
 
+  def solutions
+    load_solutions_and_positions
+    @solutions
+  end
+
+  def positions
+    load_solutions_and_positions
+    @positions
+  end
+
+  def previous(solution)
+    positions[solution.name].before
+  end
+
+  def next(solution)
+    positions[solution.name].after
+  end
+
   private
+
+  def load_solutions_and_positions
+    return if @solutions && @positions
+
+    @solutions = {}
+    @positions = {}
+
+    solutions = chapters.flat_map { |chapter| chapter.sections.flat_map(&:exercises) + chapter.problems }
+
+    before = nil
+
+    solutions.each do |solution|
+      name = solution.name
+      @positions[before.name].after = solution if before
+      @solutions[name] = solution
+      @positions[name] = Position.new before, nil
+      before = solution
+    end
+
+    @solutions
+  end
 
   def find_chapters
     Dir.chdir @root do

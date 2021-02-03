@@ -3,11 +3,11 @@
 
 Let's guess $T(n) \le c(n-a)\lg(n-a)$:
 
-$$ \begin{align}
+$$ \begin{aligned}
    T(n) & \le 2c(\lfloor n/2 \rfloor + 17 - a)\lg(\lfloor n/2 \rfloor + 17 - a) + n \\\\
         & \le 2c(n/2 + 1 + 17 - a)\lg(n/2 + 1 + 17 - a) + n \\\\
         & \le c(n + 36 - 2a)\lg\frac{n + 36 - 2a}{2} + n \\\\
         & \le c(n + 36 - 2a)\lg(n + 36 - 2a) - c(n + 36 - 2a) + n & (c > 1, n > n_0 = f(a))\\\\
         & \le c(n + 36 - 2a)\lg(n + 36 - 2a) & (a \ge 36) \\\\
         & \le c(n - a)\lg(n - a)
-   \end{align} $$
+   \end{aligned} $$

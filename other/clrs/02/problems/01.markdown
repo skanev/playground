@@ -48,10 +48,10 @@ $$ T(1) = 1k\lg1 = k \cdot 0 = 0 $$
 
 **Step**. We assume that $T(a) = ak\lg{a}$ and we calculate $T(2a)$:
 
-$$ \begin{align}
+$$ \begin{aligned}
      T(2a) &= 2T(a) + 2ak = 2(T(a) + ak) = 2(ak\lg{a} + ak) = \\\\
            &= 2ak(\lg{a} + 1) = 2ak(\lg{a} + \lg{2}) = 2ak\lg(2a)
-   \end{align} $$
+   \end{aligned} $$
 
 This proves it. Now if we substitue the number of sublists $n/k$ for $a$:
 

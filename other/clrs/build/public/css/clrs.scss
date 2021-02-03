@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+$text-color-l: #333;
+$text-color-d: #eee;
+$link-color-l: #4c94b7;
+$link-color-d: #5d9ec1;
+$blockquote-color-l: #e0e0e0;
+$blockquote-color-d: #333;
+$background-l: #fff;
+$background-d: #000;
+
+$border-color: #c0c0c0;
+
+$column-width: 960px;
+
+@mixin mode-dependent($property, $light, $dark) {
+  #{$property}: $light;
+  //@media (prefers-color-scheme: dark) { & { #{$property}: $dark; } }
+}
+
+@mixin color($light, $dark) { @include mode-dependent(color, $light, $dark); }
+@mixin background-color($light, $dark) { @include mode-dependent(background-color, $light, $dark); }
+
+html {
+  @include color($text-color-l, $text-color-d);
+  @include background-color($background-l, $background-d);
+  line-height: 1.8;
+  font-family: Merriweather, serif;
+  font-size: 17px;
+}
+
+.katex-display { margin: 2em 0; }
+.katex-display .katex { line-height: 2.7 !important; }
+
+a,
+a:visited,
+a:hover,
+a:active { @include color($link-color-l, $link-color-d); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+nav.header {
+  border-bottom: 1px solid #aaa;
+
+  ul.solution-nav {
+    max-width: $column-width;
+    margin: 0 auto;
+    padding: 1ex;
+
+    li { margin: 0; padding: 0; list-style: none; display: inline-block; }
+    li.before { float: left; margin-right: 1em; }
+    li.after { float: right; }
+  }
+}
+
+.container { padding: 0 1em; margin: 0 auto 2em; max-width: $column-width; }
+.container {
+  blockquote {
+    margin: 0;
+    padding: 0 0 0 1em;
+    border-left: 7px solid transparent;
+    @include mode-dependent(border-left-color, $blockquote-color-l, $blockquote-color-d);
+  }
+}
+
+pre,
+code,
+kbd,
+samp {
+  font-family: 'Fira Code', monospace;
+  font-size: 15px;
+}
+
+pre {
+  margin: 1em 0;
+  line-height: 1.4em;
+}
+
+article.solution {
+  text-align: justify;
+
+  p { margin: 1.5em 0; }
+
+  img { display: block; margin: 1em auto; max-width: $column-width; }
+  ol { padding-left: 30px; }
+  ol li { padding-left: 10px; }
+  ol ::marker {
+    font-weight: bold;
+    text-align: left;
+  }
+}
+
+hr { border: 0; border-bottom: 1px dashed $border-color; margin: 2em 0; }
+
+table {
+  border-collapse: collapse;
+
+  td,
+  th { padding: 5px 7px; border: 1px solid $border-color; }
+}

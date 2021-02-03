@@ -3,10 +3,10 @@
 
 From "asymptotically nonnegative", we can assume that
 
-$$\begin{align}
+$$\begin{aligned}
     \exists n_1, n_2: & f(n) \geq 0 & \text{for } n > n_1 \\\\
                       & g(n) \geq 0 & \text{for } n > n_2
-   \end{align}$$
+   \end{aligned}$$
 
 Let $n_0 = max(n_1, n_2)$. Some obvious things for $n > n_0$:
 

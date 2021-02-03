@@ -1,11 +1,11 @@
 > Show that the expression $q^2 + (n - q - 1)^2$ achieves a maximum over $q =
 > 0, 1, \ldots, n-1$ when $q = 0$ and $q = n - 1$.
 
-$$ \begin{align}
+$$ \begin{aligned}
    f(q)   &= q^2 + (n - q - 1)^2 \\\\
    f'(q)  &= 2q - 2(n - q - 1) = 4q - 2n + 2 \\\\
    f''(q) &= 4 \\\\
-   \end{align} $$
+   \end{aligned} $$
 
 $f'(q) = 0$ when $q = \frac{1}{2}n - \frac{1}{4}$. $f'(q)$ is also continious.
 $\forall q : f''(q) > 0$, which means that $f'(q)$ is negative left of $f'(q) =

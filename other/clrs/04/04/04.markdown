@@ -11,8 +11,8 @@ $$ T(n) = \sum_{i=0}^{n-1}2^i + \Theta(2^n)
 
 We guess $T(n) \le c2^n + n$. Thus:
 
-$$ \begin{align}
+$$ \begin{aligned}
      T(n) & \le 2c2^{n-1} + (n - 1) + 1 \\\\
           & \le c2^n + n \\\\
           & = O(2^n)
-   \end{align} $$
+   \end{aligned} $$

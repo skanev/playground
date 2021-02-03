@@ -17,7 +17,7 @@ $$\lim_{x \to +\infty}\Big(1 + \frac{1}{n}\Big)^n = e$$
 
 Finally, we go like this:
 
-$$ \begin{align}
+$$ \begin{aligned}
    \frac{k^k}{k!} \cdot \frac{(m+1)^{m+1}}{(m+1)!}
      &=   \frac{k^k}{k!} \cdot \frac{(m+1)^m}{m!} \\\\
      &=   \frac{k^k}{k!} \cdot \frac{m^m}{m!} \Bigg(1+\frac{1}{m}\Bigg)^m \\\\
@@ -25,4 +25,4 @@ $$ \begin{align}
      &\le \frac{(k+m)^{k+m}}{(k+m)!}\Bigg(1+\frac{1}{k+m}\Bigg)^{k+m} & \text{(monotonicity)} \\\\
      &=   \frac{(k+m+1)^{k+m}}{(k+m)!}
      &=   \frac{(k+m+1)^{k+m+1}}{(k+m+1)!}
-   \end{align} $$
+   \end{aligned} $$

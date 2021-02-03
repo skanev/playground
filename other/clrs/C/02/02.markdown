@@ -3,13 +3,13 @@
 >
 > $$ \Pr\\{A_1 \cup A_2 \cup \ldots \\} \le \Pr\\{A_1\\} + \Pr\\{A_2\\} + \ldots $$
 
-$$ \begin{align}
+$$ \begin{aligned}
    \Pr\\{A_1 \cup A_2 \cup \cdots\\} &=
                              \Pr\\{A_1\\} +
                              \Pr\\{A_2 \cup A_3 \cup \cdots\\} -
                              \Pr\\{A_1 \cap (A_2 \cup A_3 \cup \cdots)\\} \\\\
                        & \le \Pr\\{A_1\\} + \Pr\\{A_2 \cup A_3 \cup \cdots\\} \\\\
                        & \le \Pr\\{A_1\\} + \Pr\\{A_2\\} + \Pr\\{A_3 \cup A_4 \cup \cdots\\}
-   \end{align} $$
+   \end{aligned} $$
 
 Strictly speaking, we should use some induction, but you get the idea.

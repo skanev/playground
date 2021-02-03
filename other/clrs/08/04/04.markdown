@@ -24,22 +24,22 @@ $$ \pi^2 \pi(a_i^2 - a_{i-1}^2) = \pi(a_j^2 - a_{j-1}^2) = \frac{\pi}{n} \\\\
 
 We get the following recurrence:
 
-$$ \begin{align}
+$$ \begin{aligned}
    a_0 &= 0 \\\\
    a_i &= \sqrt{1/n + a_{i-1}^2}
-   \end{align} $$
+   \end{aligned} $$
 
 If we check some small values, we see the following pattern:
 
 $$ \pi n^2 $$
 
-$$ \begin{align}
+$$ \begin{aligned}
    a_0 & = 0 = \frac{1}{\sqrt n} \\\\
    a_1 & = \sqrt{\frac{1}{n} + \frac{1}{n}} = \frac{\sqrt 2}{\sqrt n} \\\\
    a_2 & = \sqrt{\frac{1}{n} + \frac{2}{n}} = \frac{\sqrt 2}{\sqrt n} \\\\
    & \ldots \\\\
    a_i & = \frac{\sqrt i}{\sqrt n}
-   \end{align} $$
+   \end{aligned} $$
 
 The last step is easy to prove by induction. If we assume it for $i \le k$, then:
 

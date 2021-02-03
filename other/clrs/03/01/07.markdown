@@ -2,10 +2,10 @@
 
 From each term we know that for any positive constant $c > 0$:
 
-$$ \begin{align}
+$$ \begin{aligned}
      \exists & n_1 > 0 : 0 \leq f(n) < cg(n) \\\\
      \exists & n_2 > 0 : 0 \leq cg(n) < f(n)
-   \end{align} $$
+   \end{aligned} $$
 
 If we pick $n_0 = max(n_1, n_2)$, from the problem definition we get:
 

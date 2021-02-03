@@ -9,13 +9,13 @@ character, and it does not depend on the order they are in. If $x = \langle x_n,
 \ldots, x_1, x_0 \rangle$.
 
 $$
-    \begin{align}
+    \begin{aligned}
       h(x) &= \left( \sum_{i=0}^{n}{x_i}{2^{ip}} \right) \bmod m \\\\
            &= \sum_{i=0}^{n}{ (x_i \bmod m) \left( 2^{ip} \bmod {(2^p - 1)} \right) } \\\\
            &= \sum_{i=0}^{n}{ (x_i \bmod m) \left( \prod_{1}^{i}{\left( 2^p \bmod {(2^p - 1)} \right)} \right) } \\\\
            &= \sum_{i=0}^{n}{ (x_i \bmod m) \left( \prod_{1}^{i}{1} \right) } \\\\
            &= \sum_{i=0}^{n}{ (x_i \bmod m) }
-    \end{align}
+    \end{aligned}
 $$
 
 We can put the elements of $x$ in any other order, and the result will still be

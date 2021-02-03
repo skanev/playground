@@ -49,7 +49,7 @@ $$
 
 It's a long derivation:
 
-$$ \begin{align}
+$$ \begin{aligned}
    \E[X_k] &= \sum_{i=1}^{n-1}   \sum_{j=i+1}^n \E[X_{ijk}] \\\\
            &= \sum_{i=1}^k       \sum_{j=i+1}^n \E[X_{ijk}]
             + \sum_{i=k+1}^{n-1} \sum_{j=i+1}^n \E[X_{ijk}] \\\\
@@ -90,7 +90,7 @@ $$ \begin{align}
               + \sum_{j=k+1}^n     \frac{j - k - 1}{j - k + 1}
               + \sum_{i=1}^{k-2}   \frac{k - i - 1}{k - i + 1}
               \bigg) \\\\
-   \end{align} $$
+   \end{aligned} $$
 
 The last noted derivation is valid because of the following iversonian
 equation:

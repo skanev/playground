@@ -3,7 +3,7 @@
 > **Input**: A sequence of $ n $ numbers $ A = \langle a_1, a_2, \ldots, a_n \rangle $
 > and a value $\nu$.
 >
-> **Output**: And index $i$ such that $ \nu = A[i] $ or the special value $NIL$ if $\nu$ does
+> **Output**: And index $i$ such that $ \nu = A[i] $ or the special value $\mathrm{NIL}$ if $\nu$ does
 > not appear in $A$
 >
 > Write the pseudocode for *linear search*, which scans through the sequence, looking
@@ -37,6 +37,6 @@ On each step, we know that $A[1..i-1]$ does not contain $\nu$. We compare it wit
 
 #### Termination
 
-The loop terminates when $i > A.length$. Since $i$ increases by $1$ and $i > A.length$, we know that all the elements in $A$ have been checked and it has been found that $\nu$ is not among them. Thus, we return $NIL$.
+The loop terminates when $i > A.length$. Since $i$ increases by $1$ and $i > A.length$, we know that all the elements in $A$ have been checked and it has been found that $\nu$ is not among them. Thus, we return $\mathrm{NIL}$.
 
 ---

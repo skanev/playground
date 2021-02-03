@@ -4,13 +4,13 @@
 
 We use **Stirling's approximation**:
 
-$$ \begin{align}
+$$ \begin{aligned}
    \lg(n!) &= \lg\Bigg(\sqrt{2\pi{n}}\Big(\frac{n}{e}\Big)^n\Big(1+\Theta(\frac{1}{n})\Big)\Bigg)
       = \lg\sqrt{2\pi{n}} + \lg\Big(\frac{n}{e}\Big)^n + \lg\Big(1+\Theta(\frac{1}{n})\Big) = \\\\
      &= \Theta(\sqrt{n}) + n\lg{\frac{n}{e}} + \lg\Big(\Theta(1) + \Theta(\frac{1}{n})\Big)
       = \Theta(\sqrt{n}) + \Theta(n\lg{n}) + \Theta(\frac{1}{n}) = \\\\
      &= \Theta(n\lg{n})
-   \end{align}
+   \end{aligned}
 $$
 
 The other two are kind of obvious:

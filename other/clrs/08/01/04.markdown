@@ -15,10 +15,10 @@ $$ (k!)^{n/k} \le 2^h $$
 
 Taking the logarithm of both sides, we get:
 
-$$ \begin{align}
+$$ \begin{aligned}
    h &\ge \lg(k!)^{n/k} \\\\
      &=   (n/k)\lg(k!) \\\\
      &\ge (n/k)(k/2)\lg(k/2) & \text{(ex 8.1.2)}\\\\
      &=   \frac{1}{2}n\lg{k} - \frac{1}{2}n \\\\
      &=   \Omega(n\lg{k})
-   \end{align} $$
+   \end{aligned} $$

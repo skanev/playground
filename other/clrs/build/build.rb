@@ -3,6 +3,7 @@ require 'fileutils'
 
 require 'tilt'
 require 'redcarpet'
+require 'sassc'
 require 'nokogiri'
 require 'coderay'
 
@@ -20,3 +21,4 @@ require_relative 'lib/runtimes/python'
 
 SOLUTION_ROOT = Pathname(__FILE__).dirname.join('..').expand_path
 VIEWS_ROOT    = Pathname(__FILE__).dirname.join('views/').expand_path
+PUBLIC_ROOT   = Pathname(__FILE__).dirname.join('public/').expand_path

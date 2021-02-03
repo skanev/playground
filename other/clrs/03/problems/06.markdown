@@ -1,6 +1,6 @@
 ## Iterated functions
 
-> We can apply the iteration operator $*$ used in the $\lg^*$ function to any
+> We can apply the iteration operator $\*$ used in the $\lg^\*$ function to any
 > monotonically increasing function $f(n)$ over the reals. For a given
 > constant $c \in \mathbb{R}$, we define the iterated function $f_c^*$ by
 >

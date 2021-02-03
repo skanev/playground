@@ -5,13 +5,13 @@
 >
 > for all $t > 0$.
 
-$$ \begin{align}
+$$ \begin{aligned}
    \E[X] &= \sum_{x}x \cdot \Pr\\{X \ge t\\} \\\\
          &= \sum_{x < t}x \cdot \Pr\\{X = x\\} + \sum_{x \ge t} x \cdot \Pr\\{X = x\\} \\\\
          & \ge \sum_{x < t}x \cdot \Pr\\{X = x\\} + \sum_{x \ge t} t \cdot \Pr\\{X = x\\} \\\\
          & \ge t \sum_{x \ge t} \Pr\\{X = x\\} \\\\
          &= t \cdot \Pr\\{X \ge t\\}
-   \end{align} $$
+   \end{aligned} $$
 
 Chaning $x$ with $t$ in one of the sum works, since that is the sum where $x
 \ge t$.

@@ -38,7 +38,7 @@ in (7.5) follows by the definition of expectation.
 
 ### The rewrite
 
-$$ \begin{align}
+$$ \begin{aligned}
    \E[T(n)] &= \E\bigg[\sum_{q=1}^nX_q(T(q-1) + T(n-q) + \Theta(n))\bigg] \\\\
             &= \sum_{q=1}^n\frac{1}{n}(\E[T(q-1)] + \E[T(n-q)] + \Theta(n))\bigg] \\\\
             &= \frac{1}{n}\sum_{q=1}^n\E[T(q-1)]
@@ -56,11 +56,11 @@ $$ \begin{align}
              + \frac{2\E[T(1)]}{n}
              + \Theta(n) \\\\
             &= \frac{2}{n}\sum_{q=2}^{n-1}\E[T(q)] + \Theta(n)
-   \end{align} $$
+   \end{aligned} $$
 
 ### The bound
 
-$$ \begin{align}
+$$ \begin{aligned}
    \sum_{k=2}^{n-1}k\lg{k}
    &=   \sum_{k=2}^{\lceil n/2 \rceil - 1}k\lg{k} + \sum_{k=\lceil n/2 \rceil}^{n - 1}k\lg{k} \\\\
    &\le \sum_{k=2}^{n/2}k\lg{k} + \sum_{k=n/2 + 1}^{n}k\lg{k} \\\\
@@ -72,20 +72,20 @@ $$ \begin{align}
    &=   \frac{1}{2}\lg{n}(n^2 + 2n + 1) - \frac{1}{8}(n^2 + 2n + 1/8) \\\\
    &=   \frac{1}{2}n^2\lg{n} - \frac{1}{8}n^2 - \frac{8n\lg{n} + 4\lg{n} - 2n - 1/8}{8} \\\\
    &\le \frac{1}{2}n^2\lg{n} - \frac{1}{8}n^2
-   \end{align} $$
+   \end{aligned} $$
 
 ### The solution
 
 We guess $\E[T(n)] \le an\lg{n}$:
 
-$$ \begin{align}
+$$ \begin{aligned}
    \E[T(n)] &=   \frac{2}{n}\sum_{q=2}^{n-1}\E[T(q)] + \Theta(n) \\\\
             &\le \frac{2}{n}\sum_{q=2}^{n-1}an\lg{n} + \Theta(n) & \text{(by the guess)} \\\\
             &\le \frac{2a}{n}\bigg(\frac{1}{2}n^2\lg{n} - \frac{1}{8}n^2\bigg)
                  + \Theta(n) & \text{(by 7.7)} \\\\
             &=   an\lg{n} - \frac{a}{4}n + \Theta(n) & \text{(by }\Theta\text{-notation)} \\\\
             &\le an\lg{n}
-   \end{align} $$
+   \end{aligned} $$
 
 Note that $\Theta$-notation allows us to pick $a$ and $n$ such that the last
 derivation is possible.

@@ -3,10 +3,10 @@
 
 This is so obvious, that it is painful:
 
-$$ \phi^2 - \phi - 1 = \bigg(\frac{1 + \sqrt5}{2}\bigg)^2 - \frac{1 + \sqrt5}{2} - 1 =
+$$ \phi^2 - \phi - 1 = \bigg(\frac{1 + \sqrt5}{2}\bigg)^2 - \frac{1 + \sqrt5}{2} - 1
    = \frac{1 + 2\sqrt{5} + 5 - 2 - 2\sqrt{5} - 4}{4} = 0$$
 
 And now the conjugate:
 
-$$ \hat\phi^2 - \hat\phi - 1 = \bigg(\frac{1 - \sqrt5}{2}\bigg)^2 - \frac{1 - \sqrt5}{2} - 1 =
+$$ \hat\phi^2 - \hat\phi - 1 = \bigg(\frac{1 - \sqrt5}{2}\bigg)^2 - \frac{1 - \sqrt5}{2} - 1
    = \frac{1 - 2\sqrt{5} + 5 - 2 + 2\sqrt{5} - 4}{4} = 0$$

@@ -11,10 +11,10 @@ $$ T(n) = \sum_{i=0}^{\lg{n}-1}\Big(\frac{1}{4}\Big)^i n^2 + 1
 $$
 
 We guess $T(n) \le cn^2$
-$$ \begin{align}
+$$ \begin{aligned}
    T(n) & \le c(n/2)^2 + n^2 \\\\
         & \le cn^2/4 + n^2 \\\\
         & \le (c/4 + 1)n^2 \qquad (c > 4/3) \\\\
         & \le cn^2
-   \end{align}
+   \end{aligned}
 $$

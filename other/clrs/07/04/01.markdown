@@ -6,11 +6,11 @@
 
 We guess $T(n) \ge cn^2 - 2n$:
 
-$$ \begin{align}
+$$ \begin{aligned}
    T(n) &=   \max_{0 \le q \le n-1} (T(q) + T(n-q-1)) + \Theta(n) \\\\
         &\ge \max_{0 \le q \le n-1} (cq^2 - 2q + c(n-q-1)^2 - 2n - 2q -1) + \Theta(n) \\\\
         &\ge c\max_{0 \le q \le n-1} (q^2 + (n-q-1)^2 - (2n + 4q + 1)/c) + \Theta(n) \\\\
         &\ge cn^2 - c(2n-1) + \Theta(n) \\\\
         &\ge cn^2 - 2cn + 2c & (c \le 1) \\\\
         &\ge cn^2 - 2n
-   \end{align} $$
+   \end{aligned} $$

@@ -1,4 +1,4 @@
-> Rewrite `ENQUEUE` and `DEQUEUE to detect underflow and overflow of a queue.
+> Rewrite `ENQUEUE` and `DEQUEUE` to detect underflow and overflow of a queue.
 
 I shall go with the pseudo-code version, since I'm too lazy to bother figuring
 out how to test it in C.

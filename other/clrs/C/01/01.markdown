@@ -7,7 +7,7 @@ the first position, one and the second, etc.)
 
 In total there are:
 
-$$ \begin{align}
+$$ \begin{aligned}
    S &= S_1 + S_2 + \ldots + S_n \\\\
      &= \sum_{i=1}^{n}S_i \\\\
      &= \sum_{i=1}^{n}(n - i + 1) \\\\
@@ -15,6 +15,6 @@ $$ \begin{align}
      &= n^2 - n(n + 1)/2 + n \\\\
      &= n^2 - n^2/2 - n/2 + n \\\\
      &= n(n + 1)/2 \qquad \text{(Duh!)}
-     \end{align}$$
+     \end{aligned}$$
 
 Obvious proof is obvious.

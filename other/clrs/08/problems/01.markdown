@@ -69,11 +69,11 @@ $$ d(k) = D(T) = D(LT) + D(RT) + k = \min_{1 \le i \le k-1}\\{d(i) + d(k-i) + k\
 
 Let:
 
-$$ \begin{align}
+$$ \begin{aligned}
       f(i) &= i\lg{i} + (k-i)\lg(k-i) \\\\
      f'(i) &= \lg{i} + 1 - \lg(k-i) - 1 = \lg\frac{i}{k-i} \\\\
      f'(i) = 0 & \Leftrightarrow \lg\frac{i}{k-i} = 0 \Rightarrow i/(k-i) = 1 \Rightarrow i = \frac k 2
-   \end{align} $$
+   \end{aligned} $$
 
 Since $f'(i)$ is monotonously increasing, $i = k/2$ is a local minimum.
 

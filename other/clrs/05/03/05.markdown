@@ -4,7 +4,7 @@
 Let $\Pr\\{j\\}$ be the probability that the element with index $j$ is unique.
 If there are $n^3$ elements, then the $\Pr\\{j\\} = 1 - \frac{j-1}{n^3}$.
 
-$$ \begin{align}
+$$ \begin{aligned}
    \Pr\\{1 \cap 2 \cap 3 \cap \ldots\\}
        &= \Pr\\{1\\} \cdot \Pr\\{2 | 1\\} \cdot \Pr\\{3 | 1 \cap 2\\} \cdots \\\\
        &= 1 \bigg(1 - \frac{1}{n^3}\bigg)
@@ -17,6 +17,6 @@ $$ \begin{align}
             \cdots \\\\
      &\ge \bigg(1 - \frac{1}{n^2}\bigg)^n \\\\
      &\ge 1 - \frac{1}{n} \\\\
-   \end{align} $$
+   \end{aligned} $$
 
 Why does the last derivation work, you ask? Well, $(1-x)^n \ge 1 - nx$.

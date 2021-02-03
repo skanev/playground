@@ -11,33 +11,33 @@ $$ T(n) = \sum_{i=0}^{n/a}c(n-ia) + (n/a)ca
 
 Another approach is:
 
-$$ \begin{align}
+$$ \begin{aligned}
    T(n) &= cn + T(a) + T(n - a) + T(a) \\\\
         &= cn + ca + c(n-a) + T(a) + T(n - 2a) \\\\
         &= cn + c(n-a) + 2ca + c(n - 2a) + T(a) + T(n - 3a) \\\\
         &= cn + c(n-a) + c(n - 2a) + c(n - 3a) + T(n - 4a) + 3ca + T(a) \\\\
         &= \frac{n(n+1)}{2a} + cn \\\\
         &= \Theta(n^2)
-   \end{align} $$
+   \end{aligned} $$
 
 We can guess $T(n) \le cn^2$:
 
-$$ \begin{align}
+$$ \begin{aligned}
    T(n) & \le c(n-a)^2 + ca + cn \\\\
         & \le cn^2 - 2acn + ca + cn \\\\
         & \le cn^2 - c(2an - a - n) & (a > 1/2, n > 2a) \\\\
         & \le cn^2 - cn \\\\
         & \le cn^2 \\\\
         & = \Theta(n^2)
-   \end{align} $$
+   \end{aligned} $$
 
 We can guess $T(n) \ge cn^2$:
 
-$$ \begin{align}
+$$ \begin{aligned}
    T(n) & \ge c(n-a)^2 + ca + cn \\\\
         & \ge cn^2 - 2acn + ca + cn \\\\
         & \ge cn^2 - c(2an - a - n) & (a < 1/2, n > 2a) \\\\
         & \ge cn^2 + cn \\\\
         & \ge cn^2 \\\\
         & = \Theta(n^2)
-   \end{align} $$
+   \end{aligned} $$

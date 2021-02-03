@@ -1,16 +1,19 @@
-<h1>Exercise <%= @exercise.name %></h1>
-<%= yield %>
-<% if @exercise.graph? %>
-  <hr />
-  <img src="<%= "#{@exercise.location}.svg" %>" />
-<% end %>
-<% @exercise.run_languages.each do |language| %>
-  <hr />
-  <h3><%= language.to_s.capitalize %> runner output</h3>
-  <pre><%= @exercise.run_and_capture_output(language) %></pre>
-<% end %>
-<% @exercise.languages.each do |language| %>
-  <hr />
-  <h3><%= language.to_s.capitalize %> code</h3>
-  <%= Renderer.render_code @exercise.code_path(language), language %>
-<% end %>
+<article class="solution exercise">
+  <h1>Exercise <%= @exercise.name %></h1>
+
+  <%= yield %>
+  <% if @exercise.graph? %>
+    <hr />
+    <img src="<%= "#{@exercise.location}.svg" %>" />
+  <% end %>
+  <% @exercise.run_languages.each do |language| %>
+    <hr />
+    <h3><%= language.to_s.capitalize %> runner output</h3>
+    <pre><%= @exercise.run_and_capture_output(language) %></pre>
+  <% end %>
+  <% @exercise.languages.each do |language| %>
+    <hr />
+    <h3><%= language.to_s.capitalize %> code</h3>
+    <%= Renderer.render_code @exercise.code_path(language), language %>
+  <% end %>
+</article>

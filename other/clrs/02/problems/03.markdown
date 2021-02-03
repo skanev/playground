@@ -3,10 +3,10 @@
 > The following code fragment implements Horner's rule for evaluating a
 > polynomial
 >
-> $$ \begin{align}
+> $$ \begin{aligned}
 >    P(x) &= \sum_{k=0}^n a_kx^k = \\\\
 >         &= a_0 + x(a_1 + x(a_2 + \cdots + x(a_{n-1} + xa_n) \cdots))
->    \end{align} $$
+>    \end{aligned} $$
 >
 > given the coefficients $a_0, a_1, \ldots ,a_n$ and a value for $x$:
 >
@@ -60,12 +60,12 @@ which implies $y = 0$.
 **Maintenance:** By using the loop invariant, in the end of the $i$-th
 iteration, we have:
 
-$$ \begin{align}
+$$ \begin{aligned}
      y &= a_i + x\sum_{k=0}^{n-(i+1)}a_{k+i+1}x^k
         = a_ix^0 + \sum_{k=0}^{n-i-1}a_{k+i+1}x^{k+1} = \\\\
        &= a_ix^0 \sum_{k=1}^{n-i}a_{k+i}x^k
         = \sum_{k=0}^{n-i}a_{k+i}x^k
-  \end{align} $$
+  \end{aligned} $$
 
 **Termination:** The loop terminates at $i = -1$. If we substitute, we get:
 

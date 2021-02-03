@@ -11,8 +11,8 @@ Dead-end!
 
 Now we guess $T(n) \le cn^2 - n$:
 
-$$ \begin{align}
+$$ \begin{aligned}
      T(n) & \le 4\Big(c(n/2)^2 - n/2\Big) + n \\\\
           & \le cn^2 - 2n + n \\\\
           & \le cn^2 - n
-   \end{align} $$
+   \end{aligned} $$

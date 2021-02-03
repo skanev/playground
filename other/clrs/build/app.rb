@@ -32,8 +32,10 @@ get '/:chapter/problems/:number.svg' do
 end
 
 get '/:chapter/problems/:number.?:format?' do
+  catalog = Catalog.new SOLUTION_ROOT
   problem = Problem.new ChapterNumber.new(params[:chapter]), params[:number]
-  Renderer.render_problem problem
+
+  Renderer.render_problem problem, catalog
 end
 
 get '/:chapter/:section/:number.png' do
@@ -51,7 +53,13 @@ get '/:chapter/:section/:number.svg' do
 end
 
 get '/:chapter/:section/:number.?:format?' do
+  catalog = Catalog.new SOLUTION_ROOT
   exercise = Exercise.new ChapterNumber.new(params[:chapter]), params[:section], params[:number]
-  Renderer.render_exercise exercise
+
+  Renderer.render_exercise exercise, catalog
 end
 
+get '/css/clrs.css' do
+  content_type 'text/css'
+  Renderer.render_css
+end

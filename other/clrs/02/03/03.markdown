@@ -28,11 +28,11 @@ $$ F(k) = 2^k \lg{2^k} $$
 
 We prove it for $k + 1$:
 
-$$ \begin{align}
+$$ \begin{aligned}
    F(k + 1) & = T(2^{k+1})= 2T(\frac{2^{k+1}}{2}) + 2^{k+1} = \\\\
             & = 2T(2^k) + 2^{k+1} = 2 \cdot 2^k \lg{2^k} + 2^{k+1} = \\\\
             & = 2^{k+1}(\lg{2^k} + 1) = 2^{k+1}(\lg{2^k} + \lg2) = \\\\
             & = 2^{k+1}\lg{2^{k+1}}
-   \end{align} $$
+   \end{aligned} $$
 
 □

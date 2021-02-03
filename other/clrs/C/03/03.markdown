@@ -17,7 +17,7 @@ other die is also $k$ and in one of them both are).
 
 Here's the calculation:
 
-$$ \begin{align}
+$$ \begin{aligned}
    \E[X] &= -1 \cdot \Pr\\{X = 0\\} +
              1 \cdot \Pr\\{X = 1\\} +
              2 \cdot \Pr\\{X = 2\\} +
@@ -28,6 +28,6 @@ $$ \begin{align}
             + 3 \cdot \frac{1}{216} \\\\
          &= - \frac{17}{216} \\\\
          &= -0.07\ldots
-   \end{align} $$
+   \end{aligned} $$
 
 Turns out you loose ever so slightly. This did not match my intuition.

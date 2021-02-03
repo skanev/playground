@@ -26,15 +26,15 @@ $$ p(1, m) = 1 \le e^{0} = 1 $$
 If we assume the inequality holds for $k$, then for $k - 1$ we have:
 
 $$
-    \begin{align}
-      $p(k + 1, m) &= p(k, m) \cdot \left( 1 - \frac{k}{m} \right) \\\\
+    \begin{aligned}
+      p(k + 1, m) &= p(k, m) \cdot \left( 1 - \frac{k}{m} \right) \\\\
                    &\le e^{-k(k-1)/2m} \cdot \left( 1 - \frac{k}{m} \right) \\\\
                    &\le e^{-k(k-1)/2m} \cdot e^{-k/m} \\\\
                    &= e^{-k(k-1)/2m - k/m} \\\\
                    &= e^{-k(k-1)/2m - 2k/2m} \\\\
                    &= e^{-(k(k-1) + 2k)/2m} \\\\
                    &= e^{-k(k+1)/2m} \\\\
-    \end{align}
+    \end{aligned}
 $$
 
 As for the "rapidly goes to zero" part, observe that if we rewrite the equation

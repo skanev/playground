@@ -8,12 +8,12 @@ Let $X_{ijk}$ be the indicator random variable for the event of the people with
 indices $i$, $j$ and $k$ have the same birthday. The probability is $1/n^2$.
 Then:
 
-$$ \begin{align}
+$$ \begin{aligned}
    \E[X] &= \sum_{i=1}^n\sum_{j=i+1}^n\sum_{k=j+1}^nX_{ijk} \\\\
          &= \sum_{i=1}^n\sum_{j=i+1}^n\sum_{k=j+1}^n\frac{1}{n^2} \\\\
          &= \binom{n}{3}\frac{1}{n^2} \\\\
          &= \frac{k(k-1)(k-2)}{6n^2}
-   \end{align} $$
+   \end{aligned} $$
 
 Solving this yields $94$. It's a bit more, but again, indicator random
 variables are approximate.

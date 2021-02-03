@@ -137,13 +137,13 @@ $$ \sum_{r=0}^{n-1} r^t \le \int_0^n x^t dx = \frac{n^{t+1}}{t+1} $$
 
 This lets us give an upper bound on the expectation:
 
-$$ \begin{align}
+$$ \begin{aligned}
    \E[X_t] &= \sum_{r=1}^n \bigg(1 - \frac{r}{n}\bigg)^t \\\\
            &= \sum_{r=0}^{n-1} \bigg(\frac{r}{n}\bigg)^t \\\\
            &= \frac{1}{n^t} \sum_{r=0}^{n-1} r^t \\\\
            &\le \frac{1}{n^t} \cdot \frac{n^{t+1}}{t + 1} \\\\
            &= \frac{n}{t+1}
-   \end{align} $$
+   \end{aligned} $$
 
 The expected running time of `COMPACT-LIST-SEARCH'(L, n, k, t)` is thus:
 

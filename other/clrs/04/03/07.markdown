@@ -6,20 +6,20 @@
 
 First we guess $T(n) \le cn^{\log_3{4}}$. Thus:
 
-$$ \begin{align}
+$$ \begin{aligned}
    T(n) & \le 4c(n/3)^{\log_3{4}} + n \\\\
         & \le cn^{\log_3{4}} + n
-   \end{align} $$
+   \end{aligned} $$
 
 Dead-end!
 
 Let's guess $T(n) \le cn^{\log_3{4}} - n$. Thus:
 
-$$ \begin{align}
+$$ \begin{aligned}
    T(n) & \le 4\Big(c(n/3)^{\log_3{4}} - n\Big) + n \\\\
         & \le cn^{\log_3{4}} - 4n + n \\\\
         & \le cn^{\log_3{4}} - 3n \\\\
         & \le cn^{\log_3{4}} - n
-   \end{align} $$
+   \end{aligned} $$
 
 We're done!

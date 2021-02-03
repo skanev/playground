@@ -5,8 +5,9 @@
 
 This is nice
 
-$$ \begin{align}
-   \Pr\\{A_1 \cap A_2 \cap \cdots\\}
+$$ 
+    \begin{aligned}
+    \Pr\\{A_1 \cap A_2 \cap \cdots\\}
      &= \Pr\\{A_n | A_1 \cap \cdots \cap A_{n-1}\\} \cdot
         \Pr\\{A_1 \cap \cdots \cap A_{n-1}\\} \\\\
      &= \Pr\\{A_n | A_1 \cap \cdots \cap A_{n-1}\\} \cdot
@@ -17,4 +18,5 @@ $$ \begin{align}
         \Pr\\{A_3 | A_1 \cap A_2\\} \cdot
         \Pr\\{A_2 | A_1\\} \cdot
         \Pr\\{A_1\\}
-   \end{align} $$
+   \end{aligned}
+$$
