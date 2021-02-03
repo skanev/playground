@@ -1,0 +1,127 @@
+## Average node depth in a randomly built binary search tree
+
+> In this problem, we prove that the average depth of a node in a randomly built
+> binary search tree with $n$ nodes is $\O(\lg n)$. Although this result is
+> weaker than that of Theorem 12.4, the technique we shall use reveals a
+> surprising similarity between the building of a binary search tree and the
+> execution of `RANDOMIZED-QUICKSORT` from Section 7.3.
+>
+> We define the **total path length** $P(T)$ of a binary search tree as the sum,
+> over all nodes $x$ in $T$, of the depth of node $x$, which we denote by $d(x,
+> T)$.
+>
+> <ol type="a">
+>  <li>
+>   Argue that the average depth of a node in $T$ is
+>   $$ \frac{1}{n}\sum_{x \in T}^{n-1} d(x, T) = \frac{1}{n} P(T) $$
+>  </li>
+> </ol>
+>
+> Thus, we wish to show that the expected value of $P(T)$ is $O(n \lg n)$.
+> <ol type="a" start="2">
+>  <li>
+>   Let $T_L$ and $T_R$ denote the left and right subtrees of tree $T$,
+>   respectively. Argue that if $T$ has $n$ nodes, then
+>
+>   $$ P(T) = P(T_L) + P(T_R) + n - 1 $$
+>  </li>
+>  <li>
+>   Let $P(n)$ denote the average total path length of a randomly built binary
+>   search tree with $n$ nodes. Show that:
+>
+>   $$ P(n) = \frac{1}{n} \sum_{i=0}^{n-1}(P(i) + P(n-i-1) + n - 1) $$
+>  </li>
+>  <li>
+>   Show how to rewrite $P(n)$ as
+>   $$ P(n) = \frac{2}{n} \sum_{k=1}^{n-1} P(k) + \Theta(n) $$
+>  </li>
+>  <li>
+>   Recalling the alternative analysis of the randomized version of quicksort
+>   given in Problem 7.3, conclude that $P(n) = \O(n \lg n)$.
+>  </li>
+> </ol>
+>
+> At each recursive invocation of quicksort, we choose a random pivot element to
+> partition the set of elements being sorted. Each node of a binary search tree
+> partitions the set of elements that fall into the subtree rooted at that node.
+>
+> <ol type="a" start="6">
+>  <li>
+>   Describe an implementation of quicksort in which the comparisons to sort a
+>   set of elements are exactly the same as the comparisons to insert the
+>   elements into a binary search tree. (The order in which comparisons are made
+>   may differ, but the same comparisons must occur.)
+>  </li>
+> </ol>
+
+### Average depth of the node
+
+This is literally by definition.
+
+### Total path length expressed through subtrees
+
+Let's say that $T_L$ contains $l$ nodes. If we add a new node above $T_L$ as a
+new root of the tree, each of the $l$ nodes will get one extra edge connecting
+it to the root. A similar argument can be made for $T_R$ with $r$ nodes. Thus,
+when we take two trees, $T_L$ and $T_R$ and make them the left and right
+subtrees of a new tree, we add $l + r$ to the total path length of both trees,
+as each node now has an extra edge to the root. Observe that if the new tree has
+$n$ elements, then $n - 1 = l + r$. Hence we have that:
+
+$$ P(T) = P(T_L) + P(T_R) + n - 1 $$
+
+### Average total path length of randomly built tree
+
+When we're building the tree randomly, each element of $\\{1, 2, \ldots, n\\}$
+is equally likely to be the root. This follows pretty straightforwardly from the
+last two parts.
+
+
+### Rewritten expression
+
+We need to observe that each $P(i)$ appears twice because of the sum. That is:
+
+$$
+    \begin{aligned}
+    P(n) &= \frac{1}{n} \sum_{i=0}^{n-1}(P(i) + P(n-i-1) + n - 1) \\\\
+         &= \frac{1}{n} \sum_{i=0}^{n-1}(P(i) + P(n-i-1)) + \frac{1}{n} \sum_{i=0}^{n-1}(n - 1) \\\\
+         &= \frac{1}{n} \Big( P(0) + P(n - 1) + P(1) + P(n - 2) + \ldots + P(n - 2) + P(1) + P(n - 1) + P(0) \Big) + \Theta(n) \\\\
+         &= \frac{2}{n} \sum_{k=0}^{n-1} P(k) \\\\
+         &= \frac{2}{n} \sum_{k=1}^{n-1} P(k) \\\\
+    \end{aligned}
+$$
+
+The last step holds because $P(0) = 0$.
+
+### Upper bound
+
+Problem 7.3 established that:
+
+$$ \sum_{k=2}^{n-1}k\lg{k} \le \frac{1}{2}n^2\lg{n} - \frac{1}{8}n^2 $$
+
+Keeping that in mind, let's use the substitution method to establish an upper
+bound on $P(n)$. Let's assume $O(n\lg{n})$ and plug in $an\lg{n} + b$.
+
+$$
+    \begin{aligned}
+      P(n) &= \frac{2}{n} \sum_{k=1}^{n-1}P(k) + \Theta(n) \\\\
+           &= \frac{2}{n} \sum_{k=2}^{n-1}P(k) + \Theta(n) && \text{(because }P(1) = 0 \text{)} \\\\
+           &\le \frac{2}{n} \sum_{k=2}^{n-1}(ak\lg{k} + b) + \Theta(n) \\\\
+           &= \frac{2a}{n} \sum_{k=2}^{n-1}(k\lg{k}) + \frac{2b}{n}(n - 1) + \Theta(n) \\\\
+           &\le \frac{2a}{n} \sum_{k=2}^{n-1}(k\lg{k}) + 2b + \Theta(n) \\\\
+           &\le \frac{2a}{n} \left( \frac{1}{2} n^2 \lg{n} - \frac{1}{8} n^2 \right) + 2b + \Theta(n) \\\\
+           &= an \lg{n} - \frac{4}{a} n + 2b + \Theta(n) \\\\
+           &= an \lg{n} + b + \left(\Theta(n) + b - \frac{4}{a}n\right) \\\\
+           &\le an \lg{n} + b
+    \end{aligned}
+$$
+
+If we choose a large enough $a$ so $\frac{a}{4}n \ge \Theta(n) + b$. Chapter 4
+advises against asymptotic notation when using the substitution method, but I
+like to live dangerously.
+
+### Describe an implementation of quicksort(?)
+
+In quicksort, once a pivot is chosen, every element is compared against it.
+Similarly, once the root is chosen, every other element is compared against it.
+Applying this thinking recursively, we end up at the same number of comparisons.
