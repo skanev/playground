@@ -1,0 +1,37 @@
+> Describe a binary search tree on $n$ nodes such that the average depth of a
+> node in the tree $\Theta(\lg n)$ but the height of the tree is $\omega(\lg
+> n)$. Give an asymptotic upper bound on the height of an $n$-node binary search
+> tree in which the average depth of a node is $\Theta(\lg n)$.
+
+This is a bit weird. Let's consider how to maximize the height of the tree while
+minimizing the average depth. One approach would be having a long
+right-child-only chain of $f(n)$ nodes and a perfect binary tree with the ontop
+with the remaining $n - f(n)$ nodes.
+
+The answer, for the upper bound, after some desperate attempts and even more
+desperate googling, is $O(\sqrt{n \lg n})$. Let's prove it.
+
+Let's take the average depth $D$. Let $d_i$ be the depth of the $i$-th node, and
+let's split the nodes into two sets - $P$ and $Q$, where $P$ are the nodes from
+the root to a specific node at maximal height, and $Q$ are the rest. That is,
+$P$ is the set of node that form a longest path in the tree.
+
+We have:
+
+$$
+    D = \frac{1}{n} \left( \sum_{i \in P} d_i + \sum_{i \in Q} d_i \right)
+      \ge \frac{1}{n} \sum_{i \in P} d_i
+      = \frac{1}{n} \sum_{i = 0}^h i
+      = \Theta(h^2)
+$$
+
+Now let's assume that $\O(\sqrt{n \lg n})$ is not an upper bound, that is, $h =
+\omega(\sqrt{n \lg n})$.
+
+We then have:
+
+$$ D = \frac{1}{n} \Theta(h^2) = \frac{1}{n} \omega(n \lg n) = \omega(\lg n) $$
+
+This, however, is a contradiction, as we know the average depth is
+$\Omega(\lg{n})$, so we can infer that $\O(\sqrt{n \lg n})$ is an upper bound.
+
