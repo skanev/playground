@@ -1,0 +1,61 @@
+## Binary search trees with equal keys
+
+> Equal keys pose a problem for the implementation of binary search trees.
+>
+> <ol type="a">
+>  <li>
+>   What is the asymptotic performance of <code>TREE-INSERT</code> when used
+>   to insert $n$ items with identical keys into an initially empty binary
+>   search tree?
+>  </li>
+> </ol>
+>
+> We propose to improve `TREE-INSERT` by testing before line 5 to determine
+> whether $z.key = x.key$ and by testing before line 11 to determine whether
+> $z.key = x.key$. If equality holds, we implement one of the following
+> strategies. For each strategy, find the asymptotic performance of inserting
+> $n$ items with identical keys into an initially empty binary search tree. (The
+> strategies are described for line 5, in which we compare the keys of $z$ and
+> $x$. Substitute $y$ for $x$ to arrive at the strategies for line 11.)
+>
+> <ol type="a" start="2">
+>  <li>
+>   Keep a boolean flag $x.b$ at node $x$, and set $x$ to either $x.left$ or
+>   $x.right$ based on the value of $x.b$, which alternates between
+>   <code>FALSE</code> and <code>TRUE</code> each time we visit $x$ while
+>   inserting a node with the same key as $x$.
+>  </li>
+>  <li>
+>   Keep a list of nodes with equal keys at $x$, and insert $z$ into the list
+>  </li>
+>  <li>
+>   Randomly set $x$ to either $x.left$ or $x.right$. (Give the worst case
+>   performance and informally derive the expected running time.
+>  </li>
+> </ol>
+
+To begin with (a), the implementation in the book always insert to the right of
+a leaf node, which means it needs to iterate over the existing node, which means
+each subsequent insert will perform an additional operation, yielding
+$\Theta(n^2)$.
+
+### First strategy
+
+This is interesting. If you work it out through inserting, you'll notice that it
+fills each level before advancing to the next one, building a perfect binary
+tree. The time is therefore going to be $\Theta(n \lg n)$.
+
+### Second strategy
+
+Assuming a doubly-linked list or inserting in the beginning of the list, this
+will result in $\Theta(n)$ time, as each insert is going to be $\O(1)$ (constant
+time to find the root, and constant time to insert in the list).
+
+### Third strategy
+
+The worst case performance is clearly $\Theta(n^2)$.
+
+Reasoning informally, we'll pick the left and right subtree roughly the same
+amount of time, which means the elements will roughly be equal in the two main
+branches. Applying this logic recursively, we end up with a roughly balanced
+tree, which means $\Theta(n \lg n)$ expected time.
