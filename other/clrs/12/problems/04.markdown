@@ -1,0 +1,146 @@
+## Number of different binary trees
+
+> Let $b_n$ denote the number of different binary trees with $n$ nodes. In this
+> problem you will find a formula for $b_n$, as well as an asymptotic estimate.
+>
+> <ol type="a">
+>   <li><p>Show that $b = 1$ and that, for $n \ge 1$,
+>   $$ b_n = \sum_{k=0}^{n-1} b_k b_{n-1-k} $$
+>   <li><p>Referring to <a href="/04/problems/04.html">Problem 4-4</a> for the
+>   definition of a generating function, let $B(x)$ be the generating function
+>   $$ B(x) = \sum_{n=0}^{\infty} b_n x^n $$
+>   Show that $B(x) = xB(x)^2 + 1$, and hence one way to express $B(x)$ in
+>   closed form is
+>   $$ B(x) = \frac{1}{2x}(1 - \sqrt{1 - 4x}) $$
+> </ol>
+>
+> The **Taylor expansion** of $f(x)$ around the point $x = a$ is given by
+>
+> $$ f(x) = \sum_{k=0}^{\infty} \frac{f^{(k)}(a)}{k!}(x - a)^k $$
+>
+> where $f^{(k)}(x)$ is the $k$th derivative of $f$ evaluated at $x$.
+>
+> <ol type="a" start="3">
+>   <li><p>Show that
+>   $$ b_n = \frac{1}{n + 1} \binom{2n}{n} $$
+>   (the $n$th <b>Catalan number</b>) by using the Taylor expansion of $\sqrt{1 -
+>   4x}$ around $x = 0$. (If you wish, instead of using the Taylor expansion,
+>   you may use the generalization of the binomial expansion (C.4) to
+>   nonintegral exponents $n$, where for any real number $n$ and for any integer
+>   $k$, we interpret $\binom{n}{k}$ to be $n(n-1)\ldots(n-k+1)/k!$ if $k \ge
+>   0$, and 0 otherwise).
+>   <li><p>Show that
+>   $$ b_n = \frac{4^n}{\sqrt{\pi} n^{3/2}} (1 + O(1/n)) $$
+> </ol>
+
+### a. Calculating $b_0$ and $b_n$
+
+There is exactly one tree with 0 nodes (the empty tree), therefore $b_0 = 1$.
+
+When we construct a tree with $n$ nodes, we have $n$ choices for the root, and
+the remaining $n - 1$ nodes will be either in the left subtree or the right
+subtree. This is exactly the given formula:
+
+$$ b_n = \sum_{k=0}^{n-1} b_k b_{n-1-k} $$
+
+Where $k$ is the number of elements that are smaller than the chosen root and $n
+- 1 - k$ is the number of elements larger than the chosen root.
+
+### b. Generating function
+
+This is trippy.
+
+$$
+    \begin{aligned}
+    xB(x) + 1 &= 1 + x \Big( b_0 x^0 + b_1 x^1 + b_2 x^2 + \ldots \Big)^2 \\\\
+              &= 1 + x \Big( b_0^2 + x^0 + (b_0 b_1 + b_1 b_0) x^1 + (b_0 b_2 + b_1 b_1 + b_2 b_0) x^2 + \ldots \Big) \\\\
+              &= 1 + x \Big( \sum_{k=0}^{0} b_k b_{0-k} x^0 + \sum_{k=0}^{1} b_k b_{1-k} x^1 + \sum_{k=0}^{2} b_k b_{2-k} x^2 + \ldots \Big) \\\\
+              &= 1 + x \Big( \sum_{j=0}^{\infty} \sum_{k=0}^{j} b_k b_{j-k} x^j \Big) \\\\
+              &= 1 + x \Big( \sum_{j=0}^{\infty} \sum_{k=0}^{j+1-1} b_k b_{j+1-1-k} x^j \Big) \\\\
+              &= 1 + \sum_{j=0}^{\infty} \sum_{k=0}^{j+1-1} b_k b_{j+1-1-k} x^{j+1} \\\\
+              &= 1 + \sum_{j=0}^{\infty} b_{j+1} x^{j+1} && \big( \text{because of (a)} \big)\\\\
+              &= 1 + \sum_{k=1}^{\infty} b_{k} x^{k} && \big( \text{substituting } k = j + 1 \big)\\\\
+              &= b_0 x^0 + \sum_{k=1}^{\infty} b_{k} x^{k} \\\\
+              &= \sum_{k=0}^{\infty} b_{k} x^{k} \\\\
+              &= B(x)
+    \end{aligned}
+$$
+
+Then, to verify the possible solution, we just substitute:
+
+$$
+    \begin{aligned}
+    xB(x)^2 + 1 &= x \Big( \frac{1}{2x}(1 - \sqrt{1 - 4x}) \Big)^2 + 1 \\\\
+                &= \frac{1}{4x}(1 - 2 \sqrt{1 - 4x} + 1 - 4x) + 1 \\\\
+                &= \frac{1}{4x}(2 - 2 \sqrt{1 - 4x}) - \frac{4x}{4x} + 1 \\\\
+                &= \frac{1}{2x}(1 - \sqrt{1 - 4x}) \\\\
+                &= B(x)
+    \end{aligned}
+$$
+
+### c. Taylor series expansion
+
+Ugh!
+
+Alright, let's calculate some derivatives for $f(x) = \sqrt{1 - 4x} = (1 -
+4x)^{1/2}$.
+
+$$
+    \begin{aligned}
+    f^{(1)}(x) &= \Big[ (1 - 4x)^{1/2} \Big]' = \frac{1}{2} (1 - 4x)^{-1/2} (1 - 4x)' = -2 (1 - 4x)^{-1/2} = \frac{-2}{(1 - 4x)^{1/2}} \\\\
+    f^{(2)}(x) &= \Big[ -2 (1 - 4x)^{-1/2} \Big]' = (- \frac{1}{2})(-2)(1 - 4x)^{-3/2}(1 - 4x)' = -4(1 - 4x)^{-3/2} = \frac{-3}{(1 - 4x)^{3/2}} \\\\
+    f^{(3)}(x) &= \Big[ -4 (1 - 4x)^{-3/2} \Big]' = \frac{3 \cdot 4}{2}(1 - 4x)^{-5/2}(1 - 4x)' = -24(1 - 4x)^{-5/2} = \frac{-24}{(1 - 4x)^{5/2}} \\\\
+    f^{(4)}(x) &= \Big[ -24 (1 - 4x)^{-5/2} \Big]' = \frac{24 \cdot 5}{2}(1 - 4x)^{-7/2}(1 - 4x)' = -240(1 - 4x)^{-7/2} = \frac{-240}{(1 - 4x)^{7/2}} \\\\
+    f^{(5)}(x) &= \Big[ -24 (1 - 4x)^{-7/2} \Big]' = \frac{240 \cdot 7}{2}(1 - 4x)^{-9/2}(1 - 4x)' = -3360(1 - 4x)^{-9/2} = \frac{-3360}{(1 - 4x)^{9/2}} \\\\
+    \end{aligned}
+$$
+
+Let's observe that for $x = 0$ the denominator is going to be $1$, so we're
+interested only in the numerator. Let's also notice that the numerator $n_k$ for
+the $k$-th derivative is:
+
+$$ n_k = - 2^k \prod_{i=0}^{k-2} (2k + 1) = - 2^k \frac{(2(k - 1))!}{2^{k-1}(k-1)!} = - \frac{2(2(k - 1))!}{(k-1)!} $$
+
+Thus, the Taylor expansion is:
+
+$$ f(x) = \sum_{k=0}^{\infty} - \frac{n_k}{k!}x^k = \sum_{k=0}^{\infty} - \frac{2(2(k-1))!}{k!(k-1)!}x^k$$
+
+Or
+
+$$ f(x) = 1 - 2x - 2x^2 - 4x^3 - 10x^4 - 28x^5 - \ldots $$
+
+Substituting that into $B(x)$, we get:
+
+$$
+    \begin{aligned}
+    B(x) &= \frac{1}{2x}(1 - f(x)) \\\\
+         &= \frac{1}{2x} (1 - 1 + 2x + 2x^2 + 4x^3 + 10x^4 + 28x^5 + \ldots) \\\\
+         &= 1 + x + 2x^2 + 5x^3 + 14x^4 + \ldots \\\\
+         &= \sum_{k=0}^{\infty} \frac{(2k)!}{(k + 1)!k!} x^k \\\\
+         &= \sum_{k=0}^{\infty} \frac{1}{k+1} \frac{(2k)!}{k!k!} x^k \\\\
+         &= \sum_{k=0}^{\infty} \frac{1}{k+1} \binom{2k}{k} x^k
+    \end{aligned}
+$$
+
+Which illustrates that:
+
+$$ b_k = \frac{1}{n+1} \binom{2k}{k} $$
+
+### d. Upper bound
+
+We use Stirling's approximation,
+
+$$ n! = \sqrt{2 \pi n}\Big(\frac{n}{e}\Big)^n \Bigg(1 + \Theta \Big( \frac{1}{n} \Big) \Bigg) = \sqrt{2 \pi n} n^n e^{-n} (1 + \Theta(1/n)) $$
+
+and go on to produce some very ugly math:
+
+$$
+    \begin{aligned}
+    b_n &= \frac{1}{n+1}\frac{(2n)!}{n!n!} \\\\
+        &= \frac{1}{n+1}\frac{ \sqrt{4 \pi n}(2n)^{2n} e^{-2n} (1 + \Theta(1/n)) }{2 \pi n n^{2n} e^{-2n} (1 + \Theta(1/n)) } \\\\
+        &= \frac{1}{n+1}\frac{ \sqrt{4 \pi n} 4^{n} n^{2n} (1 + \Theta(1/n)) }{2 \pi n n^{2n} (1 + \Theta(1/n)) } \\\\
+        &= \frac{1}{n+1}\frac{ 2 \sqrt{\pi n} 4^{n}  (1 + \Theta(1/n)) }{2 \pi n (1 + \Theta(1/n)) } \\\\
+        &= \frac{1}{n+1}\frac{ 4^{n} (1 + \Theta(1/n)) }{\sqrt{\pi n} (1 + \Theta(1/n)) } \\\\
+        &= \frac{ 4^n }{\sqrt{\pi} n^{3/2} } (1 + \Theta(1/n))
+    \end{aligned}
+$$
