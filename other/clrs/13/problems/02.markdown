@@ -1,0 +1,100 @@
+## Join operation on red-black trees
+
+> The **join** operation takes two dynamic sets $S_1$ and $S_2$ and an element
+> $x$ such that any $x_1 \in S_1$ and $x_2 \in S_2$, we have $x_1.key \le x.key
+> \le x_2.key$. It returns a set $S = S_1 \cup \\{x\\} \cup S_2$. In this
+> problem, we investigate how to implement the join operation on red-black
+> trees.
+>
+> <ol type="a">
+>   <li>Given a red-black tree $T$, let us store its black-height as the new
+>   attribute $T.bh$. Argue that <code>RB-INSERT</code> and
+>   <code>RB-DELETE</code> can maintain the $bh$ attribute without requiring
+>   extra storage in the nodes of the tree and without increasing the asymptotic
+>   running times. Show that while descending through $T$, we can determine the
+>   black-heigh of each node we visit in $\O(1)$ time per node visited.
+> </ol>
+>
+> We wish to implement the operation $\text{RB-JOIN}(T_1, x, T_2)$, which
+> destroys $T_1$ and $T_2$ and returns a red-black tree $T = T_1 \cup \\{x\\}
+> \cup T_2$. Let $n$ be the total number of nodes in $T_1$ and $T_2$.
+>
+> <ol type="a" start="2">
+>   <li>Assume that $T_1.bh \ge T_2.bh$. Describe an $\O(\lg n)$-time algorithm
+>   that finds a black node $y$ in $T_1$ with the largest key from among those
+>   nodes whose black height is $T_2.bh$.
+>   <li>Let $T_y$ be the subtree rooted at $y$. Describe how $T_y \cup \\{x\\}
+>   T_2$ can replace $T_y$ in $\O(1)$ time without destroying the binary search
+>   tree property.
+>   <li>What color should we make $x$ so that red-black properties 1, 3, and 5
+>   are maintained? Describe how to enforce properties 2 and 4 in $\O(\lg n)$
+>   time.
+>   <li>Argue that no generality is lost by making the assumption in part (b).
+>   Describe the symmetric situation that arises when $T_1.bh \le T_2.bh$.
+>   <li>Argue that the running time of <code>RB-JOIN</code> is $\O(\lg n)$.
+> </ol>
+
+### a. Maintaining black height in constant time
+
+Technically speaking, whenever we perform the fixup operations, we can keep
+track of the colors we change in the path we've modified, and rely on that to
+know whether we have to increment or decrement the black height.
+
+But it seems to me, that there is a simpler heuristic, that I'm going to just
+guess here, without proving. Specifically, whenever the black height changes, it
+is somehow reflected in the second and third layer of the tree.
+
+When inserting, the way the black height increases is by coloring the root red
+(while preserving the properties with `RB-INSERT-FIXUP`) and then finally
+coloring it black. This is the only operation that increases the black height by
+one.
+
+Similarly, when deleting, the extra-black pointer eventually finds itself to the
+root, and that's how the black heigh gets decreased.
+
+I may be missing some cases here, but fundamentally - both left and right
+subtrees of the root need to lose or gain a unit of black height in order for
+the tree to do so as well, hence we can figure it out by observing what happens
+around the root.
+
+### b. Finding a black node with the largest key with a specific black-height
+
+Quite simply, we start from the root and go right, setting $c = T.bh$. Every
+time we go through a black node, we decrement $c$ until we reach the $T_2.bh$.
+Once we do, we have the node in question.
+
+### c. Replacing $T_y$
+
+Quite simply, we replace the node with $x$, and we put $T_y$ as its left child,
+and $T_2$ as it's right child. The binary search tree invariant is preserved, as
+we have that $x.key$ is smaller than the keys in $T_2$ and larger than the ones
+in $T_1$.
+
+### d. What color should we make $x$?
+
+We should make it red. This preserves properties 1, 3 and 5.
+
+Two problems can occur now. Either it's the new root, and it's red, in which
+case we can color it black and be done with it, or it can have a red parent
+(its left child is black, because we found a black node for $T_y$ and its right
+child is also black, because it's $T_2$, and the root of $T_2$ is black).
+
+We then simply need to call `RB-INSERT-FIXUP` to fix the two subsequent red
+nodes.
+
+### e. Generality
+
+Pretty trivially, if $T_2$ has the greater black height, we need to find the
+node with the smallest key of a given black height, replace it with $x$ and put
+$T_1$ as it's left child. The approach is symmetrical.
+
+### f. Running time
+
+The operation does the following:
+
+1. Descends one of the trees to find $T_y$, and does so in $\O(\lg n)$ time.
+2. Replaces it with $x$ and transplants $T_y$ and $T_2$ under it, in $\O(1)$
+   time.
+3. Runs `RB-INSERT-FIXUP`, which takes $\O(\lg n)$ time.
+
+We get $\O(\lg n) + \O(1) + \O(\lg n) = \O(\lg n)$.
