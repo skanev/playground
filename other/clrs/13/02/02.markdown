@@ -1,0 +1,8 @@
+> Argue that in every $n$-node binary search tree, there are exactly $n-1$
+> possible rotations.
+
+There is a very simple argument to illustrate this.
+
+Each rotation is possible along an internal edge from a child to a parent. In a
+tree of $n$ nodes, there are at exactly $n - 1$ internal edges (each node has a
+parent, apart from the root). Thus, there are only $n - 1$ possible rotations.
