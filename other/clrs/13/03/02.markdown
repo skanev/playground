@@ -1,0 +1,5 @@
+> Show the red-black trees that result after successfully inserting the keys
+> $41, 38, 31, 12, 19, 8$ into an initially empty red-black tree.
+
+This was a curious exercise. It was worth doing this on a piece of paper and
+then writing the code to verify that it works.
