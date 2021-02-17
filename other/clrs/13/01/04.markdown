@@ -1,0 +1,24 @@
+> Suppose that we "absorb" every red node in a red-black tree into its black
+> parent, so that the children of the red node become children of the black
+> parent. (Ignore what happens to the keys.) What are the possible degrees a of
+> black node after all its red children are absorbed? What can you say about the
+> depths of the leaves of the resulting tree?
+
+Two things are clear from the properties:
+
+1. Red nodes have black children.
+2. Red nodes have black parents.
+
+Both follow from property 4, which implies that a red node cannot be a parent of
+another red node. Alternatively put, each path to a leaf may go through
+subsequent black nodes, but no two red nodes in a row.
+
+This means that the most complicated subtree is going to look like this:
+
+![](13/01/04.drawing.01.svg)
+
+If we "absorb" the red nodes, node 4 will end up having four children (1, 3, 5,
+7), that is, a degree of $4$ and no more.
+
+The depth of the resulting leaves can at most halve. That is, if a leaf had
+depth $n$, it's new depth is going to be at least $\lceil n / 2 \rceil$.
