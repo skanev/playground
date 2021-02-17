@@ -1,0 +1,11 @@
+> Suppose that a node $x$ is inserted into a red-black tree with `RB-INSERT` and
+> then is immediately deleted with `RB-DELETE`. Is the resulting red-black tree
+> the same as the initial red-black tree? Justify your answer.
+
+It's not, necessarily.
+
+Informally, (1) there is more than one way to color the same tree and (2)
+nothing in the functions strives to accomplish a canonical coloring. In fact,
+all the functions try to do as little work as possible.
+
+Here's a counter-example:
