@@ -1,0 +1,22 @@
+> Write the pseudocode for `RIGHT-ROTATE`.
+
+I'm pretty sure I'll end up implementing rotations in C in the later exercises,
+so I'm gonna wing it with the pseudocode here:
+
+    RIGHT-ROTATE(T, y)
+        x = y.left
+        y.left = x.right
+        if x.right != T.nil
+            x.right.p = y
+        x.p = y.p
+
+        if y.p == T.nil
+            T.root = x
+        elseif y == y.p.left
+            y.p.left = x
+        else
+            y.p.right = x
+        x.right = y
+        y.p = x
+
+I've chosen to name the variable `y` to match the figure in the text.
