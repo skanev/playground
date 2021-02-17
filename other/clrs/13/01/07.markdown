@@ -1,0 +1,17 @@
+> Describe a red-black tree on $n$ keys that realizes the largest possible ratio
+> of red internal nodes to black internal nodes. What is this ratio? What tree
+> has the smallest possible ratio, and what is the ratio?
+
+The math can get quite complicated if $n$ is not one less than a power of $2$.
+Reasoning informally:
+
+The smallest possible ratio is obtained by black-only nodes and is going to be
+$0$.
+
+The largest possible ratio is obtained by each black node having two red
+children, and is going to be $2$. Here's an illustration:
+
+![](13/01/07.drawing.01.svg)
+
+There are 5 black internal nodes and 10 red internal nodes, making a ratio of
+$2$.
