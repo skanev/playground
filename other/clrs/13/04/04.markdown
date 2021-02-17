@@ -1,0 +1,7 @@
+> In which lines of the code for `RB-DELETE-FIXUP` might we examine or modify
+> the sentinel $T.nil$?
+
+$x$ can initially be the sentinel, and all the checks and modifications against
+it (lines 2, 3, 6, 7, 8, 11, 16, 17, 18, 20) examine the sentinel. It happens to
+have the right pointers, because `RB-DELETE` has set them up before calling
+`RB-DELETE-FIXUP`.
