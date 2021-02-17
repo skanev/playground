@@ -1,0 +1,18 @@
+> Let us define a **relaxed red-black tree** as a binary search tree that
+> satisfies red-black properties 1, 3, 4, and 5. In other words, the root may be
+> either red or black. Consider a relaxed red-black tree $T$ whose root is red.
+> If we color the root of $T$ black but make no other changes to $T$, is the
+> resulting tree a red-black tree?
+
+Yes. Checking the properties:
+
+1. **Every node is either red or black**. Holds.
+2. **The root is black.** Holds after coloring.
+3. **Every leaf ($\mathrm{NIL}$) is black.** Holds, since the leaves were black
+   in the relaxed tree.
+4. **If a node is red, then both its children are black**. Holds. The only
+   potential candidate to break the property is the root, which is now black,
+   and has no parents.
+5. **For each node, all simple paths from the node to descendant leaves contain
+   the same number of black nodes**. Continues to hold, as the all paths from
+   the root get a potential extra black node and the rest remain unchanged.
