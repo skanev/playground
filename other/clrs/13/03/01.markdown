@@ -1,0 +1,7 @@
+> In line 16 of `RB-INSERT`, we set the color of the newly inserted node $z$ to
+> red. Observe that if we had chosen to set $z$'s color to black, then property
+> 4 of a red-black tree would not be violated. Why didn't we choose to set $z$'s
+> color to black?
+
+If we color it black, we will violate property 5, namely that all paths have the
+same number of black nodes. This would be a harder invariant to reintroduce.
