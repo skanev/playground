@@ -1,0 +1,22 @@
+> Show that any arbitrary $n$-node binary search tree can be transformed into
+> any other arbitrary $n$-node binary search tree using $\O(n)$ rotations.
+> (_Hint_: First show that at most $n-1$ right rotations suffice to transform
+> the tree into a right-going chain.)
+
+An informal argument:
+
+Let's that the right-going chain of nodes in the tree, that is, nodes that can
+be reached by following only right-going edges. This right-going chain either
+contains the whole tree, or there are some nodes that are left children of the
+chain. If we perform a right rotation on such a child and its parent in the
+chain, the length of the chain increases by one and the number of nodes not in
+the chain gets reduced by one. We can keep iterating, until the tree is a
+right-going chain. There would be at most $n - 1$ nodes, so we can perform this
+in $\O(n)$ rotations.
+
+It should be noted that this operation is reversible. That is, we can apply the
+symmetric left rotation in reverse order to obtain the original tree from the
+resulting right-going chain. Since there is only one possible right-going chain
+(sorting the elements in increasing order), we can transform any tree to another
+by first transforming it to a right-going chain, and then applying the reverse
+transformation that the target tree will need to become a right-going chain.
