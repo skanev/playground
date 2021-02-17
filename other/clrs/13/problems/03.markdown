@@ -1,0 +1,111 @@
+## AVL Trees
+
+> An **AVL tree** is a binary search tree that is **heigh balanced**: for each
+> node $x$, the heights of the left and right subtrees of $x$ differ by at most
+> 1. To implement an AVL tree, we maintain an extra attribute in each node:
+> $x.h$ is the height of node $x$. As for any other binary search tree $T$, we
+> assume that $T.root$ points to the root node.
+>
+> <ol type="a">
+>   <li>Prove that an AVL tree with $n$ nodes has height $\O(\lg n)$.
+>   (<i>Hint:</i> Prove that an AVL tree of height $h$ has at least $F_h$ nodes,
+>   where $F_h$ is the $h$th Fibonacci number.)
+>   <li>To insert into an AVL tree, we first place a node into the appropriate
+>   place in binary search tree order. Afterward, the tree might no longer be
+>   height balanced. Specifically, the heights of the left and right children of
+>   some node might differ by 2. Describe a procedure <code>BALANCE(x)</code>,
+>   which takes a subtree rooted at $x$ whose left and right children are height
+>   balanced and have height that differ by at most 2, i.e. $|x.right.h -
+>   x.left.h| \le 2$, and alters the subtree rooted at $x$ to be height
+>   balanced. (<i>Hint:</i> Use rotations).
+>  <li>Using part (b), describe a recursive procedure <code>AVL-INSERT(x,
+>  z)</code> that takes a node $x$ within an AVL tree and a newly created node
+>  $z$ (whose key has already been filled in), and adds $z$ to the subtree
+>  rooted at $x$, maintaining the property that $x$ is the root of an AVL tree.
+>  As in <code>TREE-INSERT</code> from Section 12.3, assume that $z.key$ has
+>  already been filled in and that $z.left = \mathrm{NIL}$ and $z.right =
+>  \mathrm{NIL}$; also assume that $z.h = 0$. Thus, to insert the node $z$ into
+>  the AVL tree $T$, we call <code>AVL-INSERT(T.root, z)</code>.
+>  <li>Show that <code>AVL-INSERT</code>, run on an $n$-node AVL tree, takes
+>  $\O(\lg n)$ time and performs $\O(1)$ rotations.
+> </ol>
+
+### a. number of nodes and height
+
+Let $N_h$ be a lower bound of the number of nodes in an AVL tree with height
+$h$.
+
+When $h = 1$, we have that $N_1 = 1$ (there is a single root node in the tree).
+Let's also have $N_0 = 0$.
+
+Let's look at $N_h$ more generally. We know two facts:
+
+* The taller subtree will have height $h - 1$ (otherwise we're not calculating
+  heights correctly).
+* The other subtree will have height at least $h - 2$ (otherwise the AVL
+  invariant will be broken).
+
+This yields the following recurrence:
+
+$$ N_h \ge N_{h-1} + N_{h-2} $$
+
+This is the well-known Fibonnaci sequence. This means, that if a tree has height
+$h$, then it will have at least $F_h$ nodes.
+
+Now let's use this fact to establish a bound on a tree with $n$ nodes. Let's
+find an $i$ such that $F_i \le n < F_{i+1}$. We know the height of the tree must
+be less than $i + 1$, otherwise the tree would have at least $F_{i+1} > n$
+nodes. Since $F_i = \Theta(\phi^i)$, we have:
+
+$$ n = \Theta(\phi^h) $$
+
+And taking the logarithm of both sides (and skipping some formal rigour):
+
+$$ h = \Theta(\lg n) $$
+
+### b. balance procedure
+
+Refer to the Python code below for some details. Here's a high-level summary.
+
+There are four different cases in which we need to perform rotations when the
+tree is not balanced:
+
+    (A)   3      (B)   3     (C)  1        (D)  1
+        /            /              \             \
+      2            1                  2             3
+     /              \                  \           /
+    1                2                  3         2
+
+The later two are symmetrical to the former two. In both cases, the bottom node
+is the inserted one, and the top node is the one with the inbalance (height = 2
+in one subtree, and height = 0 in the other). We need to perform one or two
+rotations in order to get a balanced tree.
+
+* **(A)** Performing a right rotation on the root is enough to balance the tree
+* **(B)** We need to perform a left-right rotation, that is, we need to rotate
+  the middle node left, which reduced the tree to the one in (A), and then
+  perform a left rotation
+* **(C)** Symmetrically, we just perform a right left rotation
+* **(D)** In a similar fashion, we perform a right-left rotation
+
+Note that once we make the rotation, the height of the taller subtree gets
+reduced by one, and the height of the shorter gets increased by one. This leaves
+the root of the subtree with an unchanged height. Since the root's height
+remains unchanged, the rest of the tree won't need any additional rotations.
+
+### c. the `AVL-INSERT` procedure
+
+We insert a node in the standard way, and then we traverse the ancestors,
+updating the heights, until we find a imbalance. Then we perform one or two
+rebalancing rotations, and the tree is once again balanced.
+
+Refer to the Python code for more detail.
+
+### d. Running time
+
+Insertion needs to
+
+* descend through the tree, to find where to insert the node, in $\O(\lg n)$ time;
+* go back the ancestors, and update the heights, in $\O(\lg n)$ time;
+* perform a one or two balancing rotations if it encounters an imbalance, in
+  $\O(1) time
