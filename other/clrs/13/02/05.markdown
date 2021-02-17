@@ -1,0 +1,24 @@
+> $\star$ We say that a binary search tree $T_1$ can be **right-converted** to a
+> binary search tree $T_2$ if it is possible to obtain $T_2$ from $T_1$ via a
+> series of calls to `RIGHT-ROTATE`. Give an example of two trees $T_1$ and
+> $T_2$ such that $T_1$ cannot be right-converted to $T_2$. Then, show that if a
+> tree $T_1$ can be right-converted to $T_2$, it can be right-converted using
+> $\O(n^2)$ calls to `RIGHT-ROTATE`.
+
+Here are two trees, the second of which can't be produced by right-rotating the
+right:
+
+       1             2
+         \         /
+           2     1
+
+We need a left rotation here.
+
+More specifically, right rotations can only decrease the value of the root, but
+not increase it.
+
+Now, reasoning very informally, and making some unverified assumptions, we can
+convert $T_1$ to $T_2$ by first doing $\O(n)$ right rotations to get the roots
+to match, and then performing right rotations on the two sub-trees recursively
+to position their roots. An upper bound of this approach (assuming it works)
+will be $\O(n^2)$.
