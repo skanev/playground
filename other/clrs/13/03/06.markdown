@@ -1,0 +1,11 @@
+> Suggest how to implement `RB-INSERT` efficiently if the representation for
+> red-black trees include no storage for parent pointers.
+
+We can do it by allocating extra $\O(\lg n)$ memory.
+
+When inserting, we're descending the tree to the position we want to insert in.
+If we keep track of the stack of parents we visit (there $\O(\lg n)$ are of
+them), we can then calculate $z.p$ and $z.p.p$ using that stack. We will need to
+pass the relevant parent to `LEFT-ROTATE` and `RIGHT-ROTATE` as well.
+
+Problem 13.1 actually implements this.
