@@ -1,0 +1,10 @@
+> Professor Teach is concerned that `RB-INSERT-FIXTUP` might set $T.nil.color$
+> to `RED`, in which case the test in line 1 would not cause the loop to
+> terminate when $z$ is the root. Show that the professor's concern is unfounded
+> by arguing that `RB-INSERT-FIXUP` never sets $T.nil.color$ to `RED`.
+
+The professor worries too much.
+
+We only set the color to red of $z.p.p$ and the text goes at great lengths to
+establish that it always exists (because $z.p$ is `RED`, which means it can't be
+the root, which means $z.p.p$ is not `NIL`).
