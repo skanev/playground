@@ -1,0 +1,17 @@
+> Draw the red-black tree that results after `TREE-INSERT` is called on the tree
+> in Figure 13.1 with key $36$. If the inserted node is colored red, is the
+> resulting tree a red-black tree? What if it is colored black?
+
+The new element is going to be the gray one:
+
+![](13/01/02.drawing.01.svg)
+
+If we color it red, it will violate property 4, that is, red nodes need to have
+black children. In this case, it's parent, 35 is red, so it must be black.
+
+If we color it black, it will violate property 5. The path to the descendants of
+36 from the root will have 4 black nodes, but the one to the descendants of 39
+will have 3.
+
+That is, `TREE-INSERT` does not produce a valid red-black tree in this case,
+regardless of how we color the node.
