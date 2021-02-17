@@ -1,0 +1,235 @@
+## Treaps
+
+> If we insert a set of $n$ items into a binary search tree, the resulting tree
+> may be horribly unbalanced, leading to long search times. As we saw in Section
+> 12.4, however, randomly built binary search trees tend to be balanced.
+> Therefore, one strategy that, on average, builds a balanced tree for a fixed
+> set of items would be to randomly permute the items and then insert them in
+> that order into the tree.
+>
+> What if we do not have all the items at once? If we receive the items one at a
+> time, can we still randomly build a binary search tree out of them?
+>
+> We will examine a data structure that answers this question in the
+> affirmative. A **treap** is a binary search tree with a modified way of
+> ordering the nodes. Figure 13.9 shows an example. As usual, each node $x$ in
+> the tree has a key value $x.key$. In addition, we assign $x.priority$, which
+> is a random number chosen independently for each node. The nodes of the treap
+> are ordered so that the keys obey the binary-search-tree property and the
+> priorities obey the min-heap property:
+>
+> * If $v$ is a left child of $u$, then $v.key < u.key$.
+> * If $v$ is a right child of $u$, then $v.key > u.key$.
+> * If $v$ is a child of $u$, then $v.priority > u.priority$.
+>
+> (This combination of properties is why the tree is called a "treap": it has
+> features of both a binary search tree and a heap.)
+>
+> It helps to think of treaps in the following way. Suppose that we insert nodes
+> $x_1, x_2, \ldots, x_n$, with associated keys, into a treap. Then the
+> resulting treap is the tree that would have been formed if the nodes had been
+> inserted into a normal binary search tree in the order given by their
+> (randomly chosen) priorities, i.e., $x_i.priority < x_j.priority$ means that
+> we had inserted $x_i$ before $x_j$.
+>
+> <ol type="a">
+>   <li>Show that given a set of nodes $x_1, x_2, \ldots, x_n$, with associated
+>   keys and priorities, all distinct, the treap associated with these nodes is
+>   unique.
+>   <li>Show that the expected height of a treap is $\Theta(\lg n)$, and hence
+>   the expected time to search for a value in the treap is $\Theta(\lg n)$.
+> </ol>
+>
+> Let use see how to insert a new node into an existing treap. The first thing
+> we do is assign the new node a random priority. Then we call the insertion
+> algorithm, which we call `TREAP-INSERT`, whose operation is illustrated in
+> Figure 13.10.
+>
+> <ol type="a" start="3">
+>   <li>Explain how <code>TREAP-INSERT</code> works. Explan the idea in English
+>   and give pseudocode. (<i>Hint:</i> Execute the usual binary-search-tree
+>   insertion procedure and them perform rotations to restore the min-heap order
+>   property.)
+>   <li>Show that the expected running time of <code>TREAP-INSERT</code> is
+>   $\Theta(\lg n)$.
+> </ol>
+>
+> `TREAP-INSERT` performs a search and then a sequence of rotations. Although
+> these two operations have the same expected running time, they have different
+> costs in practice. A search reads information from the treap without modifying
+> it. In contrast, a rotation changes parent and child pointers within the
+> treap. On most computers, read operations are much faster than write
+> operations. Thus we would like `TREAP-INSERT` to perform few rotations. We
+> will show that the expected number of rotations performed is bounded by a
+> constant.
+>
+> In order to do so, we will need some definitions, which Figure 13.11 depicts.
+> The **left spine** of a binary search tree $T$ is the simple path from the
+> root to the node with the smallest key. In other words, the left spine is the
+> simple path from the root that consists of only left edges. Symmetrically, the
+> **right spine** of $T$ is the simple path from the root consisting of only
+> right edges. The **length** of a spine is the number of nodes it contains.
+>
+> <ol type="a" start="5">
+>   <li>Consider the treap $T$ immediately after <code>TREAP-INSERT</code> has
+>   inserted node $x$. Let $C$ be the length of the right spine of the left
+>   subtree of $x$. Let $D$ be the length of the left spine of the right subtree
+>   of $x$. Prove that the total number of rotations that were performed during
+>   the insertion of $x$ is equal to $C + D$.
+> </ol>
+>
+> We will now calculate the expected values for $C$ and $D$. Without loss of
+> generality, we assume that the keys are $1, 2, \ldots, n$, since we are
+> comparing them only to one another.
+>
+> For nodes $x$ and $y$ in treap $T$, where $y \ne x$, let $k = x.key$ and $i =
+> y.key$. We define indicator random variables:
+>
+> $$ X_{ik} = I\\{y \text{ is in the right spine of the left subtree of } x\\} $$
+>
+> <ol type="a" start="6">
+>   <li>Show that $X_{ik} = 1$ if and only if $y.priority > x.priority$, $y.key
+>   < x.key$, and, for every $z$ such that $y.key < z.key < x.key$, we have
+>   $y.priority < z.priority$.
+>   <li>Show that
+>   $$
+>      \begin{aligned}
+>        \Pr\{X_{ik} = 1\} &= \frac{(k - i - 1)!}{(k - i + 1)!} \\\\
+>                          &= \frac{1}{(k - i + 1)(k - i)}
+>      \end{aligned}
+>   $$
+>   <li>Show that
+>   $$ \E[C] = \sum_{j=1}^{k-1} \frac{1}{j(j + 1)} = 1 - \frac{1}{k} $$
+>   <li>Use a symmetry argument to show that
+>   $$ \E[D] = 1 - \frac{1}{n - k + 1} $$
+>   <li>Conclude that the expected number of rotations performed when inserting
+>   a node into a treap is less than 2.
+> </ol>
+
+### a. unique treaps
+
+If we take any tree elements, and attempt to arrange them in a treap
+
+* their priorities will determine which element is the root (the one with the
+  smallest priority), and
+* their keys will determine whether they are the left or right child of their
+  parent
+
+Or to put it another way:
+
+1. the element with the lowest priority will be the root
+2. the elements with smaller keys will be in the left subtree
+3. the elements with larger keys will be in the right subtree
+4. there is only one unique way to pick the root, and the elements of each
+   subtree
+5. this argument can be applied recursively for each subtree
+
+### b. expected height
+
+Taking the easy way out, we already know from the text that the expected height
+of a randomly built search tree is $\Theta(\lg n)$. The argument from Chapter
+12.4 applies here full force.
+
+### c. explain `TREAP-INSERT`
+
+It first inserts the node in the tree by finding a leaf position to put it in.
+After that, it compares the priority with that of the parent. If it's higher,
+we're done. If it's lower, we need to perform a rotation to put the newly
+inserted element in the place of the parent and then continue with the rest of
+the ancestors.
+
+Instead of pseudocode, there is a Python implementation below.
+
+### d. expected running time
+
+The algorithm is linear to the height of the tree (it performs at most a single
+rotation for each ancestor), which is $\Theta(\lg n)$.
+
+### e. number of rotations after insertion
+
+Let $l$ be the right spine of the left subtree and $r$ be the left spine of the
+right subtree.
+
+Observe that:
+
+1. Both $l$ and $r$ start with zero elements.
+2. Each rotation add a single element to $r$ and $l$. Specifically, left
+   rotations increase $l$ with one element (the parent) and right rotations
+   increase $r$ with one element (the parent)
+
+### f. when is a node in the right spine of the left subtree
+
+Necessity:
+
+If $y$ is in the right spine of the left subtree of $x$, then:
+
+* $y$ needs to have a smaller key, that is $y.key < x.key$
+* $y$ needs to have a larger priority, that is $y.priority > x.priority$
+* all the elements on the spine are smaller than it, (otherwise it won't be on a
+  right spine), and if there are larger elements than $y$ but smaller than $x$,
+  they need to have larger priority than $y$, otherwise one of them would be its
+  parent, and $y$ would be a left child, thus not on the right spine
+
+Sufficiency:
+
+If the following tree conditions hold:
+
+1. $y.priority > x.priority$
+2. $y.key < x.key$
+3. for every $z$ such that $y.key < z.key < x.key$: $y.priority < z.priority$
+
+We know that $y$ is in the left subtree of $x$ (because of (1) and (2)), and all
+it's ancestors up until $x$ are smaller than it (because of (3)), and therefore
+it is the right child of its parent, which is the right child of its parent, and
+so on.
+
+### g. probability of $X_{ik} = 1$
+
+We leverage the knowledge of the previous point, and then we apply some
+counting.
+
+We already know that $i < k$, but there may be some elements between $i$ and
+$k$. From (f) we know that (1) their priority needs to be larger than that of
+either $x$ or $y$, and that $x$ have to have the smaller priority than $y$.
+
+There are in total $k - i + 1$ elements to consider. We can model the
+probability of their priority by arranging them in order from the smallest to
+the largest priority. There are thus $(k - i + 1)!$ possible ways to arrange the
+priorities (this is the denominator). For the ones that satisfy the conditions
+in (f), we are looking for $x$ being the first, $y$ being the second, and $(k -
+i - 1)!$ possible ways to arrange the rest (the numerator).
+
+### h. expectation of $C$
+
+So, the expectation $\E[C]$ is $X_{12} + X_{13} + \ldots + X_{k-1,k}$, that is:
+
+$$
+    \begin{aligned}
+      \E[C] &= \sum_{i=1}^{k-1} \frac{1}{(k - i + 1)(k - i)} \\\\
+            &= \sum_{j=1}^{k-1} \frac{1}{j(j+1)} && \text{(let } j = k - i \text{)} \\\\
+            &= \sum_{j=1}^{k-1} \left( \frac{1}{j(j+1)} - \frac{j}{j(j+1)} + \frac{j}{j(j+1)} \right) \\\\
+            &= \sum_{j=1}^{k-1} \left( \frac{j + 1}{j(j+1)} - \frac{j}{j(j+1)} \right) \\\\
+            &= \sum_{j=1}^{k-1} \left( \frac{1}{j} - \frac{1}{j+1} \right) \\\\
+            &= \sum_{j=1}^{k-1} \frac{1}{j} - \sum_{j=1}^{k-1} \frac{1}{j+1} \\\\
+            &= 1 + \sum_{j=2}^{k-1} \frac{1}{j} - \sum_{j=1}^{k-2} \frac{1}{j+1} - \frac{1}{k - 1 + 1} && \text{(by taking one element out each sum)} \\\\
+            &= 1 + \sum_{j=2}^{k-1} \frac{1}{j} - \sum_{j=2}^{k-1} \frac{1}{j} - \frac{1}{k} && \text{(by letting } j = j + 1 \text{ in the second sum)} \\\\
+            &= 1 - \frac{1}{k} && \text{(by letting the sums cancel each other out)}
+    \end{aligned}
+$$
+
+### i. symmetry for $\E[D]$
+
+The same approach holds here, symmetrically. The only thing we need to consider,
+is that instead of looking at $1, 2, \ldots, k$, we have to look at $k, k + 1,
+\ldots, n$. There are $n - k + 1$ elements in that sequence, and if we apply the
+same math, we get the expectation:
+
+$$ \E[D] = 1 - \frac{1}{n - k + 1} $$
+
+### j. conclusion
+
+The expected number of rotations, is then:
+
+$$
+    \E[C + D] = \E[C] + \E[D] = 1 - \frac{1}{k} + 1 - \frac{1}{n - k - 1} < 2 = \O(1)
+$$
