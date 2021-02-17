@@ -1,0 +1,79 @@
+## Persistent dynamic sets
+
+> During the course of an algorithm, we sometimes find that we need to maintain
+> past versions of a dynamic set as it is updated. We call such a set
+> **persistent**. One way to implement a persistent set is to copy the entire
+> set whenever it is modified, but this approach can slow down a program and
+> also consume much space. Sometimes, we can do much better.
+>
+> Consider a persistent set $S$ with the operations `INSERT`, `DELETE`, and
+> `SEARCH` which we implement using binary search trees as shown in Figure
+> 13.8(a). We maintain a separate root for every version of the set. In order to
+> insert the key 5 into the set, we create a new node with key 5. This node
+> becomes the left child of a new node with key 7, since we cannot modify the
+> existing node with key 7. Similarly, the new node with key 7 becomes the left
+> child of a new node with key 8 whose right child is the existing node with key
+> 10. The new node with key 8 become, in turn, the right child of a new root
+> $r'$ with key 4 whose left child is the existing node with key 3. We thus copy
+> only part of the tree and share some of the nodes with the original tree, as
+> shown in Figure 13.8(b).
+>
+> Assume that each tree node has the attributes $key$, $left$, and $right$ but
+> no parent (See also Exercise 13.3-6).
+>
+> <ol type="a">
+>   <li>For a general persistent binary search tree, identify the nodes that we
+>   need to change to insert a key $k$ or delete a node $y$.
+>   <li>Write a procedure <code>PERSISTENT-TREE-INSERT</code> that, given a
+>   persistent tree $T$ and a key $k$ to insert, return a new persistent tree
+>   $T'$ that is the result of inserting $k$ into $T$.
+>   <li>If the height of the persistent binary search tree $T$ is $h$, what are
+>   the time and space requirements of your implementation of
+>   <code>PERSISTENT-TREE-INSERT</code>? (The space requirement is proportional
+>   to the number of new nodes allocated.)
+>   <li>Suppose that we had included the parent attribute in each node. In this
+>   case, <code>PERSISTENT-TREE-INSERT</code> would need to perform additional
+>   copying. Prove that <code>PERSISTENT-TREE-INSERT</code> would then require
+>   $\Omega(n)$ time and space, where $n$ is the number of nodes in the tree.
+>   <li>Show how to use red-black trees to guarantee that the worst-case running
+>   time and space are $\O(\lg n)$ per insertion and deletion.
+> </ol>
+
+### What needs to change
+
+Very simply, every time we need to change a node, we have to make a copy of the
+node an all its ancestors.
+
+### Including a parent attribute
+
+If we included a parent attribute, every time we make a copy of the parent, we
+would have to copy both of it's children, because the children need to refer to
+the new parent. This essentially means that the whole tree will need to be
+copied. By not keeping track of the parent, we can reuse the unchanged child.
+
+### Complexity
+
+The complexity of insertion and deletion is $\O(\lg n)$, since We only modify
+nodes from the inserted/deleted position to the root, plus a constant number of
+other nodes.
+
+### Implementation
+
+The exercise just for `PERSISTENT-TREE-INSERT`, but I decided to go for the full
+thing, and implement a persistent red-black tree. It was a horrible ordeal that
+was pretty hard to debug and get right. I shudder to imagine the agony if I
+attempted to do it in C, instead of Python.
+
+Anyway, here are some notes.
+
+First, both `RB-INSERT-FIXUP` and `RB-DELETE-FIXUP` repeat a lot of code in the
+two branches, with "left" and "right" reversed. This is too much work, so I will
+generalized the operations a bit so they can work with a `direction` (that can
+be either `left` or `right`) and flip that direction when necessary.
+
+Since we no longer keep track of parents, we need to calculate the ancestor
+chain when we get to a node, so we can later make copies. A few functions have
+been modified to keep track of the chain.
+
+Maintaining a sentinel becomes tricky as well, so the sentinel is removed and
+replaced with `None`, along with all the necessary checks.
