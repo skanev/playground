@@ -1,0 +1,13 @@
+> Show that the longest simple path from a node $x$ in a red-black tree to a
+> descendent leaf has length at most twice that of the shortest simple path from
+> node $x$ to a descendant leaf.
+
+Both the shortest path $s$ and the longest path $l$ will have the same number of
+black nodes, as per property 5. Because of property 4, each red node must have a
+black parent and black children. This means that the number of red nodes must be
+less than or equal to the number of black nodes in any path in a valid red-black
+tree.
+
+The biggest difference then, can be obtained if $s$ contains only black nodes
+and $l$ contains the same number of black nodes with the maximum possible red
+nodes added to it, which is $2s$.
