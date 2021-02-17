@@ -24,9 +24,9 @@ $column-width: 960px;
 html {
   @include color($text-color-l, $text-color-d);
   @include background-color($background-l, $background-d);
-  line-height: 1.8;
   font-family: Merriweather, serif;
   font-size: 17px;
+  line-height: 1.8;
 }
 
 .katex-display { margin: 2em 0; }
@@ -36,6 +36,7 @@ a,
 a:visited,
 a:hover,
 a:active { @include color($link-color-l, $link-color-d); text-decoration: none; }
+
 a:hover { text-decoration: underline; }
 
 nav.header {
@@ -68,6 +69,7 @@ kbd,
 samp {
   font-family: 'Fira Code', monospace;
   font-size: 15px;
+  line-height: 1.2;
 }
 
 pre {
