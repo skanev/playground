@@ -1,0 +1,20 @@
+> In the style of Figure 13.1(a), draw the complete binary search tree of height
+> 3 on the keys ${1, 2, \ldots, 15}$. Add the $\mathrm{NIL}$ leaves and color
+> the nodes in three different ways such that the black-heights of the resulting
+> red-black trees are 2, 3 and 4.
+
+Here's a tree with black-height $2$.
+
+![](13/01/01.drawing.01.svg)
+
+This is the most "balanced" tree possible.
+
+Property 4 is the most limiting one – red nodes need to have black children.
+There's nothing preventing a black node to have black children. Thus, one way to
+reach black-height $3$ is:
+
+![](13/01/01.drawing.02.svg)
+
+Finally, to get black-height of $4$, all the nodes need to be black:
+
+![](13/01/01.drawing.03.svg)
