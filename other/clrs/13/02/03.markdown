@@ -1,0 +1,8 @@
+> Let $a$, $b$, and $c$ be arbitrary nodes in subtrees $\alpha$, $\beta$ and
+> $\gamma$, respectively, in the left tree of Figure 13.2. How do the depths of
+> $a$, $b$, and $c$ change when a left rotation is performed on node $x$ in the
+> figure?
+
+* $b$ retains its depth.
+* $a$'s depth is increased by one.
+* $c$'s depth is decreased by one.
