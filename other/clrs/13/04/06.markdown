@@ -1,0 +1,8 @@
+> Professors Skelton and Baron are concerned that at the start of case 1 of
+> `RB-DELETE-FIXUP`, the node $x.p$ might not be black. If the professors are
+> correct, then lines 5–6 are wrong. Show that $x.p$ must be black at the start
+> of case 1, so that the professors have nothing to worry about.
+
+At the start of case 1 we check that $w$, the other child of $x.p$ is red. If it
+is, it means that $x.p$ has to be black (if it was red, it would have a red
+child, which violates property 4).
