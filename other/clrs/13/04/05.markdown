@@ -1,0 +1,64 @@
+> In each of the cases of Figure 13.7, give the count of black nodes from the
+> root of the subtree shown to each of the subtrees $\alpha, \beta, \ldots,
+> \zeta$, and verify that each count remains the same after the transformation.
+> When a node has $color$ attribute $c$ or $c'$, use the notation
+> $\text{count}(c)$ or $\text{count}(c')$ symbolically in your count.
+
+Aah, nice. An attempt to shoehorn more math.
+
+Let's denote $A = 1$, $B = 1$ and so on, and count it when the note is black.
+Also, if a node has "extra black", let's denote that as $x$. Finally, let's say
+that the count is $2+$ if there are two certain blacks and some optional ones,
+expressed through $\text{count}$. Thus:
+
+## Case 1
+
+$$
+    \begin{aligned}
+    \alpha   : && A + B + x &= 3 && \Rightarrow & A + D + x &= 3 \\\\
+    \beta    : && A + B + x &= 3 && \Rightarrow & A + D + x &= 3 \\\\
+    \gamma   : && C + B     &= 2 && \Rightarrow & C + D     &= 2 \\\\
+    \delta   : && C + B     &= 2 && \Rightarrow & C + D     &= 2 \\\\
+    \epsilon : && E + B     &= 2 && \Rightarrow & E + D     &= 2 \\\\
+    \zeta    : && E + B     &= 2 && \Rightarrow & E + D     &= 2 \\\\
+    \end{aligned}
+$$
+
+## Case 2
+
+$$
+    \begin{aligned}
+    \alpha   : && A + \text{count}(c) + x &= 2+ && \Rightarrow & A + \text{count}(c) + x &= 2+ \\\\
+    \beta    : && A + \text{count}(c) + x &= 2+ && \Rightarrow & A + \text{count}(c) + x &= 2+ \\\\
+    \gamma   : && C + D + \text{count}(c) &= 2+ && \Rightarrow & C + \text{count}(c) + x &= 2+ \\\\
+    \delta   : && C + D + \text{count}(c) &= 2+ && \Rightarrow & C + \text{count}(c) + x &= 2+ \\\\
+    \epsilon : && E + D + \text{count}(c) &= 2+ && \Rightarrow & E + \text{count}(c) + x &= 2+ \\\\
+    \zeta    : && E + D + \text{count}(c) &= 2+ && \Rightarrow & E + \text{count}(c) + x &= 2+ \\\\
+    \end{aligned}
+$$
+
+## Case 3
+
+$$
+    \begin{aligned}
+    \alpha   : && A + \text{count}(c) + x &= 2+ && \Rightarrow & A + \text{count}(c) + x &= 2+ \\\\
+    \beta    : && A + \text{count}(c) + x &= 2+ && \Rightarrow & A + \text{count}(c) + x &= 2+ \\\\
+    \gamma   : && D + \text{count}(c)     &= 1+ && \Rightarrow & C + \text{count}(c)     &= 1+ \\\\
+    \delta   : && D + \text{count}(c)     &= 1+ && \Rightarrow & C + \text{count}(c)     &= 1+ \\\\
+    \epsilon : && E + D + \text{count}(c) &= 2+ && \Rightarrow & E + C + \text{count}(c) &= 2+ \\\\
+    \zeta    : && E + D + \text{count}(c) &= 2+ && \Rightarrow & E + C + \text{count}(c) &= 2+ \\\\
+    \end{aligned}
+$$
+
+## Case 4
+
+$$
+    \begin{aligned}
+    \alpha   : && A + x + \text{count}(c)                &= 2+  && \Rightarrow & A + B + \text{count}(c)                &= 2+ \\\\
+    \beta    : && A + x + \text{count}(c)                &= 2+  && \Rightarrow & A + B + \text{count}(c)                &= 2+ \\\\
+    \gamma   : && \text{count}(c') + D + \text{count}(c) &= 1++ && \Rightarrow & \text{count}(c') + B + \text{count}(c) &= 1++ \\\\
+    \delta   : && \text{count}(c') + D + \text{count}(c) &= 1++ && \Rightarrow & \text{count}(c') + B + \text{count}(c) &= 1++ \\\\
+    \epsilon : && D + \text{count}(c)                    &= 1+  && \Rightarrow & E + \text{count}(c)                    &= 1+ \\\\
+    \zeta    : && D + \text{count}(c)                    &= 1+  && \Rightarrow & E + \text{count}(c)                    &= 1+ \\\\
+    \end{aligned}
+$$
