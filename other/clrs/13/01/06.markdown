@@ -1,0 +1,12 @@
+> What is the largest possible number of internal nodes in a red-black tree with
+> black height $k$? What is the smallest possible number.
+
+As discussed in the previous two exercises, there can be no more red nodes than
+black nodes.
+
+The smallest possible number will be obtained if all the nodes are black, that
+is $2^k - 1$.
+
+The largest possible number will be obtained if we have a layer of red nodes,
+followed by a layer of black nodes, producing a tree of height $2k$, and $2^{2k}
+- 1$ nodes.
