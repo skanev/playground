@@ -45,12 +45,20 @@ get '/:chapter/:section/:number.png' do
   Graph.render_png exercise.graph_path
 end
 
+get '/:chapter/:section/:number.drawing.:index.svg' do
+  exercise = Exercise.new ChapterNumber.new(params[:chapter]), params[:section], params[:number]
+
+  content_type 'image/svg+xml'
+  Graph.render_drawing exercise.draw_path, params[:index]
+end
+
 get '/:chapter/:section/:number.svg' do
   exercise = Exercise.new ChapterNumber.new(params[:chapter]), params[:section], params[:number]
 
   content_type 'image/svg+xml'
   Graph.render_svg exercise.graph_path
 end
+
 
 get '/:chapter/:section/:number.?:format?' do
   catalog = Catalog.new SOLUTION_ROOT

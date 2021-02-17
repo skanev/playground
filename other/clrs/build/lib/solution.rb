@@ -17,6 +17,10 @@ module Solution
     location_path.sub_ext '.dot'
   end
 
+  def draw_path
+    location_path.sub_ext '.draw.py'
+  end
+
   def html_url
     "#{location}.html"
   end
@@ -51,6 +55,10 @@ module Solution
     graph_path.exist?
   end
 
+  def drawings?
+    draw_path.exist?
+  end
+
   def code_path(language)
     location_path.sub_ext EXTENSIONS.fetch(language)
   end
@@ -61,6 +69,10 @@ module Solution
 
   def runner_path(language)
     location_path.sub_ext '.run' + EXTENSIONS.fetch(language)
+  end
+
+  def displayed_drawings
+    Graph.list_drawings(draw_path).select { |_, _, display| display == 'true' }.map { |_, file, _, name| [file, name] }
   end
 
   def run(language)

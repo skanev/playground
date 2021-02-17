@@ -6,6 +6,15 @@
     <hr />
     <img src="<%= "#{@exercise.location}.svg" %>" />
   <% end %>
+  <% if @exercise.drawings? %>
+    <% displayed = @exercise.displayed_drawings %>
+    <% if displayed.size > 0 %>
+      <% displayed.each do |file, name| %>
+        <p><%= name %></p>
+        <p><img src="<%= file %>" /></p>
+      <% end %>
+    <% end %>
+  <% end %>
   <% @exercise.run_languages.each do |language| %>
     <hr />
     <h3><%= language.to_s.capitalize %> runner output</h3>

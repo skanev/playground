@@ -32,6 +32,7 @@ module Generator
         section.exercises.each do |exercise|
           generate_exercise exercise, catalog
           generate_graph exercise if exercise.graph?
+          generate_drawings exercise if exercise.drawings?
         end
       end
 
@@ -52,6 +53,12 @@ module Generator
 
   def generate_problem(problem, catalog)
     write_file "#{problem.location}.html", Renderer.render_problem(problem, catalog)
+  end
+
+  def generate_drawings(solution)
+    Graph.list_drawings(solution.draw_path).each do |number, file, display|
+      write_file file, Graph.render_drawing(solution.draw_path, number)
+    end
   end
 
   def generate_graph(solution)
