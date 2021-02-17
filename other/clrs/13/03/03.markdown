@@ -1,0 +1,7 @@
+> Suppose that the black-height of each of the subtrees $\alpha$, $\beta$,
+> $\gamma$, $\delta$, $\epsilon$ in Figures 13.5 and 13.6 is $k$. Label each
+> node in each figure with its black-height to verify that the indicated
+> transformation preserves property 5.
+
+This is kinda obvious. You can see that regardless of the transformation, there
+is always only one black parent above the subtree in the figure.
