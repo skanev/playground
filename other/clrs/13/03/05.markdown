@@ -1,0 +1,8 @@
+> Consider a red-black tree formed by inserting $n$ nodes with `RB-INSERT`.
+> Argue that if $n > 1$, the tree has at least one red node.
+
+The way `RB-INSERT` is defined, it always introduces a new node colored red. The
+only time it changes it's color to black is if it is the root, that is, if it's
+a tree with 1 node. After we have a black root, each insert will color the newly
+introduced element red and keep it red, regardless of how it rearranges the rest
+of the tree.
