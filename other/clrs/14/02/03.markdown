@@ -1,0 +1,24 @@
+> $\star$ Let $\otimes$ be an associative binary operator, and let $a$ be an
+> attribute maintained in each node of a red-black tree. Suppose that we want to
+> include in each node $x$ an additional attribute $f$ such that $x.f = x_1.a
+> \otimes x_2.a \otimes \cdots \otimes x_m.a$, where $x_1, x_2, \ldots, x_m$ is
+> the inorder listing of nodes in the subtree rooted at $x$. Show how to update
+> the $f$ attributes in $\O(1)$ times after a rotation. Modify your argument
+> slightly to apply it to the $size$ attribute in order-statistic trees.
+
+I'm uncertain about why the star on this exercise.
+
+Fundamentally, the problem is nicely aligned so that
+
+$$ x.f = x.left.f \otimes x.a \otimes x.right.f $$
+
+...for every $x$ in the tree. In order to get it to work, we need to:
+
+* Recalculate $f$ for each parent of a newly inserted node (before the fixup)
+* Recalculate $f$ for each parent of the newly deleted node (before the fixup)
+* Recalculate $f$ on each rotation, but first recalculating it for the lower
+  node, and then the upper
+
+For tracking the size, we just have that $a = 1$ for each node other than the
+sentinel $nil$ (where $a = 0$) and $\otimes = +$.
+
