@@ -1,0 +1,12 @@
+> Show how $\text{OS-SELECT}(T.root, 10)$ operates on the red-black tree $T$
+> of Figure 14.1.
+
+It does the following:
+
+```plain
+1. k = 26; i = 10; r = 13; goes into the elseif in line 5; follows left child
+2. k = 17; i = 10; r = 8;  goes into the else in line 6; follows right child;
+3. k = 21; i = 2;  r = 3;  goes into the elseif in line 5; follows left child;
+4. k = 19; i = 2;  r = 1;  goes into the else in line 6; follows right child;
+5. k = 20; i = 1;  r = 1;  returns 20
+```
