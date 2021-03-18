@@ -1,0 +1,26 @@
+> Show how to use an order-statistic tree to count the number of inversions (see
+> Problem 2-4) in an array of size $n$ in time $\O(n \lg n)$.
+
+We can use one simple trick!
+
+We create a new tree, and insert the elements from the array in reverse; that
+is, we insert the last element first, then the element before the last, and so
+on. If the array is sorted, we expect each new node to have rank 1, as it will
+be the minimal node in the tree. If it doesn't, it means that there are
+$node.rank - 1$ elements in the array that are after $node.key$, but smaller in
+value.
+
+This gives the number of inversions.
+
+Here's a Python snippet:
+
+```python
+def inversions(array):
+    tree = Tree()
+    count = 0
+
+    for n in reversed(array):
+        count += tree.insert(n).rank() - 1
+
+    return count
+```
