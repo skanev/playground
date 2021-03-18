@@ -1,0 +1,21 @@
+> $\star$ We wish to augment red-black trees with an operation `RB-ENUMERATE(x,
+> a, b)` that outputs all keys $k$ such that $a \le k \le b$ in a red-black tree
+> rooted at $x$. Describe how to implement `RB-ENUMERATE` in $\Theta(m + \lg n)$
+> time, where $m$ is the number of keys that are output and $n$ is the number of
+> internal nodes in the tree. (_Hint_: You do not need to add new attributes to
+> the red-black tree.)
+
+I'd write it in code, but I feel I've done that before.
+
+Fundamentally, there are two bits:
+
+* We find $a$ in $\O(\lg n)$ time.
+
+* We perform an in-order tree walk, but we start from $a$ instead of the minimum
+  element, and we terminate after we find $b$. As per Exercise 12.2-7, we can do
+  that in $m$ time.
+
+As a reminder, the in-order tree walk can be accomplished without extra storage
+if we keep track of where in the tree we are, and where we are coming from.
+Exercise 10.4-5 implements an algorithm for that. We need to modify it slightly
+to work in-order as opposed to depth-first.
