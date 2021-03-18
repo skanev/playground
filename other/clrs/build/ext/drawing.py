@@ -14,14 +14,17 @@ def unique_number():
 
 class RedBlackTrees:
     class Node:
-        def __init__(self, value, left=None, right=None):
+        def __init__(self, value, left=None, right=None, label=None, extra=[]):
+            self.id = unique_number()
             self.value = value
+            self.label = label or value
             self.left = left
             self.right = right
+            self.extra = extra
 
         def dot(self, nils=True):
             def nil_node(n):
-                return f'nil{n}[shape=point]'
+                return f'nil{n}[shape=point];'
 
             nodes = []
             edges = []
@@ -64,11 +67,13 @@ class RedBlackTrees:
             return "\n".join(lines)
 
         def name(self):
-            return f"n{self.value}"
+            return f"n{self.id}"
 
         def node(self):
-            attrs = ", ".join([f"label={self.value}", *self.attributes()])
-            return f"n{self.value}[{attrs}];"
+            attrs = ", ".join([f"label=\"{self.label}\"",
+                               *self.attributes(),
+                               *self.extra])
+            return f"{self.name()}[{attrs}];"
 
         def bfs(self):
             queue = deque()
@@ -112,5 +117,9 @@ def process(drawings):
         index = int(sys.argv[2]) - 1
         dot = drawings[index]['dot']
         print(svg(dot))
+    elif command == 'debug':
+        index = int(sys.argv[2]) - 1
+        dot = drawings[index]['dot']
+        print(dot)
     else:
-        raise f"Uknown commands: {repr(sys.arvg)}"
+        raise f"Uknown commands: {repr(sys.argv)}"
