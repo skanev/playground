@@ -1,0 +1,63 @@
+> $\star$ Consider $n$ chords on a circle, each defined by its endpoints.
+> Describe an $\O(n \lg n)$-time algorithm to determine the number of pairs of
+> chords that intersect inside the circle. (For example, if the $n$ chords are
+> all diameters that meet at the center, then the correct answer is $\binom n
+> 2$.) Assume that no two chords share an endpoint.
+
+It's an interesting algorithm:
+
+```python
+def count_chords(chords):
+    points = []
+
+    for (start, end) in chords:
+        if start > end:
+            start, end = end, start
+
+        points.append({'kind': 'start', 'x': start})
+        points.append({'kind': 'end', 'x': end, 'start': start})
+
+    points = sorted(points, key=lambda point: point['x'])
+
+    tree = Tree()
+    count = 0
+
+    for point in points:
+        if point['kind'] == 'start':
+            tree.insert(point['x'])
+        else:
+            assert point['kind'] == 'end'
+
+            count += tree.size() - tree.search(point['start']).rank()
+            tree.delete(point['start'])
+
+    return count
+```
+
+First, we sort all the points, all while keeping track of whether they are the
+start or the end of an interval, and how to look up the start from the end
+point. This takes $\O(n \lg n)$ time because of the sort. We can now iterate the
+points in order.
+
+Next, we need to consider the following invariant:
+
+> If $a$ and $b$ are the start and end of a chord, then it intersects with all
+> chords that have start $s$ such that $a < s < b$ and end $e$ such that $e >
+> b$.
+
+That is, every chord that starts between the two endpoints of another will
+intersect with it, if it's endpoint is outside this range. Note that this holds
+true in the other direction as well ($s < a < e < b$), but this will
+double-count the intersection. Thus, we interested only in counting pairs $(a,
+b)$ and $(s, e)$, such that $a < s < b < e$.
+
+The way we can do that is by iterating over the points and doing the following:
+
+* If we encounter a start point, we insert it into the tree ($\O(\lg n)$)
+* If we encounter an end point, we look up the rank of the start point ($\O(\lg
+  n)$) and use it to determine how many chords start after it, but have not
+  ended yet, and add it up. Then we remove the start point from the tree
+  ($\O(\lg n)$).
+
+Each step is at most an $\O(\lg n)$ operation, and since we perform $2n$ of
+them, the total time is $\O(n \lg n)$.
