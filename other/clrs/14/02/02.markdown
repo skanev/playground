@@ -1,0 +1,12 @@
+> Can we maintain the black-heights of nodes in a red-black tree as attributes
+> in the nodes of the tree without affecting the asymptotic performance of any
+> of the red-black tree operations? Show how, or argue why not. How about
+> maintaining the depth of nodes?
+
+We can maintain the black heights, although we need to be careful with the
+various recoloring that's happening when we're going up the tree on insertion
+and deletion. Then it's quite simple to do it when rotations happen. I'm not
+going to show it, as I don't think it's that interesting.
+
+Depth won't work, because if we remove the root, we may need to update the depth
+of all $n$ nodes.
