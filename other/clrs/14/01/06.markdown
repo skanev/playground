@@ -1,0 +1,25 @@
+> Observe that whenever we reference the $size$ attribute of a node in either
+> `OS-SELECT` or `OS-RANK`, we use it only to compute a rank. Accordingly,
+> suppose we store in each node its rank in the subtree of which it is the root.
+> Show how to maintain this information during insertion and deletion. (Remember
+> that those two operations can cause rotations).
+
+First, let's notice that `node.rank = node.left.size + 1`. Since one is actually
+a function of the other, we can use that to calculate the new rank. We need to:
+
+* Update the code doing the rotation, where a slight asymmetry gets introduced.
+* Update the code that goes down the tree when inserting to change rank
+  accordingly.
+* Update the rank of the node that gets moved to the deleted position with the
+  rank of the deleted node.
+* Update the code that goes up the tree when deleting to change rank
+  accordingly.
+
+Specifically for rotations, referring to Figure 13.2, notice that:
+
+* On a left rotation, the rank of $y$ decreases by the rank of $x$ ($\alpha$
+  gets removed from $y$'s left subtree)
+* On a right rotation, the rank of $y$ increases by the rank of $x$ ($\alpha$
+  gets added to $y$'s left subtree)
+
+All the changes can be found in the code below.
