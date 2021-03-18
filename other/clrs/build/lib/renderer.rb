@@ -57,7 +57,7 @@ module Renderer
   end
 
   def markdown
-    @markdown ||= Redcarpet::Markdown.new Markdown, tables: true, no_intra_emphasis: true
+    @markdown ||= Redcarpet::Markdown.new Markdown, tables: true, no_intra_emphasis: true, fenced_code_blocks: true
   end
 
   def process(markdown_code)
