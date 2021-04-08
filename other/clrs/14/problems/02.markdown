@@ -1,0 +1,46 @@
+# Josephus permutation
+
+> We define the **Josephus problem** as follows. Suppose that $n$ people form a
+> circle and that we are given a positive integer $m \le n$. Beginning with a
+> designated first person, we proceed around the circle, removing every $m$th
+> person. After each person is removed, counting continues around the circle
+> that remains. This process continues until we have removed all $n$ people. The
+> order in which the people are removed from the circle defines the
+> **$(n,m)$-Josephus permutation** of integers $1, 2, \ldots, n$. For example,
+> the $(7, 3)$-Josephus permutation is $\langle 3, 6, 2, 7, 5, 1, 4 \rangle$.
+>
+> <ol type="a">
+>   <li>Suppose that $m$ is a constant. Describe an $\O(n)$-time algorithm that,
+>   given an integer $n$, outputs the $(n, m)$-Josephus permutation.
+>   <li>Suppose that $m$ is not a constant. Describe an $\O(n \lg n)$-time
+>   algorithm that, given all integers $n$ and $m$, outputs the $(n,
+>   m)$-Josephus permutation.
+> </ol>
+
+## Constant $m$
+
+This is a very evil way to spell "an $\O(mn)$-time algorithm". I honestly got
+stuck here, until I realized that the point was to have a simpler algorithm that
+does not take $m$ into account.
+
+Thus, it's simple:
+
+1. Put all the numbers in a linked list and make it circular
+2. Start with the first number and loop until you empty the list
+3. Output the current number, remove it from the list, an advance $m$ times.
+
+At some point you end up removing the last number, which means we're done. It's
+not that hard to implement, so I would not bother.
+
+## $\O(n \lg n)$ time
+
+Easy-peasy.
+
+First of all, we need to use an order statistic tree. Then, we simply start with
+selecting the $m$-th element, output it, delete it, and then look $m$ elements
+ahead, wrapping around with some modulo arithmetic and accounting for the
+deleted element.
+
+Python code below. Note that the index awkwardness is due to the 1-based
+indexing of our ranks. Note as well that we don't just need `OS-SELECT`, but
+also the size property of the tree/root.
