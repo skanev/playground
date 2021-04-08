@@ -2,28 +2,6 @@ from enum import Enum
 from collections import deque
 
 
-class Interval:
-    def __init__(self, low, high):
-        assert low <= high
-        self.low = low
-        self.high = high
-
-    def __eq__(self, other):
-        return isinstance(other, Interval) and self.low == other.low and \
-            self.high == other.high
-
-    def __contains__(self, n):
-        return self.low <= n <= self.high
-
-    def __repr__(self):
-        return f"Interval({self.low}, {self.high})"
-
-    __str__ = __repr__
-
-    def overlaps(self, other):
-        return self.low <= other.high and other.low <= self.high
-
-
 class Color(Enum):
     RED = 1
     BLACK = 2
@@ -40,18 +18,15 @@ def other(direction):
     else:
         assert(False)
 
-def max_maybe(*args):
-    return max([arg for arg in args if arg is not None])
 
 class Node:
-    def __init__(self, color, interval, parent, left, right, max, tree):
+    def __init__(self, color, key, parent, left, right, tree):
         self.color = color
-        self.interval = interval
+        self.key = key
         self.parent = parent
         self.left = left
         self.right = right
         self.tree = tree
-        self.max = max
 
     def sexp(self):
         if self.isNil():
@@ -59,9 +34,10 @@ class Node:
 
         color = 'R' if self.color == Color.RED else 'B'
 
-        return f"{color}({self.interval}, max={self.max}, {self.left}, {self.right})"
+        return f"{color}({self.key}, {self.left}, {self.right})"
 
-    __str__ = sexp
+    def __str__(self):
+        return self.sexp()
 
     def black_height(self):
         node = self
@@ -81,7 +57,7 @@ class Node:
         return self.color == Color.BLACK
 
     def isNil(self):
-        return self.interval is NIL_KEY
+        return self.key is NIL_KEY
 
     def isNotNil(self):
         return not self.isNil()
@@ -130,17 +106,8 @@ class Node:
         child[direction] = self
         self.parent = child
 
-        self.max = max_maybe(
-            self.interval.high,
-            self.left.max if self.left else None,
-            self.right.max if self.right else None,
-        )
-
-        child.max = max_maybe(
-            child.interval.high,
-            child.left.max if child.left else None,
-            child.right.max if child.right else None,
-        )
+        self.tree.recalculate_node(self)
+        self.tree.recalculate_node(child)
 
     def left_rotate(self):
         self.rotate('left')
@@ -176,39 +143,26 @@ class Node:
         return node
 
 
-nil = Node(Color.BLACK, NIL_KEY, None, None, None, None, None)
+nil = Node(Color.BLACK, NIL_KEY, None, None, None, None)
 nil.parent = nil
 nil.left = nil
 nil.right = nil
 
 
-class IntervalTree:
+class AugmentableTree:
     def __init__(self):
         self.root = nil
 
     def __str__(self):
         return self.root.sexp()
 
-    def find(self, interval):
+    def search(self, key):
         node = self.root
 
         while node:
-            if node.interval == interval:
+            if node.key == key:
                 return node
-            elif interval.low < node.interval.low:
-                node = node.left
-            else:
-                node = node.right
-
-        return None
-
-    def search(self, interval):
-        node = self.root
-
-        while node:
-            if interval.overlaps(node.interval):
-                return node
-            elif node.left and node.left.max >= interval.low:
+            elif key < node.key:
                 node = node.left
             else:
                 node = node.right
@@ -232,13 +186,15 @@ class IntervalTree:
             if node.right:
                 items.append(node.right)
 
-    def insert(self, interval):
-        new = Node(Color.RED, interval, None, None, None, interval.high, self)
+    def insert(self, key):
+        new = Node(Color.RED, key, None, None, None, self)
+        self.augment_node(new)
+
         parent = nil
         node = self.root
         while node:
             parent = node
-            if new.interval.low < node.interval.low:
+            if new.key < node.key:
                 node = node.left
             else:
                 node = node.right
@@ -247,25 +203,20 @@ class IntervalTree:
 
         if not parent:
             self.root = new
-        elif new.interval.low < parent.interval.low:
+        elif new.key < parent.key:
             parent.left = new
         else:
             parent.right = new
 
         new.set(left=nil, right=nil, color=Color.RED)
 
-        self.max_fixup(parent)
+        self.recalculate_ancestors(parent)
 
         self.insert_fixup(new)
 
-    def max_fixup(self, node):
+    def recalculate_ancestors(self, node):
         while node:
-            node.max = max_maybe(
-                node.interval.high,
-                node.left.max if node.left else None,
-                node.right.max if node.right else None
-            )
-
+            self.recalculate_node(node)
             node = node.parent
 
     def insert_fixup(self, node):
@@ -292,8 +243,8 @@ class IntervalTree:
 
         self.root.color = Color.BLACK
 
-    def delete(self, interval):
-        deleted = self.find(interval)
+    def delete(self, key):
+        deleted = self.search(key)
         y = deleted
         y_original_color = y.color
         to_fix = deleted
@@ -324,7 +275,7 @@ class IntervalTree:
             y.left.parent = y
             y.color = deleted.color
 
-        self.max_fixup(to_fix)
+        self.recalculate_ancestors(to_fix)
 
         if y_original_color == Color.BLACK:
             self.delete_fixup(extra_black)
