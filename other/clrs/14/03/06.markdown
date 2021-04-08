@@ -1,0 +1,34 @@
+> Show how to maintain a dynamic set $Q$ of numbers that supports the operation
+> `MIN-GAP`, which gives the magnitude of the difference of the two closes
+> numbers in $Q$. For example, if $Q = \\{ 1, 5, 9, 15, 18, 22 \\}$, then
+> `MIN-GAP(Q)` returns $18 - 15 = 3$, since $15$ and $18$ are the two closest
+> numbers in $Q$. Make the operations `INSERT`, `DELETE`, `SEARCH` and `MIN-GAP`
+> as efficient as possible, and analyze their running times.
+
+This should be formulaic.
+
+We store the following extra attributes in each node:
+
+* `minimum` of the subtree rooted at the node
+* `maximum` of the subtree rooted at the node
+* `gap` (minimal one) for the subtree root at the node
+
+We can calculate the extra attributes for each node in the following way:
+
+* The minimum is the left subtree's minimum if it exist, or the key of the node
+  if it doesn't.
+* The maximum is the right subtree's maximum if it exists, or the key of the
+  node if it doesn't.
+* There are four candidates for the min gap, whichever is smallest is fine.
+  1. The left subtree's min gap, if there is a left node
+  2. The right subtree's min gap, if there is a right node
+  3. `node.key - node.left.maximum`, if there is a left node
+  4. `node.right.minimum - node.key`, if there is a right node
+
+To maintain invariants, we need to recalculate the extras when:
+
+* We do a rotation
+* We insert a node, starting with the inserted node
+* We delete a node, starting with the lowest node we've moved
+
+This results in the code below.
