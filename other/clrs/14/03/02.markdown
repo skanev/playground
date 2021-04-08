@@ -1,0 +1,10 @@
+> Rewrite the code for `INTERVAL-SEARCH` so that it works properly when all
+> intervals are open.
+
+This is pretty minor, and I'm not gonna bother doing the full thing. We need to
+do to things to the code in Exercise 14.3-1:
+
+* change the definition of `overlaps` to exclude the boundary conditions, that
+  is, change `<=` to `<` in the comparisons;
+* use `>` instead of `>=` when comparing `node.left.max` and `interval.low` in
+  `Tree.search`.
