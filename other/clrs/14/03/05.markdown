@@ -1,0 +1,20 @@
+> Suggest modifications to the interval-tree procedures to support the new
+> operation `INTERVAL-SEARCH-EXACTLY(T, i)`, where $T$ is an interval tree and
+> $i$ is an interval. The operation should return a pointer to a node $x$ in $T$
+> such that $x.int.low = i.low$ and $x.int.high = i.high$, or $T.nil$ if $T$
+> contains no such code. All operations including `INTERVAL-SEARCH-EXACTLY`
+> should run in $\O(\lg n)$ time on a $n$-node interval tree.
+
+This only presents a problem if there are intervals with matching $low$ values –
+otherwise, it's just a basic binary tree search, looking at $low$ for the key.
+The solutions of the previous exercises assume that the low endpoints are
+distinct, so they even provide a function like that.
+
+Assuming that we're not creating a multiset, that is, each interval can be
+present only once, the trick here is to define a total order on the intervals –
+$i_1 < i_2$ if and only if $(i_1.low, i_1.high) < (i_2.low, i_2.high)$ where the
+comparison is "lexicographical". That is, as long as two intervals have
+different lower bounds, the one that goes more to the left is smaller. If their
+lower bounds match, the one that has less width is the smaller.
+
+With the ordering defined like that, we simply do a regular search in a BST.
