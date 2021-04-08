@@ -1,0 +1,30 @@
+> $\star$ VLSI databases commonly represent an integrated circuit as a list of
+> rectangles. Assume that each rectangle is rectilinearly oriented (sides
+> parallel to the x- and y-axes), so that we represent a rectangle by its
+> minimum and maximum x- and y-coordinates. Give an $\O(n \lg n)$-time algorithm
+> to decide whether or not a set of $n$ rectangles so represented contains two
+> rectangles that overlap. Your algorithm need not report all intersecting
+> pairs, but it must report that an overlap exists if one rectangle entirely
+> covers another, even if the boundary lines do not intersect. (_Hint:_ Move a
+> "sweep" line across the set of rectangles.)
+
+This bears similarity to Exercise 14.1-8, only we need an interval tree, instead
+of a order statistic tree.
+
+The algorithm is the following:
+
+1. We create an array of the left and right edges of each rectangle, tracking
+   the type of edge (left vs right), it's position and the rectangle it refers
+   to – $\O(n)$ time
+2. We sort the array, ordering left edges before right edges – $\O(n \lg n)$
+   time
+3. We create an empty interval tree
+4. We iterate the array – $\O(n)$ time
+   1. If we encounter a left edge, we construct an interval `[rect.top,
+      rect.bottom]`. We search of it in the interval tree ($\O(\lg n)$). If it's
+      present, we can return an overlap. If it's not, we insert it ($\O(\lg n)$)
+      and continue
+   2. If we encounter a right edge, we remove the rectangle from the interval
+      tree
+5. If we successfully iterate the array without breaking out, we return no
+   overlap
