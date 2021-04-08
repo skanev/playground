@@ -1,0 +1,71 @@
+# Point of maximum overlap
+
+> Suppose that we wish to keep track of a **point of maximum overlap** in a set
+> of intervals – a point with the largest number of intervals in the set that
+> overlaps it.
+>
+> <ol type="a">
+>   <li>Show that there will always be a point of maximum overlap that is an
+>   endpoint of one of the segments.
+>   <li>Design a data structure that efficiently supports the operations
+>   <code>INTERVAL-INSERT</code>, <code>INTERVAL-DELETE</code>, and
+>   <code>FIND-POM</code>, which returns a point of maximum overlap.
+>   (<em>Hint:</em> Keep a red-black tree of all the endpoints. Associate a
+>   value of +1 with each left endpoint, and associate a value of -1 with each
+>   right endpoint. Augment each node of the tree with some extra information to
+>   maintain the point of maximum overlap.)
+> </ol>
+
+## Maximum overlap at an endpoint
+
+This is a bit obvious, so as usual, proving it is tricky.
+
+Let $x$ be a maximum overlap point and $S$ be set of the intervals that overlap
+around $x$. Let $I_S$ the intersection of all intervals in $S$, that is:
+
+$$ I_S = \bigcup\_{X \in S} X $$
+
+If we let $I_S = (a, b)$, that is, for $a$ and $b$ to be the endpoints of the
+intersection, they are also points of maximum overlap. Furthermore, they are the
+endpoint of one of the intervals in $S$ (otherwise $I_S$ would not end there).
+
+## Data structure
+
+As hinted, the data structure is a red-black tree, where each key is associated
+with a weight (-1 or 1) depending on whether it's the start or end of an
+interval. If we represent each set of intervals as a list of -1s and 1s in the
+order of the endpoints, then the largest number of overlapping interval is the
+maximum of the sums of each sublist.
+
+If there are duplicate endpoints, we need to order the 1s before the -1s.
+
+A list would not get good performance, however, so we model it as a tree:
+
+* The tree is an ordering of 1s and -1s of all the endpoints.
+* We're looking for a maximum sum of sequential endpoints, and an endpoint that
+  generates it.
+
+Note that each node represent a sublist of the endpoints, that is, there are no
+elements between the minimum and the maximum of the subtree in the full list of
+endpoints that are not present in the subtree.
+
+We can calculate this efficiently by storing three properties on each node:
+
+1. The sum of all the weights in the subtree rooted at a node.
+2. The maximum weight in attainable by a prefix of the tree
+3. The element that creates this maximum weight
+
+The first is obvious, and the third is calculated by the second. So the question
+is how we keep calculate the maximum overlap at a subtree, given that we have it
+for its children.
+
+There are essentially three cases:
+
+* The maximum overlap is achieved in a suffix of the left subtree
+* The maximum overlap is achieved by entire left subtree plus the endpoint of
+  the node
+* The maximum overlap is achieved by entire left subtree plus the endpoint of
+  the node plus a prefix in the right subtree
+
+They result in three different things we need to check, which is implemented in
+the code below
