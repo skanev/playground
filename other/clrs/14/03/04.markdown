@@ -1,0 +1,50 @@
+> Given an interval tree $T$ and an interval $i$, describe how to list all
+> intervals in $T$ that overlap $i$ in $\O(\min(n, k \lg n))$ time, where $k$ is
+> the number of intervals in the output list. (_Hint:_ One simple method makes
+> several queries, modifying the tree between queries. A slightly more
+> complicated method does not modify the tree).
+
+The simple method would be to remove the interval and search again, until an
+interval is no longer present.
+
+I struggle to formally establish an upper bound. Intuitively, if $k = n$, that
+is, all intervals overlap with the one that is being searched for, it will
+always be the root, and removing the root would be a constant operating,
+establishing $\O(n)$ complexity. I'm not sure how to reason about this when $k <
+n$ but $n < k \lg n$. Should pan out, but no idea why.
+
+An algorithm that does not modify the tree is doable, but the upper bound still
+evades me. Let's explore it nonetheless.
+
+Once we visit a node, we can check whether it overlaps and add its interval to
+the result if it does. We're then in a situation in which we may have to explore
+both branches of the tree. Letting $x$ be the node, we have the following
+constraints to work with:
+
+* $x.left$ will not contain overlapping intervals if $x.left.max < i.low$.
+* $x.right$ will not contain overlapping intervals unless $[x.int.low,
+  x.right.max]$ overlaps with $i$.
+
+We can use this to avoid visiting some of the nodes in the tree. The resulting
+algorithm will certainly be $\O(n)$, because it does not visit a node more than
+once. Whether it is $\O(k \lg n)$, I have no idea.
+
+```python
+def search(tree, interval):
+    result = []
+
+    def collect(node):
+        if node.interval.overlaps(interval):
+            result.append(node.interval)
+
+        if node.left and interval.low <= node.left.max:
+            collect(node.left)
+
+        if node.right and Interval(node.interval.low,
+                node.right.max).overlaps(interval):
+            collect(node.right)
+
+    collect(tree.root)
+
+    return result
+```
