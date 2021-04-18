@@ -1,0 +1,19 @@
+> Show that equation (15.4) follows from equation (15.3) and the initial
+> condition $T(0) = 1$.
+
+Let's first prove the rather obvious:
+
+$$ A(n) = \sum_{i=0}^{n} 2^i = 2^{n+1} - 1 $$
+
+We do this by induction. It's clear that $A(0) = 2^0 = 1 = 2^1 - 1$ and even
+$A(1) = 2^0 + 2^1 = 1 + 2 = 3 = 2^2 - 1$. Assuming it holds for numbers up to
+$n$, if we look at $A(n + 1)$, we get:
+
+$$ A(n+1) = \sum_{i}^{n+1} 2^i = 2^{n+1} + A(n) = 2^{n+1} + 2^{n+1} - 1 =
+2^{n+2} - 1 $$
+
+We now use induction again. Looking then at (15.3) and (15.4), it clearly holds
+when $T(0) = 1$. Then let's $T(n) = 2^n$ up to an $n$, and then look at:
+
+$$ T(n+1) = 1 + \sum_{j=0}^{n} T(j) = 1 + \sum_{j=0}^{n} 2^n = 1 + 2^{n+1} - 1 =
+2^{n+1} $$
