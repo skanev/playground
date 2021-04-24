@@ -1,0 +1,14 @@
+> The Fibonacci numbers are defined by recurrence (3.22). Give a $\O(n)$-time
+> dynamic-programming algorithm to compute the $n$th Fibonacci number. Draw the
+> subproblem graph. How many vertices and edges are in the graph?
+
+We don't really need a dynamic programming approach, do we? Anyway, let's
+implement one.
+
+The subproblem graph is pretty trivial to draw, and I was going to skip the
+whole dot exercise, but then I drew it on paper, and there is a pretty
+interesting property. Specifically, the non-optimal version for solving $n$ has
+$F_n$ vertices, where $F_i$ is the $i$-th Fibonacci number.
+
+The other is pretty straightforward, although graphviz doesn't render it
+perfectly.
