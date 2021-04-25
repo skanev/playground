@@ -1,0 +1,37 @@
+> Let $R(i, j)$ be the number of times the table entry $m[i, j]$ is referenced
+> while computing other table entries in a call of `MATRIX-CHAIN-ORDER`. Show
+> that the total number of references for the entire table is
+>
+> $$ \sum_{i=1}^n \sum_{j=i}^n R(i, j) = \frac{n^3 - n}{3} $$
+>
+> (_Hint:_ You may find equation (A.3) useful.)
+
+Let's observe the following about the loops:
+
+* The third loop ($k$) references $m$ twice.
+* The body of the third loop gets executed $j - i = l - 1$ times.
+* The body of the second loop gets executed $n - l + 1$ times.
+* The body of the first loop gets execute $n - 1$ times, with $l$ moving from
+  $2$ to $n$.
+
+Thus, it's the following sum:
+
+$$ \sum_{l=2}^n 2(l - 1)(n - l + 1) $$
+
+Now let's simplify:
+
+$$
+  \begin{aligned}
+    \sum_{l=2}^n 2(l - 1)(n - l + 1) &=
+        \sum_{l=1}^{n-1} 2l(n - l) \\\\
+      &= 2n \sum_{l=1}^{n-1} l - 2 \sum_{l=1}^{n-1} l^2 \\\\
+      &= 2n \frac{(n-1)n}{2} - 2\frac{(n - 1)((n - 1) + 1)(2(n - 1) + 1)}{6} \\\\
+      &= n^3 - n^2 - \frac{n(n - 1)(2n - 1)}{3} \\\\
+      &= \frac{1}{3} \left( 3n^3 - 3n^2 - 2n^3 + n^2 + 2n^2 -n \right) \\\\
+      &= \frac{1}{2} \left( n^3 - n \right) \\\\
+      &= \frac{n^3 - n}{3}
+  \end{aligned}
+$$
+
+I'm also struggling to figure out how this is different than the previous
+exercise.
