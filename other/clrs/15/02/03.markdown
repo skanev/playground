@@ -1,0 +1,29 @@
+> Use the substitution method to show that the solution to the recurrence (15.6)
+> is $\Omega(2^n)$.
+
+The recurrence is:
+
+$$
+  P(n) =
+  \begin{cases}
+    1 & \text{if } n = 1, \\\\
+    \sum_{k=1}^{n-1} P(k) P(n - k) & \text{if } n \ge 2
+  \end{cases}
+$$
+
+Our guess is that $P(m) \ge c \cdot 2^m$.
+
+Trying to quantify $P(n)$, we get:
+
+$$
+  \begin{aligned}
+      P(n) &= \sum_{k=1}^{n-1} P(k) P(n - k) \\\\
+           &\ge \sum_{k=1}^{n-1} c \cdot 2^k \cdot c \cdot 2^{n-k} \\\\
+           &= c^2 \sum_{k=1}^{n-1} 2^k 2^{n-k} \\\\
+           &= c^2 \sum_{k=1}^{n-1} 2^n \\\\
+           &= c^2 (n - 1) 2^n \\\\
+           &\ge c \cdot 2^{n}
+  \end{aligned}
+$$
+
+(when $c \ge 1$ and $n \ge 2$)
