@@ -1,0 +1,10 @@
+> Show that a full parenthesization of an $n$-element expression has exactly $n
+> - 1$ pairs of parentheses.
+
+It clearly holds for $n = 1$ and $n = 2$. So using induction, if we have an
+$n$-element expression, where $n \ge 2$, that is fully parenthesized, by
+definition it is the product of two fully parenthesized expression of smaller
+length. Let $a$ be the length of the left one, and $b$ be the length of the
+right one. By the inductive step we know that the left has $a - 1$ pairs and the
+right has $b - 1$. Adding one more pair, we get $1 + a - 1 + b - 1 = a + b - 1 =
+n - 1$.
