@@ -1,0 +1,9 @@
+> Consider a variant of the matrix-chain multiplication problem in which the
+> goal is to parenthesize the sequence of matrices so as to maximize, rather
+> than minimize, the number of scalar multiplications. Does this problem exhibit
+> optimal substructure?
+
+Yes it does.
+
+It changes the calculation, but the two important properties remain – there is
+an overlap of the subproblems and they are independent.
