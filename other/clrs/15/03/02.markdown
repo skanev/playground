@@ -1,0 +1,9 @@
+> Draw the recursion tree for the `MERGE-SORT` procedure from Section 2.3.1 on
+> an array of 16 elements. Explain why memoization fails to speed up a good
+> divide-and-conquer algorithm such as `MERGE-SORT`.
+
+Because there is no subproblem overlap. Whenever merge sort splits an array, it
+produces unique partitions that don't occur anywhere else.
+
+I'm not gonna draw the tree, because it's kinda obvious once you've read the
+chapter.
