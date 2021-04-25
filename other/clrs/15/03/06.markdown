@@ -1,0 +1,73 @@
+> Imagine that you wish to exchange one currency for another. You realize that
+> instead of directly exchanging one currency for another, you might be better
+> of making a series of trades through other currencies, winding up with the
+> currency you want. Suppose that you can trade $n$ different currencies,
+> numbered $1, 2, \ldots, n$, where you start with currency $1$ and wish to wind
+> up with currency $n$. You are given, for each pair of currencies $i$ and $j$,
+> an exchange rate $r_{ij}$, meaning that if you start with $d$ units of
+> currency $i$, you can trade for $dr_{ij}$ units of currency $j$. A sequence of
+> trades may entail a commission, which depends on the number of trades you
+> make. Let $c_k$ be the commission that you are charged when you make $k$
+> trades. Show that, if $c_k = 0$ for all $k = 1, 2, \ldots, n$, then the
+> problems of finding the best sequence of exchanges from currency $1$ to
+> currency $n$ exhibits optimal substructure. The show that if commissions $c_k$
+> are arbitrary values, then the problem of finding the best sequence of
+> exchanges from currency $1$ to currency $n$ does not necessarily exhibit
+> optimal substructure.
+
+If $c_k = 0$, we can use the reasoning from the chapter. Let $t = 1
+\rightsquigarrow a_1 \rightsquigarrow a_2 \rightsquigarrow \ldots
+\rightsquigarrow j$ be the optimal trade. If we pick any $a_k$, then both $p = 1
+\rightsquigarrow a_1 \rightsquigarrow \ldots \rightsquigarrow a_k$ and $q = a_k
+\rightsquigarrow a_{k+1} \rightsquigarrow \ldots \rightsquigarrow j$ are optimal
+trades. If we assume otherwise, then there is a sequence $p'$ that is better
+than $p$, and we can use it trade $p' \rightsquigarrow q$, which would be a
+better trade than $t$, which is a contradiction.
+
+Now let's look at when commissions become a problem. Let's have 4 currencies,
+with the following trades:
+
+```generate-dot
+digraph {
+  rankdir="LR";
+
+  node[shape=circle];
+  edge[weight=2];
+  1 -> 2 [label="x2"];
+  2 -> 3 [label="x2"];
+  3 -> 4 [label="x2"];
+
+  edge[weight=1];
+  1 -> 3 [label="x3"];
+}
+```
+
+Let's assume that unmarked trades are just not good enough. Let's also have:
+
+$$ c_0 = 0, c_1 = 1, c_2 = 2, c_3 = 50, c_4 = 50, \ldots $$
+
+That is, the first two trades are cheap, but then it gets problematic. Let's
+assume we have $10$ units of currency $1$ and look at some optimal ways to trade
+$x \rightsquigarrow y$:
+
+$$
+\begin{aligned}
+  1 \rightsquigarrow 4 &= 1 \rightarrow 3 \rightarrow 4
+    = 10 \cdot 3 \cdot 2 - c_1 - c_2 = 60 - 1 - 2 &= 57 \\\\
+  1 \rightsquigarrow 3 &= 1 \rightarrow 2 \rightarrow 3
+    = 10 \cdot 2 \cdot 2 - c_1 - c_2 = 40 - 1 - 2 &= 37 \\\\
+  3 \rightsquigarrow 4 &= 3 \rightarrow 4
+    = 10 \cdot 2 - c_1 = 20 - 1 &= 19 \\\\
+\end{aligned}
+$$
+
+The optimal way to trade $1 \rightsquigarrow 3$ would be to go through $2$
+yielding $37$, instead of directly, yielding $29$. But if we combine that with
+the optimal way to go $3 \rightsquigarrow 4$, we get:
+
+$$
+  1 \rightarrow 2 \rightarrow 3 \rightarrow 4 = 10 \cdot 2 \cdot 2 \cdot 2 - c_1
+  - c_2 - c_3 = 80 - 1 - 2 - 50 = 27
+$$
+
+Which is much less than $57$ if we just perform 2 trades.
