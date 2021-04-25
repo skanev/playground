@@ -1,0 +1,14 @@
+> Describe the subproblem graph for matrix-chain multiplication with an input
+> chain of length $n$. How many vertices does it have? How many edges does it
+> have, and which edges are they?
+
+Assuming this is the efficient algorithm, the graph has vertices $v_{ij}$ where $i
+\le j$. There are $1 + 2 + \ldots + n$ of them, which is $\frac{n(n+1)}{2}$, a
+boring old formula.
+
+As for edges, each vertex has two edges, $(v_{ij}, v_{ik})$ and $(v_{ij},
+v_{k+1,j})$ for each $k$ such that $i \le k < j$. The sum is:
+
+$$ \sum_{i=1}^n \sum_{j=i}^n 2 (j - i) $$
+
+This is probably expandable, but I'm not that hard-working.
