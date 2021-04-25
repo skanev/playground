@@ -1,5 +1,6 @@
 require 'pathname'
 require 'fileutils'
+require 'open3'
 
 require 'tilt'
 require 'redcarpet'

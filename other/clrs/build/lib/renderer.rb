@@ -57,7 +57,10 @@ module Renderer
   end
 
   def markdown
-    @markdown ||= Redcarpet::Markdown.new Markdown, tables: true, no_intra_emphasis: true, fenced_code_blocks: true
+    @markdown ||= Redcarpet::Markdown.new Markdown, tables: true,
+                                                    no_intra_emphasis: true,
+                                                    fenced_code_blocks: true,
+                                                    strikethrough: true
   end
 
   def process(markdown_code)
@@ -69,9 +72,15 @@ module Renderer
   class Markdown < Redcarpet::Render::HTML
     def postprocess(html)
       doc = Nokogiri::HTML(html)
+
       doc.search('table').each do |node|
         node[:class] = 'table table-bordered table-striped table-compact'
       end
+
+      doc.search('pre > code.generate-dot').each do |node|
+        node.parent.replace "<p class=\"generated-dot\">#{Graph.compile_to_svg node.inner_text}</p>"
+      end
+
       doc.search('body').first.inner_html
     end
   end
