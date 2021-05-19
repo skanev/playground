@@ -3,10 +3,10 @@ GEM
   specs:
     coderay (1.1.3)
     ffi (1.15.0)
-    mini_portile2 (2.5.0)
+    mini_portile2 (2.5.1)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
-    nokogiri (1.11.1)
+    nokogiri (1.11.4)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
     racc (1.5.2)
