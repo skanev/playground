@@ -1,0 +1,2 @@
+> Given an $\O(n^2)$-time algorithm to find the longest monotonically increasing
+> subsequence of a sequence of $n$ numbers.
