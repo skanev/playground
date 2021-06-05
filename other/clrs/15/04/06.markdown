@@ -1,0 +1,17 @@
+> $\star$ Give an $\O(n \lg n)$-time algorithm to find the longest monotonically
+> increasing subsequence of a sequence of $n$ numbers. (_Hint:_ Observe that the
+> last element of a candidate subsequence of length $i$ is at least as large as
+> the last element of a candidate subsequence of length $i - 1$. Maintain
+> candidate subsequences by linking them through the input sequence.)
+
+This is a bit weird to explain. There are three parts to it.
+
+1. We can hold an array, `longest`, that stores at position $i$ the so-far
+   longest subsequence with length $i$.
+
+2. Every time we process an element from the input sequence we can update
+   `longest` with that element. If we map `longest` to the last element of each
+   sequence, it's going to maintain an invariant of being sorted.
+
+3. Since longest is sorted, we can use binary search to figure out where to put
+   the next element from the input sequence.
