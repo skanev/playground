@@ -1,0 +1,16 @@
+> Show how to compute the length of an LCS using only $2 \cdot \min(m, n)$
+> entries in the $c$ table plus $\O(1)$ additional space. Then show how to do
+> the same thing, but using $\min(m, n)$ entries plus $\O(1)$ additional space.
+
+We just need to make a few observations:
+
+1. In order to go for $\min(m, n)$, we need to make sure that $n$ is the smaller
+   numbers, that is, exchange the strings if the second is longer.
+2. Every time we calculate a row in $c$, we only consult the previous row and
+   the current row up to the point at which we've built it. Therefore, we don't
+   need to keep track of rows other than the previous.
+3. When calculating the value in a row for index $j$, we only ever consult the
+   previous row for index $j - 1$. Therefore, we can just keep track of a single
+   array, with indices lower than $j$ referring to the current row, and indices
+   higher or equal than $j$ referring to the previous row. Since we need $j - 1$
+   to calculate $j$, we keep track of it separately.
