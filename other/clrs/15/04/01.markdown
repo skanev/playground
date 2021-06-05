@@ -1,0 +1,2 @@
+> Determine an LCS of $\langle 1, 0, 0, 1, 0, 1, 0, 1 \rangle$ and $\langle 0,
+> 1, 0, 1, 1, 1, 0, 1, 1, 0 \rangle$.
