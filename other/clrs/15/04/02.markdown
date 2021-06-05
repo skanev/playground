@@ -1,0 +1,4 @@
+> Give pseudocode to reconstruct an LCS from the completed $c$ table and the
+> original sequences $X = \langle x_1, x_2, \ldots, x_m \rangle$ and $Y =
+> \langle y_1, y_2, \ldots, y_n \rangle$ in $O(m + n)$ time, without using the b
+> table.
