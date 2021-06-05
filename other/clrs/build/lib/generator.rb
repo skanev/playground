@@ -18,7 +18,6 @@ module Generator
 
   def copy_static_files
     FileUtils.cp_r '../../build/public/css', 'css'
-    FileUtils.cp_r '../../build/public/js', 'js'
     FileUtils.cp_r '../../build/public/img', 'img'
   end
 
