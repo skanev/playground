@@ -1,0 +1,9 @@
+> $\star$ Knuth [212] has shown that there are always roots of optimal subtrees
+> such that $root[i, j - 1] \le root[i, j] \le [root[i + 1, j]$ for all $1 \le i
+> < j \le n$. Use this fact to modify the `OPTIMAL-BST` procedure to run in
+> $\Theta(n^2)$ time.
+
+I'm not sure that is completely true, and I find this problem quite boring.
+Thus, I'm going to only leave [this Stack Overflow link][link].
+
+[link]: https://stackoverflow.com/questions/16987670/dynamic-programming-why-knuths-improvement-to-optimal-binary-search-tree-on2
