@@ -24,8 +24,8 @@ Here is the pseudocode:
       C = new integer[A.length + 1]
 
       carry = 0
-      for i = 1 to A.length
-          C[i] = (A[i] + B[i] + carry) % 2  // remainder
+      for i = A.length downto 1
+          C[i+1] = (A[i] + B[i] + carry) % 2  // remainder
           carry = (A[i] + B[i] + carry) / 2 // quotient
       C[i] = carry
 
