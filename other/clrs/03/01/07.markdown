@@ -11,5 +11,5 @@ If we pick $n_0 = max(n_1, n_2)$, from the problem definition we get:
 
 $$ f(n) < cg(n) < f(n) $$
 
-Which obviously has no solutions. Thus, such function $f(n)$ exists, which
+Which obviously has no solutions. Thus, no such function $f(n)$ exists, which
 means that the intersection is the empty set.
