@@ -1,0 +1,12 @@
+> Prove that $\sum_{k=1}^{n} O(f_k(i)) = O(\sum_{k=1}^{n} f_k(i))$
+
+I am not sure whether the following prove is really meaningful.
+
+$$
+\begin{align}
+	\sum_{k=1}^{n} O(f_k(i))	&= O(f_1(i)) + O(f_2(i)) + ... + O(f_n(i)) \\
+					&= O(f_1(i) + f_2(i) + ... + f_n(i)) \\
+					&= O\left(\sum_{k=1}^{n} f_k(i)\right)
+\end{align}
+$$
+

@@ -1,0 +1,12 @@
+> Show that $\sum_{k=1}^{n} 1/(2k - 1) = \ln{\sqrt{n}} + O(1)$
+
+$$
+\begin{align}
+	\sum_{k=1}^{n} 1/(2k - 1)	&= \sum_{i=1}^{2n} \frac{1}{i} - \sum_{j=1}^{n} \frac{1}{2j} \\
+					&= \ln{2n} + O(1) - \frac{1}{2}(\ln{n} + O(1)) \\
+					&= \ln{\frac{2n}{\sqrt{n}}} + O(1) \\
+					&= \ln{2} + \ln{\sqrt{n}} + O(1) \\
+					&= \ln{\sqrt{n}} + O(1)
+\end{align}
+$$
+

@@ -1,0 +1,12 @@
+> Evaluate the product $\prod_{k=2}^{n} (1 - 1/k^2)$.
+
+$$
+\begin{align}
+	\prod_{k=2}^{n} (1 - \frac{1}{k^2})
+&= \prod_{k=2}^{n} (1 + \frac{1}{k})(1 - \frac{1}{k}) \\
+&= (\frac{3}{2} \cdot \frac{4}{3} \cdot \frac{5}{4} \dotsm \frac{n}{n - 1} \frac{n + 1}{n})(\frac{1}{2} \cdot \frac{2}{3} \cdot \frac{3}{4} \dotsm \frac{n - 2}{n - 1} \cdot \frac{n - 1}{n}) \\
+&= \frac{n + 1}{2} \cdot \frac{1}{n} \\
+&= \frac{n + 1}{2n}
+\end{align}
+$$
+
