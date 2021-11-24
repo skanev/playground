@@ -51,5 +51,5 @@ sorted.
 ### Modified algorithm
 
 We are always doing a tail-recursive call on the second partition. We can
-modify the algorithm to do the tail recursion on the larger partition. That
+modify the algorithm to do the tail recursion on the smaller partition. That
 way, we'll consume less stack.
