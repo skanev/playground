@@ -12,7 +12,7 @@ $$ g(n) = \sum_{j=0}^{\log_b{n}-1}a^jf(n/b^j) \\\\
    \lg^k\frac{n}{d} = (\lg{n} - \lg{d})^k = \lg^k{n} + o(\lg^k{n}) \\\\
    B = \sum_{j=0}^{\log_b{n}-1}\lg^k\frac{n}{b^j}
      = \sum_{j=0}^{\log_b{n}-1}\Big(\lg^k{n} - o(\lg^k{n})\Big)
-     = \log_b{n}\lg^k{n} + \log_b{n} \cdot o(\lg^k{n})
+     = \log_b{n}\lg^k{n} - \log_b{n} \cdot o(\lg^k{n})
      = \Theta(\log_b{n}\lg^k{n})
      = \Theta(\lg^{k+1}{n}) \\\\
    g(n) = \Theta(A) = \Theta(n^{\log_b{a}}B) = \Theta(n^{\log_b{a}}\lg^{k+1}{n})
