@@ -1,6 +1,6 @@
-> Come up with a real-world problem in which only the best solution will do.
-> Then come up with one in which a solution that is "approximately" the best
-> is good enough.
+> Suggest  real-world problem in which only the best solution will do.
+> Then come up with one in which "approximately" the best solution is good
+> enough.
 
 Sorting a catalog is a problem, where only the best solution will do. An
 "approximately" sorted catalog won't be that useful.

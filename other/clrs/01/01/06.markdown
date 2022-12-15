@@ -1,0 +1,9 @@
+> Describe a real-world problem in which sometimes the entire input is available
+> before you need to solve the problem, but other times the input is not
+> entirely available in advance and arrives over time.
+
+Sorting is a good example of both.
+
+Sorting an array will need to have the full array in order to sort it. Then
+again, if we want to keep a dashboard of our top players that have scored the
+most points in a game, the inputs will come over time.

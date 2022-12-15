@@ -1,9 +1,10 @@
-> Give a real-world example that requires sorting or a real-world example
-> that requires computing a convex hull.
+> Give a real-world example that requires sorting. Describe one that requires
+> finding the shortest distance between two points.
+
+Ah, we start easy.
 
 A real-world example of sorting is pretty straightforward - for example, every
 web page that renders a list alphabetically needs to sort the entries - a
 catalog, an index or whatever.
 
-I have no clue why we need to compute convex hulls, but Wikipedia says that
-there are a bunch of applications.
+A real-world example of shortest distance would be the navigation in your car.
