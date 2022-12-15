@@ -12,7 +12,7 @@
 > 1. Let $A'$ denote the output of *BUBBLESORT(A)*. To prove that *BUBBLESORT*
 >    is correct, we need to prove that it terminates and that
 >
->    $$ A'[1] \leq A'[2] \leq \cdots \leq A'[n] \tag{2.3}$$
+>    $$ A'[1] \leq A'[2] \leq \cdots \leq A'[n] \tag{2.5}$$
 >
 >    where $n = A.length$. In order to show that *BUBBLESORT* actually sorts,
 >    what else do we need to prove?

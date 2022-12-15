@@ -1,11 +1,23 @@
-> Rewrite the _Insertion-Sort_ procedure to sort into nonincreasing instead of nondecreasing order.
+> Consider the procedure `SUM-ARRAY` on the facing page. It computes the sum of
+> the $n$ numbers in array $A[1:n]$. State a loop invariant for this procedure,
+> and use its initialization, maintenance and termination properties to show
+> that the `SUM-ARRAY` procedure returns the sum of the numbers $A[1:n]$`.
+>
+>     SUM-ARRAY(A, n)
+>       sum = 0
+>       for i = 1 to n
+>         sum = sum + A[i]
+>       return sum
 
-The only thing we need to do, is flip the comparison:
+The loop invariant is: `sum` contains the sum of `A[1:i-1]`. The illustrate it:
 
-    for j = 2 to A.length
-        key = A[j]
-        i = j - 1
-        while i > 0 and A[i] < key
-            A[i + 1] = A[i]
-            i = i - 1
-        A[i + 1] = key
+* **Initialization**: `sum` starts as 0, and `i` starts as `1`, which means
+  `A[1:0]` is the empty array, that has a sum of one.
+* **Maintenance**: very trivially, at the start of each step `sum` is known to
+  be the sum of `A[i:i-1]`. When we add `A[i]` to that, it becomes the sum of
+  `A[1:i]`, because that's how sums work.
+* **Termination**: the loop terminates (if you squint at it) with `i = n + 1`,
+  which means that `sum` has the sum of `A[1:n+1-1]` AKA `A[1:n]`.
+
+I'm sure this could be stated more formally, but I don't think it's necessary
+for me to do it here.

@@ -1,15 +1,38 @@
-> We can express insertion sort as a recursive procedure as follows. In order
-> to sort $A[1..n]$, we recursively sort $A[1..n-1]$ and then insert $A[n]$
-> into the sorted array $A[1..n-1]$. Write a recurrence for the running time
-> of this recursive version of insertion sort.
+> Use mathematical induction to show that when $n \ge 2$ is an exact power of 2, the
+> solution of the recurrence
+>
+> $$ T(n) = \begin{cases}
+>      2           & \text{if } n = 2, \\\\
+>      2T(n/2) + n & \text{if } n = 2^k, \text{for } k > 1.
+>    \end{cases} $$
+>
+> is $T(n) = n\lg{n}$
 
-The recurrence is
+Boy, this is going to be a lot of $\LaTeX$.
 
-$$ T(n) =
-   \begin{cases}
-     \Theta(1) & \text{if } n = 1, \\\\
-     T(n-1) + C(n-1) & \text{otherwise}.
-   \end{cases} $$
+First, let's establish a function on which we're going to perform induction:
 
-where $C(n)$ is the time to insert an element in a sorted array of $n$
-elements.
+$$ F(k) = T(2^k) $$
+
+We want to prove that:
+
+$$ F(k) = 2^k \lg{2^k} $$
+
+**Base.** It is simple enough:
+
+$$ F(1) = T(2) = 2 = 2\lg2 = 2^1\lg{2^1} $$
+
+**Step.** We assume that:
+
+$$ F(k) = 2^k \lg{2^k} $$
+
+We prove it for $k + 1$:
+
+$$ \begin{aligned}
+   F(k + 1) & = T(2^{k+1})= 2T(\frac{2^{k+1}}{2}) + 2^{k+1} = \\\\
+            & = 2T(2^k) + 2^{k+1} = 2 \cdot 2^k \lg{2^k} + 2^{k+1} = \\\\
+            & = 2^{k+1}(\lg{2^k} + 1) = 2^{k+1}(\lg{2^k} + \lg2) = \\\\
+            & = 2^{k+1}\lg{2^{k+1}}
+   \end{aligned} $$
+
+□

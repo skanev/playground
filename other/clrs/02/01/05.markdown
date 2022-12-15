@@ -1,0 +1,21 @@
+> Consider the problem of adding two $n$-bit binary integers $a$ and $b$, stored
+> in two $n$-element arrays $A[0:n-1]$ and $B[0:n-1]$, where each element is
+> either 0 or 1, $a = \sum_{i=0}^{n-1}{A[i] \cdot 2^i}$, and $b =
+> \sum_{i=0}^{n-1}{B[i] \cdot 2^i}$. The sum $c = a + b$ of the two integers
+> should be stored in binary form in an $(n+1)$-element array $C[0:n]$, where
+> $c = \sum_{i=0}^{n}{C[i] \cdot 2^i}$. Write a procedure `ADD-BINARY-INTEGERS`
+> that takes as inputs arrays $A$ and $B$, along with the length $n$, and
+> returns array $C$ holding the sum.
+
+Here is the pseudocode:
+
+    ADD-BINARY-INTEGERS(A, B, n):
+      C = new integer[A.length + 1]
+
+      carry = 0
+      for i = 1 to n
+          C[i] = (A[i] + B[i] + carry) % 2  // remainder
+          carry = (A[i] + B[i] + carry) / 2 // quotient
+      C[i] = carry
+
+      return C

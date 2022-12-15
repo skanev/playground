@@ -1,24 +1,10 @@
-> ★ Describe a $\Theta(n\lg{n})$-time algorithm that, given a set $S$ of $n$
-> integers and another integer $x$, determines whether or not there exists two
-> elements of $S$ whose sum is exactly $x$.
+> The **while** loop of lines 5-7 of the `INSERTION-SORT` procedure in Section
+> 2.1 uses a linear search to scan (backward) through the sorted subarray
+> $A[1:j-1]$. What if insertion sort used a binary search (see Exercise 2.3-6)
+> instead of a linear search? Would that improve the overall worst-case running
+> time of insertion sort to $\Theta(n\lg{n})$?
 
-First we sort $S$. Afterwards, we iterate it and for each element $i$ we
-perform a binary search to see if there is an element equal to $x - i$. If one
-is found, the algorithm returns true. Otherwise, it returns false.
-
-We iterate $n$ elements and perform binary search for each on in an $n$-sized
-array, which leads to $\Theta(n\lg{n})$-time. If we sort first (with merge
-sort) it will introduce another $\Theta(n\lg{n})$ time, that would change the
-constant in the final algorithm, but not the asymptotic time.
-
-Here's the pseudocode:
-
-    PAIR-EXISTS(S, x):
-      A = MERGE-SORT(S)
-
-      for i = 1 to S.length
-          if BINARY-SEARCH(A, x - S[i]) != NIL
-              return true
-
-      return false
-
+No. Even if it finds the position in logarithmic time, it still needs to shift
+all elements after it to the right, which is linear in the worst case. It will
+perform the same number of swaps, although it would reduce the number of
+comparisons.

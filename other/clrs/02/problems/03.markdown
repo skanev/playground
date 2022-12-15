@@ -1,38 +1,40 @@
 ## Correctness of Horner's rule
 
-> The following code fragment implements Horner's rule for evaluating a
-> polynomial
+> You are given the coefficients $a_0, a_1, a_2, \ldots, a_n$ of a polynomial
 >
 > $$ \begin{aligned}
 >    P(x) &= \sum_{k=0}^n a_kx^k = \\\\
 >         &= a_0 + x(a_1 + x(a_2 + \cdots + x(a_{n-1} + xa_n) \cdots))
 >    \end{aligned} $$
 >
-> given the coefficients $a_0, a_1, \ldots ,a_n$ and a value for $x$:
+> and you want to evaluate the polynomial for a given value of $x$. **Horner's
+> rule** says to evaluate the polynomial according to this parenthesization:
 >
->     y = 0
->     for i = n downto 0
->         y = aᵢ + x·y
+> $$P(x) = a_0 + x\Big(a_1 + x\big(a_2 + \ldots + x(a_{n-1} + xa_n)\big)\Big)$$
 >
-> 1. In terms of $\Theta$-notation, what is the running time of this code
->    fragment for Horner's rule?
+> The procedure `HORNER` implements Horner's rule to evaluate $P(x)$, given the
+> coefficients $a_0, a_1, a_2, \ldots, a_n$ in an array $A[0:n]$ and the value
+> of $x$.
+>
+>     HORNER(A, n, x)
+>       p = 0
+>       for i = n downto 0
+>         y = A[i] + x * p
+>       return p
+>
+> 1. In terms of $\Theta$-notation, what is the running time of this procedure?
 >
 > 2. Write pseudocode to implement the naive polynomial-evaluation algorithm
 >    that computes each term of the polynomial from scratch. What is the
->    running time of this algorithm? How does it compare to Horner's rule?
+>    running time of this algorithm? How does it compare `HORNER`?
 >
 > 3. Consider the following loop invariant:
->    > At the start of each iteration of the **for** loop of lines 2-3,
->    >
->    > $$ y = \sum_{k=0}^{n-(i+1)}a_{k+i+1}x^k $$
->    >
->    > Interpret a summation with no terms as equaling 0. Following the
->    > structure of the loop invariant proof presented in this chapter, use
->    > this loop invariant to show that, at termination,
->    > $y = \sum_{k=0}^na_kx^k$.
->
-> 4. Conclude by arguing that the given code fragment correctly evaluates a
->    polynomial characterized by the coefficients $a_0,a_1,\ldots,a_n$.
+>    At the start of each iteration of the **for** loop of lines 2-3,
+>    $$ y = \sum_{k=0}^{n-(i+1)}a_{k+i+1}x^k $$
+>    Interpret a summation with no terms as equaling 0. Following the
+>    structure of the loop invariant proof presented in this chapter, use
+>    this loop invariant to show that, at termination,
+>    $y = \sum_{k=0}^na_kx^k$.
 
 ### 1. Running time
 

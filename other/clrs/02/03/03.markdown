@@ -1,38 +1,10 @@
-> Use mathematical induction to show that when $n$ is an exact power of 2, the
-> solution of the recurrence
->
-> $$ T(n) = \begin{cases}
->      2           & \text{if } n = 2, \\\\
->      2T(n/2) + n & \text{if } n = 2^k, \text{for } k > 1.
->    \end{cases} $$
->
-> is $T(n) = n\lg{n}$
+> State a loop invariant for the **while** loop of lines 12-18 of the `MERGE`
+> procedure. Show how to use it, along with the **while** loops of lines 20-23
+> and 24-27, to prove that the `MERGE` procedure is correct.
 
-Boy, this is going to be a lot of $\LaTeX$.
+The loop invariant(s) here is: $A[1:k]$ is sorted and contains only elements
+smaller than the ones in $L$ and $R$. The termination condition also guarantees
+that either $L$ or $R$ is empty.
 
-First, let's establish a function on which we're going to perform induction:
-
-$$ F(k) = T(2^k) $$
-
-We want to prove that:
-
-$$ F(k) = 2^k \lg{2^k} $$
-
-**Base.** It is simple enough:
-
-$$ F(1) = T(2) = 2 = 2\lg2 = 2^1\lg{2^1} $$
-
-**Step.** We assume that:
-
-$$ F(k) = 2^k \lg{2^k} $$
-
-We prove it for $k + 1$:
-
-$$ \begin{aligned}
-   F(k + 1) & = T(2^{k+1})= 2T(\frac{2^{k+1}}{2}) + 2^{k+1} = \\\\
-            & = 2T(2^k) + 2^{k+1} = 2 \cdot 2^k \lg{2^k} + 2^{k+1} = \\\\
-            & = 2^{k+1}(\lg{2^k} + 1) = 2^{k+1}(\lg{2^k} + \lg2) = \\\\
-            & = 2^{k+1}\lg{2^{k+1}}
-   \end{aligned} $$
-
-□
+We use it by illustrating that the two later white loops keep the invariant that
+$A[1:k]$ is sorter and its elements are smaller than $L$/$R$.

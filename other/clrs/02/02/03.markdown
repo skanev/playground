@@ -1,8 +1,8 @@
-> Consider linear search again (see exercise 2.1-3). How many elements of the
+> Consider linear search again (see exercise 2.1-4). How many elements of the
 > input sequence need to be checked on the average, assuming that the element
 > being searched for is equally likely to be any element in the array? How
-> about the worst case? What are the average-case and worst-case running times
-> of linear search in $\Theta$-notation? Justify your answers.
+> about the worst case? Using $\Theta$-notation, give the average-case and
+> worst-case running times of linear search. Justify your answers.
 
 If the element is present in the sequence, half of the elements are likely to
 be checked before it is found in the average case. In the worst case, all of

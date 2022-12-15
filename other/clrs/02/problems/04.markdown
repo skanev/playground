@@ -1,7 +1,7 @@
 ## Inversions
 
 > Let $A[1..n]$ be an array of $n$ distinct numbers. If $i < j$ and
-> $A[i] > A[j]$, then the pair $(i, j)$ is called an inversion of $A$.
+> $A[i] > A[j]$, then the pair $(i, j)$ is called an **inversion** of $A$.
 >
 > 1. List the five inversions in the array $\langle 2, 3, 8, 6, 1 \rangle$.
 > 2. What array with elements from the set $\lbrace 1, 2, \ldots, n \rbrace$
@@ -37,8 +37,7 @@ inversions ($n$ comes from the outer loop).
 
 ### 4. Calculating inversions
 
-We just modify merge sort (in exercise 2.3.2) to return the number of
-inversions:
+We just modify merge sort to return the number of inversions:
 
     MERGE-SORT(A, p, r):
       if p < r

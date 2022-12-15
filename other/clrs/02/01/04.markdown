@@ -1,32 +1,43 @@
-> Consider the problem of adding two $n$-bit binary integers, stored in two n-element arrays
-> $A$ and $B$. The sum of the two integers should be stored in binary form in an
-> $(n + 1)$-element array $C$. State the problem formally and write pseudocode for adding
-> the two integers.
+> Consider the **searching problem**:
+>
+> **Input**: A sequence of $ n $ numbers $ A = \langle a_1, a_2, \ldots, a_n \rangle $
+> and a value $x$.
+>
+> **Output**: An index $i$ such that $ x = A[i] $ or the special value
+> $\mathrm{NIL}$ if $x$ does not appear in $A$
+>
+> Write the pseudocode for *linear search*, which scans through the array from
+> beginning to end, looking for $x$. Using a loop invariant, prove that your
+> algorithm is correct. Make sure that your loop invariant fulfills the three
+> necessary properties.
 
-I'm just happy that I don't need to write the loop invariant, since that seems tedious.
+The pseudocode looks like this:
 
-The formal statement:
-
----
-
-**Input**: An array of booleans $A = \langle a_1, a_2, \ldots, a_n \rangle$, an array of
-booleans $B = \langle b_1, b_2, \ldots, b_n \rangle$, each representing an integer stored
-in binary format (each digit is a number, either 0 or 1, least-significant digit first) and each of length $n$.
-
-**Output**: An array $C = \langle c_1, c_2, \ldots, c_{n+1} \rangle$ that such that
-$C' = A' + B'$, where $A'$, $B'$ and $C'$ are the integers, represented by $A$, $B$ and $C$.
-
----
-
-Here is the pseudocode:
-
-    ADD-BINARY(A, B):
-      C = new integer[A.length + 1]
-
-      carry = 0
+    SEARCH(A, v):
       for i = 1 to A.length
-          C[i] = (A[i] + B[i] + carry) % 2  // remainder
-          carry = (A[i] + B[i] + carry) / 2 // quotient
-      C[i] = carry
+          if A[i] == v
+              return i
+      return NIL
 
-      return C
+I'm going to state the loop invariant as:
+
+> At the start of each iteration of the for loop, the subarray $A[1..i - 1]$ consists
+> of elements that are different than $\nu$.
+
+Here are the three properties:
+
+---
+
+#### Initialization
+
+Initially the subarray is the empty array, so proving it is trivial.
+
+#### Maintenance
+
+On each step, we know that $A[1..i-1]$ does not contain $\nu$. We compare it with $A[i]$. If they are the same, we return $i$, which is a correct result. Otherwise, we continue to the next step. We have already insured that $A[A..i-1]$ does not contain $\nu$ and that $A[i]$ is different from $\nu$, so this step preserves the invariant.
+
+#### Termination
+
+The loop terminates when $i > A.length$. Since $i$ increases by $1$ and $i > A.length$, we know that all the elements in $A$ have been checked and it has been found that $\nu$ is not among them. Thus, we return $\mathrm{NIL}$.
+
+---
