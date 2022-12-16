@@ -1,0 +1,29 @@
+> Use equation (3.14) or other means to show that $(n + \o(n))^k = \Theta(n^k)$
+> for any real constant $k$. Conclude that ${\lceil n \rceil}^k = \Theta(n^k)$
+> and ${\lfloor n \rfloor}^k = \Theta(n^k)$.
+
+To prove $\Theta$, we need to prove $\Omega$ and $\O$. $\Omega$ is pretty
+trivial, as we can just plug $0$ for the $o(n)$ function, and it holds. We'll
+need (3.14), which is $1 + x \le e^x$, for the $\O$ part.
+
+Unpacking the definition, $o(n)$ means that it is a function $f(n)$ such that
+$f(n) < cn$ for any constant $c$ given large enough $n_0$. We can also express
+it as:
+
+$$ \frac{f(n)}{n} < c $$
+
+Therefore, when we start expanding:
+
+$$
+  (n + f(n))^k
+  = \big(n(1 + \frac{f(n)}{n})\big)^k
+  = n^k(1 + \frac{f(n)}{n})^k
+  < n^k(1 + c)^k
+  = n^k(e^c)^k
+  = e^{ck}n^k
+$$
+
+Since $e^{ck}$ is a constant, this is $\O(n^k)$.
+
+The floors and ceilings follow from that, as $\lceil n \rceil < n + 1$ and that
+is the constant $1$ is clearly $o(n)$.

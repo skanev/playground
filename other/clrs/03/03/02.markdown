@@ -1,0 +1,14 @@
+> Prove that $\lfloor \alpha n \rfloor + \lceil(1 - \alpha)n\rceil = n$ for any
+> integer $n$ and real number $\alpha$ in the range $0 \le \alpha \le 1$.
+
+This feels hand-wavy, but:
+
+$$
+  \lfloor \alpha n \rfloor + \lceil(1 - \alpha)n\rceil
+    = \lfloor \alpha n \rfloor + \lceil n + - \alpha n\rceil
+    = \lfloor \alpha n \rfloor + \lceil n \rceil - \lfloor \alpha n \rfloor
+    = n
+$$
+
+Also it feels like the statement is true for any $\alpha$, not just $[0,1]$. I
+tested with a couple and it pans out.

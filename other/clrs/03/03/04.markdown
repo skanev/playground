@@ -1,0 +1,64 @@
+> Prove the following:
+>
+> 1. Equation (3.21)
+> 2. Equations (3.26)-(3.28)
+> 3. $\lg(\Theta(n)) = \Theta(\lg n)$
+
+Equation (3.21) is:
+
+$$ a^{\log_bc} = c^{\log_ba} $$
+
+We can prove it this way:
+
+$$ \begin{aligned}
+   a^{\log_bc} = a^{\frac{\log_ac}{\log_ab}} = \big(a^{\log_ac})^\frac{1}{\log_ab}
+   = c^{\log_ba}
+   \end{aligned} $$
+
+---
+
+The three equations are:
+
+1. $n! = \omega(2^n)$
+2. $n! = o(n^n)$
+3. $\lg(n!) = \Theta(n\lg{n})$
+
+The first two are kinda obvious:
+
+$$
+  \forall n > 3:
+  2^n = \underbrace{2 \cdot 2 \cdot \cdots \cdot 2}_\text{n times} <
+        1 \cdot 2 \cdot \cdots \cdot n = n!
+        \quad\Rightarrow\quad n! = \omega(2^n)
+$$
+
+And:
+
+$$
+  \forall n > 1 :
+  n! = 1 \cdot 2 \cdot \cdots n < \underbrace{n \cdot n \cdot \cdots \cdot n}_\text{n times}
+     = n^n \quad \text{for }
+     \quad\Rightarrow\quad n! = o(n^n)
+$$
+
+For the third, we use **Stirling's approximation**:
+
+$$ \begin{aligned}
+   \lg(n!) &= \lg\Bigg(\sqrt{2\pi{n}}\Big(\frac{n}{e}\Big)^n\Big(1+\Theta(\frac{1}{n})\Big)\Bigg)
+      = \lg\sqrt{2\pi{n}} + \lg\Big(\frac{n}{e}\Big)^n + \lg\Big(1+\Theta(\frac{1}{n})\Big) = \\\\
+     &= \Theta(\sqrt{n}) + n\lg{\frac{n}{e}} + \lg\Big(\Theta(1) + \Theta(\frac{1}{n})\Big)
+      = \Theta(\sqrt{n}) + \Theta(n\lg{n}) + \Theta(\frac{1}{n}) = \\\\
+     &= \Theta(n\lg{n})
+   \end{aligned}
+$$
+
+---
+
+We can prove the third subtask by doing $\Omega$ and $\O$ separately. Let's
+start with $\O$. Because we have $\lg(\O(n))$, we know that there exists a
+constant $c$ such that:
+
+$$ \lg(\O(n)) \le \lg(cn) = \lg{c} + \lg{n} = \O(\lg{n}) $$
+
+It works for $\Omega$ in the same way, but in the other direction (and a
+different $c$).

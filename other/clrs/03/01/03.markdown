@@ -1,4 +1,23 @@
-> Explain why the statement, "The running time of algorithm $A$ is at least
-> $O(n^2)$ is meaningless.
+> Suppose that $\alpha$ is a fraction in the range $0 < \alpha < 1$. Show how to
+> generalize the lower-bound argument for insertion sort to consider an input in
+> which the $\alpha n$ largest values start in the first $\alpha n$ positions.
+> What additional restriction do you need to put on $\alpha$? What value of
+> $\alpha$ maximizes the number of times that the $\alpha n$ largest values must
+> pass through each of the middle $(1 - 2\alpha)n$ array positions?
 
-The $O$-notation provides an upper bound. "At least" implies a lower bound.
+The problem formulation pretty much gives the answer. When we use $\alpha$ this
+way, we end up moving $\alpha n$ elements over $(1 - 2\alpha)n$ positions, that
+is, a total number of:
+
+$$ T = \alpha n \cdot (1 - 2 \alpha)n = (\alpha - 2\alpha^2)n^2 $$
+
+In this case, we need $\alpha < 1/2$, otherwise we get problematic results.
+
+
+$\alpha$ can't be $1/n$ either (or a function of $n$ in general), because it
+would cancel one of the $n$s in $n^2$. For example, if we had $\alpha = 1/n$, we
+get...
+
+$$ T = \frac{1}{n} \frac{n-2}{n} n^2 = n - 2 = \Theta(n) $$
+
+...which is not correct.

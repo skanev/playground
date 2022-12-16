@@ -1,12 +1,15 @@
-> Show that the golden ratio $\phi$ and its conjugate $\hat \phi$ both satisfy
-> the equation $x^2 = x + 1$.
+> Prove $o(g(n)) \cap \omega(g(n))$ is the empty set.
 
-This is so obvious, that it is painful:
+From each term we know that for any positive constant $c > 0$:
 
-$$ \phi^2 - \phi - 1 = \bigg(\frac{1 + \sqrt5}{2}\bigg)^2 - \frac{1 + \sqrt5}{2} - 1
-   = \frac{1 + 2\sqrt{5} + 5 - 2 - 2\sqrt{5} - 4}{4} = 0$$
+$$ \begin{aligned}
+     \exists & n_1 > 0 : 0 \leq f(n) < cg(n) \\\\
+     \exists & n_2 > 0 : 0 \leq cg(n) < f(n)
+   \end{aligned} $$
 
-And now the conjugate:
+If we pick $n_0 = max(n_1, n_2)$, from the problem definition we get:
 
-$$ \hat\phi^2 - \hat\phi - 1 = \bigg(\frac{1 - \sqrt5}{2}\bigg)^2 - \frac{1 - \sqrt5}{2} - 1
-   = \frac{1 - 2\sqrt{5} + 5 - 2 + 2\sqrt{5} - 4}{4} = 0$$
+$$ f(n) < cg(n) < f(n) $$
+
+Which obviously has no solutions. Thus, such function $f(n)$ exists, which
+means that the intersection is the empty set.

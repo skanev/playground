@@ -1,6 +1,6 @@
 ## Ordering by asymptotic growth rates
 
-> 1. Rank the following functions by order of growth; that is, find an
+> 1. Rank the following functions by order of growth. That is, find an
 >    arrangement $g_1, g_2, \ldots , g_{30}$ of the functions $g_1 =
 >    \Omega(g_2), g_2 = \Omega(g_3), \ldots, g_{29} = \Omega(g_{30}) $.
 >    Partition your list into equivalence classes such that functions $f(n)$

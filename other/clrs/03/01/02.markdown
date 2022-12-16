@@ -1,10 +1,9 @@
-> Show that for any real constants $a$ and $b$, where $b > 0$,
->
-> $$(n + a)^b = \Theta(n^b)$$
+> Using reasoning to what we used for insertion sort, analyze the running time
+> of the selection sort algorithm from Exercise 2.2-2
 
-Quite simply:
+It's similar, but in reverse.
 
-$$(n + a)^b = \binom{n}0n^b + \binom{n}1n^{b-1}b + \cdots + \binom{n}0a^b$$
-
-The most significant term is $n^b$ and this is obviously polynomially tightly
-bound.
+We can split the array into three parts - $X = A[1:n/3]$, $Y = A[n/3+1:2n/3]$
+and $Z = A[2n/3+1:n]$ and put the smallest $n/3$ elements into $Z$.
+`SELECTION-SORT` will have to move each one over $Y$, so that will be $n/3$
+elements, each moved at least $n/3$ for a total of $\Omega(n^2)$ operations.

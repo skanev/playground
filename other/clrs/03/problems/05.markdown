@@ -1,71 +1,79 @@
-## Variations on $O$ and $\Omega$
+## Manipulating asymptotic notation
 
-> Some authors define $\Omega$ in a slightly different way than we do; let's
-> use $\mathop{\Omega}^{\infty}$ (read "omega infinity") for this alternative
-> definition. We say that $f(n) = \mathop{\Omega}^{\infty}(g(n))$ if there
-> exists a positive constant $c$ such that $f(n) \geq cg(n) \geq 0$ for
-> infinitely many integers $n$.
+> Let $f(n)$ and $g(n)$ be asymptotically positive functions. Prove the
+> following identities:
 >
-> 1. Show that for any two functions $f(n)$ and $g(n)$ that are asymptotically
->    nonnegative, either $f(n) = O(g(n))$ or $f(n) =
->    \mathop{\Omega}^{\infty}(g(n))$ or both, whereas this is not true if we
->    use $\Omega$ in place of $\mathop{\Omega}^{\infty}$.
-> 2. Describe the potential advantages and disadvantages of using
->    $\mathop{\Omega}^{\infty}$ instead of $\Omega$ to characterize the
->    running times of programs.
-> 3. Some authors also define $O$ in a slightly different manner; let's use
->    $O'$ for the alternative definition. We say that $f(n) = O'(g(n))$ if and
->    only if $|f(n)| = O(g(n))$. What happens to each direction of the "if and
->    only if" in Theorem 3.1 if we substitute $O'$ for $O$ but we still use
->    $\Omega$?
-> 4. Some authors define $\tilde{O}$ (read "soft-oh") to mean $O$ with
->    logarithmic factors ignored:
->    $$ \tilde{O} = \lbrace f(n) : \exists c > 0, k > 0 n_0 \forall n \geq n_0: 0 \leq f(n) \leq
->                            cg(n)\lg^k(n) \rbrace $$
->    Define $\tilde{\Omega}$ and $\tilde{\Theta}$ in a similar manner. Prove
->    the corresponding analog to Theorem 3.1.
+> 1. $\Theta(\Theta(f(n))) = \Theta(f(n))$
+>
+> 2. $\Theta(f(n)) + \O(f(n)) = \Theta(f(n))$
+>
+> 3. $\Theta(f(n)) + \Theta(g(n)) = \Theta(f(n) + g(n))$
+>
+> 4. $\Theta(f(n)) \cdot \Theta(g(n)) = \Theta(f(n) \cdot g(n))$
+>
+> 5. Argue that for any real constants $a_1, b_1 > 0$ and integer constants
+>    $k_1, k_2$, the following asymptotic bound holds:
+>    $$ (a_1 n)^{k_1} \lg^{k_2}(a_2 n) = \Theta(n^{k_1} \lg^{k_2} n) $$
+>
+> 6. $\star$ Prove that for $S \subseteq \mathbb{Z}$, we have:
+>    $$ \sum_{k \in S}{\Theta(f(k))} = \Theta\Bigg(\sum_{k \in S}f(k)\Bigg)$$
+>     assuming both sums converge
+>
+> 7. $\star$ Show that for $S \subseteq \mathbb{Z}$, the following asymptotic
+>    bound does not necessarily hold, even asuming that both products converge,
+>    by giving a counterexample:
+>    $$ \prod_{k \in S}{\Theta(f(k))} = \Theta\Bigg(\prod_{k \in S}f(k)\Bigg)$$
 
-### Omega infinity
+I'm going to heavily abuse notation, to the point this is no proof at all,
+formally speaking.
 
-We need to compare:
+### a. $\Theta(\Theta(f(n))) = \Theta(f(n))$
 
-$$ cg(n) \leq f(n) $$
+For the $\O$ case:
 
-Either this holds for an infinite number of integers or for a finite one (or
-zero). If the former, we have $\mathop{\Omega}^{\infty}$. If it is a finite
-number, then the largest is $n_0$ and we have that:
+$$ \O(\O(f(n)) \le \O(c_1 f(n)) \le c_2 c_1 f(n) = \O(f(n)) $$
 
-$$ \forall n > n_0: f(n) < cg(n) $$
+Works the same in the other direction.
 
-Which is sufficient for $f(n) = O(g(n))$. Both can hold if $f(n) = g(n)$,
-obviously.
+### b. $\Theta(f(n)) + \O(f(n)) = \Theta(f(n))$
 
-It's not true for $\Omega$, because $n = \mathop{\Omega}^{\infty}(n^{\sin{n}})$,
-but $n \neq \Omega(n^{\sin{n}})$.
+For the $\O$ case:
 
-### Potential advantages
+$$
+  \Theta(f(n)) + \O(f(n)) \le \O(f(n)) + \O(f(n)) \le c_1 f(n) + c_2 f(n)
+  = (c_1 + c_2) f(n) = \Theta(f(n))
+$$
 
-I can't think of anything meaningful. It lets us reason for functions like
-$n^{\sin{n}}$, but I'm not sure that lower bound is the most useful thing
-here.
+Works the same for $\Omega$.
 
-### $O'$
+### c. $\Theta(f(n)) + \Theta(g(n)) = \Theta(f(n) + g(n))$
 
-Theorem 3.1 will change the "if and only if" to "implies", that is, $\Theta
-\Rightarrow O'$, but not the other way around. This can be illustrated by
-$f(n) = n \cdot \sin{n}$, which is $O'(n)$, but not $O(n)$ or $\Theta(n)$.
+This time we'll use the fact that we can pick any constant $c$ and pick the same
+constant for both functions:
 
-### Soft-oh
+$$
+  \Theta(f(n)) + \Theta(g(n)) \le cf(n) + cg(n) = c\big(f(n) + g(n)\big)
+    = \O(f(n) + g(n)
+$$
 
-I'm uncertain how we should define $\tilde{\Omega}$. I assume that $n =
-\tilde{\Omega}(n\lg{n})$. In that case,
+Works the same in the other direction.
 
-$$ \tilde{\Omega} = \lbrace f(n) : \exists c, k, n \forall n > n_0 :
-   0 \leq cg(n) \lg^{-k}(n) \leq f(n) \rbrace $$
+### d. $\Theta(f(n)) \cdot \Theta(g(n)) = \Theta(f(n) \cdot g(n))$
 
-And:
+The functions are asymptotically, which makes the inequalities hold when we
+substitute with a constant multiplied by the function.
 
-$$ \tilde{\Theta} = \lbrace f(n) : \exists c_1, c_2, k_1, k_2, n \forall n > n_0 :
-   0 \leq c_1g(n) \lg^{-k_1}(n) \leq f(n) \leq c_2g(n) \lg^{k_2}(n)\rbrace $$
+$$
+  \Theta(f(n)) \cdot \Theta(g(n)) \le c_1 f(n) \cdot \Theta(g(n))
+    \le c_1 f(n) \cdot c_2 g(n) = (c_1 + c_2)\big(f(n) + g(n)\big)
+    = \O(f(n) + g(n))
+$$
 
-Proving the theorem is very trivial.
+### e. Argue that $ (a_1 n)^{k_1} \lg^{k_2}(a_2 n) = \Theta(n^{k_1} \lg^{k_2} n) $
+
+This function is neat enough so that if you apply all the manipulations we
+looked at above, you get to it fairly easily.
+
+### f and g. Infinite sums and infinite products
+
+**UNSOLVED**. I don't quite understand this. I'm going to pass on this one.

@@ -1,26 +1,26 @@
-> Show that if $f(n)$ and $g(n)$ are monotonically increasing functions, then
-> so are the functions $f(n) + g(n)$ and $f(g(n))$, and if $f(n)$ and $g(n)$
-> are in addition nonnegative, then $f(n) \cdot g(n)$ is monotonically
-> increasing.
+> Let $f(n)$ and $g(n)$ be asymptotically nonnegative functions. Using the basic
+> definition of $\Theta$-notation, prove that $\max\\{f(n), g(n)\\} = \Theta(f(n) +
+> g(n))$.
 
-So:
+From "asymptotically nonnegative", we can assume that
 
-$$ f(m) \leq f(n) \quad \text{for } m \leq n \\\\
-   g(m) \leq f(n) \quad \text{for } m \leq n \\\\ $$
+$$\begin{aligned}
+    \exists n_1, n_2: & f(n) \geq 0 & \text{for } n > n_1 \\\\
+                      & g(n) \geq 0 & \text{for } n > n_2
+   \end{aligned}$$
 
-When we combine them, we get:
+Let $n_0 = max(n_1, n_2)$. Some obvious things for $n > n_0$:
 
-$$ f(m) + g(m) \leq f(n) + g(n) $$
+$$
+   f(n) \leq \max(f(n), g(n)) \\\\
+   g(n) \leq \max(f(n), g(n)) \\\\
+   \big(f(n) + g(n)\big)/2 \leq \max(f(n), g(n)) \\\\
+   \max(f(n), g(n)) \leq f(n) + g(n)
+$$
 
-Which proves the first function.
+From the last two inequalities, we get:
 
-Then:
+$$ 0 \leq \frac{1}{2}\big(f(n) + g(n)\big) \leq \min\big(f(n), g(n)\big)
+     \leq f(n) + g(n) \quad \text{for } n > n_0 $$
 
-$$ f(g(m)) \leq f(g(n)) \quad \text{for } m \leq n $$
-
-This is true, since $g(m) > g(n)$ and $f(n)$ is monotonically increasing.
-
-If both functions are nonnegative, then we can multiply the two inequalities
-and we get:
-
-$$ f(m) \cdot g(m) \leq f(n) \cdot g(n) $$
+Which is the definition of $\Theta(f(n) + g(n))$ with $c_1 = 1/2, c_2 = 1$.
