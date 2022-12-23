@@ -17,6 +17,14 @@ module Solution
     location_path.sub_ext '.dot'
   end
 
+  def additional_graph_paths
+    location_path.dirname.glob "#{location_path.sub_ext('').basename}.*.dot"
+  end
+
+  def additional_graph_path(name)
+    location_path.sub_ext ".#{name}.dot"
+  end
+
   def draw_path
     location_path.sub_ext '.draw.py'
   end
@@ -53,6 +61,10 @@ module Solution
 
   def graph?
     graph_path.exist?
+  end
+
+  def additional_graphs?
+    additional_graph_paths.any?
   end
 
   def drawings?

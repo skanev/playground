@@ -12,6 +12,15 @@
 >
 > So:
 >
+> 1. The recursive binary-search algorithm for finding a number in a sorted
+>    array (see Exercise 2.3-6).
+> 2. The `MERGE-SORT` procedure from Section 2.3.1.
+> 3. The `MATRIX-MULTIPLY-RECURSIVE` procedure from Section 4.1.
+>
+> Give nine recurrences $T_{a1}(N, n), T_{a2}(N, n) \ldots T_{c3(N, n)}$ for the
+> worst-case running times of each of the three algorithms above then arrays and
+> matrices are passed using each of the three parameter-passing strategies
+> above. Solve your recurrences, giving tight asymptotic bounds.
 > 1. Consider the recursive binary search algorithm for finding a number in a sorted
 >    array (see Exercise 2.3-5). Give recurrences for the worst-case running times
 >    of binary search when arrays are passed using each of the three methods above,
@@ -36,3 +45,11 @@
          = \Theta(nN) \\\\ \qquad
          = \Theta(n^2) $
 3. $T(n) = 2T(n/2) + cn + 2n/2 = 2T(n/2) + (c+1)n = \Theta(n\lg{n})$ (master method)
+
+### Matrix multiply
+
+1. $T(n) = 8T(n/2) + c \in \Theta(n^3)$ (vanilla matrix method)
+2. $T(n) = 8T(n/2) + N$ is still going to be $\Theta(n^3)$ - there are $8^{\lg
+   n}$ copies of the array happening, which won't affect the asymptotic running
+   time.
+3. $T(n) = 8T(n/2) + n \in \Theta(n^3)$ (still master method)

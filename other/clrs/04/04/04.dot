@@ -3,30 +3,30 @@ digraph tree {
   edge[dir=none];
 
   { rank=same;
-    a1[label="1"]
-    as[label="1"]
+    a1[label="cn"];
+    as[label="cn"];
   }
 
   { rank=same;
-    b1[label="1"]
-    b2[label="1"]
-    bs[label="2"]
+    b1[label="cαn"];
+    b2[label="c(1-α)n"];
+    bs[label="cn"];
   }
 
   { rank=same;
-    c1[label="1"]
-    c2[label="1"]
-    c3[label="1"]
-    c4[label="1"]
-    cs[label="4"]
+    c1[label="cα²n"];
+    c2[label="c(α-1)αn"];
+    c3[label="cα(α-1)n"];
+    c4[label="c(1-α)²n"];
+    cs[label="cn"];
   }
 
   { rank=same;
-    z1[label="T(1)"]
-    z2[label="T(1)"]
-    z3[label="T(1)"]
-    z4[label="T(1)"]
-    zs[label="2ⁱ"]
+    z1[label="T(1)"];
+    z2[label="T(1)"];
+    z3[label="T(1)"];
+    z4[label="T(1)"];
+    zs[label="cn"];
   }
 
   a1 -> b1; a1 -> b2;
@@ -34,12 +34,6 @@ digraph tree {
   b1 -> c1; b1 -> c2;
   b2 -> c3; b2 -> c4;
 
-  { edge[style=dotted];
-    c1 -> z1; c2 -> z2;
-    c3 -> z3; c4 -> z4;
-  }
-
-  { edge[style=invis];
-    as -> bs -> cs -> zs;
-  }
+  { edge[style=dotted]; c1 -> z1; c2 -> z2; c3 -> z3; c4 -> z4; }
+  { edge[style=invis]; as -> bs -> cs -> zs; }
 }

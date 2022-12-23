@@ -1,15 +1,41 @@
-> $\star$ Consider the regularity condition $af(n/b) \ge cf(n)$ for some
-> constant $c < 1$, which is part of case 3 of the master theorem. Give an
-> example of constants $a \ge 1$ and $b > 1$ and a function $f(n)$ that
-> satisfies all the conditions in case 3 of the master theorem, except the
-> regularity condition.
+> Show that for suitable constants $a$, $b$, and $\epsilon$, the function $f(n)
+> = 2^{\lceil \lg n \rceil}$ satisfies all the conditions in case 3 of the
+> master theorem except the regularity condition.
 
-$$ a = 1 \\\\ b = 2 \\\\ f(n) = n(2-\cos{n}) $$
+Let's pick $a = 4$ and $b = 2$. We end up having to prove:
 
-Thus, if we try to proove it:
+$$ 4 \cdot 2^{\lceil \lg n/2 \rceil} \le c2^{\lceil \lg n \rceil} $$
 
-$$ \frac{n}{2}(2 - \cos\frac{n}{2}) < cn \\\\
-   \frac{1 - cos(n/2)}{2} < c \\\\
-   c \ge 1 - \frac{cos(n/2)}{2} $$
+By taking the bits before the logarithm and converting them in a $2^k$ form, we
+get:
 
-Since $\min\cos(n/2) = -1$, this implies that $c \ge 3/2$. But $c < 1$.
+$$ 2^{\lceil \lg n/2 \rceil + 2} \le 2^{\lceil \lg n \rceil + \lg c} $$
+
+When then is equivalent to:
+
+$$ \lceil \lg n/2 \rceil + 2 \le \lceil \lg n \rceil + \lg c $$
+
+Which we can then transform
+
+$$
+  \lceil \lg n/2 \rceil + 2 \le \lceil \lg n \rceil + \lg c \\\\
+  \lceil \lg n - \lg 2 \rceil + 2 \le \lceil \lg n \rceil + \lg c \\\\
+  \lceil \lg n - 1 \rceil + 2 \le \lceil \lg n \rceil + \lg c \\\\
+$$
+
+We can expand this inequality in both directions to get rid of the floors:
+
+$$
+  \lg n - 1 + 2 \le \lceil \lg n - 1 \rceil + 2 \le \lceil \lg n \rceil + \lg c \le \lg n + 1 + \lg c
+$$
+
+Taking just the first and last parts, and simplifying:
+
+$$
+  \lg n - 1 + 2 \le \lg n + 1 + \lg c \\\\
+  \lg n - \lg n - 1 + 2 - 1 \le \lg c \\\\
+  0 \le \lg c \\\
+$$
+
+The last part says $c \ge 1$, but we also need $c < 0$, so the condition does
+not hold.

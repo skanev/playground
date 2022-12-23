@@ -1,9 +1,18 @@
-> Show that the solution of $T(n) = T(\lceil n/2 \rceil) + 1$ is $O(\lg{n})$
+> The solution to the the recurrence $T(n) = 4T(n/2) + n$ turns out to be $T(n)
+> = \Theta(n^2)$. Show that a substitution proof with the assumption $T(n) \leq
+> cn^2$ fails. Then show how to subtract off a lower-order term to make the
+> substitution proof work.
 
-We guess $T(n) \le c\lg(n - 2)$:
+Well:
 
-$$ T(n) \le c\lg(\lceil n/2 \rceil - 2) + 1
-        \le c\lg(n/2 + 1 - 2) + 1
-	\le c\lg((n - 2)/2) + 1
-	\le c\lg(n - 2) - c\lg2 + 1
-	\le c\lg(n - 2) $$
+$$ T(n) \le 4c(n/2)^2 + n^2 \leq cn^2 + n^2 \leq (c + 1)n^2 $$
+
+Dead-end!
+
+Now we guess $T(n) \le cn^2 - n$:
+
+$$ \begin{aligned}
+     T(n) & \le 4\Big(c(n/2)^2 - n/2\Big) + n \\\\
+          & \le cn^2 - 2n + n \\\\
+          & \le cn^2 - n
+   \end{aligned} $$

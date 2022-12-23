@@ -1,4 +1,14 @@
-> Show that the solution of $T(n)  = T(n - 1) + n$ is $O(n^2)$
+> Use the substitution method to show that each of the following recurrences
+> defined on the reals has the asymptotic solution specified:
+>
+> 1. $T(n) = T(n - 1) + n$ has solution $T(n) = \O(n^2)$
+> 2. $T(n) = T(n/2) + \Theta(1)$ has solution $T(n) = \O(\lg n)$
+> 3. $T(n) = 2T(n/2) + n$ has solution $T(n) = \Theta(n \lg n)$
+> 4. $T(n) = 2T(n/2 + 17) + n$ has solution $T(n) = \O(n \lg n)$
+> 5. $T(n) = 2T(n/3) + \Theta(n)$ has solution $T(n) = \Theta(n)$
+> 6. $T(n) = 4T(n/2) + \Theta(n)$ has solution $T(n) = \Theta(n^2)$
+
+### a. $T(n) = T(n - 1) + n$
 
 We guess $T(n) \le cn^2$ for a particular $c$. Then:
 
@@ -7,3 +17,86 @@ $$ T(n) \le c(n-1)^2 + n = cn^2 - 2cn + c + n$$
 If we pick $c = 1$ we have:
 
 $$ n^2 - 2n + 1 + n = n^2 - n + 1 \le n^2 \text{ for } n \ge 1 $$
+
+### b. $T(n) = T(n/2) + \Theta(1)$
+
+We guess $T(n) \le c\lg n$:
+
+$$
+  \begin{aligned}
+  T(n) & \le c\lg(n/2) + \Theta(1) \\\\
+       & = c\lg n - c \lg 2 + \Theta(1) \\\\
+       & = c\lg n - c + \Theta(1) \\\\
+       & \le c\lg n
+  \end{aligned}
+$$
+
+As long as we pick $c$ to dominate $\Theta(1)$.
+
+### c. $T(n) = 2T(n/2) + n$
+
+First we guess $T(n) \le cn\lg{n}$:
+
+$$ \begin{aligned}
+   T(n) & = 2T(n/2) + n \\\\
+        & \le 2c(n/2)\lg(n/2) + n \\\\
+        & = cn\lg(n/2) + n \\\\
+        & = cn\lg{n} - cn\lg{2} + n \\\\
+        & = cn\lg{n} + (1 - c)n \\\\
+        & \le cn\lg{n} \\\\
+        & \text{for } c \ge 1
+   \end{aligned} $$
+
+Next we guess $T(n) \ge cn\lg n$:
+
+$$ \begin{aligned}
+   T(n) & = 2T(n/2) + n \\\\
+        & \ge 2c(n/2)\lg(n/2) + n \\\\
+        & = cn\lg n - cn\lg{2} + n \\\\
+        & = cn\lg n + (1 - c)n \\\\
+        & \ge cn\lg n \\\
+        & \text{for } 0 < c \le 1
+   \end{aligned} $$
+
+### d. $T(n) = 2T(n/2 + 17) + n$
+
+Let's guess $T(n) \le c(n-a)\lg(n-a)$:
+
+$$ \begin{aligned}
+   T(n) & \le 2c(\lfloor n/2 \rfloor + 17 - a)\lg(\lfloor n/2 \rfloor + 17 - a) + n \\\\
+        & \le 2c(n/2 + 1 + 17 - a)\lg(n/2 + 1 + 17 - a) + n \\\\
+        & \le c(n + 36 - 2a)\lg\frac{n + 36 - 2a}{2} + n \\\\
+        & \le c(n + 36 - 2a)\lg(n + 36 - 2a) - c(n + 36 - 2a) + n & (c > 1, n > n_0 = f(a))\\\\
+        & \le c(n + 36 - 2a)\lg(n + 36 - 2a) & (a \ge 36) \\\\
+        & \le c(n - a)\lg(n - a)
+   \end{aligned} $$
+
+### e. $T(n) = 2T(n/3) + \Theta(n)$
+
+To prove $\O$, we can guess $T(n) \le cn$:
+
+$$ \begin{aligned}
+   T(n) & = 2T(n/3) + \Theta(n) \\\\
+        & \le 2c(n/3) + \Theta(n) \\\\
+        & = cn - (1/3)cn + \Theta(n) \\\\
+        & \le cn
+   \end{aligned} $$
+
+As long as we pick $c$ such that $c/3$ is enough to dominate $\Theta(n)$.
+
+Proving for $\Omega$ is essentially the same with a different constant.
+
+### f. $T(n) = 4T(n/2) + \Theta(n)$
+
+To prove $\O$, we guess $T(n) \le cn^2 - dn$:
+
+
+$$ \begin{aligned}
+   T(n) & = 4T(n/2) + \Theta(n) \\\\
+        & \le 4\big(c\frac{n^2}{4} - d\frac{n}{2}\big) + \Theta(n) \\\\
+        & = cn^2 - 2dn + \Theta(n) \\\\
+        & \le cn^2
+   \end{aligned} $$
+
+As long as we pick $d$ so $2dn$ dominates $\Theta(n)$. Proving $\Omega$ is super
+similar.

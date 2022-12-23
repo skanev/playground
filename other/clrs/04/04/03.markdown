@@ -1,23 +1,22 @@
-> Use a reccursion tree to determine a good asymptotic upper bound on the
-> recurrence $T(n) = 4T(n/2 + 2) + n$. Use the substitution method to verify
-> your answer.
+> Use the substitution method to prove that recurrence (4.14) has the solution
+> $T(n) = \Theta(n\lg n)$. Conclude that $T(n) = \Theta(n \lg n)$.
 
-With some simplification, the height of the tree is $\lg{n}$, each level adds
-up to $2^i n + 2^{1-i}$ and there are $4^{\lg{n}} = n^2$ leaves. We get:
+Recurrence (4.14) is $T(n) = T(n/3) + T(2n/3) + \Theta(n)$. If we guess that
+$T(n) \ge cn \lg n + dn$, we get:
 
-$$ \begin{aligned}
-   T(n) &= \sum_{i=0}^{\lg{n}-1}\Big(2^i n + 2^{1-i}) + \Theta(n^2) \\\\
-        &= \sum_{i=0}^{\lg{n}-1}2^i n + \sum_{i=0}^{\lg{n}-1}2^{1-i} + \Theta(n^2) \\\\
-        &= \frac{2^{\lg{n}} - 1}{2 - 1} + 2\sum_{i=0}^{\lg{n}-1}\Big(\frac{1}{2}\Big)^i + \Theta(n^2) \\\\
-        &\le n - 1 + 2\sum_{i=0}^{\infty}\Big(\frac{1}{2}\Big)^i + \Theta(n^2) \\\\
-        &= n - 1 + 2\frac{1}{1-1/2} + \Theta(n^2) \\\\
-        &= \Theta(n^2) + n + 3 \\\\
-        &= \Theta(n^2)
-   \end{aligned} $$
+$$
+  \begin{aligned}
+  T(n) & = T(n/3) + T(2n/3) + \Theta(n) \\\\
+       & \ge \frac{1}{3}cn\lg{\frac{n}{3}} + \frac{1}{3}dn +
+             \frac{2}{3}cn\lg{\frac{2n}{3}} + \frac{2}{3}dn +
+             \Theta(n) \\\\
+       & = \frac{1}{3}cn\lg{n} - \frac{1}{3}cn\lg{3} +
+           \frac{2}{3}cn\lg{2} + \frac{2}{3}cn\lg{n} - \frac{2}{3}cn\lg{3} +
+           dn + \Theta(n) \\\\
+       & = cn\lg{n} + \frac{2}{3}cn - cn\lg{3} + dn + \Theta(n) \\\\
+       & = cn\lg{n} + (d + \frac{2}{3} - \lg{3})cn + \Theta(n) \\\\
+       & \ge cn\lg n
+  \end{aligned}
+$$
 
-Let's substitute. We guess $T(n) \le cn^2 + 2n$:
-$$ \begin{aligned}
-   T(n) & \le 4c(n/2)^2 + 2n/2 + n \\\\
-        & \le cn^2 + 2n \\\\
-        & = \Theta(n^2)
-   \end{aligned} $$
+For the correct choice of $d$.

@@ -1,16 +1,78 @@
-> $\star$ Show that case 3 of the master method is overstated, in the sense
-> that the regularity condition $af(n/b) \le cf(n)$ for some constant $c < 1$
-> implies that there exists a constant $\epsilon > 0$ such that
-> $f(n) = \Omega(n^{\log_b{a}+\epsilon})$.
+> $\star$ For $f(n) = \Theta(n^{\log_b a}/\lg{n})$, prove that the summation in
+> equation (4.19) has solution $g(n) = \Theta(n^{\log_b a}/\lg\lg{n})$. Conclude
+> that a master recurrence $T(n)$ using $f(n)$ as its driving function has
+> solution $T(n) = \Theta(n^{\log_b a}\lg\lg n)$.
 
-$$ af(n/b) \le cf(n) \\\\
-   \alpha f(n/b) \le f(n), \quad \alpha = a/c \\\\
-   \alpha f(n) \le f(nb) \\\\
-   \alpha^i f(1) \le f(b^i) \\\\
-   n = b^i \Rightarrow i = \log_{b}n \Rightarrow f(n) \ge \alpha^{\log_b{n}}f(1) = n^{\log_{b}\alpha} \\\\
-   \alpha > a \Rightarrow \alpha = a + d \quad (c < 1, d > 0) \\\\
-   \Rightarrow f(n) = n^{\log_b{a} + log_b{d}} = n^{\log_b{a}+\epsilon} \quad (\epsilon = \log_{b}d) $$
+Let's treat $\Theta(f(n))$ as $cf(n)$ for now. Substituting into equation
+(4.19), we get:
 
-I did not think this up. I had [some help][help] at StackExchange.
+$$
+  \begin{aligned}
+    g(n) & = \sum_{j=0}^{\lfloor \log_b{n} \rfloor} a^j f(n/b^j) \\\\
+         & = \sum_{j=0}^{\lfloor \log_b{n} \rfloor} a^j
+             c \Big(\frac{n}{b^j}\Big)^{\log_b{a}} \lg^{-1}(n/b^j) \\\\
+         & = \sum_{j=0}^{\lfloor \log_b{n} \rfloor} a^j
+             c \frac{n^{\log_b{a}}}{(b^j)^{\log_b{a}}} \lg^{-1}(n/b^j) \\\\
+         & = \sum_{j=0}^{\lfloor \log_b{n} \rfloor} a^j
+             c \frac{n^{\log_b{a}}}{a^j} \lg^{-1}(n/b^j) \\\\
+         & = c n^{\log_b{a}} \sum_{j=0}^{\lfloor \log_b{n} \rfloor} \lg^{-1}(n/b^j)
+  \end{aligned}
+$$
 
-[help]: http://math.stackexchange.com/questions/510897/why-does-afn-b-cfn-for-c-1-imply-that-fn-omegan-log-ba-ep
+We will now delve into the term under the sum. First note, that it's poorly
+defined if $n / b^j = 1$, because it ends up as $1/\lg(1) = 1/0$. Rewriting
+this, we know that $j \ne \log_b{n}$. We will (somehow) end up using that.
+
+Going forward, let's explore the term:
+
+$$ \begin{aligned}
+   \lg^{-1}(n/b^j)
+     & = \big( \lg(n/b^j) \big)^{-1} \\\\
+     & = \Bigg( \frac{ \log_{b}(n/b^j) }{ \log_b{2} } \Bigg)^{-1} \\\\
+     & = \log^{-1}_b(2) \big( \log_b{n} - \log_b{b^j} \big)^{-1} \\\\
+     & = \lg(b) \big( \log_b{n} - j \big)^{-1} \\\\
+     & = \lg(b) \frac{1}{ \log_b{n} - j} \\\\
+   \end{aligned} $$
+
+If we plug this back in, we get:
+
+$$ \begin{aligned}
+   g(n) & = c n^{\log_b{a}} \sum_{j=0}^{\lfloor \log_b{n} \rfloor} \lg(b) \frac{1}{ \log_b{n} - j} \\\\
+        & = c \lg(b) n^{\log_b{a}} \sum_{j=0}^{\lfloor \log_b{n} \rfloor} \frac{1}{ \log_b{n} - j} \\\\
+   \end{aligned} $$
+
+We will now hand-wave, and ignore both the floor and the fact that $j$ doesn't
+go up to $\log_{b}{n}$, two things that we'll pretend cancel each other. After
+we reindex, we get:
+
+$$ \begin{aligned}
+   g(n) & = c \lg(b) n^{\log_b{a}} \sum_{j=0}^{\log_b{n}} \frac{1}{ \log_b{n} - j} \\\\
+        & = c \lg(b) n^{\log_b{a}} \sum_{k=0}^{\log_b{n}} \frac{1}{k} \\\\
+   \end{aligned} $$
+
+We also know this $k$ is not going to be $0$ (because $j$ can't be $\log_b n$)
+and we will just ignore it, to get:
+
+$$ g(n) = c \lg(b) n^{\log_b{a}} \sum_{k=1}^{\log_b{n}} \frac{1}{k} $$
+
+This now leaves us with the harmonic series, in order to get:
+
+$$ g(n) = c \lg(b) n^{\log_b{a}} \big( \ln{\log_b{n}} + \Theta(1) \big) $$
+
+We hand-wave a bit more to rebase the logarithm:
+
+$$
+  \ln\log_b{n} = \frac{ \lg\log_b n}{ \lg e }
+               = \lg^{-1}(e) \cdot \frac{ \lg n }{ \lg b }
+               = \lg^{-1}(e) \big( \lg\lg n - \lg\lg b \big)
+               = \Theta(\lg\lg n)
+$$
+
+Plugging that back in, we get:
+
+$$
+  g(n) = c \lg(b) n^{\log_b{a}} \big( \Theta(\lg\lg n) + \Theta(1) \big)
+       = \Theta(n^{\log_b a}\lg\lg n)
+$$
+
+And we're done, if we pretend that this was rigorous enough.

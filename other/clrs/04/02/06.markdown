@@ -1,9 +1,22 @@
-> How quickly can you multiply a $kn \times n$ matrix by an $n \times kn$
-> matrix, using Strassen's algorithm as a subroutine? Answer the same question
-> with the order of the input matrices reversed.
+> Suppose that you have a $\Theta(n^\alpha)$ algorithm for squaring $n \times n$
+> matrices, where $\alpha \ge 2$. Show how to use that algorithm to multiply two
+> different $n \times n$ matrices in $\Theta(n^\alpha)$ time.
 
-$(kn \times n)(n \times kn)$ produces a $kn \times kn$ matrix. This produces
-$k^2$ multiplications of $n \times n$ matrices.
+Heh, this is funky.
 
-$(n \times kn)(kn \times n)$ produces an $n \times n$ matrix. This produces
-$k$ multiplications and $k - 1$ additions.
+Let's say we want to calculate $AB$. We can build a $2n \times 2n$ matrix like
+this:
+
+$$
+  \begin{pmatrix}
+    A & B \\\
+    0 & 0
+  \end{pmatrix}^2
+  = \begin{pmatrix}
+    A^2 & AB \\\
+    0 & 0
+  \end{pmatrix}
+$$
+
+Therefore, we can put the two matrices next to each other in a larger matrix,
+square it, and then return a submatrix.

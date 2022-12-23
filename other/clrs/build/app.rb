@@ -52,6 +52,13 @@ get '/:chapter/:section/:number.drawing.:index.svg' do
   Graph.render_drawing exercise.draw_path, params[:index]
 end
 
+get '/:chapter/:section/:number.:name.svg' do
+  exercise = Exercise.new ChapterNumber.new(params[:chapter]), params[:section], params[:number]
+
+  content_type 'image/svg+xml'
+  Graph.render_svg exercise.additional_graph_path(params[:name])
+end
+
 get '/:chapter/:section/:number.svg' do
   exercise = Exercise.new ChapterNumber.new(params[:chapter]), params[:section], params[:number]
 

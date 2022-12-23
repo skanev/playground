@@ -61,6 +61,7 @@ nav.header {
     border-left: 7px solid transparent;
     @include mode-dependent(border-left-color, $blockquote-color-l, $blockquote-color-d);
   }
+  blockquote ol { list-style-type: lower-alpha; }
 }
 
 pre,

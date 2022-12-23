@@ -3,10 +3,12 @@
 
 > 1. $T(n) = 2T(n/4) + 1$
 > 2. $T(n) = 2T(n/4) + \sqrt{n}$
+> 2. $T(n) = 2T(n/4) + \sqrt{n}\lg^2{n}$
 > 3. $T(n) = 2T(n/4) + n$
 > 4. $T(n) = 2T(n/4) + n^2$
 
 1. $\Theta(n^{\log_4{2}}) = \Theta(\sqrt{n})$
 1. $\Theta(n^{\log_4{2}}\lg{n}) = \Theta(\sqrt{n}\lg{n})$
+1. $\Theta(n^{\log_4{2}}\lg^3{n}) = \Theta(\sqrt{n}\lg^3{n})$
 1. $\Theta(n)$
 1. $\Theta(n^2)$

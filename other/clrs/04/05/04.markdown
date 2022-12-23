@@ -1,18 +1,29 @@
-> Can the master method be applied to the recurrence $T(n) = 4T(n/2) + n^2\lg{n}$?
-> Why or why not? Give an asymptotic upper bound for this recurrence.
+> Consider the function $f(n) = \lg n$. Argue that although $f(n/2) < f(n)$, the
+> regularity condition $af(n/b) \le cf(n)$ with $a = 1$ and $b = 2$ does not
+> hold for any constant $c < 1$. Argue further that for any $\epsilon > 0$, the
+> condition in case 3 that $f(n) = \Omega(n^{\log_b{a+\epsilon}})$ does not
+> hold.
 
-With $a = 4, b = 2$, we have $f(n) = n^2\lg{n} \ne \mathcal{O}(n^{2-\epsilon}) \ne \Omega(n^{2-\epsilon})$, so no - we cannot apply the master method.
+We need to get:
 
-Let's guess $\Theta(n^2\lg^2{n})$:
+$$ \lg(n/2) \le c \lg(n) $$
 
-$$ \begin{aligned}
-   T(n) & \le 4T(n/2) + n^2\lg{n} \\\\
-        & \le 4c(n/2)^2\lg^2(n/2) + n^2\lg{n} \\\\
-        & \le cn^2\lg(n/2)\lg{n} - cn^2\lg(n/2)\lg{2} + n^2\lg{n} \\\\
-        & \le cn^2\lg^2{n} - cn^2\lg{n}\lg{2} - cn^2\lg(n/2) + n^2\lg{n} \\\\
-        & \le cn^2\lg^2{n} + (1 - c)n^2\lg{n} - cn^2\lg(n/2) & (c > 1) \\\\
-        & \le cn^2\lg^2{n} - cn^2\lg(n/2) \\\\
-        & \le cn^2\lg^2{n}
-   \end{aligned} $$
+If we transform this a bit, we get:
 
-Exercise 4.6-2 is the general case for this.
+$$
+  \lg(n/2) \le c \lg(n) \\\\
+  \lg(n) - \ln 2 \le c \lg(n) \\\\
+  \lg(n) - 1 \le c \lg(n) \\\\
+  \frac{\lg(n) - 1}{\lg(n)} \le c \\\\
+  c \ge \frac{\lg(n) - 1}{\lg(n)}
+$$
+
+Thus term on the right-hand side goes to $1$ as $n \to \infty$. Thus, any way we
+pick $c < 1$, there will always be some $n_0$ such that for $n \ge n_0$ the
+inequality does not hold.
+
+The second part is essentially asking us to compare the order of growth of
+$\lg(n)$ and $n^{\log_{b}{a+\epsilon}} = n^{\log_{2}(1)+\epsilon} =
+n^{\epsilon}$. We know that $n^{\epsilon}$ grows faster than $\lg(n)$, so this
+is why the condition does not hold.
+

@@ -1,0 +1,12 @@
+> $\star$ Consider an Akra-Brazzi recurrence $T(n)$ on the reals as given in
+> recurrence (4.22), and define $T'(n)$ as
+>
+> $$ T'(n) = c f(n) + \sum_{i=1}^k a_i T'(n / bi) $$
+>
+> where $c > 0$ is constant. Prove that whatever the implicit initial condition
+> for $T(n)$ might be, there exist initial conditions for $T'(n)$ such that
+> $T'(n) = cT(n)$ for all $n > 0$. Conclude that we can drop the asymptotics on
+> a driving function in any Akra-Bazzi recurrence without affecting its
+> asymptotic solution.
+
+**UNSOLVED**. I don't even know where to start here.

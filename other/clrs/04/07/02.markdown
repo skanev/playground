@@ -1,0 +1,31 @@
+> Show that $f(n) = n^2$ satisfies the polynomial-growth condition but that
+> $f(n) = 2^n$ does not.
+
+For $n^2$, let's pick our $d = \phi ^ 2 + 1$. We need to show that for every
+$\psi: 1 \le \psi \le \phi$:
+
+$$ f(n)/d \le f(\psi n) \le df(n) $$
+
+That is:
+
+$$ \frac{n^2}{\phi ^ 2 + 1} \le \psi^2 n^2 \le (\phi^2 + 1)n^2 $$
+
+Or else:
+
+$$ \frac{1}{\phi ^ 2 + 1} \le \psi^2 \le \phi^2 + 1 $$
+
+This very obviously holds for any $\psi: 1 \le \psi \le phi$.
+
+For $2^n$, we will need to pick:
+
+$$ 2^n/d \le 2^{\psi n} \le d2^n $$
+
+If we take only the second inequality and move $d$ in the exponent:
+
+$$ 2^{\psi n} \le 2^{n + \lg d} $$
+
+And then taking the logarithm, we get:
+
+$$ \psi n \le n + \lg d $$
+
+There is no way to pick $d$ so this will hold for all $n \ge \hat{n}$.

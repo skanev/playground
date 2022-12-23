@@ -1,13 +1,10 @@
-> Professor Caesar wishes to develop a matrix-multiplication algorithm that is
+> Professor Caesar wants to develop a matrix-multiplication algorithm that is
 > asymptotically faster than Strassen's algorithm. His algorithm will use the
-> divide-and-conquer method, dividing each matrix into pieces of size
-> $n/4 \times n/4$, and the divide and combine steps together will take
-> $\Theta(n^2)$ time. He needs to determine how many subproblems his algorithm
-> has to create in order to beat Strassen's algorithm. If his algorithm creates
-> $a$ subproblems, then the recurrence for the running time $T(n)$ becomes
-> $T(n) = aT(n/4) + \Theta(n^2)$. What is the largest integer value of $a$ for
-> which Professor Caesar's algorithm would be asymptotically faster than
-> Strassen's algorithm?
+> divide-and-conquer method, dividing each matrix into $n/4 \times n/4$
+> submatrices, and the divide and combine steps together will take $\Theta(n^2)$
+> time. Suppose that the professor's algorithm create $a$ recursive subproblems
+> of size $n/4$. What is the largest integer value of $a$ for which his
+> algorithm could possibly run asymptotically faster than Strassen's?
 
 To fall in third case of the master theorem, we need to have $a < 16$. In that case,
 the algorithm will be $T(n) = \Theta(n^2)$. For the second case, with $a = 16$, $T(n) = \Theta(n^2 \log n)$. In the first case of the master theorem, to be faster than Strassen, we need

@@ -1,24 +1,25 @@
 ## Recurrence examples
 
 > Give asymptotic upper and lower bound for $T(n)$ in each of the following
-> recurrences. Assume that $T(n)$ is constant for $n \le 2$. Make your bounds
-> as tight as possible, and justify your answers.
+> recurrences. Justify your answers.
 >
-> 1. $T(n) = 2T(n/2) + n^4$
-> 2. $T(n) = T(7n/10) + n$
+> 1. $T(n) = 2T(n/2) + n^3$
+> 2. $T(n) = T(8n/11) + n$
 > 3. $T(n) = 16T(n/4) + n^2$
-> 4. $T(n) = 7T(n/3) + n^2$
-> 5. $T(n) = 7T(n/2) + n^2$
-> 6. $T(n) = 2T(n/4) + \sqrt{n}$
-> 7. $T(n) = T(n - 2) + n^2$
+> 4. $T(n) = 4T(n/2) + n^2\lg n$
+> 5. $T(n) = 8T(n/3) + n^2$
+> 6. $T(n) = 7T(n/2) + n^2 \lg n$
+> 7. $T(n) = 2T(n/4) + \sqrt{n}$
+> 8. $T(n) = T(n - 2) + n^2$
 
-1. $\Theta(n^4)$ (master method)
-2. $\Theta(n)$ (master method, $\log_{10/7}1 = 0$)
-3. $\Theta(n^2\lg{n})$ (master method)
-4. $\Theta(n^2)$ (master method)
-5. $\Theta(n^{\log_2{7}})$ (master method)
-6. $\Theta(\sqrt{n}\lg_{n})$ (master method)
-7. $\Theta(n^3)$ by the following:
+1. $T(n) = 2T(n/2) + n^3 \in \Theta(n^3)$ (master method)
+2. $T(n) = T(8n/11) + n \in \Theta(n)$ (master method, $\log_{11/8}1 = 0$)
+3. $T(n) = 16T(n/4) + n^2 \in \Theta(n^2\lg{n})$ (master method)
+4. $T(n) = 4T(n/2) + n^2\lg n \in \Theta(n^2\lg^2{n})$ (master method)
+5. $T(n) = 8T(n/3) + n^2 \in \Theta(n^2)$ (master method, $\log_3 8 \le 2$)
+6. $T(n) = 7T(n/2) + n^2 \lg n \in \Theta(n^{\lg 7})$ (master method, $\lg 7 >= 2 + \epsilon$)
+7. $T(n) = 2T(n/4) + \sqrt{n} \in \Theta(\sqrt{n} \lg n)$ (master method)
+8. $T(n) = T(n - 2) + n^2 \in \Theta(n^3)$ by the following:
 
 $$ \begin{aligned}
    T(n) &= n^2 + T(n - 2) \\\\

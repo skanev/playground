@@ -1,12 +1,37 @@
-> Suppose we change the definition of the maximum-subarray problem to allow
-> the result to be an empty subarray, where the sum of the values of an empty
-> subarray is 0. How would you change any of the algorithms that do not allow
-> empty subarrays to permit an empty subarray to be the result?
+> Write pseudocode for a divide-and-conquer algorithm `MATRIX-ADD-RECURSIVE`
+> that sums two $n \times n$ matrices $A$ and $B$ by partitioning each of them
+> into four $n/2 \times n/2$ submatrices and then recursively summing
+> corresponding pairs of submatrices. Assume that matrix partitioning uses
+> $\Theta(1)$-time index calculations. Write a recurrence for the worst-case
+> running time of `MATRIX-ADD-RECURSIVE`, and solve your recurrence. What
+> happens if you use $\Theta(n^2)$-time copying to implement the partitioning
+> instead of index calculations?
 
-We need to modify two things - the base case of the algorithm and the
-subroutine that finds the maximum subarray crossing the midpoint.
+    MATRIX-ADD-RECURSIVE(A, B, C, n)
+      if n == 1
+        C[1,1] = A[1,1] + B[1, 1]
+        return
 
-The base case needs to return an empty array if `A[low]` is negative.
+      partition A, B and C into n/2 submatrices:
+        A11, A12, A21, A22
+        B11, B12, B21, B22
+        C11, C12, C21, C22
 
-The subroutine needs to return an empty array in case the maximum subarray has
-a negative sum.
+      MATRIX-ADD-RECURSIVE(A11, B11, C11)
+      MATRIX-ADD-RECURSIVE(A12, B12, C12)
+      MATRIX-ADD-RECURSIVE(A21, B21, C21)
+      MATRIX-ADD-RECURSIVE(A22, B22, C22)
+
+The recurrence is:
+
+$$ T(n) = 4T(n/2) + \Theta(1) $$
+
+This will have worst-case running time of $\Theta(n^2)$ (both obvious, and
+derivable by the methods so far).
+
+If we get inefficient, though it becomes:
+
+$$ T(n) = 4T(n/2) + \Theta(n^2) $$
+
+Interestingly enough, using the master method, we get that this will be
+$\Theta(n^2 \lg n)$, which is worse.

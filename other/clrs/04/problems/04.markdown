@@ -1,80 +1,110 @@
-## Fibonacci numbers
+## More recurrence examples
 
-> This problem develops properties of the Fibonacci numbers, which are defined
-> by recurrence (3.22). We shall use the technique of generating functions to
-> solve the Fibonacci recurrence. Define the generating function (or formal
-> power series) $\mathcal{F}$ as
+> Give asymptotic upper and lower bounds for $T(n)$ in each of the following
+> recurrences. Assume that $T(n)$ is constant for sufficiently small $n$. Make
+> your bounds as tight as possible, and justify your answers.
 >
-> $$ \begin{aligned}
->    \mathcal{F}(z) &= \sum_{i=0}^{\infty}F_iz^i \\\\
->                   &= 0 + z + z^2 + 2z^3 + 3z^4 + 5z^5 + 8z^6 + 13z^7 + 21z^8 + \ldots,
->    \end{aligned} $$
->
-> where $F_i$ is the $i$th Fibonacci number.
->
-> 1. Show that $\mathcal{F}(z) = z + z\mathcal{F}(z) + z^2\mathcal{F}$.
-> 2. Show that
->    $$ \begin{aligned}
->       \mathcal{F}(z) &= \frac{z}{1 - z - z^2} \\\\
->                      &= \frac{z}{(1 - \phi z)(1 - \hat\phi z)} \\\\
->                      &= \frac{1}{\sqrt5}\Big(\frac{1}{1 - \phi z} - \frac{1}{1 - \hat{\phi} z}\Big)
->       \end{aligned} $$
->    where
->    $$ \phi = \frac{1 + \sqrt5}{2} = 1.61803\ldots \\\\
->       \hat\phi = \frac{1 - \sqrt5}{2} = -0.61803\ldots $$
-> 3. Show that
->    $$ \mathcal{F}(z) = \sum_{i=0}^{\infty}\frac{1}{\sqrt5}(\phi^i - \hat{\phi}^i)z^i $$
-> 4. Use part (c) to prove that $F_i = \phi^i / \sqrt5$ for $i > 0$, rounded to the nearest
->    integer. (_Hint:_ Observe that <nobr>$|\hat{\phi}| < 1$)</nobr>
+> 1. $T(n) = 5T(n/3) + n\lg{n}$
+> 2. $T(n) = 3T(n/3) + n/\lg{n}$
+> 3. $T(n) = 8T(n/2) + n^3\sqrt{n}$
+> 4. $T(n) = 2T(n/2 - 2) + n/2$
+> 5. $T(n) = 2T(n/2) + n/\lg{n}$
+> 6. $T(n) = T(n/2) + T(n/4) + T(n/8) + n$
+> 7. $T(n) = T(n - 1) + 1/n$
+> 8. $T(n) = T(n - 1) + \lg{n}$
+> 9. $T(n) = T(n - 2) + 1/\lg{n}$
+> 10. $T(n) = \sqrt{n}T(\sqrt{n}) + n$
 
-### Part 1
+### 1. $T(n) = 5T(n/3) + n\lg{n}$
+
+$\Theta(n^{\log_3{5}})$ by the master method.
+
+### 2. $T(n) = 3T(n/3) + n/\lg{n}$
+
+It's $\Theta(n\lg\lg{n})$. Check subtask 5 for the reasoning.
+
+### 3. $T(n) = 8T(n/2) + n^3\sqrt{n}$
+
+$\Theta(n^3\sqrt{n}) = \Theta(n^{3.5})$ by the master method ($\log_2{8} = 3 < 3.5$).
+
+### 4. $T(n) = 2T(n/2 - 2) + n/2$
+
+We can ignore the $-2$ and using the master method, we arrive at $\Theta(n\lg{n})$.
+
+### 5. $T(n) = 2T(n/2) + n/\lg{n}$
 
 $$ \begin{aligned}
-   & z + z\mathcal{F}(z) + z^2\mathcal{F}(Z) = \\\\
-   & = z + z\sum_{i=0}^{\infty}F_iz^i + z^2\sum_{i=0}^{\infty}F_iz^i \\\\
-   & = z + \sum_{i=1}^{\infty}F_{i-1}z^i + \sum_{i=2}^{\infty}F_{i-2}z^i \\\\
-   & = z + F_1z + \sum_{i=2}^{\infty}(F_{i-1} + F_{i-2})z^i \\\\
-   & = z + F_1z + \sum_{i=2}^{\infty}F_iz^i \\\\
-   & = \mathcal{F}(z)
+   T(n) & = 2T(n/2) + \frac{n}{\lg{n}} = 4(n/4) + 2\frac{n/2}{\lg(n/2)} + \frac{n}{\lg{n}}
+          = 4T(n/4) + \frac{n}{\lg{n} - 1} + \frac{n}{\lg{n}} \\\\
+        & = nT(1) + \sum_{i=0}^{\lg{n} - 1}\frac{n}{\lg{n}-i}
+          = nT(1) + n\sum_{i=1}^{\lg{n}}\frac{1}{\lg{n}} \\\\
+        & = \Theta(n\lg\lg{n})
    \end{aligned} $$
 
-### Part 2
+### 6. $T(n) = T(n/2) + T(n/4) + T(n/8) + n$
 
-Let's just note that $\phi - \hat\phi = \sqrt5$,  $\phi + \hat\phi = 1$ and $\phi\hat\phi = - 1$ (just calculate them):
+We guess $\Theta(n)$:
 
 $$ \begin{aligned}
-   \mathcal{F}(z) &= \frac{\mathcal{F}(z)(1 - z - z^2)}{1 - z - z^2} \\\\
-        &= \frac{\mathcal{F}(z) - z\mathcal{F}(z) - z^2\mathcal{F}(z) - z + z}{1 - z - z^2} \\\\
-        &= \frac{\mathcal{F}(z) - \mathcal{F}(z) + z}{1 - z - z^2} \\\\
-        &= \frac{z}{1 - z - z^2} \\\\
-        &= \frac{z}{1 - (\phi + \hat\phi)z + \phi\hat\phi z^2} \\\\
-        &= \frac{z}{(1 - \phi z)(1 - \hat\phi z)} \\\\
-        &= \frac{\sqrt5 z}{\sqrt5 (1 - \phi z)(1 - \hat\phi z)} \\\\
-        &= \frac{(\phi - \hat\phi)z + 1 - 1}{\sqrt5 (1 - \phi z)(1 - \hat\phi z)} \\\\
-        &= \frac{(1 - \hat\phi z) - (1 - \phi z)}{\sqrt5 (1 - \phi z)(1 - \hat\phi z)} \\\\
-        &= \frac{1}{\sqrt5}\Big(\frac{1}{1 - \phi z} - \frac{1}{1 - \hat\phi z}\Big) \\\\
+   T(n) & = cn/2 + cn/4 + cn/8 + n \le (7/8)cn + n \le cn = O(n) \quad (c \ge 8) \\\\
+   T(n) & = cn/2 + cn/4 + cn/8 + n \ge (7/8)cn + n \ge cn = \Omega(n) \quad (c \le 8)
    \end{aligned} $$
 
-### Part 3
+We can also use Akra-Bazzi as shown in the book to get the same result.
 
-We have that:
-
-$$ \frac{1}{1 - x} = \sum_{k=0}^{\infty}x^k \quad\text{when } |x| < 1 $$
-
-Thus:
+### 7. $T(n) = T(n - 1) + 1/n$
 
 $$ \begin{aligned}
-   \mathcal{F}(n) &= \frac{1}{\sqrt5}\Big(\frac{1}{1 - \phi z} - \frac{1}{1 - \hat\phi z}\Big) \\\\
-                  &= \frac{1}{\sqrt5}\Big(\sum_{i=0}^{\infty}\phi^i z^i - \sum_{i=0}^{\infty}\hat{\phi}^i z^i\Big) \\\\
-                  &= \sum_{i=0}^{\infty}\frac{1}{\sqrt5}(\phi^i - \hat{\phi}^i) z^i
+   T(n) &= T(n-1) + 1/n = \frac{1}{n} + \frac{1}{n-1} + T(n-2) \\\\
+        &= \frac{1}{n} + \frac{1}{n-1} + \frac{1}{n-2} + T(n-3) \\\\
+        &= \sum_{i=0}^{n-1}\frac{1}{n-i} = \sum_{i=1}^n\frac{1}{i} = \\\\
+        &= \Theta(\lg{n})
    \end{aligned} $$
 
-### Part 4
+### 8. $T(n) = T(n - 1) + \lg{n}$
 
-$$ \mathcal{F}(z) = \sum_{i=0}^{\infty}\alpha_iz^i \quad\text{ where } \alpha_i = \frac{\phi^i - \hat{\phi}^i}{\sqrt5} $$
+$$ \begin{aligned}
+   T(n) &= \lg{n} + T(n-1) = \lg{n} + \lg{n-1} + T(n-2) = \\\\
+        &= \sum_{i=0}^{n-1}\lg(n - i) = \sum_{i=1}^{n}\lg{i} = \lg(n!) \le \lg{n^n} = n\lg{n} \\\\
+        &= \Theta(n\lg{n})
+   \end{aligned} $$
 
-From this follows that $\alpha_i = F_i$, that is:
+### 9. $T(n) = T(n - 2) + 1/\lg{n}$
 
-$$ F_i = \frac{\phi^i - \hat{\phi}^i}{\sqrt5}  = \frac{\phi^i}{\sqrt5} - \frac{\hat{\phi}^i}{\sqrt5} $$
+$$ \begin{aligned}
+   T(n) &= \frac{1}{\lg{n}} + \frac{1}{\lg{n-2}} + \ldots \\\\
+        &= \sum_{i=1}^{n/2}\frac{1}{\lg(2i)} \\\\
+        &= \sum_{i=1}^{\infty}\frac{1}{\lg{i}} \\\\
+        &= \Theta(\lg\lg{n})
+   \end{aligned} $$
 
-For $i = 0$, $\phi/\sqrt5 = (\sqrt5 + 5)/10 > 0.5$. For $i > 2$, $|\hat{\phi}^i| < 0.5$.
+### 10. $T(n) = \sqrt{n}T(\sqrt{n}) + n$
+
+Let $n = 2^m$, or $m = \lg{n}$. We use this to get another recurrence in hopes of being able to use the master theorem on it:
+
+$$ \begin{aligned}
+   T(2^m) &= \sqrt{2^m}T(\sqrt{2^m}) + 2^m \\\\
+        &= 2^{m/2}T(2^{m/2}) + 2^m \\\\
+   Q(m) &= 2^{m/2} Q(m/2) + 2^m
+\end{aligned} $$
+
+We still cannot use the master theorem. Now multiply $Q(m)$ by $\frac{1}{2^m}$ to get: $R(m) = R(m/2) + 1$. Now we can use the master theorem to compare $f(n) = 1$ and $n^{log_b a} = n^{log_2 1} = n^0 = 1$. Since $n^{log_b a} = f(n)$:
+
+$$ \begin{aligned}
+   R(m) &= \Theta(1 \times \lg{m}) \\\\
+   Q(m) &= \Theta(2^m \lg{m}) \\\\
+   T(m) &= \Theta(2^{\lg{n}} \lg{\lg{n}}) \\\\
+        & = \Theta(n \lg{\lg{n}})
+\end{aligned}$$
+
+We verify $T(n) \le cn\lg\lg{n}$:
+
+$$ \begin{aligned}
+   T(n) &\le \sqrt{n}c\sqrt{n}\lg\lg\sqrt{n} + n \\\\
+        & = cn\lg\lg\sqrt{n} + n \\\\
+        & = cn\lg\frac{\lg{n}}{2} + n \\\\
+        & = cn\lg\lg{n} - cn\lg{2} + n \\\\
+        & = cn\lg\lg{n} + (1 - c)n & (c > 1) \\\\
+        &\le cn\lg\lg{n}
+        & = \Theta(n\lg\lg{n})
+   \end{aligned} $$

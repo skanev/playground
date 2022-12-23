@@ -27,11 +27,13 @@ module Generator
 
   def generate_solutions(catalog)
     catalog.chapters.each do |chapter|
+      next unless chapter.number.name == '04'
       chapter.sections.each do |section|
         section.exercises.each do |exercise|
           generate_exercise exercise, catalog
           generate_graph exercise if exercise.graph?
           generate_drawings exercise if exercise.drawings?
+          generate_additional_graphs exercise if exercise.additional_graphs?
         end
       end
 
@@ -52,6 +54,13 @@ module Generator
 
   def generate_problem(problem, catalog)
     write_file "#{problem.location}.html", Renderer.render_problem(problem, catalog)
+  end
+
+  def generate_additional_graphs(solution)
+    solution.additional_graph_paths.each do |path|
+      write_file Pathname(solution.location).dirname.join(path.sub_ext('.png').basename).to_s, Graph.render_png(path)
+      write_file Pathname(solution.location).dirname.join(path.sub_ext('.svg').basename).to_s, Graph.render_svg(path)
+    end
   end
 
   def generate_drawings(solution)

@@ -1,26 +1,26 @@
-> We saw that the solution of $T(n) = 2T(\lfloor n/2 \rfloor) + n$ is
-> $O(n\lg{n})$. Show that the solution of this recurrence is also
-> $\Omega(n\lg{n})$. Conclude that the solution is $\Theta(n\lg{n})$.
+> The recurrence $T(n) = 2T(n - 1) + 1$ has the solution $T(n) = \O(2^n)$. Show
+> that a substitution proof fails with the assumption $T(n) \le c2^n$, where
+> $c > 0$ is constant. Then show how to subtract a lower-order term to make a
+> substitution proof work.
 
-First we guess $T(n) \le cn\lg{n}$:
+So, let's start with guessing that $T(n) \le c2^n$:
 
-$$ \begin{aligned}
-   T(n) & \le 2c\lfloor n/2 \rfloor\lg{\lfloor n/2 \rfloor} + n \\\\
-        & \le cn\lg(n/2) + n \\\\
-	& \le cn\lg{n} - cn\lg{2} + n \\\\
-	& \le cn\lg{n} + (1 - c)n \\\\
-	& \le cn\lg{n} \\\\
-	& \text{for } c \ge 0
-   \end{aligned} $$
-
-Next we guess $T(n) \ge c(n+2)\lg(n+2)$:
 
 $$ \begin{aligned}
-   T(n) & \ge 2c(\lfloor n/2 \rfloor + 2)(\lg(\lfloor n/2 \rfloor + 2) + n \\\\
-        & \ge 2c(n/2 - 1 + 2)(\lg(n/2 - 1 + 2) + n \\\\
-        & \ge 2c\frac{n+2}{2}\lg\frac{n+2}{2} + n \\\\
-        & \ge c(n+2)\lg(n+2) - c(n+2)\lg2 + n \\\\
-        & \ge c(n+2)\lg(n+2) + (1 - c)n - 2c \qquad \text{for } n \ge 2c/(1-c), 0 < c < 1 \\\\
-        & \ge c(n+2)\lg(n+2)
+     T(n) & = 2T(n - 1) + 1 \\\\
+          & \le 2 c 2^{n-1} + 1 \\\\
+          & = c2^n + 1
    \end{aligned} $$
 
+No dice.
+
+Let's guess instead that $T(n) \le c^2n - d$:
+
+$$ \begin{aligned}
+     T(n) & = 2T(n - 1) + 1 \\\\
+          & \le 2 (c 2^{n-1} - d) + 1 \\\\
+          & = c2^n - 2d + 1 \\\\
+          & \le c2^n
+   \end{aligned} $$
+
+This holds, as long as we pick $d \ge 1/2$.

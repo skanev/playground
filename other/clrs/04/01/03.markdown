@@ -1,16 +1,20 @@
-> Implement both the brute-force and recursive algorithms for the
-> maximum-subarray problem on your own computer. What problem size $n_0$ gives
-> the crossover point at which the recursive algorithm beats the brute-force
-> algorithm? Then, change the base case of the recursive algorithm to use the
-> brute-force algorithm whenever the problem size is less than $n_0$. Does
-> that change the crossover point?
+> Suppose instead of partitioning matrices by index calculation in
+> `MATRIX-MULTIPLY-RECURSIVE`, you copy the appropriate elements of $A$, $B$,
+> and $C$ into separate $n/2 \times n/2$ submatrices $A_{11}$, $A_{12}$,
+> $A_{21}$, $A_{22}$; $B_{11}$, $B_{12}$, $B_{21}$, $B_{22}$; and $C_{11}$,
+> $C_{12}$, $C_{21}$, $C_{22}$, respectively. After the recursive calls, you
+> copy the results from $C_{11}$, $C_{12}$, $C_{21}$ and $C_{22}$ back into the
+> appropriate places in $C$. How does recurrence (4.9) change, and what is its
+> solution?
 
-On my computer, $n_0$ is 37.
+The recurrence will change from
 
-If the algorithm is modified to used divide in conquer when $n \geq 37$ and the
-brute-force approach when $n$ is less, the performance at the crossover point
-almost doubles. The performance at $n_0 - 1$ stays the same, though (or even
-gets worse, because of the added overhead).
+$$ T(n) = 8T(n/2) + \Theta(1) $$
 
-What I find interesting is that if we set $n_0 = 20$ and used the mixed
-approach to sort $40$ elements, it is still faster than both.
+to
+
+$$ T(n) = 8T(n/2) + \Theta(n^2) $$
+
+as it takes $\Theta(n^2)$ things to do in order to copy matrices and add them
+back. The solution to this is still $\Theta(n^3)$ and it can be illustrated by
+either the substitution method or the master method.

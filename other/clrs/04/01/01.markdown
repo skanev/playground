@@ -1,4 +1,14 @@
-> What does *FIND-MAXIMUM-SUBARRAY* return when all elements of $A$ are
-> negative?
+> Generalize `MATRIX-MULTIPLY-RECURSIVE` to multiply $n \times n$ matrices for
+> which $n$ is not necessarily an exact power of 2. Give a recurrence describing
+> its running time. Argue that it runs in $\Theta(n^3)$ in the worst case.
 
-It will return a single-element array with the largest negative integer.
+This is not too interesting to do, so I'm going to sketch two ideas.
+
+First, and quite simply, we can extend the matrix to be $n \times n$ and pad
+with zeroes. We can multiply those and then take a submatrix.
+
+Alternatively, we can modify the function to take an extra argument $m$ that is
+the next power of 2, use it to make the splits, but don't add up if the index is
+greated than $n$.
+
+Both of those are very obviously cubic.

@@ -1,0 +1,14 @@
+> Let $f(n)$ be a function that satisfies the polynomial-growth condition. Prove
+> that $f(n)$ is asymptotically positive, that is, there exists a constant $n_0
+> \ge 0$ such that $f(n) \ge 0$ for all $n \ge n_0$.
+
+From the condition, we know that there exists a constant $d > 1$ such that for
+each $n \ge \hat{n}$, the following holds:
+
+$$ f(n)/d \le df(n) $$
+
+Or otherwise:
+
+$$ f(n) \le d^2f(n) $$
+
+Since $d > 1$, in order for that to hold, $f(n)$ must be positive.

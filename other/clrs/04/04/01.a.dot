@@ -1,0 +1,12 @@
+digraph tree {
+  node[shape=none];
+  edge[dir=none];
+
+  a1[label="cn³"];
+  b1[label="(1/8)cn³"];
+  c1[label="(1/8)²cn³"];
+  z1[label="Θ(1)"];
+
+  a1 -> b1 -> c1;
+  { edge[style=dotted] c1 -> z1; }
+}

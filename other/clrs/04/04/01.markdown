@@ -1,22 +1,116 @@
-> Use a reccursion tree to determine a good asymptotic upper bound on the
-> recurrence $T(n) = 3T(\lfloor n/2 \rfloor) + n$. Use the substitution method
+> For each of the following recurrences, sketch its recursion tree, and guess a
+> good asymptotic upper bound on its solution. Then use the substitution method
 > to verify your answer.
+>
+> 1. $T(n) = T(n/2) + n^3$
+> 2. $T(n) = 4T(n/3) + n$
+> 3. $T(n) = 4T(n/2) + n$
+> 4. $T(n) = 3T(n - 1) + 1$
 
-Let's just ignore the floor, it makes no difference whatsoever.
+Oh such fun, more graphviz drawings.
 
-The tree is of depth $\lg{n}$ and has $\Theta(3^{\lg{2}}) = \Theta(2^{\lg{n}})$ leaves. Thus:
+### a. $T(n) = T(n/2) + n^3$
 
-$$ \begin{aligned}
-   T(n) &= \sum_{i=0}^{\lg{n}-1}\Big(\frac{3}{2}\Big)^i n + \Theta(n^{\lg3}) \\\\
-        &= n\frac{(3/2)^{\lg{n}} - 1}{(3/2) - 1} + \Theta(n^{\lg3}) \\\\
-        &= n\Theta(n^{\lg3 - 1}) + \Theta(n^{\lg3}) \\\\
-        &= \Theta(n^{\lg3})
-   \end{aligned} $$
+This gets the following tree:
 
-Let's use substitution. We guess $T(n) \le cn^{\lg3} + 2n$ (and drop the floor):
+![](04/04/01.a.svg)
 
-$$ \begin{aligned}
-   T(n) & \le 3c(n/2)^{\lg3} + 2n/2 + n \\\\
-        & \le cn^{\lg3} + 2n \\\\
-        & = \Theta(n^{\lg3})
-   \end{aligned} $$
+The height is $\lg n$ and each level contributes $(1/8)^i cn^3$. Including the
+single leaf, we get
+
+$$
+  T(n) = \sum_{i=0}^{\lg n}\frac{1}{8}cn^3 + \Theta(1)
+       \le \frac{8}{7}cn^3 + \Theta(1)
+       = \O(n^3)
+$$
+
+Plugging in $cn^3$ with the substitution method, we get:
+
+$$
+  T(n) = T(n/2) + n^3
+       \le \frac{1}{8}cn^3 + n^3
+       = (1 + \frac{1}{8}c)n^3
+       \le cn^3
+$$
+
+Where the last part holds as long as $c \ge 8/7$.
+
+### b. $T(n) = 4T(n/3) + n$
+
+We get this tree:
+
+![](04/04/01.b.svg)
+
+It has height $\lg_3{n}$. There are $4^{\log_3{n}} = n^{\log_3{4}}$ leafs.
+
+We thus get:
+
+$$
+  \begin{aligned}
+  T(n) &= \sum_{i=0}^{\lg_3{n} - 1}\Big(\frac 4 3\Big)^i cn + \Theta(n^{\log_3 4}) \\\\
+       &= cn \frac{\Big(\frac 4 3\Big)^{\log_3 n} - 1}{\frac 4 3 - 1} + \Theta(n^{\log_3 4}) \\\\
+       &= 3cn\frac{n^{\log_3 4}}{n} - 3cn + \Theta(n^{\log_3 4}) \\\\
+       &= 3cn^{\log_3 4} + \Theta(n^{\log_3 4}) - 3cn \\\\
+       &= \Theta(n^{\log_3 4})
+  \end{aligned}
+$$
+
+When we use the substitution method, subtracting the lower-order term by
+guessing $T(n) = cn^{\log_3 4} - dn$, we get:
+
+$$
+  \begin{aligned}
+  T(n) & = 4T(n/3) + n \\\\
+       & \le 4c\Big(\frac n 3\Big)^{\log_3 4} - 4dn + n \\\\
+       & = 4c\frac{n^{\log_3 4}}{4} - 4dn + n \\\\
+       & = cn^{\log_3 4} - dn + (1 - 3d)n \\\\
+       & \le cn^{\log_3 4} - dn
+  \end{aligned}
+$$
+
+As long as we pick $d \ge 1/3$.
+
+### c. $T(n) = 4T(n/2) + n$
+
+This is very similar to the previous:
+
+![](04/04/01.c.svg)
+
+This time the height is $\lg n$ and there are $4^{\lg{n}} = n^2$ leafs.
+
+$$
+  \begin{aligned}
+  T(n) &= \sum_{i=0}^{\ln{n} - 1}2^i cn + \Theta(n^2) \\\\
+       &= cn(2^{\ln n} - 1) + \Theta(n^2) \\\\
+       &= cn(n - 1) + \Theta(n^2) \\\\
+       &= cn^2 - cn + \Theta(n^2) \\\\
+       &= \Theta(n^2)
+  \end{aligned}
+$$
+
+The guessing game is pretty similar to the previous (in fact, we just have to
+replace $\log_3 4$ with $\log_2 4 = 2$.
+
+### d. $T(n) = 3T(n - 1) + 1$
+
+This one is funny.
+
+![](04/04/01.d.svg)
+
+Heigh is $n$ and the number of leafs is $3^n$. We do get a sum:
+
+$$
+  \begin{aligned}
+  T(n) & = \sum_{i=0}^{n - 1}3^i + \Theta(3^n) \\\\
+       & = \frac{3^n - 1}{2} + \Theta(3^n) \\\\
+       & = \Theta(3^n)
+  \end{aligned}
+$$
+
+The substitution method is pretty trivial:
+
+$$
+  T(n) = 3T(n-1) + 1 \le 3 (c3^{n-1} - d) + 1 = c3^n - 3d + 1 \le c3^n
+$$
+
+When we pick $d \ge 1/3$.

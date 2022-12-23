@@ -1,16 +1,14 @@
-> Write pseudocode for the brute-force method of solving the maximum-subarray
-> problem. Your procedure should run in $\Theta(n^2)$ time.
+> How quickly can you multiply a $k n \times n$ matrix ($kn$ rows and $n$
+> columns) by an $n \times kn$ matrix, where $k \ge 1$, using
+> `MATRIX-MULTIPLY-RECURSIVE` as a subroutine? Answer the same question for
+> multiplying a $n \times kn$ matrix by a $kn \times n$ matrix. Which is
+> asymptotically faster, and by how much?
 
-    FIND-MAX-SUBARRAY(A, low, high)
-      left = 0
-      right = 0
-      sum = -∞
-      for i = low to high
-          current-sum = 0
-          for j = i to high
-	      current-sum += A[j]
-	      if sum < current-sum
-	          sum = current-sum
-		  left = i
-		  right = j
-      return (left, right, sum)
+Multiplying $(kn \times n)(n \times kn)$ will result to a $kn \times kn$ matrix
+and will need to do $\Theta(k^2 n^3)$ multiplications. Multiplying $(n \times
+kn)(kn \times n)$ will result to a $n \times n$ matrix and can be done with
+$\Theta(k n^3)$ multiplications. The recursive multiplications do not help at
+all here.
+
+Generally, when multiplying $(a \times b)(b \times c)$, it will take
+$\Theta(abc)$ time unless some cleverness is done.

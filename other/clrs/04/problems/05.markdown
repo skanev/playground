@@ -1,55 +1,109 @@
-## Chip testing
+## Fibonacci numbers
 
-> Professor Diogenes has $n$ supposedly identical integrated-circuit chips that
-> in principle are capable of testing each other. The professor's test jig
-> accomodates two chips at a time. When the jig is loaded, each chip tests the
-> other and reports whether it is good or bad. A good chip always reports
-> accurately whether the other chip is good or bad, but the professor cannot
-> trust the answer of a bad chip. Thus, the four possible outcomes of a test
-> are as follows.
+> This problem develops properties of the Fibonacci numbers, which are defined
+> by recurrence (3.31) on page 69. We'll explore the technique of generating
+> functions to solve the Fibonacci recurrence. Define the generating function
+> (or formal power series) $\mathcal{F}$ as
 >
-> | Chip A says | Chip B says | Conclusion                     |
-> |:------------|:------------|:-------------------------------|
-> | B is good   | A is good   | both are good, or both are bad |
-> | B is good   | A is bad    | at least one is bad            |
-> | B is bad    | A is good   | at least one is bad            |
-> | B is bad    | A is bad    | at least one is bad            |
+> $$ \begin{aligned}
+>    \mathcal{F}(z) &= \sum_{i=0}^{\infty}F_iz^i \\\\
+>                   &= 0 + z + z^2 + 2z^3 + 3z^4 + 5z^5 + 8z^6 + 13z^7 + 21z^8 + \ldots,
+>    \end{aligned} $$
 >
-> 1. Show that if more than $n/2$ chips are bad, the professor cannot
->    necessarily determine which chips are good using any strategy based on
->    this kind of pairwise test. Assume that the bad chips can conspire to fool
->    the professor.
-> 2. Consider the problem of finding a single good chip from among $n$ chips,
->    assuming that more than $n/2$ of the chips are good. Show that $\lfloor
->    n/2 \rfloor$ pairwise tests are sufficient to reduce the problem to one of
->    nearly half the size.
-> 3. Show that the good chips can be identified with $\Theta(n)$ pairwise
->    tests, assuming that more than $n/2$ chips are good. Give and solve the
->    recurrence that describes the number of tests.
+> where $F_i$ is the $i$th Fibonacci number.
+>
+> 1. Show that $\mathcal{F}(z) = z + z\mathcal{F}(z) + z^2\mathcal{F}$.
+> 2. Show that
+>    $$ \begin{aligned}
+>       \mathcal{F}(z) &= \frac{z}{1 - z - z^2} \\\\
+>                      &= \frac{z}{(1 - \phi z)(1 - \hat\phi z)} \\\\
+>                      &= \frac{1}{\sqrt5}\Big(\frac{1}{1 - \phi z} - \frac{1}{1 - \hat{\phi} z}\Big)
+>       \end{aligned} $$
+>    where $\phi$ is the golden ratio, and $\hat\phi$ is its conjugate (see page
+>    69)
+> 3. Show that
+>    $$ \mathcal{F}(z) = \sum_{i=0}^{\infty}\frac{1}{\sqrt5}(\phi^i - \hat{\phi}^i)z^i $$
+>    You may use without proof the generating function version of equation (A.7)
+>    on page 1142, $\sum_{k=0}^\infty x^k = 1 / (1 - x)$. Because this equation
+>    involves a generating function, $x$ is a formal variable, not a real-valued
+>    variable, so that you don't have to worry about convergence of the
+>    summation or about the requirement in equation (A.7) that $|x| < 1$, which
+>    doesn't make sense here.
+> 4. Use part (c) to prove that $F_i = \phi^i / \sqrt5$ for $i > 0$, rounded to the nearest
+>    integer. (_Hint:_ Observe that <nobr>$|\hat{\phi}| < 1$)</nobr>
+> 5. Prove that $F_{i+2} \ge \phi^i$ for $i \ge 0$.
 
-### If more than half are bad
+### Part 1
 
-Lets say that there are $g < n/2$ good chips. The same amount of the remaining
-bad chips can choose to act similar to good chips. That is, they can identify
-each other as good and all other as faulty. Since this is what the good chips
-would do, both groups are symmetric in regards to the operation of parwise
-comparison. No strategy can distinguish between the two groups.
+$$ \begin{aligned}
+   & z + z\mathcal{F}(z) + z^2\mathcal{F}(z) = \\\\
+   & = z + z\sum_{i=0}^{\infty}F_iz^i + z^2\sum_{i=0}^{\infty}F_iz^i \\\\
+   & = z + \sum_{i=1}^{\infty}F_{i-1}z^i + \sum_{i=2}^{\infty}F_{i-2}z^i \\\\
+   & = z + F_1z + \sum_{i=2}^{\infty}(F_{i-1} + F_{i-2})z^i \\\\
+   & = z + F_1z + \sum_{i=2}^{\infty}F_iz^i \\\\
+   & = \mathcal{F}(z)
+   \end{aligned} $$
 
-### Finding a single good chip in logarithmic time
+### Part 2
 
-We split the chips in groups of two and compare them. We can take one of the
-chips if the outcome is the first one (both are good or both are bad) and but
-both away otherwise. When putting away, we're removing at least one bad chip
-for every good one we remove. Out of the pairs we've chosen a chip from, there
-would be more good chips than bad chips (there would be more good pairs,
-because the good chips are more than the half). Now we have at most $n/2$
-chips, where at least half of them are good.
+Let's just note that $\phi - \hat\phi = \sqrt5$,  $\phi + \hat\phi = 1$ and $\phi\hat\phi = - 1$ (just calculate them):
 
-### Finding the good chips
+$$ \begin{aligned}
+   \mathcal{F}(z) &= \frac{\mathcal{F}(z)(1 - z - z^2)}{1 - z - z^2} \\\\
+        &= \frac{\mathcal{F}(z) - z\mathcal{F}(z) - z^2\mathcal{F}(z) - z + z}{1 - z - z^2} \\\\
+        &= \frac{\mathcal{F}(z) - \mathcal{F}(z) + z}{1 - z - z^2} \\\\
+        &= \frac{z}{1 - z - z^2} \\\\
+        &= \frac{z}{1 - (\phi + \hat\phi)z + \phi\hat\phi z^2} \\\\
+        &= \frac{z}{(1 - \phi z)(1 - \hat\phi z)} \\\\
+        &= \frac{\sqrt5 z}{\sqrt5 (1 - \phi z)(1 - \hat\phi z)} \\\\
+        &= \frac{(\phi - \hat\phi)z + 1 - 1}{\sqrt5 (1 - \phi z)(1 - \hat\phi z)} \\\\
+        &= \frac{(1 - \hat\phi z) - (1 - \phi z)}{\sqrt5 (1 - \phi z)(1 - \hat\phi z)} \\\\
+        &= \frac{1}{\sqrt5}\Big(\frac{1}{1 - \phi z} - \frac{1}{1 - \hat\phi z}\Big) \\\\
+   \end{aligned} $$
 
-The recurrence for finding at least one good chip is:
+### Part 3
 
-$$ T(n) = T(n/2) + n/2 $$
+We have that:
 
-By the master method, this is $\Theta(n)$. After we've found one, we can
-compare it will all others, which is a $\Theta(n)$ operation.
+$$ \frac{1}{1 - x} = \sum_{k=0}^{\infty}x^k \quad\text{when } |x| < 1 $$
+
+Thus:
+
+$$ \begin{aligned}
+   \mathcal{F}(n) &= \frac{1}{\sqrt5}\Big(\frac{1}{1 - \phi z} - \frac{1}{1 - \hat\phi z}\Big) \\\\
+                  &= \frac{1}{\sqrt5}\Big(\sum_{i=0}^{\infty}\phi^i z^i - \sum_{i=0}^{\infty}\hat{\phi}^i z^i\Big) \\\\
+                  &= \sum_{i=0}^{\infty}\frac{1}{\sqrt5}(\phi^i - \hat{\phi}^i) z^i
+   \end{aligned} $$
+
+### Part 4
+
+$$ \mathcal{F}(z) = \sum_{i=0}^{\infty}\alpha_iz^i \quad\text{ where } \alpha_i = \frac{\phi^i - \hat{\phi}^i}{\sqrt5} $$
+
+From this follows that $\alpha_i = F_i$, that is:
+
+$$ F_i = \frac{\phi^i - \hat{\phi}^i}{\sqrt5}  = \frac{\phi^i}{\sqrt5} - \frac{\hat{\phi}^i}{\sqrt5} $$
+
+For $i = 0$, $\phi/\sqrt5 = (\sqrt5 + 5)/10 > 0.5$. For $i > 2$, $|\hat{\phi}^i| < 0.5$.
+
+### Part 5
+
+Let's casually observe that $ \phi^2 - \sqrt 5 = \hat{\phi}^2 $, because:
+
+$$
+  \phi^2 - \sqrt 5 = \frac{1 + 2\sqrt 5 + 5}{4} - \frac{4 \sqrt 5}{4}
+                   = \frac{1 - 2\sqrt 5 + 5}{4}
+                   = \Bigg(\frac{1 - \sqrt 5}{2}\Bigg)^2
+                   = \hat{\phi}^2
+$$
+
+Then we transform:
+
+$$
+  F_{i+2} = \frac{\phi^{i+2} - \hat\phi^{i+2}}{\sqrt 5} \ge \phi^i \\\\
+  \phi^{i+2} - \sqrt 5 \phi^i \ge \hat\phi^{i+2} \\\\
+  \phi^i(\phi^2 - \sqrt 5) \ge \hat\phi^{i+2} \\\\
+  \phi^i \hat\phi^2 \ge \hat\phi^{i+2} \\\\
+  \phi^i \ge \hat\phi^i
+$$
+
+We know the last one to be true from the values of the numbers themselves.

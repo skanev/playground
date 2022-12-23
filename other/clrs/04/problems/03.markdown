@@ -1,108 +1,57 @@
-## More recurrence examples
+## Solving recurrences with a change of variables
 
-> Give asymptotic upper and lower bounds for $T(n)$ in each of the following
-> recurrences. Assume that $T(n)$ is constant for sufficiently small $n$. Make
-> your bounds as tight as possible, and justify your answers.
+> Sometimes, a little algebraic manipulation can make an unknown recurrence
+> similar to one you have seen before. Let's solve the recurrence:
 >
-> 1. $T(n) = 4T(n/3) + n\lg{n}$
-> 2. $T(n) = 3T(n/3) + n/\lg{n}$
-> 3. $T(n) = 4T(n/2) + n^2\sqrt{n}$
-> 4. $T(n) = 3T(n/3 - 2) + n/2$
-> 5. $T(n) = 2T(n/2) + n/\lg{n}$
-> 6. $T(n) = T(n/2) + T(n/4) + T(n/8) + n$
-> 7. $T(n) = T(n - 1) + 1/n$
-> 8. $T(n) = T(n - 1) + \lg{n}$
-> 9. $T(n) = T(n - 2) + 1/\lg{n}$
-> 10. $T(n) = \sqrt{n}T(\sqrt{n}) + n$
+> $$ T(n) = 2T(\sqrt n) + \Theta(\lg n) \tag{4.25} $$
+>
+> by using the change-of-variables method.
+>
+> 1. Define $m = \lg n$ and $S(m) = T(2^m)$. Rewrite recurrence (4.25) in terms
+>    of $m$ and $S(m)$.
+> 2. Solve your recurrence for $S(m)$.
+> 3. Use your solution for $S(m)$ to conclude that $T(n) = \Theta(\lg n \lg\lg
+>    n)$
+> 4. Sketch the recursion tree for recurrence (4.25), and use it to explain
+>    intuitively why the solution is $T(n) = \Theta(\lg n \lg\lg n)$.
+>
+> Solve the following recurrences by changing variables:
+>
+> 5. $T(n) = 2T(\sqrt n) + \Theta(1)$
+> 6. $T(n) = 3T(\sqrt[3] n) + \Theta(n)$
 
-### 1. $T(n) = 4T(n/3) + n\lg{n}$
+### The first part
 
-$\Theta(n^{\log_3{4}})$ by the master method.
+The new recurrence is going to be:
 
-### 2. $T(n) = 3T(n/3) + n/\lg{n}$
+$$ S(m) = T(2^m) = 2T(\sqrt{2^m}) + \Theta(\lg 2^m) = 2T(2^{m/2}) + \Theta(m) = 2S(m/2) + \Theta(m) $$
 
-It's $\Theta(n\lg\lg{n})$. Check subtask 5 for the reasoning.
+Or simply:
 
-### 3. $T(n) = 4T(n/2) + n^2\sqrt{n}$
+$$ S(m) = 2S(m/2) + \Theta(m) $$
 
-$\Theta(n^2\sqrt{n}) = \Theta(n^{2.5})$ by the master method ($\log_2{4} = 2 < 2.5$).
+This is the canonical $m \lg m$ complexity, and when we expand $m$ again we get
+$\Theta(\lg n \lg\lg n)$. I guess we should include the fact that $\lg n$ meets
+the polynomial-growth condition, so $f(\Theta(n)) = \Theta(f(n))$.
 
-### 4. $T(n) = 3T(n/3 - 2) + n/2$
+When we draw the recursion tree, we see that at each level we reduce the size of
+the input by a square root. I'd struggle to formulate it nicely, but check out
+this [Stack Overflow answer][answer] for some better phrasing.
 
-We can ignore the $-2$ and using the master method, we arrive at $\Theta(n\lg{n})$.
+[answer]: https://stackoverflow.com/questions/16472012/what-would-cause-an-algorithm-to-have-olog-log-n-complexity
 
-### 5. $T(n) = 2T(n/2) + n/\lg{n}$
+### e. $T(n) = 2T(\sqrt n) + \Theta(1)$
 
-$$ \begin{aligned}
-   T(n) & = 2T(n/2) + \frac{n}{\lg{n}} = 4(n/4) + 2\frac{n/2}{\lg(n/2)} + \frac{n}{\lg{n}}
-          = 4T(n/4) + \frac{n}{\lg{n} - 1} + \frac{n}{\lg{n}} \\\\
-        & = nT(1) + \sum_{i=0}^{\lg{n} - 1}\frac{n}{\lg{n}-i}
-          = nT(1) + n\sum_{i=1}^{\lg{n}}\frac{1}{\lg{n}} \\\\
-        & = \Theta(n\lg\lg{n})
-   \end{aligned} $$
+Applying the same method, we get:
 
-### 6. $T(n) = T(n/2) + T(n/4) + T(n/8) + n$
+$$ S(m) = 2S(m/2) + \Theta(1) $$
 
-We guess $\Theta(n)$:
+This will be $\Theta(m) = \Theta(\lg n)$.
 
-$$ \begin{aligned}
-   T(n) & = cn/2 + cn/4 + cn/8 + n \le (7/8)cn + n \le cn = O(n) \quad (c \ge 8) \\\\
-   T(n) & = cn/2 + cn/4 + cn/8 + n \ge (7/8)cn + n \ge cn = \Omega(n) \quad (c \le 8)
-   \end{aligned} $$
+### f. $T(n) = 3T(\sqrt[3] n) + \Theta(n)$
 
-### 7. $T(n) = T(n - 1) + 1/n$
+This time it is:
 
-$$ \begin{aligned}
-   T(n) &= T(n-1) + 1/n = \frac{1}{n} + \frac{1}{n-1} + T(n-2) \\\\
-        &= \frac{1}{n} + \frac{1}{n-1} + \frac{1}{n-2} + T(n-3) \\\\
-        &= \sum_{i=0}^{n-1}\frac{1}{n-i} = \sum_{i=1}^n\frac{1}{i} = \\\\
-        &= \Theta(\lg{n})
-   \end{aligned} $$
+$$ S(m) = 3S(m/3) + \Theta(2^m) $$
 
-### 8. $T(n) = T(n - 1) + \lg{n}$
-
-$$ \begin{aligned}
-   T(n) &= \lg{n} + T(n-1) = \lg{n} + \lg{n-1} + T(n-2) = \\\\
-        &= \sum_{i=0}^{n-1}\lg(n - i) = \sum_{i=1}^{n}\lg{i} = \lg(n!) \le \lg{n^n} = n\lg{n} \\\\
-        &= \Theta(n\lg{n})
-   \end{aligned} $$
-
-### 9. $T(n) = T(n - 2) + 1/\lg{n}$
-
-$$ \begin{aligned}
-   T(n) &= \frac{1}{\lg{n}} + \frac{1}{\lg{n-2}} + \ldots \\\\
-        &= \sum_{i=1}^{n/2}\frac{1}{\lg(2i)} \\\\
-        &= \sum_{i=1}^{\infty}\frac{1}{\lg{i}} \\\\
-        &= \Theta(\lg\lg{n})
-   \end{aligned} $$
-
-### 10. $T(n) = \sqrt{n}T(\sqrt{n}) + n$
-
-Let $n = 2^m$, or $m = \lg{n}$. We use this to get another recurrence in hopes of being able to use the master theorem on it:
-
-$$ \begin{aligned}
-   T(2^m) &= \sqrt{2^m}T(\sqrt{2^m}) + 2^m \\\\
-        &= 2^{m/2}T(2^{m/2}) + 2^m \\\\
-   Q(m) &= 2^{m/2} Q(m/2) + 2^m
-\end{aligned} $$
-
-We still cannot use the master theorem. Now multiply $Q(m)$ by $\frac{1}{2^m}$ to get: $R(m) = R(m/2) + 1$. Now we can use the master theorem to compare $f(n) = 1$ and $n^{log_b a} = n^{log_2 1} = n^0 = 1$. Since $n^{log_b a} = f(n)$:
-
-$$ \begin{aligned}
-   R(m) &= \Theta(1 \times \lg{m}) \\\\
-   Q(m) &= \Theta(2^m \lg{m}) \\\\
-   T(m) &= \Theta(2^{\lg{n}} \lg{\lg{n}}) \\\\
-        & = \Theta(n \lg{\lg{n}})
-\end{aligned}$$
-
-We verify $T(n) \le cn\lg\lg{n}$:
-
-$$ \begin{aligned}
-   T(n) &\le \sqrt{n}c\sqrt{n}\lg\lg\sqrt{n} + n \\\\
-        & = cn\lg\lg\sqrt{n} + n \\\\
-        & = cn\lg\frac{\lg{n}}{2} + n \\\\
-        & = cn\lg\lg{n} - cn\lg{2} + n \\\\
-        & = cn\lg\lg{n} + (1 - c)n & (c > 1) \\\\
-        &\le cn\lg\lg{n}
-        & = \Theta(n\lg\lg{n})
-   \end{aligned} $$
+This is $\Theta(2^m) = \Theta(2^{\lg n}) = \Theta(n)$.

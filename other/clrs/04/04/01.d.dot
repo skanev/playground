@@ -1,0 +1,57 @@
+digraph tree {
+  node[shape=none];
+  edge[dir=none];
+
+  { rank=same;
+    a1[label="1"]
+    as[label="1"]
+  }
+
+  { rank=same;
+    b1[label="1"];
+    b2[label="1"];
+    b3[label="1"];
+    bs[label="3"];
+  }
+
+  { rank=same;
+    c1[label="1"];
+    c2[label="1"];
+    c3[label="1"];
+    c4[label="1"];
+    c5[label="1"];
+    c6[label="1"];
+    c7[label="1"];
+    c8[label="1"];
+    c9[label="1"];
+    cs[label="3²"];
+  }
+
+  { rank=same;
+    z1[label="Θ(1)"];
+    z2[label="Θ(1)"];
+    z3[label="Θ(1)"];
+    z4[label="Θ(1)"];
+    z5[label="Θ(1)"];
+    z6[label="Θ(1)"];
+    z7[label="Θ(1)"];
+    z8[label="Θ(1)"];
+    z9[label="Θ(1)"];
+    zs[label="3ⁱ"];
+  }
+
+  a1 -> b1; a1 -> b2; a1 -> b3;
+
+  b1 -> c1; b1 -> c2; b1 -> c3;
+  b2 -> c4; b2 -> c5; b2 -> c6;
+  b3 -> c7; b3 -> c8; b3 -> c9;
+
+  { edge[style=dotted]
+    c1 -> z1; c2 -> z2; c3 -> z3;
+    c4 -> z4; c5 -> z5; c6 -> z6;
+    c7 -> z7; c8 -> z8; c9 -> z9;
+  }
+  { edge[style=invis]
+    as -> bs -> cs -> zs;
+  }
+}

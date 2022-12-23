@@ -1,0 +1,4 @@
+> $\star$ Give an example of a function $f(n)$ that does not satisfy the
+> polynomial-growth condition but for which $f(\Theta(n)) = \Theta(f(n))$.
+
+**UNSOLVED**. `¯\_(ツ)_/¯`

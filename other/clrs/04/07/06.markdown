@@ -1,0 +1,3 @@
+> $\star$ Use the Akra-Brazzi method to prove the continuous master theorem.
+
+**UNSOLVED**. `¯\_(ツ)_/¯`
