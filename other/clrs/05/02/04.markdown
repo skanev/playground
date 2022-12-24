@@ -1,17 +1,14 @@
-> Use indicator random variables to solve the following problem, which is
-> known as the **hat-check problem**. Each of $n$ customer gives a hat to a
-> hat-check person at a restaurant. The hat-check person gives the hats back
-> to the customers in a random order. What is the expected number of
-> customers who get back their hat?
+> This exercise asks you to (partly) verify that linearity of expectation holds
+> even if the random variables are not independent. Consider two 6-sided dice
+> that are rolled independently. What is the expected value of the sum? Now
+> consider the case where the first die is rolled normally and then the second
+> die is set equal to the value shown on the first die. What is the expected
+> value of the sum? Now consider the case where the first die is rolled normally
+> and the second die is set to equal 7 minus the value of the first die. What is
+> the expected value of the sum?
 
-The probability that each person gets their hat back is $1/n$. Let $X_i$ be the
-event that the $i$th person gets their hat back. Thus:
+When rolled independently, the expected value of the sum is $7$. When one is set
+to the other, the expected value is also $7$. When the other is set to $7 - v$,
+it's $7$ again (actually, it's will be certain in this case).
 
-$$ \E[X] = \E[X_1 + X_2 + \ldots + X_n]
-         = \sum_{i=1}^n \E[X_i]
-         = \sum_{i=1}^n \frac{1}{n}
-         = 1 $$
-
-Yup.
-
-One person will get their hat back. I'm surprised too.
+I'm unsure what the point of this exercise is, though.

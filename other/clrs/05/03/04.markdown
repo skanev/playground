@@ -1,19 +1,20 @@
-> Professor Armstrong suggests the following procedure for generating a uniform
-> random permutation:
+> Professor Knievel suggests the procedure `PERMUTE-BY-CYCLE` to generate a
+> uniform random permutation. Show that each element $A[i]$ has $1/n$
+> probability of winding up in any particular position in $B$. Then show that
+> Professor Knievel is mistaken by showing that the resulting permutation is not
+> uniformly random.
 >
->     n = A.length
->     let B[1..n] be a new array
->     offset = RANDOM(1, n)
->     for i = 1 to n
->         dest = i + offset
->         if dest > n
->             dest = dest - n
->         B[dest] = A[i]
->     return B
+>     PERMUTE-BY-CYCLE(A, n)
+>       n = A.length
+>       let B[1..n] be a new array
+>       offset = RANDOM(1, n)
+>       for i = 1 to n
+>           dest = i + offset
+>           if dest > n
+>               dest = dest - n
+>           B[dest] = A[i]
+>       return B
 >
-> Show that each element $A[i]$ has a $1/n$ probability of winding up in any
-> particular position in $B$. Then show that Professor Armstrong is mistaken by
-> showing that the resulting permutation is not uniformly random.
 
 Both are trivial.
 
@@ -22,5 +23,3 @@ $1/n$ probability of that happening.
 
 It does not generate all permutations - it only generates permutations that can
 be obtained from the initial input by cycling.
-
-BTW, "Armstrong" and "cycling". Nice pun.

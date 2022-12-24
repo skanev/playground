@@ -1,6 +1,7 @@
 > Professor Kelp decides to write a procedure that produces at random any
-> permutation besides the identity permutation. He proposes the following
-> procedure:
+> permutation besides the identity permutation, in which every element ends up
+> where it started. He proposes the procedure `PERMUTE-WITHOUT-IDENTITY`. Does
+> this procedure do what Professor Kelp intends?
 >
 >     PERMUTE-WITHOUT-IDENTITY(A)
 >     n = A.length

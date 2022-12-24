@@ -17,9 +17,9 @@ As for the other question:
 
 $$ \begin{aligned}
    \Pr\\{\text{2 born on Jul 4}\\} &=
-        1 - \Pr\\{\text{1 born on Jul 4}\\} - Pr\\{\text{0 born on Jul4}\\} \\\\
+        1 - \Pr\\{\text{1 born on Jul 4}\\} - Pr\\{\text{0 born on Jul 4}\\} \\\\
      &= 1 - \frac{k}{n}\bigg(\frac{n-1}{n}\bigg)^{k-1} - \bigg(\frac{n-1}{n}\bigg)^k \\\\
      &= 1 - \bigg(\frac{n-1}{n}\bigg)^{k-1}\bigg(\frac{n+k-1}{n}\bigg)
    \end{aligned} $$
 
-Writing a Ruby programme to find the closest integer, we get 115.
+Writing a Ruby program to find the closest integer, we get 115.

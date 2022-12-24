@@ -4,11 +4,11 @@
 > unsorted array $A$ consisting for $n$ elements.
 >
 > Consider the following randomized strategy: pick a random index $i$ into $A$.
-> If $A[i] = x$, then we terminate; otherwise, we continue the search by
-> picking a new random index into $A$. We continue picking random indices into
-> $A$ until we find an index $j$ such that $A[j] = x$ or until we have checked
-> every element of $A$. Note that we pick from the whole set of indices each
-> time, so that we may examine a given element more than once.
+> If $A[i] = x$, then terminate; otherwise, continue the search by picking a new
+> random index into $A$. Continue picking random indices into $A$ until you find
+> an index $j$ such that $A[j] = x$ or until every element of $A$ has been
+> checked. This strategy may examine a given element more than once, because it
+> picks from the whole set of indices each time.
 >
 > 1. Write pseudocode for a procedure `RANDOM-SEARCH` to implement the strategy
 >    above. Be sure that your algorithm terminates when all indices into $A$
@@ -104,7 +104,8 @@ Both the worst-case and average case is $n$.
 
 ### SCRAMBLE-SEARCH matches
 
-It's the same as `DETERMINISTIC-SEARCH`, only we replace "average-case" with "expected".
+It's the same as `DETERMINISTIC-SEARCH`, only we replace "average-case" with
+"expected".
 
 ### Best algorithm
 

@@ -1,13 +1,12 @@
-> Suppose that instead of swapping element $A[i]$ with a random element from
-> the subarray $A[i \ldots n]$, we swapped it with a random element from
-> anywhere in the array:
+> Consider the `PERMUTE-WITH-ALL` procedure on the facing page, which instead of
+> swapping element $A[i]$ with a random element from the subarray $A[i:n]$,
+> swaps it with a random element from anywhere in the array. Does
+> `PERMUTE-WITH-ALL` produce a uniform random permutation? Why or why not?
 >
 >     PERMUTE-WITH-ALL(A)
 >     n = A.length
 >     for i = 1 to n
 >         swap A[i] with A[RANDOM(1,n)]
->
-> Does this code produce a uniform random permutation? Why or why not?
 
 It does not. Intuitivelly, this one can go in $n^n$ different ways while there
 are $n!$ combinations. Since $n!$ does not divide $n^n$, there is no way that
