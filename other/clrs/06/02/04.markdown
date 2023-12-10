@@ -1,5 +1,5 @@
-> What is the effect of calling `MAX-HEAPIFY(A, i)` for $i > A.heap-size / 2$?
+> What is the effect of calling `MAX-HEAPIFY(A, i)` when the element $A[i]$ is
+> larger than its children?
 
-No effect. In that case, it is a leaf. Both `LEFT` and `RIGHT` return values
-that fail the comparison with the heap size and `i` is stored in `largest`.
-Afterwards the procedure just returns
+No effect. The comparisons are carried out, $A[i]$ is found to be largest and
+the procedure just returns.

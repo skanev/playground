@@ -1,19 +1,19 @@
 ## Analysis of d-ary heaps
 
 > A **d-ary heap** is like a binary heap, but (with one possible exception)
-> non-leaf nodes have $d$ children instead of 2 children.
+> non-leaf nodes have $d$ children instead of 2 children. In all parts of this
+> problem, assume the time to maintain the mapping between objects and heap
+> elements is $\O(1)$ per operation.
 >
-> 1. How would you represent a $d$-ary heap in an array?
-> 2. What is the height of a $d$-ary heap of $n$ elements in terms of $n$ and
->    $d$?
+> 1. Describe how to represent a $d$-ary heap in an array.
+> 2. Using $\Theta$-notation, express the height of a $d$-ary heap of $n$
+>    elements in terms of $n$ and $d$.
 > 3. Give an efficient implementation of `EXTRACT-MAX` in a $d$-ary max-heap.
 >    Analyze its running time in terms of $d$ and $n$.
-> 4. Give an efficient implementation of `INSERT` in $d$-ary max-heap. Analyze
+> 4. Give an efficient implementation of `INCREASE-KEY` in a $d$-ary max heap.
+>    Analyze its running time in terms of $d$ and $n$.
+> 5. Give an efficient implementation of `INSERT` in $d$-ary max-heap. Analyze
 >    its running time in terms of $d$ and $n$.
-> 5. Give an efficient implementation of `INCREASE-KEY(A, i, k)`, which flags
->    an error if $k < A[i]$, but otherwise sets $A[i] = k$ and then updates the
->    $d$-ary max-heap structure appropriately. Analyze its running time in
->    terms of $d$ and $n$.
 
 ### Representation
 

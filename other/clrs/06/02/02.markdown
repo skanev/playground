@@ -1,20 +1,13 @@
-> Starting with the procedure `MAX-HEAPIFY`, write pseudocode for the procedure
-> `MIN-HEAPIFY(A, i)`, which performs the corresponding manipulation on a
-> min-heap. How does the running time of `MIN-HEAPIFY` compare to that of
-> `MAX-HEAPIFY`?
+> Show that each child of the root of an $n$-node heap is the root of a
+> subtree containing at most $2n/3$ nodes. What is the smallest constant
+> $\alpha$ such that each subtree has at most $\alpha n$ nodes? How does that
+> affect the recurrence (6.1) and its solution?
 
-    MIN-HEAPIFY(A, i)
-      l = LEFT(i)
-      r = RIGHT(i)
-      if l ≤ A.heap-size and A[l] < A[i]
-          smallest = l
-      else
-          smallest = i
-      if r ≤ A.heap-size and A[r] < A[i]
-          smallest = r
-      if smallest ≠ i
-          exchange A[i] with A[smallest]
-          MIN-HEAPIFY(A, smallest)
+The heap is organized in a way such that every level apart from the last one is
+full. The worst case scenario is when the bottom row is half full, that is, the
+left child of the root has an extra full level.
 
-The running time is the same. Actually, the algorithm is the same with the
-exceptions of two comparisons and some names.
+This way, if the height of the heap is $h$, then the left child will have
+$2^{h-1} = 2 \cdot 2^{h-2}$ nodes, while the right will have $2^{h-2}$ nodes.
+That is, the left child will have twice as many nodes as the right one, or at
+most $2/3$ of all ($2n/3 - 1$ because of the root, to be exact).

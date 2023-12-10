@@ -1,22 +1,7 @@
-> Show that there are at most $\lceil n/2^{h+1} \rceil$ nodes of height $h$ in
-> any $n$-element heap.
+> Why do we want the loop index $i$ in line 2 of `BUILD-MAX-HEAP` to decrease
+> from $\lfloor n / 2 \rfloor$ to $1$ rather than increase from $1$ to $\lfloor
+> n / 2 \rfloor$?
 
-First, let's observe that the number of leaves in a heap is $\lceil n/2 \rceil$
-(exercise 6.1-7). Let's prove it by induction on $h$.
-
-**Base**: $h = 0$. The number of leaves is $\lceil n/2 \rceil = \lceil n/2^{0+1} \rceil$.
-
-**Step**: Let's assume it holds for nodes of height $h-1$. Let's take a tree
-and remove all it's leaves. We get a new tree with $n - \lceil n/2 \rceil =
-\lfloor n/2 \rfloor$ elements. Note that the nodes with height $h$ in the old
-tree have height $h-1$ in the new one.
-
-We will calculate the number of such nodes in the new tree.  By the inductive
-assumption we have that $T$, the number of nodes with height $h-1$ in the new
-tree, is:
-
-$$ T = \bigg\lceil \lfloor n/2 \rfloor / 2^{h-1+1} \bigg\rceil
-     < \bigg\lceil (n/2)/2^h \bigg\rceil
-     = \bigg\lceil \frac{n}{2^{h+1}} \bigg\rceil $$
-
-As mentioned, this is also the number of nodes with height $h$ in the old tree.
+Otherwise we won't be allowed to call `MAX-HEAPIFY`, since it will fail the
+condition of having the subtrees be max-heaps. That is, if we start with $1$,
+there is no guarantee that $A[2]$ and $A[3]$ are roots of max-heaps.

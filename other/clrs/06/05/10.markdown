@@ -1,0 +1,17 @@
+> The operation `MAX-HEAP-DELETE(A,x)` deletes the object `x` from max-heap `A`.
+> Give an implementation of `MAX-HEAP-DELETE` for an $n$-element max-heap that
+> runs in $\O(\lg n)$ time plus the overhead of mapping priority queue objects
+> to array indices.
+
+This is the pseudocode is as follows:
+
+    MAX-HEAP-DELETE(A, x):
+      MAX-HEAP-INCREASE-KEY(A, x, ∞)
+      MAX-HEAP-EXTRACT-MAX(A)
+
+This is slightly tricky, as ultimately we have to move the last item of the
+heap, but we don't quite know where to put it. A simple way to accomplish it
+would be:
+
+1. Increase the key of the element to be deleted to move it to the root.
+2. Extract the max, which is now the element we want to remove.

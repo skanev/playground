@@ -1,13 +1,14 @@
 ## Building a heap using insertion
 
-> We can build a heap by repeatedly calling `MAX-HEAP-INSERT` to insert the
-> elements into the heap. Consider the following variation of the
-> `BUILD-MAX-HEAP` procedure.
+> One way to build a heap is by repeatedly calling `MAX-HEAP-INSERT` to insert
+> the elements into the heap. Consider the procedure `BUILD-MAX-HEAP` on the
+> facing page. It assumes that the object being inserted are just the heap
+> elements.
 >
->     BUILD-MAX-HEAP'(A)
+>     BUILD-MAX-HEAP'(A, n)
 >       A.heap-size = 1
->       for i = 2 to A.length
->           MAX-HEAP-INSERT(A, A[i])
+>       for i = 2 to n
+>           MAX-HEAP-INSERT(A, A[i], n)
 >
 > 1. Do the procedures `BUILD-MAX-HEAP` and `BUILD-MAX-HEAP'` always create the
 >    same heap when run on the same input array? Prove that they do, or provide

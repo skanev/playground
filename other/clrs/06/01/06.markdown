@@ -1,5 +1,5 @@
-> Is the array with values $\langle 23, 17, 14, 6, 13, 10, 1, 5, 7, 12 \rangle$
-> a max-heap?
+> Is an array that is in sorted order a min-heap?
 
-No. The property is violated by the next-to-last leaf (illustrated below in
-red).
+Yes. For any index $i$, both `LEFT(i)` and `RIGHT(i)` are larger and thus the
+elements indexed by them are greater or equal to $A[i]$ (because the array is
+sorted).

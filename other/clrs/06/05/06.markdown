@@ -1,5 +1,6 @@
-> Each exchange operation on line 5 of `HEAP-INCREASE-KEY` typically requires
-> three assignments. Show how to use the idea of the inner loop of
-> `INSERTION-SORT` to reduce the three assignments down to just one assignment.
+> Professor Uriah suggests replacing the **while** loop of lines 5-7 in
+> `MAX-HEAP-INCREASE-KEY` by a call to `MAX-HEAPIFY`. Explain the flaw in the
+> professor's idea.
 
-Here we really need the set to $- \infty$.
+It works in the other direction. `MAX-HEAPIFY` will try to "push the key down",
+but it actually needs to go up.

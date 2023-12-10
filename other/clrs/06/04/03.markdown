@@ -1,5 +1,6 @@
 > What is the running time of `HEAPSORT` on an array $A$ of length $n$ that is
-> already sorted in increasing order? What about decreasing order?
+> already sorted in increasing order? How about if the array is already sorted
+> in decreasing order?
 
 Both of them are $\Theta(n\lg{n})$.
 

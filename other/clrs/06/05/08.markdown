@@ -1,15 +1,6 @@
-> The operation `HEAP-DELETE(A,i)` deletes the item in node $i$ from heap $A$.
-> Give an implementation of `HEAP-DELETE` that runs in $\O(\lg{n})$ time for an
-> $n$-element max-heap.
+> Each exchange operation on line 6 of `HEAP-INCREASE-KEY` typically requires
+> three assignments, not counting the updating of the mapping from objects to
+> array indices. Show how to use the idea of the inner loop of `INSERTION-SORT`
+> to reduce the three assignments down to just one assignment.
 
-This is the pseudocode is as follows:
-
-    HEAP-DELETE(A, i):
-      A[i] = A[A.heap-size]
-      A.heap-size -= 1
-      MAX-HEAPIFY(A, i)
-
-We just move the last element of the heap to the deleated position and then
-call `MAX-HEAPIFY` on it. This works, because the element is already smaller
-than its parent (because it was already under it on the heap), but might be
-larger than its children. `MAX-HEAPIFY` restored the heap property.
+Here we really need the set to $- \infty$.

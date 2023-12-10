@@ -15,10 +15,8 @@
 >    Young tableau that runs in $\O(m + n)$ time. Your algorithm should use a
 >    recursive subroutine that solves an $m \times n$ problem by recursively
 >    solving either an $(m - 1) \times n$ or an $m \times (n - 1)$ subproblem.
->    (Hint: Think about `MAX-HEAPIFY`.) Define $T(p)$ where $p = m + n$, to be
->    the maximum running time of `EXTRACT-MIN` on any $m \times n$ Young
->    tableau. Give and solve a recurrence relation for $T(p)$ that yields the
->    $\O(m + n)$ time bound.
+>    (Hint: Think about `MAX-HEAPIFY`.) Explain why your implementation of
+>    `EXTRACT-MIN` runs in $\O(m + n)$ time.
 > 4. Show how to insert a new element into a nonfull $m \times n$ Young tableau
 >    in $\O(m + n)$ time
 > 5. Using no other sorting method as a subroutine, show how to use an $n

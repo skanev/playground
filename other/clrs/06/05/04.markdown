@@ -1,6 +1,15 @@
-> Why do we bother setting the key of the inserted node to $-\infty$ in line 2
-> of `MAX-HEAP-INSERT` when the next thing we do is increase its key to the
-> desired value?
+> Write pseudocode for the procedure `MAX-HEAP-DECREASE-KEY(A, x, k)` in a
+> max-heap. What is the running time of your procedure?
 
-In order to pass the guard clause. Otherwise we have to drop the check if $key
-< A[i]$.
+This should be simple:
+
+    MAX-HEAP-DECREASE-KEY(A, x, k):
+      if x.key < k
+        error "new key is larger than current key"
+      x.key = k
+      MAX-HEAPIFY(A, x)
+
+Basically, we just decrease the key, which could now violate the max-heap
+property, so we need to call `MAX-HEAPIFY`. Of course, we have to make sure
+we're actually decreasing the key, otherwise we can violate the property for the
+parent.

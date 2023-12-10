@@ -1,2 +1,3 @@
-> Illustrate the operation `HEAP-EXTRACT-MAX` on the heap $A =
-> \langle 15, 13, 9, 5, 12, 8, 7, 4, 0, 6, 2, 1 \rangle$.
+> Suppose that the objects in a max-priority queue are just keys. Illustrate the
+> operation `MAX-HEAP-EXTRACT-MAX` on the heap $A = \langle 15, 13, 9, 5, 12, 8,
+> 7, 4, 0, 6, 2, 1 \rangle$.

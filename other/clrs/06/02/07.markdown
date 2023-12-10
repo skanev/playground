@@ -1,0 +1,13 @@
+> Show that the worst-case running time of `MAX-HEAPIFY` on a heap of size $n$
+> is $\Omega(\lg{n})$. (Hint: For a heap with $n$ nodes, give node values that
+> cause `MAX-HEAPIFY` to be called recursively at every node on a simple path
+> from the root down to a leaf.)
+
+This is another obvious one.
+
+Let's take the leftmost path in the given heap. If we put the largest elements
+in the heap on that path and the smallest one at the root, `MAX-HEAPIFY` will
+need to be invoked once for each level in the heap in order to push the minimum
+element to the leftmost leaf. Since the heap height (and thus the leftmost
+path's length) is $\lfloor \lg{n} \rfloor$ (exercise 6.1-2), the worst-case
+running time of the procedure is $\Omega(\lg{n})$.

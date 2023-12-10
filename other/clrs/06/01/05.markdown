@@ -1,5 +1,8 @@
-> Is an array that is in sorted order a min-heap?
+> At which levels in a max-heap might the $k$th largest element reside, for $ 2
+> \le k \le \lfloor n / 2 \rfloor $, assuming that all elements are distinct?
 
-Yes. For any index $i$, both `LEFT(i)` and `RIGHT(i)` are larger and thus the
-elements indexed by them are greater or equal to $A[i]$ (because the array is
-sorted).
+At the $k$th level in the worst case.
+
+The only guarantee we have is that the parent is greater than the child, but the
+first $k$ elements could be arranged in the leftmost nodes without violating the
+heap property.
