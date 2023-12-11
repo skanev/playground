@@ -1,45 +1,74 @@
-## Fuzzy sorting of intervals
+## Median-of-3 partition
 
-> Consider the problem in which we do not know the numbers exactly. Instead,
-> for each number, we know an interval on the real line to which it belongs.
-> That is, we are given $n$ closed intervals of the form $[a_i, b_i]$, where
-> $a_i \le b_i$. We wish to **fuzzy-sort** these intervals, i.e., to produce a
-> permutation $\langle i_1, i_2, \ldots, i_n \rangle$ of the intervals such
-> that for $j = 1, 2, \ldots, n$, there exists $c_j \in [a_{i_j}, b_{i_j}]$
-> satisfying $c_1 \le c_2 \le \cdots \le c_n$.
+> One way to improve the `RANDOMIZED-QUICKSORT` procedure is to partition
+> around a pivot that is chosen more carefully than by picking a random element
+> from the subarray. A common approach is the **median-of-3** method: choose the
+> pivot as the median (middle element) of a set of 3 elements randomly selected
+> from the subarray. (See exercise 7.4-6.) For this problem, assume that the $n$
+> elements of the input array $A[p:r]$ are distinct and that $n \ge 3$.
+> Denote the sorted version of $A[p:r]$ by $z_1, z_2, \ldots, z_n$. Using the
+> median-of-3 method to choose the pivot element $x$, define $p_i = \Pr\\{x =
+> z_i\\}$.
 >
-> 1. Design a randomized algorithm for fuzzy-sorting $n$ intervals. Your
->    algorithm should have the general structure of an algorithm that
->    quicksorts the left endpoints (the $a_i$ values), but it should take
->    advantage of overlapping intervals to improve the running time. (As the
->    intervals overlap more and more, the problem of fuzzy-sorting the
->    intervals becoes progressively easier. Your algorithm should take
->    advantage of such overlapping, to the extend that it exists).
-> 2. Argue that your algorithm runs in expected time $\Theta(n\lg{n})$ in
->    general, but runs in expected time $\Theta(n)$ when all of the intervals
->    overlap (i.e., when there exists a value $x$ such that $x \in [a_i, b_i]$
->    for all $i$). Your algorithm should not be checking for this case
->    explicitly; rather, its performance should naturally improve as the amount
->    of overlap increases.
+> 1. Give an exact formula for $p_i$ as a function of $n$ and $i$ for $i = 2,
+>    3, \ldots, n - 1$. (Observe that $p_1 = p_n = 0$.)
+> 2. By what amount does the median-of-3 method increase the likelyhood of
+>    choosing the pivot to be $x = z_{\lfloor (n+1) / 2 \rfloor}$, the median of
+>    $A[P:r]$, compared with the ordinary implementation? Assume that $n \to
+>    \infty$, and give the limiting ratio of these probabilities.
+> 3. Suppose that we define a "good" split to mean choosing the pivot as $x =
+>    z_i$, where $n/3 \le i \le 2n/3$. By what amount does the median-of-3
+>    method increase the likelihood of getting a good split compared with the
+>    ordinary implementation? (<i>Hint</i>: Approximate the sum by an integral.)
+> 4. Argue that in the $\Omega(n\lg{n})$ running time of quicksort, the
+>    median-of-3 method affects only the constant factor.
 
-### The algorithm
+### Probability
 
-The approach is very similar to problem 7.2. After we (randomly) choose a pivot
-interval, we check if it intersects with the other intervals. More precisely,
-we accumulate an intersection of the pivot and the other intervals. Afterwards
-we use this interval for comparison instead of the pivot.
+There are $n!/(n-3)!$ 3-permutations of all possible picks. In order to have
+the $i$th element, we need to pick one smaller, the $i$th element and one
+larger. There are $i - 1$ ways to pick a smaller one and $n-i$ ways to pick the
+larger. There are $3! ways to arrange how the three elements are picked. Thus:
 
-When comparing, we can treat intervals containing the intersection as equal to
-each other. Thus after we have arranged all the smaller intervals on the left
-of the pivot, we can put all the equal ones immediatelly to the right of the
-pivot. Like in problem 7.2, we return two points (an interval) to use as a for
-recursive calls.
+$$ p_i = \frac{6(i-1)(n-i)}{n(n-1)(n-2)} $$
 
-Even if partition does (worst-case) three passes over the array, it is still
-linear.
+### Improvement
 
-### Expected time
+$$ \lim_{n \to \infty}\frac{6(i-1)(n-i)}{n(n-1)(n-2)}/\frac{1}{n}
+ = \lim_{n \to \infty}\frac{6n(n/2 - 1)(n/2)}{(n-1)(n-2)}
+ = \lim_{n \to \infty}\frac{6(n^2 - 2n)}{4(n^2 - 3n + 2)}
+ = \frac{6}{4} $$
 
-If we assume that no two intervals have intersections, the analysis is
-identical to quicksort. If, however, all the intervals share a common point,
-the partitioning function would solve it in one go.
+We get a $1.5$ improvement, which does not seem that much.
+
+### Improvement
+
+From exercise 7.2-6 we know that we get a "good" split with probability $1 -
+2(1/3) = 1/3$. As for the probability of getting a good split with median-of-3:
+
+$$ \begin{aligned}
+   \lim_{n \to \infty}\sum_{i=n/3}^{2n/3}\frac{6(i-1)(n-i)}{n(n-1)(n-2)} &=
+     \lim_{n \to \infty}\frac{6}{n(n-1)(n-2)}\sum_{i=n/3}^{2n/3}(i-1)(n-i) \\\\
+     &= \lim_{n \to \infty}\binom{n}{3}\int_{n/3}^{2n/3}(i-1)(n-1)\mathrm{d}i \\\\
+        & \quad \Bigg( \int(i-1)(n-1)\mathrm{d}i = \frac{1}{6}(3ni^2 - 6ni - 2i^3 + 3i^2) \Bigg) \\\\
+     &= \lim_{n \to \infty}\binom{n}{3}\frac{1}{6}\bigg[
+          \frac{36}{27}n^3 - \frac{16}{27}n^3 + o(n^3) -
+          \frac{9}{27}n^3 + \frac{2}{27}n^3 + o(n^3)
+        \bigg] \\\\
+    &= \lim_{n \to \infty}\frac{1}{n(n-1)(n-2)} \frac{13}{27}(n^3 + o(n^3)) \\\\
+    &= \lim_{n \to \infty}\frac{13}{27}\frac{n^3 + o(n^3)}{n^3 + o(n^3)} \\\\
+    &= \frac{13}{27}
+   \end{aligned} $$
+
+Thus, as $n$ grows, the chance of getting a "good" split converges to $13/27$. The improvement is:
+
+$$ \frac{13}{27} \div \frac{1}{3} = \frac{39}{27} \approx 1.444(4) $$
+
+### Improvement
+
+The running time would improve if the new approach can always pick a good
+split. Unfortunatelly, it can't. It makes it impossible for one of the splits
+to be empty, but it can still pick a $1$-to-$n-2$ split. It improves the
+probability of a good split and adds some overhead to picking the pivot, but it
+makes no hard guarantees on the quality of the split. Thus, the algorithm
+remains $\Omega(n\lg{n})$ and $\O(n^2)$.

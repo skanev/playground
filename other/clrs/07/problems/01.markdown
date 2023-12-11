@@ -19,29 +19,40 @@
 >               exchange A[i] with A[j]
 >           else return j
 >
-> 1. Demonstrate the operation of `HOARE-PARTITION` on the array $A = \langle
->    13, 19, 9, 5, 12, 8, 7, 4, 11, 2, 6, 21 \rangle$, showing the values of
->    the array and auxiliary values after each iteration of the **while** loop
->    in lines 4-13.
+> <ol type="a">
+>   <li>Demonstrate the operation of <code>HOARE-PARTITION</code> on the array
+>       $A = \langle 13, 19, 9, 5, 12, 8, 7, 4, 11, 2, 6, 21 \rangle$, showing
+>       the values of the array and auxiliary values after each iteration of the
+>       <strong>while</strong> loop in lines 4-13.
+>   <li>Describe how the <code>PARTITION</code> procedure in Section 7.1 differs
+>       from <code>HOARE-PARTITION</code> when all elements in $A[p:r]$ are
+>       equal. Describe a practical advantage of <code>HOARE-PARTITION</code>
+>       over <code>PARTITION</code> for use in quicksort.
+> </ol>
 >
 > The next three questions ask you to give a careful argument that the
-> procedure `HOARE-PARTITION` is correct. Assuming that the subarray $A[p..r]$
+> procedure `HOARE-PARTITION` is correct. Assuming that the subarray $A[p:r]$
 > contains at least two elements, prove the following:
 >
-> 2. The indices $i$ and $j$ are such that we never access an element of $A$
->    outside the subarray $A[p..r]$.
-> 3. When `HOARE-PARTITION` terminates, it returns a value $j$ such that $p \le
->    j < r$.
-> 4. Every element of $A[p..j]$ is less than or equal to every element of
->    $A[j + 1..r]$ when `HOARE-PARTITION` terminates.
+> <ol type="a" start="3">
+>   <li>The indices $i$ and $j$ are such that we never access an element of $A$
+>       outside the subarray $A[p:r]$.
+>   <li>When <code>HOARE-PARTITION</code> terminates, it returns a value $j$
+>       such that $p \le j < r$.
+>   <li>Every element of $A[p:j]$ is less than or equal to every element of
+>       $A[j + 1 : r]$ when <code>HOARE-PARTITION</code> terminates.
+> </ol>
 >
 > The `PARTITION` procedure in section 7.1 separates the pivot value
 > (originally in $A[r]$) from the two partitions it forms. The
 > `HOARE-PARTITION` procedure, on the other hand, always places the pivot value
-> (originally in $A[p]$) into one of the two parititions $A[p..j]$ and
-> $A[j + 1..r]$. Since $p \le j < r$, this split is always nontrivial.
+> (originally in $A[p]$) into one of the two parititions $A[p:j]$ and
+> $A[j + 1:r]$. Since $p \le j < r$, this split is always nontrivial.
 >
-> 5. Rewrite the `QUICKSORT` procedure to use `HOARE-PARTITION`.
+> <ol type="a" start="6">
+>   <li>Rewrite the <code>QUICKSORT</code> procedure to use
+>       <code>HOARE-PARTITION</code>.
+> </ol>
 
 ### Demonstration
 
@@ -50,6 +61,16 @@ At the end of the loop, the variables have the following values:
     x = 13
     j = 9
     i = 10
+
+### Advantage and equal elements
+
+The advantage is that it only moves a each element once, which means it will do
+at most $(r - p + 1)/2$ exchanges. The partition in the text could end up moving a
+single element to the end making an exchange at each step, thus ending up with
+$(r - p + 1)$ exchanges.
+
+When it has equal elements, it will end up making pointless exchanges until $i$
+and $j$ meet.
 
 ### Correctness
 

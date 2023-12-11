@@ -1,11 +1,11 @@
 > $\star$ Consider modifying the `PARTITION` procedure by randomly picking
-> three elements from array $A$ and partitioning about their median (the middle
-> value of the three elements). Approximate the probability of getting at worst
-> an $\alpha$-to-$(1-\alpha)$ split, as a function of $\alpha$ in the range
-> $0 < \alpha < 1$.
+> three elements from array $A[p:r]$ and partitioning about their median (the
+> middle value of the three elements). Approximate the probability of getting
+> worse than an $\alpha$-to-$(1-\alpha)$ split, as a function of $\alpha$ in the
+> range $0 < \alpha < 1/2$.
 
 First, for simplicity's sake, let's assume that we can pick the same element
-twice. Let's also assume that $0 < \alpha \le 1/2$.
+twice.
 
 In order to get such a split, two out of three elements need need to be in the
 smallest $\alpha n$ elements. The probability of having one is $\alpha n / n =

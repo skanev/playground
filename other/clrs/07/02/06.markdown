@@ -1,6 +1,7 @@
-> $\star$ Argue that for any constant $0 < \alpha \le 1/2$, the probability is
-> approximately $1 - 2\alpha$ that on a random input array, `PARTITION`
-> produces a split more balanced than $1 - \alpha$ to $\alpha$.
+> Consider an array with distinct elements and for which all permutations of the
+> elements are equally likely. Argue that for any constant $0 < \alpha \le 1/2$,
+> the probability is approximately $1 - 2 \alpha$ that `PARTITION` produces a
+> split at least as balanced as $1 - \alpha$ to $\alpha$.
 
 Oh, this is nice!
 

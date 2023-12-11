@@ -1,55 +1,64 @@
-## Stack depth for quicksort
+## Stooge sort
 
-> The `QUICKSORT` algorithm of Section 7.1 contains two recursive calls to
-> itself. After `QUICKSORT` calls `PARTITION`, it recursively sorts the left
-> subarray and then it recursively sorts the right subarray. The second
-> recursive call in `QUICKSORT` is not really necessary; we can avoid it by
-> using an iterative control structure. This technique, called **tail
-> recursion**, is provided automatically by good compilers. Consider the
-> following version of quicksort, which simulates tail recursion:
+> Professors Howard, Find and Howard have proposed a deceptively simple sorting
+> algorithm, named stooge sort in their honor, appearing on the following page.
 >
->     TAIL-RECURSIVE-QUICKSORT(A, p, r)
->       while p < r
->           // Partition and sort left subarray
->           q = PARTITION(A, p, r)
->           TAIL-RECURSIVE-QUICKSORT(A, p, q - 1)
->           p = q + 1
+> 1. Argue that the call `STOOGE-SORT(A, 1, n)` correctly sorts the array
+>    $A[1:n]$.
+> 2. Give a recurrence for the worst-case running time of `STOOGE-SORT` and a
+>    tight asymptotic ($\Theta$-notation) bound on the worst-case running time.
+> 3. Compare the worst-case running time of `STOOGE-SORT` with that of insertion
+>    sort, merge sort, heapsort and quicksort. Do the professors deserve tenure?
 >
-> 1. Argue that `TAIL-RECURSIVE-QUICKSORT(A, 1, A.length)` correctly sorts the
->    array $A$.
+> <span></span>
 >
-> Compilers usually execute recursive procedures by using a **stack** that
-> contains pertinent information, including the parameter values, for each
-> recursive call. The information for the most recent call is at the top of the
-> stack, and the information for the initial call is at the bottom. Upon
-> calling a procedure, its information is **pushed** onto the stack; when it
-> terminates, its information is **popped**. Since we assume that array
-> parameters are represented by pointers, the information for each procedure
-> call on the stack requires $\O(1)$ stack space. The **stack depth** is the
-> maximum amount of stack space used at any time during a computation.
->
-> 2. Describe a scenario in which `TAIL-RECURSIVE-QUICKSORT`'s stack depth is
->    $\Theta(n)$ on an $n$-element input array.
-> 3. Modify the code for `TAIL-RECURSIVE-QUICKSORT` so that the worst-case
->    stack depth is $\Theta(\lg{n})$. Maintain the $\O(n\lg{n})$ expected
->    running time of the algorithm.
+>     STOOGE-SORT(A, p, r):
+>       if A[p] > A[r]
+>         exchange A[p] with A[r]
+>       if p + 1 < r
+>         k = ⌊(r - p + 1) / 3⌋     // round down
+>         STOOGE-SORT(A, p, r - k)  // first two-thirds
+>         STOOGE-SORT(A, p + k, r)  // last two-thirds
+>         STOOGE-SORT(A, p, r - k)  // first two-thirds again
 
-### Argue correctness
+This is weird.
 
-The original version partitions the array and then calls `QUICKSORT` one on
-each side. This version does the same, although in a different fashion -
-instead of calling `TAIL-RECURSIVE-QUICKSORT`, it just changes `p` and restarts
-the loop. It amounts to the same.
+### Correctness
 
-This is a straightforward tail-call unrolling.
+Let's do this via informal induction.
 
-### Linear stack depth
+In the base case, we can see that it sorts trivially for 0-, 1- and 2-element
+arrays. Just for the kicks, with a three element array `[a, b, c]`, it will
+first sort `[a, b]` by moving the largest element to the end, then sort `[x, c]`
+by moving it again, and finally, properly arrange the first two.
 
-This will happen whenever partition returns $r$. That is, whenever the array is
-sorted.
+For the inductive step, let's simplify by assuming the number of elements is
+evenly divisible by 3, and let's call the thirds `[A, B, C]`. After the first
+step we get:
 
-### Modified algorithm
+    [A1, B1, C]
 
-We are always doing a tail-recursive call on the second partition. We can
-modify the algorithm to do the tail recursion on the larger partition. That
-way, we'll consume less stack.
+We now know that the k biggest elements from `A` and `B` are in `B1`. On the
+second step we get:
+
+    [A1, B2, C1]
+
+Now we know that `C1` contains the k biggest elements. We also know they are
+sorted. This means that all that is left to get a sorted array is to sort `[A1,
+B2]`, which is what the last step does.
+
+### Recurrence
+
+The recurrence here is:
+
+$$ T(n) = 3T(2n/3) + \O(1) $$
+
+I'm not sure if the master theorem applies here, but if it did, with $a = 3$ and
+$b = 3/2$, we get about $\Theta(n^{\approx 2.7095})$. More specifically, the
+power is $\lg{3}/(\lg{3}-1)$.
+
+
+### Comparison
+
+(Assuming the previous is correct), this algorithm is worse than all the other
+algorithms by far.

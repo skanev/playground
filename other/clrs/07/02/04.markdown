@@ -3,9 +3,9 @@
 > checks listed in order by check numbers. People usually write checks in order
 > by check number, and merchants usually cash them with reasonable dispatch. The
 > problem of converting time-of-transaction ordering to check-number ordering
-> is therefore the problem of sorting almost-sorted input. Argue that the
-> procedure `INSERTION-SORT` would tend to beat the procedure `QUICKSORT` on
-> this problem.
+> is therefore the problem of sorting almost-sorted input. Explain persuasively
+> why the procedure `INSERTION-SORT` might tend to beat the procedure
+> `QUICKSORT` on this problem.
 
 A simple intuitive argument will suffice here.
 

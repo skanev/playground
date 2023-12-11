@@ -1,26 +1,26 @@
 ## Quicksort with equal element values
 
 > The analysis of the expected running time of randomized quicksort in section
-> 7.4.2 assumes that all element values are distinct. In this problem. we
-> examine what happens when they are not.
+> 7.4.2 assumes that all element values are distinct. This problem examines what
+> happens when they are not.
 >
 > 1. Suppose that all element values are equal. What would be randomized
 >    quick-sort's running time in this case?
 > 2. The `PARTITION` procedure returns an index $q$ such that each element of
->    $A[p \ldots q - 1]$ is less than or equal to $A[q]$ and each element of
->    $A[q + 1 \ldots r]$ is greater than $A[q]$. Modify the `PARTITION`
+>    $A[p : q - 1]$ is less than or equal to $A[q]$ and each element of
+>    $A[q + 1 : r]$ is greater than $A[q]$. Modify the `PARTITION`
 >    procedure to produce a procedure `PARTITION'(A, p, r)` which permutes the
->    elements of $A[p \ldots r]$ and returns two indices $q$ and $t$ where $p
+>    elements of $A[p : r]$ and returns two indices $q$ and $t$ where $p
 >    \le q \le t \le r$, such that:
 >    <ul>
->      <li>all elements of $A[q \ldots t]$ are equal,</li>
->      <li>each element of $A[p \ldots q - 1]$ is less than $A[q]$, and</li>
->      <li>each element of $A[t + 1 \ldots r]$ is greater than $A[q]$.</li>
+>      <li>all elements of $A[q : t]$ are equal,</li>
+>      <li>each element of $A[p : q - 1]$ is less than $A[q]$, and</li>
+>      <li>each element of $A[t + 1 : r]$ is greater than $A[q]$.</li>
 >    </ul>
 >    Like `PARTITION`, your `PARTITION'` procedure should take $\Theta(r - p)$
 >    time.
-> 3. Modify the `RANDOMIZED-QUICKSORT` procedure to call `PARTITION'`, and name
->    the new procedure `RANDOMIZED-QUICKSORT'`. Then modify the `QUICKSORT`
+> 3. Modify the `RANDOMIZED-PARTITION` procedure to call `PARTITION'`, and name
+>    the new procedure `RANDOMIZED-PARTITION'`. Then modify the `QUICKSORT`
 >    procedure to produce a procedure `QUICKSORT'(p, r)` that calls
 >    `RANDOMIZED-PARTITION'` and recurses only on partitions of elements not
 >    know to be equal to each other.

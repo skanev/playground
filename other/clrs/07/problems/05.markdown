@@ -1,74 +1,57 @@
-## Median-of-3 partition
+## Stack depth for quicksort
 
-> One way to improve the `RANDOMIZED-QUICKSORT` procedure is to partition
-> around a pivot that is chosen more carefully than by picking a random element
-> from the subarray. One common approach is the **median-of-3** method: choose
-> the pivot as the median (middle element) of a set of 3 elements randomly
-> selected from the subarray. (See exercise 7.4-6.) For this problem, let us
-> assume that the elements of the input array $A[1 \ldots n]$ are distinct and
-> that $n \ge 3$. We denote the sorted output array by $A'[1 \ldots n]$. Using
-> the median-of-3 method to choose the pivot element $x$, define $p_i = \Pr\\{x
-> = A'[i]\\}$.
+> The `QUICKSORT` algorithm of Section 7.1 contains two recursive calls to
+> itself. After `QUICKSORT` calls `PARTITION`, it recursively sorts the low
+> side of the partition and then it recursively sorts the right high side of the
+> partition. The second recursive call in `QUICKSORT` is not really necessary,
+> because the procedure can instead use an iterative control structure. This
+> transformation technique, called **tail-recursion elimination**, is provided
+> automatically by good compilers. Applying tail-recursion elimination
+> transforms `QUICKSORT` into `TRE-QUICKSORT`.
 >
-> 1. Give an exact formula for $p_i$ as a function of $n$ and $i$ for $i = 2,
->    3, \ldots, n - 1$. (Note that $p_1 = p_n = 0$.)
-> 2. By what amount have we increased the likelihood of choosing the pivot as
->    $x = A'[\lfloor(n+1)/2\rfloor]$, the median of $A[1 \ldots n]$, compared with
->    the ordinary implementation? Assume that $n \to \infty$, and give the
->    limiting ratio of these probabilities.
-> 3. If we define a "good" split to mean choosing the pivot as $x = A'[i]$,
->    where $n/3 \le i \le 2n/3$, by what amount have we increased the
->    likelihood of getting a good split compared with the ordinary
->    implementation? (<i>Hint</i>: Approximate the sum by an integral.)
-> 4. Argue that in the $\Omega(n\lg{n})$ running time of quicksort, the
->    median-of-3 method affects only the constant factor.
+>     TRE-QUICKSORT(A, p, r)
+>       while p < r
+>           // Partition and sort left subarray
+>           q = PARTITION(A, p, r)
+>           TRE-QUICKSORT(A, p, q - 1)
+>           p = q + 1
+>
+> 1. Argue that `TRE-QUICKSORT(A, 1, n)` correctly sorts the array $A[1:n]$.
+>
+> Compilers usually execute recursive procedures by using a **stack** that
+> contains pertinent information, including the parameter values, for each
+> recursive call. The information for the most recent call is at the top of the
+> stack, and the information for the initial call is at the bottom. When a
+> procedure is called, its information is **pushed** onto the stack, and when it
+> terminates, its information is **popped**. Since we assume that array
+> parameters are represented by pointers, the information for each procedure
+> call on the stack requires $\O(1)$ stack space. The **stack depth** is the
+> maximum amount of stack space used at any time during a computation.
+>
+> <ol start="2" type="a">
+>   <li>Describe a scenario in which <code>TRE-QUICKSORT</code>'s stack depth is
+>       $\Theta(n)$ on an $n$-element input array.
+>   <li>Modify the code for <code>TRE-QUICKSORT</code> so that the worst-case
+>        stack depth is $\Theta(\lg{n})$. Maintain the $\O(n\lg{n})$ expected
+>        running time of the algorithm.
+> </ol>
 
-### Probability
+### Argue correctness
 
-There are $n!/(n-3)!$ 3-permutations of all possible picks. In order to have
-the $i$th element, we need to pick one smaller, the $i$th element and one
-larger. There are $i - 1$ ways to pick a smaller one and $n-i$ ways to pick the
-larger. There are $3! ways to arrange how the three elements are picked. Thus:
+The original version partitions the array and then calls `QUICKSORT` one on
+each side. This version does the same, although in a different fashion -
+instead of calling `TAIL-RECURSIVE-QUICKSORT`, it just changes `p` and restarts
+the loop. It amounts to the same.
 
-$$ p_i = \frac{6(i-1)(n-i)}{n(n-1)(n-2)} $$
+This is a straightforward tail-call unrolling.
 
-### Improvement
+### Linear stack depth
 
-$$ \lim_{n \to \infty}\frac{6(i-1)(n-i)}{n(n-1)(n-2)}/\frac{1}{n}
- = \lim_{n \to \infty}\frac{6n(n/2 - 1)(n/2)}{(n-1)(n-2)}
- = \lim_{n \to \infty}\frac{6(n^2 - 2n)}{4(n^2 - 3n + 2)}
- = \frac{6}{4} $$
+This will happen whenever partition returns $r$. That is, whenever the array is
+sorted.
 
-We get a $1.5$ improvement, which does not seem that much.
+### Modified algorithm
 
-### Improvement
-
-From exercise 7.2-6 we know that we get a "good" split with probability $1 -
-2(1/3) = 1/3$. As for the probability of getting a good split with median-of-3:
-
-$$ \begin{aligned}
-   \lim_{n \to \infty}\sum_{i=n/3}^{2n/3}\frac{6(i-1)(n-i)}{n(n-1)(n-2)} &=
-     \lim_{n \to \infty}\frac{6}{n(n-1)(n-2)}\sum_{i=n/3}^{2n/3}(i-1)(n-i) \\\\
-     &= \lim_{n \to \infty}\binom{n}{3}\int_{n/3}^{2n/3}(i-1)(n-1)\mathrm{d}i \\\\
-        & \quad \Bigg( \int(i-1)(n-1)\mathrm{d}i = \frac{1}{6}(3ni^2 - 6ni - 2i^3 + 3i^2) \Bigg) \\\\
-     &= \lim_{n \to \infty}\binom{n}{3}\frac{1}{6}\bigg[
-          \frac{36}{27}n^3 - \frac{16}{27}n^3 + o(n^3) -
-          \frac{9}{27}n^3 + \frac{2}{27}n^3 + o(n^3)
-        \bigg] \\\\
-    &= \lim_{n \to \infty}\frac{1}{n(n-1)(n-2)} \frac{13}{27}(n^3 + o(n^3)) \\\\
-    &= \lim_{n \to \infty}\frac{13}{27}\frac{n^3 + o(n^3)}{n^3 + o(n^3)} \\\\
-    &= \frac{13}{27}
-   \end{aligned} $$
-
-Thus, as $n$ grows, the chance of getting a "good" split converges to $13/27$. The improvement is:
-
-$$ \frac{13}{27} \div \frac{1}{3} = \frac{39}{27} \approx 1.444(4) $$
-
-### Improvement
-
-The running time would improve if the new approach can always pick a good
-split. Unfortunatelly, it can't. It makes it impossible for one of the splits
-to be empty, but it can still pick a $1$-to-$n-2$ split. It improves the
-probability of a good split and adds some overhead to picking the pivot, but it
-makes no hard guarantees on the quality of the split. Thus, the algorithm
-remains $\Omega(n\lg{n})$ and $\O(n^2)$.
+We are always doing a tail-recursive call on the second partition. We can
+modify the algorithm to do the tail recursion on the larger partition. That
+way, we'll consume less stack.

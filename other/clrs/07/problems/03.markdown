@@ -2,7 +2,9 @@
 
 > An alternative analysis of the running time of randomized quicksort focuses
 > on the expected running time of each individual recursive call to
-> `RANDOMIZED-QUICKSORT`, rather than on the number of comparisons performed.
+> `RANDOMIZED-QUICKSORT`, rather than on the number of comparisons performed. As
+> in the analysis of Section 7.4.2, assume that the values of the elements are
+> distinct.
 >
 > 1. Argue that, given an array of size $n$, the probability that any
 >    particular element is chosen as the pivot is $1/n$. Use this to define
@@ -10,16 +12,16 @@
 >    as the pivot}\\}$. What is $\E[X_i]$?
 > 2. Let $T(n)$ be a random variable denoting the running time of quicksort on
 >    an array of size $n$. Argue that
->    $$ \E[T(n)] = \E\bigg[\sum_{q=1}^nX_q(T(q-1) + T(n-q) + \Theta(n))\bigg] \tag{7.5} $$
-> 3. Show that we can rewrite equation (7.5) as
->    $$ \E[T(n)] = \frac{2}{n}\sum_{q=2}^{n-1}\E[T(q)] + \Theta(n) \tag{7.6} $$
+>    $$ \E[T(n)] = \E\bigg[\sum_{q=1}^nX_q(T(q-1) + T(n-q) + \Theta(n))\bigg] \tag{7.2} $$
+> 3. Show that we can rewrite equation (7.2) as
+>    $$ \E[T(n)] = \frac{2}{n}\sum_{q=2}^{n-1}\E[T(q)] + \Theta(n) \tag{7.3} $$
 > 4. Show that
->    $$ \sum_{k=2}^{n-1}k\lg{k} \le \frac{1}{2}n^2\lg{n} - \frac{1}{8}n^2 \tag{7.7} $$
->    (<i>Hint</i>: Split the summation into two parts, one for $k = 2, 3,
->    \ldots, \lceil n/2 \rceil - 1$ and one for $k = \lceil n/2 \rceil, \ldots,
->    n - 1$.
-> 5. Using the bound from equation (7.7), show that the recurrence in equation
->    (7.6) has the solution $\E[T(n)] = \Theta(n\lg{n})$. (<i>Hint</i>: Show,
+>    $$ \sum_{q=1}^{n-1}q\lg{q} \le \frac{n^2}{2}\lg{n} - \frac{n^2}{8} \tag{7.4} $$
+>    for $n \ge 2$. (<i>Hint</i>: Split the summation into two parts, one for $q
+>    = 1, 2, 3, \ldots, \lceil n/2 \rceil - 1$ and one for $q = \lceil n/2 \rceil,
+>    \ldots, n - 1$.
+> 5. Using the bound from equation (7.4), show that the recurrence in equation
+>    (7.3) has the solution $\E[T(n)] = \Theta(n\lg{n})$. (<i>Hint</i>: Show,
 >    by substitution, that $\E[T(n)] \le an\lg{n}$ for sufficiently large $n$
 >    and for some positive constant $a$.)
 
