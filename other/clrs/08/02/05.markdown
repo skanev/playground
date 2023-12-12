@@ -1,0 +1,21 @@
+> Suppose that the array being sorted contains only integers in the range $0$ to
+> $k$ and that there are no satellite data to move with those keys. Modify the
+> counting sort to use just the arrays `A` and `C`, putting the sorted result
+> back into array `A` instead of into a new array `B`.
+
+Once you've counted the numbers, you just replicate them a bunch of times in the
+original array:
+
+    COUNTING-SORT(A, n, k)
+      let C[0:k] be a new array
+      for i = 0 to K
+        C[i] = 0
+      for j = 1 to n
+        C[A[j]] = C[A[j]] + 1
+
+      pos = 1
+      for i = 0 to k
+        while C[i] > 0
+          A[pos] = i
+          C[i] = C[i] - 1
+          pos = pos + 1

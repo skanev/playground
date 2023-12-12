@@ -5,9 +5,9 @@
 >    integers in the array is $n$. Show how to sort the array in $\O(n)$ time.
 > 2. You are given an array of strings, where different strings may have
 >    different numbers of characters, but the total number of characters over
->    all the strings is $n$. Show how to sort the strings in $\O(n)$ time.<br>
->    (Note that the desired order here is the standard alphabetical order; for
->    example; $\mathrm{a} < \mathrm{ab} < \mathrm{b}$.)
+>    all the strings is $n$. Show how to sort the strings in $\O(n)$ time.
+>    (The desired order here is the standard alphabetical order; for example;
+>    $\mathrm{a} < \mathrm{ab} < \mathrm{b}$.)
 
 ### The numbers
 

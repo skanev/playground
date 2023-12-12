@@ -1,24 +1,32 @@
-> Suppose that you are given a sequence of $n$ elements to sort. The input
-> sequence consists of $n/k$ subsequences, each containing $k$ elements. The
-> elements in a given subsequence are all smaller than the elements in the
-> succeeding subsequence and larger than the elements in the preceding
-> subsequence. Thus, all that is needed to sort the whole sequence of length
-> $n$ is to sort the $k$ elements in each of the $n/k$ subsequences. Show an
-> $\Omega(n\lg{k})$ lower bound on the number of comparisons needed to solve
-> this variant of the sorting problem. (<i>Hint:</i> It is not rigorous to
-> simply combine the lower bounds for the individual subsequences.)
+> You are given an $n$-element input sequence, and you know in advance that it
+> is partly sorted in the following sense. Each element is initially in position
+> $i$ such that $i \mod 4 = 0$ is either already in its correct position, or it
+> is one place away from its correct position. For example, you know that after
+> sorting, the element initially in position 12 belongs in position 11, 12, or
+> 13. You have no advance information about the other elements, in positions $i$
+> where $i \mod 4 \ne 0$. Show that an $\Omega(n \lg n)$ lower bound on
+> comparison-based sorting still holds in this case.
 
-This is somehow tricky. There are $n/k$ subsequences and each can be ordered in
-$k!$ ways. This makes a $(k!)^{n/k}$ outputs. We use the same reasoning:
+**(UNSOLVED)**
 
-$$ (k!)^{n/k} \le 2^h $$
+I'm not sure how to proceed here, although it feels trivial. This reduces the
+number of possible permutations to $3^{n/4} \cdot (3n/4)!$ which is less than
+$n!$, but should be asymptotically equal.
 
-Taking the logarithm of both sides, we get:
+The third edition had a more interesting exercise, I'm leaving the solution here
+just in case:
 
-$$ \begin{aligned}
-   h &\ge \lg(k!)^{n/k} \\\\
-     &=   (n/k)\lg(k!) \\\\
-     &\ge (n/k)(k/2)\lg(k/2) & \text{(ex 8.1.2)}\\\\
-     &=   \frac{1}{2}n\lg{k} - \frac{1}{2}n \\\\
-     &=   \Omega(n\lg{k})
-   \end{aligned} $$
+> This is somehow tricky. There are $n/k$ subsequences and each can be ordered in
+> $k!$ ways. This makes a $(k!)^{n/k}$ outputs. We use the same reasoning:
+>
+> $$ (k!)^{n/k} \le 2^h $$
+>
+> Taking the logarithm of both sides, we get:
+>
+> $$ \begin{aligned}
+>    h &\ge \lg(k!)^{n/k} \\\\
+>      &=   (n/k)\lg(k!) \\\\
+>      &\ge (n/k)(k/2)\lg(k/2) & \text{(ex 8.1.2)}\\\\
+>      &=   \frac{1}{2}n\lg{k} - \frac{1}{2}n \\\\
+>      &=   \Omega(n\lg{k})
+>    \end{aligned} $$

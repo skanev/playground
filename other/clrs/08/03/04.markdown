@@ -1,4 +1,15 @@
-> Show how to sort $n$ integers in the range $0$ to $n^3 - 1$ in $\O(n)$ time.
+> Suppose that `COUNTING-SORT` is used as the stable sort within `RADIX-SORT`.
+> If `RADIX-SORT` calls `COUNTING-SORT` $d$ times, then since each call of
+> `COUNTING-SORT` makes two passes over the data (lines 4-5 and 11-13),
+> altogether $2d$ passes over the data occur. Describe how to reduce the total
+> number of passes to $d+1$.
 
-We use radix sort. In this case, we have 2-digit numbers in base $n$. This
-makes `RADIX-SORT` to be $\Theta(2(n + n)) = \Theta(4n) = \Theta(n)$.
+We can do so by merging the two algorithms together:
+
+1. We start with a pass that does the first count
+2. On the second pass, we start a new `C` array that counts the number for the
+   next pass. We do that while moving to `B`
+3. Once we reach the final pass, we just need to do another move to `B`
+
+This way we do $d - 1$ passes that both move and count, one pass that just
+counts, and another pass that just moves.

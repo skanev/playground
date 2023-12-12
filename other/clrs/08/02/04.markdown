@@ -1,10 +1,13 @@
-> Describe an algorithm that, given $n$ integers in the range $0$ to $k$,
-> preprocesses its input and then answers any query about how many of the $n$
-> integers fall into a range $[a..b]$ in $\O(1)$ time. Your algorithm should
-> use $\Theta(n+k)$ preprocessing time.
+> Prove the following loop invariant for `COUNTING-SORT`:
+>
+> > At the start of each iteration of the **for** loop of lines 11-13, the last
+> > element in `A` with value `i` has not yet been copied into `B` belongs in
+> > `B[C[i]]`.
 
-This is not even challenging.
+This is so obvious that I find it hard to prove formally. It's easy to see that
+upon entering the loop `C[i]` stores the largest index in the sorted array of an
+element with value `i`, because it is the sum of counts of all elements less
+than `i` plus the number of elements equal to `i`.
 
-We just take the part of `COUNTING-SORT` that builds up the array `C`. Whenever
-we want to count the number of integers in $[a..b]$, we take `C[b] - C[a-1]`
-(where `C[-1] = 0`). This yields the number of integers in the given range.
+At every step of the loop we copy an element and decrement `C[i]`, maintaining
+the invariant.

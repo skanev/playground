@@ -1,10 +1,28 @@
 > Suppose that we were to rewrite the for loop header in line 10 of the
 > `COUNTING-SORT` as
 >
->     for j = 1 to A.length
+>     for j = 1 to n
 >
-> Show that the algorithm still works properly. Is the modified algorithm
-> stable?
+> Show that the algorithm still works properly, but that it is not stable. Then
+> rewrite the pseudocode for counting sort so that elements with the same value
+> are written into the output array in order of increasing index and the
+> algorithm in stable.
 
-It will work properly, but they are not stable. Equal elements will appear in
-reverse order in the sorted array.
+The algorithm works properly, because each group of elements with equal values
+remains in the same place, only now they are in inverse order of what they used
+to be.
+
+In order to modify the code so we don't have to walk backwards, we have to
+transform `C` to be the index of the first position of the sorted element in
+that group (instead of the last), which is doable, yet annoying without extra
+memory for another `C`.
+
+It should go something like this
+
+    prev, offset = 0, 0
+    for i = 1 to k
+      offset += C[i]
+      C[i] = prev
+      prev = offset
+
+And then we should update `C[A[j]]` with an increment instead of a decrement.

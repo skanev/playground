@@ -1,0 +1,7 @@
+> Counting sort can also work efficiently if the input values have fractional
+> parts, but the number of digits in the fractional part is small. Suppose that
+> you are given $n$ numbers in the range $0$ to $k$, each with at most $d$
+> decimal (base 10) digits to the right of the decimal point. Modify counting
+> sort to run in $\Theta(n + 10^{d}k)$ time.
+
+We just multiply the number by $10^d$ and get an integer.

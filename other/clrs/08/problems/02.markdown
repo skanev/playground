@@ -1,10 +1,10 @@
 ## Sorting in place in linear time
 
-> Suppose that we have an array of $n$ data records and that the key of each
-> record has the value 0 or 1. An algorithm for sorting such a set of records
-> might posses some subset of the following three desirable characteristics:
+> You have an array of $n$ data records to sort, each with a key of $0$ or $1$.
+> An algorithm for sorting such a set of records might possess some subset of the
+> following three desirable characteristics:
 >
-> 1. The algorithm runs in $\O(n)$ time
+> 1. The algorithm runs in $\O(n)$ time.
 > 2. The algorithm is stable.
 > 3. The algorithm sorts in place, using no more than a constant amount of
 >    storage space in addition to the original array.
@@ -20,7 +20,7 @@
 > 5. Suppose that the $n$ records have keys in the range $1$ to $k$. Show how
 >    to modify counting sort so that it sorts the records in place in
 >    $\O(n+k)$ time. You may use $\O(k)$ storage outside the input array. Is
->    your algorithm stable? (<i>Hint</i>: How would you do it for $k = 3$?)
+>    your algorithm stable. Is your algorithm stable?
 
 ### Algorithms
 
