@@ -1,0 +1,36 @@
+## Select with groups of 3
+
+> Exercise 9.3-1 asks you to show that the `SELECT` algorithm still runs in linear
+> time if the elements are divided into groups of 7. This problem asks about
+> dividing into groups of 3.
+>
+> <ol type="a">
+>   <li>Show that <code>SELECT</code> runs in linear time if you divide the
+>   elements into groups whose size is any odd constant greater than 4.
+>   <li>Show that <code>SELECT</code> runs in $\O(n \lg n)$ time if you divide
+>   the elements into group of size 3.
+> </ol>
+>
+> Because the bound in part (b) is just an upper bound, we do not know whether
+> the groups-of-3 strategy actually runs in $\O(n)$ time. By repeating the
+> groups-of-3 idea on the middle group of medians, we can pick a pivot that
+> guarantees $\O(n)$ time. The `SELECT3` algorithm on the next page determines
+> the $i$th smallest of an input array of $n > 1$ distinct elements.
+>
+> <ol type="a" start="3">
+>   <li>Describe in English how the <code>SELECT3</code> algorithm works.
+>   Include in your description one or more suitable diagrams.
+>   <li>Show that <code>SELECT3</code> runs in $\O(n)$ time in the worst case.
+> </ol>
+
+**(UNSOLVED)**.
+
+I'm not particularly excited about this problem or this algorithm, so I'm going
+to hand-wave it a lot.
+
+The solution of 9.3-1 explores the 7 variant and the 3 variant. You can
+generalize the 7 variant a bit to do it with arbitrary numbers. Doing it with 3
+to get $\O(n \lg n)$ should be easy as well.
+
+As for `SELECT3`, it seems to be that it basically does a suboptimal 9 partiton,
+but I'm not too sure. Either way, I want to move on.

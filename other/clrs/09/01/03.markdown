@@ -1,0 +1,16 @@
+> A racetrack can run races with five horses at a time to determine their
+> relative speeds. For 25 horses, it takes six races to determine the fastest
+> horse, assuming transitivity (see page 1159). What's the minimum number of
+> races it takes to determine the fastest three horses out of 25?
+
+This is apparently a well-known problem. We can do it in 7 races.
+
+First, we group the horses into fives and race them. We keep track of those
+initial groups. Then we take the winners and race them again. This determines
+the fastest horse.
+
+Let A be the group of the fastest horse, B of the horse that came second in the
+previous round and C be the one that came third. If we take 2nd and 3rd from A,
+1st and 2nd from B and the 1st in C, we end up with five horses. When we race
+them for a seventh race, the winner will be the 2nd fastest and the one after it
+would be the 3rd fastest.

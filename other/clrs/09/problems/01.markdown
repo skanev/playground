@@ -1,9 +1,9 @@
 ## Largest i numbers in sorted order
 
-> Given a set of $n$ numbers, we wish to find the $i$ largest in sorted order
-> using a comparison based algorithm. Find the algorithm that implements each
-> of the following methods with the best asymptotic worst-case running time,
-> and analyze the running time of the algorithms in terms of $n$ and $i$.
+> You are given a set of $n$ numbers, we wish to find the $i$ largest in sorted
+> order using a comparison-based algorithm. Find the algorithm that implements
+> each of the following methods with the best asymptotic worst-case running
+> time, and analyze the running time of the algorithms in terms of $n$ and $i$.
 >
 > <ol type="a">
 >   <li>Sort the numbers, and list the $i$ largest

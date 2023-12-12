@@ -1,5 +1,5 @@
-> Show how quicksort can be made to run in $\O(n\lg{n})$ time in the worst
-> case, assuming that all elements are distinct.
+> Show how to use `SELECT` as a subroutine to make quicksort run in $\O(n \lg
+> n)$ time in the worst case, assuming that all elements are distinct.
 
 If we rewrite `PARTITION` to use the same approach as `SELECT`, it will
 perform in $\O(n)$ time, but the smallest partition will be at least

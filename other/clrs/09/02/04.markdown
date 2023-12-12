@@ -1,7 +1,11 @@
-> Suppose we use `RANDOMIZED-SELECT` to select the minimum element of the
-> array $A = \langle 3, 2, 9, 0, 7, 5, 4, 8, 6, 1 \rangle$. Describe a
-> sequence of partitions that results in a worst-case performance of
-> `RANDOMIZED-SELECT`.
+> Argue that the expected running time of `RANDOMIZED-SELECT` does not depend on
+> the order of elements in its input array $A[p:r]$. That is, the expected
+> running time is the same for any permutations of the input array $A[p:r]$.
+> (_Hint:_ Argue by induction on the length $n$ of the input array).
 
-This happens if all the elements get picked up in reverse order ­ that is, the
-first pivot chosen is 9, the second is 8, the third is 7 and so on.
+**(UNSOLVED)**.
+
+I'm not sure what to do here. It's also not clear to me how to do induction on
+the array length. It sounds like we should prove that it holds for arrays of
+length $n$ by assuming it holds for arrays of length $n-1$. I don't quite see
+the connection.

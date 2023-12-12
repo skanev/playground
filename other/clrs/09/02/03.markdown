@@ -1,3 +1,6 @@
-> Write an iterative version of `RANDOMIZED-SELECT`.
+> Suppose we use `RANDOMIZED-SELECT` to select the minimum element of the array
+> $A = \langle 2, 3, 0, 5, 7, 9, 1, 8, 6, 4 \rangle$. Describe a sequence of
+> partitions that results in a worst-case performance of `RANDOMIZED-SELECT`.
 
-With pleasure.
+This happens if all the elements get picked up in reverse order that is, the
+first pivot chosen is 9, the second is 8, the third is 7 and so on.

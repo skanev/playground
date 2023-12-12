@@ -1,84 +1,98 @@
-## Small order statistics
+## Weighted median
 
-> We showed that the worst-case number $T(n)$ of comparisons used by `SELECT`
-> to select the $i$th order statistic from $n$ numbers satisfies $T(n) =
-> \Theta(n)$, but the constant hidden by the $\Theta$-notation is rather
-> large. When $i$ is small relative to $n$, we can implement a different
-> procedure that uses `SELECT` as a subroutine but makes fewer comparisons in
-> the worst case.
+> Consider $n$ elements $x_1, x_2, \ldots, x_n$ with positive weights $w_1, w_2,
+> \ldots, w_n$ such that $\sum_{i=1}^n w_i = 1$, the **weighted (lower) median**
+> is the element $x_k$ satisfying
+>
+> $$ \sum_{x_i < x_k} w_i < \frac{1}{2} $$
+> and
+> $$ \sum_{x_i > x_k} w_i \le \frac{1}{2} $$
+>
+> For example, consider the following elements $x_i$ and weights $w_i$:
+>
+> | $i$   |    1 |    2 |      3 |    4 |    5 |      6 |   7 |
+> |:-----:|-----:|-----:|-------:|-----:|-----:|-------:|----:|
+> | $x_i$ |    3 |    8 |      2 |    5 |    4 |      1 |   6 |
+> | $w_i$ | 0.12 | 0.35 | 0.0025 | 0.08 | 0.15 | 0.0075 | 0.2 |
+>
+> For these elements, the median is $x_5 = 4$, but the weighted median is $x_7 =
+> 6$. To see why the weighted median is $x_7$, observe that the elements less
+> than $x_7$ are $x_1$, $x_3$, $x_4$, $x_5$ and $x_6$, and the sum $w_1 + w_3 +
+> w_4 + w_5 + w_6 = 0.45$, which is less than $1/2$. Furthermore, only element
+> $x_2$ is greater than $x_7$, and $w_2 = 0.35$, which is no greater than $1/2$.
 >
 > <ol type="a">
->   <li>Describe an algorithm that uses $U_i(n)$ comparisons to find the $i$th
->   smallest of $n$ elements, where
->   $$ U_i(n) = \begin{cases}
->                 T(n) & \text{if } i \ge n/2 \\\\
->                 \lfloor n/2 \rfloor + U_i(\lceil n/2 \rceil) + T(2i) & \text{otherwise}
->               \end{cases} $$
->   (<i>Hint:</i> Begin with $\lfloor n/2 \rfloor$ disjoint pairwise
->   comparisons, and recurse on the set containing the smaller element from
->   each pair.)
->   <li>Show that, if $i < n/2$, then $U_i(n) = n + \O(T(2i)\lg(n/i))$.
->   <li>Show that, if $i$ is a constant less than $n/2$, then $U_i(n) = n +
->   \O(\lg{n})$.
->   <li>Show that, if $i = n/k$ for $k \ge 2$, then $U_i(n) = n +
->   \O(T(2n/k)\lg{k})$.
-> </ul>
+>   <li>Argue that the median of $x_1, x_2, \ldots, x_n$ is the weighted
+>   median of $x_i$ with weights $w_i = 1/n$ for $i = 1, 2, \ldots, n$.
+>   <li>Show how to compute the weighted median of $n$ elements in
+>   $\O(n\lg{n})$ worst-case time using sorting.
+>   <li>Show how to compute the weighted median in $\Theta(n)$ worst-case time
+>   using a linear-time median algorithm such as <code>SELECT</code> from
+>   Section 9.3.
+> </ol>
+>
+> The **post-office location problem** is defined as follows. We are given $n$
+> points $p_1, p_2, \ldots, p_n$ with associated weights $w_1, w_2, \ldots,
+> w_n$. We wish to find a point $p$ (not necessarily one of the input points)
+> that minimizes the sum $\sum_{i=1}^n w_i d(p,p_i)$, where $d(a, b)$ is the
+> distance between the points $a$ and $b$.
+>
+> <ol type="a" start="4">
+>   <li>Argue that the weighted median is a best solution for the
+>   one-dimensional post-office location problem, in which points are simply
+>   real numbers and the distance between points $a$ and $b$ is $d(a,b) = |a -
+>   b|$.
+>   <li>Find the best solution for the 2-dimensional post-office location
+>   problem, in which the points are $(x,y)$ coordinate pairs and the distance
+>   between points $a = (x_1, y_1)$ and $b = (x_2, y_2)$ is the
+>   <strong>Manhattan distance</strong> given by $d(a, b) = |x_1 - x_2| + |y_1 -
+>   y_2|$.
+> </ol>
 
-### The algorithm
+### Median and weighted median
 
-This is a modified version of `SELECT`. Not only it finds the $i$th order
-statistic, but it also partitions the array, thus finding the $i-1$ smaller
-elements.
+If the weights all elements are $1/n$, then the sum of the weights of the
+elements, smaller than the median, is $\lfloor \frac{n - 1}{2} \rfloor
+\frac{1}{n}$ and the sum of the weights of the larger elements is $\lceil
+\frac{n - 1}{2} \rceil \frac{1}{n}$. This satisfies the condition for weighted
+median. Furthermore, choosing a smaller or greater value will not hold in the
+condition.
 
-1. If $i \ge n/2$, we just use `SELECT`
-2. Otherwise, split the array in pairs and compare each pair.
-3. We take the smaller elements of each pair, but keep track of the other one.
-4. We recursively find the first $i$ elements among the smaller elements
-5. The $i$th order statistic is among the pairs containing the smaller
-   elements we found in the previous step. We call `SELECT` on those $2i$
-   elements. That's the final answer.
+### Computing with sorting
 
-Just picking the smaller element of each pair is not enough. For example, if
-we're looking for the 2nd order statistic and our pairs are `1, 2`, `3, 4`,
-`5, 6`, `7, 8`, `9, 10`, the answer is in the larger part of the first pair.
-That's why we need to keep track and later perform `SELECT` on $2i$ elements.
+1. Sort the array
+2. Start walking the array from left to right, accumulating the weights of the
+   elements encountered
+3. The first element with accumulated weight $w \ge 1/2$ is the weighted
+   median
 
-Steps 1-4 can be implemented in place by modifying the algorithm to put the
-larger elements of the pairs on the inactive side of the pivot and modifying
-`PARTITION` to swap the elements on the inactive side every time it swaps
-elements on the active side. More details can be found in the Instructor's
-Manual.
+### Computing in linear time
 
-### The math
+It's a very similar to `SELECT`, but instead of passing $i$, we pass a number
+around which the weights should partition (initially $1/2$). We find a good
+pivot in linear time and we partition around it. When we sum the weights in
+the lower part of the array and the weights in the upper part. If they fulfill
+the condition, we have our weighted median.
 
-We can prove (b) by induction. This is the step:
+### 1-dimensional post-office location problem
 
-$$ \begin{aligned}
-   U_i(n) &= \lfloor n/2 \rfloor + U_i(\lceil n/2 \rceil) + T(2i) \\\\
-          &= \lfloor n/2 \rfloor + \lceil n/2 \rceil +
-             \O(T(2i)\lg(\lfloor n/2 \rfloor / i)) + T(2i) \\\\
-          &= n + \O(T(2i)\lg(n/i)) + T(2i) \\\\
-          &= n + \O(T(2i)\lg(n/i))
-   \end{aligned} $$
+I'll present an informal argument, since it is convincing enough. A more
+formal one can be found in the instructor's manual.
 
-This is a bit more sloppy that doing it with the substitution method, but that
-feels like grunt work to me at this point.
+The situation is similar to exercise 9.3.8. Let's assume that we pick the
+weighted median as the solution and then start moving left or right. As we
+move away from the weighted median (in any direction), we're moving towards
+elements with combined weight less than $1/2$ and away from elements wight
+combined weight greater than $1/2$. Every "step" we take, we're increasing the
+total distance.
 
-The other two are obvious:
+### 2-dimensional post-office location problem with Manhattan distance
 
-$$ \begin{aligned}
-   U_i(n) &= n + \O(T(2i)\lg(n/i)) \\\\
-          &= n + \O(\O(1)\lg(n/i)) \\\\
-          &= n + \O(\lg{n} - \lg{i}) \\\\
-          &= n + \O(\lg{n} - \O(1)) \\\\
-          &= n + \O(\lg{n})
-   \end{aligned} $$
+The solution is finding $(x_m, y_m)$ where those are the weighted medians of
+the $x$- and $y$- coordinates.
 
-$$ \begin{aligned}
-   U_i(n) &= n + \O(T(2i)\lg(n/i)) \\\\
-          &= n + \O(T(2n/k)\lg(n/(n/k))) \\\\
-          &= n + \O(T(2n/k)\lg{k}) \\\\
-   \end{aligned} $$
-
-Again, this reasoning is sloppy, but I don't feel like applying the
-substitution method.
+I'm not even going to start proving this formally, since it requires
+mathematics above my current comfort level. Reasoning informally, by the
+definition of Manhattan distance, the $x$ coordinates and the $y$ coordinates
+are independent ­ we can rearrange the $x$ in any way we want, without
+affecting the $y$ coordinate of the solution and vice-versa.

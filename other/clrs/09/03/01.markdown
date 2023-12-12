@@ -1,6 +1,6 @@
 > In the algorithm `SELECT`, the input elements are divided into groups of 5.
-> Will the algorithm work in linear time if they are divided into groups of 7?
-> Argue that `SELECT` does not run in linear time if groups of 3 are used.
+> Show that the algorithm work in linear time if they are divided into groups of
+> 7 instead of 5.
 
 ### Groups of 7
 
