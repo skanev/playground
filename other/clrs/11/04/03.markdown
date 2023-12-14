@@ -1,7 +1,7 @@
-> Consider an open-address hash table with uniform hashing. Give upper bounds on
-> the expected number of probes in an unsuccessful search and on the expected
-> number of problems in a successful search when the load factor is $3/4$ and
-> when it is $7/8$.
+> Consider an open-address hash table with independent uniform permutation
+> hashing and no deletions. Give upper bounds on the expected number of probes
+> in an unsuccessful search and on the expected number of probes in a successful
+> search when the load factor is $3/4$ and when it is $7/8$.
 
 Those come directly from our formulas:
 

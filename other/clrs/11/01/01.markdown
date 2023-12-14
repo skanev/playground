@@ -1,6 +1,6 @@
-> Suppose that a dynamic set $S$ is represented by a direct-address table $T$
-> of length $m$. Describe a procedure that finds a maximum element of $S$.
-> What is the worst-case performance of your procedure?
+> A dynamic set $S$ is represented by a direct-address table $T$ of length $m$.
+> Describe a procedure that finds the maximum element of $S$. What is the
+> worst-case performance of your procedure?
 
 We start with the bottom of the table (the largest element) and scan the table
 backwards until we find a slot that contains an element. The worst case

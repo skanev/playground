@@ -1,8 +1,7 @@
-> Suppose that we are storing a set of $n$ keys into a hash table of size $m$.
-> Show that if the keys are drawn from a universe $U$ with $\| U \| > nm$ then
-> $U$ has a subset of size $n$ consisting of keys that all hash to the same
-> slot, so that the worst-case searching time for hashing with chaining is
-> $\Theta(n)$.
+> You need to store a set of $n$ keys in a hash table of size $m$. Show that if
+> the keys are drawn from a universe $U$ with $|U| > (n - 1)m$, then $U$ has a
+> subset of size $n$ consisting of keys that all hash to the same slot, so that
+> the worst-case searching time for hashing with chaining is $\Theta(n)$.
 
 Obvious statement is obvious. Oh well.
 

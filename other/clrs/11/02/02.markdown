@@ -1,6 +1,6 @@
-> Demonstrate what happens when we insert the keys 5, 28, 19, 15, 20, 33, 12,
-> 17, 10 into a hash table with collisions resolved by chaining. Let the table
-> have 9 slots, and let the hash function be $h(k) = k \bmod 9$.
+> Consider a hash table with 9 slots and the hash function $h(k) = k \bmod 9$.
+> Demonstrate what happens upon inserting the keys 5, 28, 19, 15, 20, 33, 12,
+> 17, 10 into a hash table with collisions resolved by chaining.
 
 First, let's calculate the hashes:
 

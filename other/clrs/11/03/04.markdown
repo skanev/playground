@@ -5,4 +5,4 @@
 It would have been nice if we could $m$ was a power of 2, in which case we could
 have bit-shifted.
 
-Otherwise, he's the answer, along with some Python code to generate it
+Otherwise, here's the answer, along with some Python code to generate it

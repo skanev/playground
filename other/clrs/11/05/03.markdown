@@ -1,0 +1,12 @@
+> $\star$ Consider what happens to the value $f_a^{(r)}(k)$ as we flip a single
+> bit $k_i$ of the input value $k$, for various values of $r$. Let $k =
+> \sum_{i=0}^{w-1} k_i 2^i$ and $g_a(k) = \sum_{j=0}^{w-1} b_j 2^j$ define the
+> bit values $k_i$ in the input (with $k_0$ the least-significant bit) and the
+> bit values $b_j$ and $g_a(k) = (2k^2 + ak) \bmod 2^w$ (where $g_a(k)$ is the
+> value that, when its halves are swapped, becomes $f_a(k)$). Suppose that
+> flipping a single bit $k_i$ of the input $k$ may cause any bit $b_j$ of
+> $g_a(k)$ to flip, for $j \ge i$. What is the least value of $r$ for which
+> flipping the value of any single bit $k_i$ may cause _any_ bit of the output
+> $f_a^{(r)}(k)$ to flip? Explain.
+
+**UNSOLVED**

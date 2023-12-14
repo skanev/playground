@@ -1,14 +1,6 @@
-> $\star$ Define a family $\mathscr{H}$ of hash functions from a finite set $U$
-> to a finite set $B$ to be **$\epsilon$-universal** if for all pairs of
-> distinct elements $k$ and $l$ in $U$,
->
-> $$ \Pr\\{ h(k) = h(l) \\} \le \epsilon $$
->
-> where the probability is over the choice of the hash function $h$ drawn at
-> random from the family $\mathscr{H}$. Show that an $\epsilon$-universal family
-> of hash functions must have
->
-> $$ \epsilon \ge \frac{1}{|B|} - \frac{1}{|U|} $$
+> $\star$ Show that any $\epsilon$-universal family $\mathscr{H}$ of hash
+> functions from a finite set $U$ to a finite set $Q$ has $\epsilon \ge 1/|Q| -
+> 1/|U|$.
 
 I've found this a bit tricky, especially with (1) trying to wrap my brain around
 the notation, and (2) sticking to the formalism. Let's try to build some

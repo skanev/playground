@@ -1,93 +1,172 @@
-## Quadratic probing
+## Slot-size bound for chaining
 
-> Suppose that we are given a key $k$ to search for in a hash table with
-> positions $0, 1, \ldots, m - 1$, and suppose that we have a hash function $h$
-> mapping the key space into the set $\\{0, 1, \ldots, m - 1\\}$. The search
-> scheme is as follows:
+> Suppose that we have a hash table with $n$ slots with collisions resolved by
+> chaining, and suppose that $n$ keys are inserted into the table. Each key is
+> equally likely to be hashed in each slot. Let $M$ be the maximum number of
+> keys in any slot after all the keys have been inserted. Your mission is to
+> prove an $\O(\lg{n}/\lg\lg{n})$ upper bound on $\E[M]$, the expected value of
+> $M$.
 >
-> 1. Compute the value of $j = h(k)$, and set $i = 0$.
-> 2. Probe in position $j$ for the desired key $k$. If you find it, or if this
->    position is empty, terminate the search.
-> 3. Set $i = i + 1$. If $i$ now equals $m$, the table is full, so terminate the
->    search. Otherwise, set $j = (i + j) \bmod m$, and return to step 2.
+> a. Argue that the probability $\mathcal{Q}\_k$ that exactly $k$ keys hash to a
+>    particular slot is given by:
+>    $$ \mathcal{Q}\_k = \left( \frac{1}{n} \right)^k \left( 1 - \frac{1}{n} \right)^{n-k} \binom{n}{k} $$
 >
-> Assume that $m$ is a power of $2$.
+> b. Let $P_k$ be the probability that $M = k$, that is, the probability that
+>    the slot containing the most keys contains $k$ keys. Show that $P_k \le
+>    n\mathcal{Q}_k$.
 >
-> a. Show that this scheme is an instance of the general "quadratic probing"
-> scheme by exhibiting the appropriate constants $c_1$ and $c_2$ for equation
-> (11.5).
+> c. Use Stirling's approximation, equation (3.18), to show that $\mathcal{Q}_k
+>    < e^k / k^k$.
 >
-> b. Prove that this algorithm examines every table position in the worst case.
+> d. Show that there exists a constant $c > 1$ such that $\mathcal{Q}_{k_0} < 1
+>    / n^3$ for $k_0 = c \lg{n} / \lg\lg{n}$. Conclude that $P_k < 1/n^2$ for $k
+>    \ge k_0 = c \lg{n} / \lg\lg{n}$.
+>
+> e. Argue that
+>
+> $$
+>      \E[M] \le \Pr \left\\{ M > \frac{c\lg{n}}{\lg\lg{n}} \right\\} \cdot n +
+>                \Pr \left\\{ M \le \frac{c\lg{n}}{\lg\lg{n}} \right\\} \cdot
+>                \frac{c \lg{n}}{\lg\lg{n}}
+> $$
+>
+> Conclude that $\E[M] = \O(\lg{n} / \lg\lg{n})$.
 
+### a. Probability of exactly $k$ keys in a slot
 
-### a. Is it quadratic?
+That's kinda obvious by the definition. $k$ keys need to be in that slot, each
+having probability $1/n$, $n-k$ keys need to be in a different slot with
+$(n-1)/n = 1 - 1/n$ probability, and there are $\binom{n}{k}$ ways to pick the
+$k$ keys out that collide out of the $n$ keys in total.
 
-Observing what this process yields, and let's calculate a few values for $f(k,
-i)$ produced by this method.
+### b. Probability that the longest slot is $k$
+
+We're looking for an upper bound on the probability that the longest chain is
+exactly $k$, that is $M = k$. This is less than the probability of $M \ge k$,
+which in turn is the probability that any of the chains has length $k$, which in
+turn is $\mathcal{Q}_k$.
+
+If $M_i$ is the number of keys contained in the $i$th element of the table, we
+have:
+
+$$
+  \Pr\\{M = k\\} \le \Pr\\{\bigcup_{i=1}^n \left( M_i = k \right)\\} \le
+  \sum_{i=1}^n \Pr\\{M = k\\} = n \mathcal{Q}_k
+$$
+
+### c. Bounding $\mathcal{Q}_k$
+
+From Stirling's approximation:
+
+$$ n! = \sqrt{2 \pi n} \left( \frac{n}{e} \right)^n \left( 1 + \Theta \left(
+\frac{1}{n} \right) \right) $$
+
+We can get:
+
+$$
+    n! = \sqrt{2 \pi n} \left( \frac{n}{e} \right)^n \left( 1 + \Theta \left( \frac{1}{n} \right) \right)
+       \ge \sqrt{2 \pi n} \left( \frac{n}{e} \right)^n
+       > \frac{n^n}{e^n}
+$$
+
+Or simply: $k! > k^k / e^k$.
 
 $$
     \begin{aligned}
-    & f(k, 0) = h(k) + 0 & = C + 0 \\\\
-    & f(k, 1) = f(0) + 1 = h(k) + 1 &= C + 1 \\\\
-    & f(k, 2) = f(1) + 2 = f(0) + 1 + 2 = h(k) + 3 &= C + 3 \\\\
-    & f(k, 3) = f(2) + 3 = f(1) + 2 + 3 = f(0) + 1 + 2 + 3 = h(k) + 6 &= C + 6 \\\\
+      \mathcal{Q}_k &= \left( \frac{1}{n} \right)^k \left( 1 - \frac{1}{n} \right)^{n-k} \binom{n}{k} \\\\
+                    &= \frac{1}{n^k} \cdot \frac{(n-1)^{n-k}}{n^{n-k}} \frac{n!}{k!(n-k)!} \\\\
+                    &= \left( 1 - \frac{1}{n} \right)^{n-k} \cdot \frac{n \cdot (n-1) \cdots (n-k+1)}{n^k} \cdot \frac{1}{k!} \\\\
+                    &\le \frac{ \overbrace{n \cdot (n-1) \cdots (n-k+1) }^\text{k times}}{ n^k } \cdot \frac{1}{k!} && \text{(product of probability)} \\\\
+                    &\le \frac{ \overbrace{n \cdot n \cdots n}^\text{k times} }{n^k} \cdot \frac{1}{k!} \\\\
+                    &= \frac{n^k}{n^k} \cdot \frac{1}{k!} \\\\
+                    &= \frac{1}{k!} \\\\
+                    &< \frac{e^k}{k^k}
     \end{aligned}
 $$
 
-Or generally:
+### d. More bounds
 
-$$ f(k, i) = f(k, i - 1) + i $$
+I got stuck here, consulted the Instructor Manual, and discovered it also did a
+bunch of hand-waving. Go and consult it if you want, I'll try to summarize how I
+understood the approach here.
 
-Which is a recurring relation that we can use induction to prove that
-
-$$ f(k, i) = h(k) + \sum_{j=0}^{j} j = h(k) + \frac{n(n+1)}{2} $$
-
-(because the sum is just an arithmetic progression)
-
-This fits equation (11.5) with $c_1 = c_2 = 1/2$, because:
-
-$$ f(k, i) = h(k) + \frac{1}{2}i + \frac{1}{2}i^2 $$
-
-### b. Does it examine every position?
-
-Had to consult the Instructor Manual yet again.
-
-Let's assume it doesn't. This means that there are two separate values $a$ and
-$b$ such that $0 \le a < b < m$ for which $f(k, a) = f(k, b)$ modulo $m$, that
-is:
+We're looking for $\frac{e^{k_0}}{k^{k_0}} < \frac{1}{n^3}$, also known as $n^3
+< \frac{k^{k_0}}{e^{k_0}}$. Taking $\lg$ of each side we get:
 
 $$
-    h(k) + \frac{a(a + 1)}{2} = h(k) \frac{b(b + 1)}{2} \mod m \\\\
-    \Downarrow \\\\
-    \frac{a(a + 1)}{2} = \frac{b(b + 1)}{2} \mod m \\\\
-    \Downarrow \\\\
-    \frac{a(a + 1)}{2} - \frac{b(b + 1)}{2} = 0 \mod m \\\\
-    \Downarrow \\\\
-    \frac{a^2 + a - b^2 - b}{2} = 0 \mod m \\\\
-    \Downarrow \\\\
-    \frac{a^2 + a + ab - b^2 - b -ab}{2} = 0 \mod m \\\\
-    \Downarrow \\\\
-    \frac{(a - b)(a + b + 1)}{2} = 0 \mod m
+  3\lg{n} < k_0(\lg k_0 - \lg e) \\\\
+  \Updownarrow \\\\
+  3 < \frac{ k_0(\lg k_0 - \lg e) }{ \lg n }
 $$
 
-The final part means that there is an integer $r$ so that:
+We now plug $k_0$ in to get Lovecraftian:
 
 $$
-    \frac{(a - b)(a + b + 1)}{2} = rm \\\\
-    \Downarrow \\\\
-    (a - b)(a + b + 1) = 2rm \\\\
-    \Downarrow \\\\
-    (a - b)(a + b + 1) = r \cdot 2^{p+1}
+  \begin{aligned}
+    3 &< \frac{ c \lg n }{ \lg n \lg \lg n } \left( \lg \frac{ c \lg n }{ \lg \lg n } - \lg e \right) \\\\
+      &= \frac{ c }{ \lg \lg n } \left( \lg c + \lg \lg n - \lg \lg \lg n - \lg e \right) \\\\
+      &= c \left( \frac{\lg c}{\lg \lg n} + \frac{\lg \lg n}{\lg \lg n} - \frac{\lg \lg \lg n}{\lg \lg n} - \frac{\lg e}{\lg \lg n} \right) \\\\
+      &= c \left(1 + \frac{ \lg c - \lg e }{ \lg \lg n } - \frac{ \lg \lg n }{ \lg \lg \lg n } \right)
+  \end{aligned}
 $$
 
-The last step is because we know that $m$ is a power of $2$, that is there is an
-integer $p$ such that $m = 2^p$.
+Now for the hand-waving. First, we notice that picking the necessary $c$ depends
+on the value of $n$. Next, let's call the expression in parentheses $A$ and
+notice that:
 
-Now, since $a$ and $b$ are both integers, this means that $a - b$ and $a + b +
-1$ are integers as well, and more importantly, one of them is even, and another
-one is odd. That is, at least one of them is not dividable by $2$. This means
-the other is dividable by $2^{p+1}$. But it can't be $(a - b)$ because $a - b <
-m < 2^{p+1}$. It can't be $(a + b + 1)$, because $a + b + 1 \le (m - 1) + (m -
-2) + 1 = 2m - 2 < 2^{p+1}$. We've reacted a contradiction, which means that
-$f(k, a) \ne f(k, b)$, for $0 \le a < b < m$, which means that the algorithm
-will exhaust all slots before it reaches $m$.
+$$
+  \lim_{n \to \infty} A = 1
+$$
+
+Hence, there is a $n_0$ for which if $n \ge n_0$ we have that $A \ge 1/2$ and
+therefore if we pick $c > 6$ we have $3 < cA$ when $n$ is larger than $n_0$.
+Next we need to figure it out for $n < n_0$. We notice that $n \ge 3$, because
+$\lg \lg 2 = \lg 1 = 0$ and that won't work, because we'll be dividing by $0$ in
+$c$.
+
+So for $3 \le n < n_0$ we choose $\max_{3 \le n < n_{0}}\\{ c : 3 < cx \\}$,
+that is, any $c$ that is large enough to satisfy all of the cases. We then pick
+$c$ to be the larger of that and $6$ and we're done. We're convinced a number
+like that exists, although we haven't spelled it out.
+
+Now we know that $\mathcal{Q}_k < 1 / n^3$. We can easily conclude, then, than:
+
+$$ P_k \le n \mathcal{Q}_k < n \frac{1}{n^3} = 1/n^2 $$
+
+### e. Expectation
+
+This is simpler:
+
+$$
+  \begin{aligned}
+    \E[M] &= \sum_{k=0}^{n} k \cdot \Pr \\{ M = k \\} \\\\
+          &= \sum_{k=0}^{k_0} k \cdot \Pr \\{ M = k \\} + \sum_{k=k_0 + 1}^{n} k \cdot \Pr \\{ M = k \\} \\\\
+          &\le \sum_{k=0}^{k_0} k_0 \cdot \Pr \\{ M = k \\} + \sum_{k=k_0 + 1}^{n} n \cdot \Pr \\{ M = k \\} \\\\
+          &= k_0 \cdot \sum_{k=0}^{k_0} \Pr \\{ M = k \\} + n \cdot \sum_{k=k_0 + 1}^{n} \Pr \\{ M = k \\} \\\\
+          &= k_0 \cdot \Pr\\{ M \le k_0 \\} + n \cdot \Pr \\{ M > k_0 \\}
+  \end{aligned}
+$$
+
+Which is the long expression we needed to prove.
+
+Taking the last piece, we have:
+
+$$
+    \Pr \\{ M > k_0 \\} = \sum_{k=k_0+1}^{n} \Pr\\{ M = k \\}
+      \le \sum_{k=k_0+1}^{n} \frac{1}{n^2}
+      \le n \frac{1}{n^2}
+      = \frac{1}{n}
+$$
+
+We know that $\Pr\\{M \le k_0\\} \le 1$ (probability axiom), so:
+
+$$
+  \begin{aligned}
+    \E[M] &= k_0 \cdot \Pr\\{ M \le k_0 \\} + n \cdot \Pr \\{ M > k_0 \\} \\\\
+          &\le k_0 + n \cdot \frac{1}{n} \\\\
+          &= \frac{c \lg n}{\lg \lg n} + 1 \\\\
+          &= \O(\lg n / \lg \lg n)
+  \end{aligned}
+$$
+
+How is one supposed to figure this out, I have no idea. Maybe by reading Knuth.

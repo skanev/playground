@@ -1,8 +1,8 @@
-> Suppose we have stored $n$ keys in a hash table of size $m$, with collisions
-> resolved by chaining, and that we know the length of each chain, including the
-> length $L$ of the longest chain. Describe a procedure that selects a key
-> uniformly at random from among the keys in the hash table and returns it in
-> expected time $\O(L \cdot (1 + 1 / \alpha))$.
+> You have stored $n$ keys in a hash table of size $m$, with collisions resolved
+> by chaining, and you know the length of each chain, including the length $L$
+> of the longest chain. Describe a procedure that selects a key uniformly at
+> random among the keys in the hash table and returns it in expected time $\O(L
+> \cdot (1 + 1 / \alpha))$.
 
 Think about the hash table as a matrix with $m$ rows and $L$ columns. The first
 element of chain with hash $k$ is put in the first column of the $k$-th row, the

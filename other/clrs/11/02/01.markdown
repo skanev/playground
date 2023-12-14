@@ -1,7 +1,7 @@
-> Suppose we use a hash function $h$ to hash $n$ distinct keys into an array $T$
-> of length $m$. Assuming simple uniform hashing, what is the expected number of
-> collisions? More precisely, what is the expected cardinality of $ \\{ \\{ k, l
-> \\} : k \neq l \text{ and } h(k) = h(l) \\} $?
+> You use a hash function $h$ to hash $n$ distinct keys into an array $T$ of
+> length $m$. Assuming independent uniform hashing, what is the expected number
+> of collisions? More precisely, what is the expected cardinality of
+> $\big\\{\\{k_1, k_2\\} : k_1 \ne k_2 \text{ and } h(k_1) = h(k_2) \big\\}$?
 
 Let's use an indicator random variable $I_{kl} = 1$ when there is a collision of
 keys $k$ and $l$. We know that

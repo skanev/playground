@@ -1,7 +1,7 @@
-> Suppose we wish to search a linked list of length $n$, where each element
-> contains a key $k$ along with a hash value $h(k)$. Each key is a long
-> character string. How might we take advantage of the hash values when
-> searching the list for an element with a given key?
+> You wish to search a linked list of length $n$, where each element contains a
+> key $k$ along with a hash value $h(k)$. Each key is a long character string.
+> How might you take advantage of the hash values when searching the list for an
+> element with a given key?
 
 We can compute the hash of the key we search for, and then compare with a string
 in the list only if the hash value matches. We know that the same key hashes to

@@ -1,6 +1,6 @@
 ## Longest-probe bound for hashing
 
-> Suppose that we use an open-addressed hash table of size $m$ to store $n \le
+> Suppose you are using an open-addressed hash table of size $m$ to store $n \le
 > m/2$ items.
 >
 > a. Assuming uniform hashing, show that for $i = 1, 2, \ldots, n$, the

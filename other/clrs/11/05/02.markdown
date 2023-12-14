@@ -1,0 +1,3 @@
+> $\star$ Argue that a random oracle is $5$-independent.
+
+**(UNSOLVED)**

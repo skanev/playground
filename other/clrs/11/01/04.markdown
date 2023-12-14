@@ -1,12 +1,13 @@
-> $\star$ We wish to implement a dictionary by using direct addressing on a
-> _huge_ array. At the start, the array entries may contain garbage, and
-> initializing the entire array is impractical because of its size. Describe a
-> scheme for implementing a direct-address dictionary on a huge array. Each
-> stored object should use $\O(1)$ space; the operations `SEARCH`, `INSERT`,
-> and `DELETE` should take $\O(1)$ time. (<i>Hint:</i> Use an additional
-> array, treated somewhat like a stack whose size is the number of keys
-> actually stored in the dictionary, to help determine whether a given entry
-> in the huge array is valid or not.)
+> $\star$ Suppose that you want to implement a dictionary by using direct
+> addressing on a _huge_ array. That is, if the array size is $m$ and the
+> dictionary contains at most $n$ elements at any one time, then $m \gg n$. At
+> the start, the array entries may contain garbage, and initializing the entire
+> array is impractical because of its size. Describe a scheme for implementing a
+> direct-address dictionary on a huge array. Each stored object should use
+> $\O(1)$ space; the operations `SEARCH`, `INSERT` and `DELETE` should take
+> $\O(1)$ time. (_Hint:_ Use an additional array, treated somewhat like a stack
+> whose size is the number of keys actually stored in the dictionary, to help
+> determine whether a given entry in the huge array is valid or not.)
 
 I don't really understand why this is an exercise - it's far to tricky for the
 common good. Anyhow.

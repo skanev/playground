@@ -5,9 +5,8 @@
 
 I'm not sure the professor is right.
 
-If we assume with delete with a key (instead of a pointer to an element), we
-have the following times (with regards to the number of collisions) without
-sorting:
+If we assume delete with a key (instead of a pointer to an element), we have the
+following times (with regards to the number of collisions) without sorting:
 
 | operation | complexity     |
 |-----------|----------------|

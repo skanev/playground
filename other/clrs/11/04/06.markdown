@@ -1,0 +1,14 @@
+> $\star$ Consider an open-address hash table with load factor $\alpha$.
+> Approximate the nonzero value $\alpha$ for which the expected number of probes
+> in an unsuccessful search equals twice the expected number of probes in a
+> successful search. Use the upper bounds given by Theorems 11.6 and 11.8 for
+> these expected number of probes.
+
+Using the theorems, we get the following equation:
+
+$$ \frac{1}{1 - \alpha} = 2 \frac{1}{\alpha} \ln{\left(\frac{1}{1 - \alpha}\right)} $$
+
+We can try to simplify it, but we get to a $x = 2 \ln x - 1$, or something
+similar, which I don't know how to solve in closed form.
+
+Luckily, that's why SciPY exists.

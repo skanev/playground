@@ -1,5 +1,6 @@
-> Write pseudocode for `HASH-DELETE` as outlined in the text and modify
-> `HASH-INSERT` to handle the special value `DELETED`.
+> Write pseudocode for `HASH-DELETE` that fills the deleted key's slot with the
+> special value `DELETED`, and modify `HASH-SEARCH` and `HASH-INSERT` as needed
+> to handle `DELETED`.
 
 Deleting an element:
 

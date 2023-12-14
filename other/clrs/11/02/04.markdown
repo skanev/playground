@@ -1,9 +1,9 @@
 > Suggest how to allocate and deallocate storage for elements within the hash
-> table itself by linking all unused slots into a free list. Assume that one
-> slot can store a flag and either one element plus a pointer or two pointers.
-> All dictionary and free-list operations should run in $\O(1)$ expected time.
-> Does the free list need to be doubly linked or does a singly linked free list
-> suffice?
+> table itself by creating a "free list": a linked list of all the unused slots.
+> Assume one slot can store a flag and either one element plus a pointer or two
+> pointers. All dictionary and free-list operations should run in $\O(1)$
+> expected time. Does the free list need to doubly linked, or does a singly
+> linked free list suffice?
 
 Oh, wow. That was a doozy.
 
