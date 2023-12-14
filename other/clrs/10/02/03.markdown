@@ -1,5 +1,6 @@
-> Implement a queue by using a singly linked list `L`. The operations
-> `ENQUEUE` and `DEQUEUE` should still take $\O(1)$ time.
+> Implement a queue using a singly linked list. The operations `ENQUEUE` and
+> `DEQUEUE` should still take $\O(1)$ time. Do you need to add any attributes to
+> the list?
 
 This is a bit trickier than the previous one, but still simple.
 
@@ -7,3 +8,5 @@ This is a bit trickier than the previous one, but still simple.
 * Whenever we `ENQUEUE`, we should be inserting the element after it and
   marking the new last element of the list.
 * Whenever we `DEQUEUE`, we should pop the first element of the list.
+* We should check if we're dequeueing the last element of the list, in which
+  case we should update the last pointer to nil.

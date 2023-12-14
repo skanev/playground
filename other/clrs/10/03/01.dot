@@ -1,0 +1,29 @@
+graph {
+  node[shape="circle"];
+
+  n1[label="17"];
+  n2[label="14"];
+  n3[label="12"];
+  n4[label="20"];
+  n10l[shape=point];
+  n5[label="33"];
+  n6[label="15"];
+  n7[label="28"];
+  n8[label="22"];
+  n8l[shape=point];
+  n8r[shape=point];
+  n9[label="13"];
+  n10[label="25"];
+  n4r[shape=point];
+  n5r[shape=point];
+
+  n6 -- n1; n6 -- n4;
+
+  n1 -- n8; n1 -- n9;
+  n4 -- n10; n4 -- n4r;
+
+  n8 -- n8l; n8 -- n8r; n9 -- n3; n9 -- n7;
+  n10 -- n10l; n10 -- n5;
+
+  n5 -- n2; n5 -- n5r;
+}

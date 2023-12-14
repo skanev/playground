@@ -1,8 +1,53 @@
-> Explain how to implement two stacks in one array $A[1..n]$ in such a way
-> that neither stack overflows unless the total number of elements in both
-> stacks together is $n$. The `PUSH` and `POP` operations should run in
-> $\O(1)$ time.
+> Using figure 10.2 as a model, illustrate the result of each operation in the
+> sequence `PUSH(S, 4)`, `PUSH(S, 1)`, `PUSH(S, 3)`, `POP(S)`, `PUSH(S, 8)`,
+> and `POP(S)` on an initially empty stack `S` stored in array `S[1:6]`.
 
-The first stack starts at $1$ and grows up towards $n$, while the second
-starts form $n$ and grows down towards $1$. Stack overflow happens when an
-element is pushed when the two stack pointers are adjacent.
+Well, ASCII art to the rescue.
+
+      +---+---+---+---+---+---+
+      |   |   |   |   |   |   |
+      +---+---+---+---+---+---+
+    ^
+    S.top = 0
+
+    PUSH(S, 4)
+      +---+---+---+---+---+---+
+      | 4 |   |   |   |   |   |
+      +---+---+---+---+---+---+
+        ^
+        S.top = 1
+
+    PUSH(S, 1)
+      +---+---+---+---+---+---+
+      | 4 | 1 |   |   |   |   |
+      +---+---+---+---+---+---+
+            ^
+            S.top = 2
+
+    PUSH(S, 3)
+      +---+---+---+---+---+---+
+      | 4 | 1 | 3 |   |   |   |
+      +---+---+---+---+---+---+
+                ^
+                S.top = 3
+
+    POP(S)
+      +---+---+---+---+---+---+
+      | 4 | 1 | 3 |   |   |   |
+      +---+---+---+---+---+---+
+            ^
+            S.top = 2
+
+    PUSH(S, 8)
+      +---+---+---+---+---+---+
+      | 4 | 1 | 8 |   |   |   |
+      +---+---+---+---+---+---+
+                ^
+                S.top = 3
+
+    POP(S)
+      +---+---+---+---+---+---+
+      | 4 | 1 | 8 |   |   |   |
+      +---+---+---+---+---+---+
+            ^
+            S.top = 2

@@ -1,0 +1,10 @@
+> Show how to implement a stack using two queues. Analyze the running time of
+> the stack operations.
+
+We have two queues and mark one of them as active. `PUSH` queues an element on
+the active queue. `POP` should dequeue all but one element of the active queue
+and queue them on the inactive. The roles of the queues are then reversed, and
+the final element left in the (now) inactive queue is returned.
+
+The `PUSH` operation is $\Theta(1)$, but the `POP` operation is $\Theta(n)$
+where $n$ is the number of elements in the stack.

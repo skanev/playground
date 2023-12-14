@@ -1,2 +1,2 @@
-> Write the procedures `ALLOCATE-OBJECT` and `FREE-OBJECT` for a homogeneous
-> collection of objects implemented by the single-array representation.
+> Write an $\O(n)$-time recursive procedure that, given an $n$-node binary
+> tree, prints out the key of each node in the tree.

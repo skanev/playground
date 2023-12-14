@@ -32,32 +32,17 @@ void insert(list_t *list, int key) {
     list->nil.next = new;
 }
 
-node_t *search(list_t *list, int key) {
+void reverse(list_t *list) {
+    node_t *prev = &(list->nil);
     node_t *node = list->nil.next;
+    node_t *next;
 
-    // The trick from exercise 10.2.4
-    list->nil.key = key;
-    while (node->key != key) {
-        node = node->next;
+    while (node != &(list->nil)) {
+        next = node->next;
+        node->next = prev;
+        prev = node;
+        node = next;
     }
 
-    if (node == &(list->nil)) {
-        return NULL;
-    } else {
-        return node;
-    }
-}
-
-void delete(list_t *list, int key) {
-    node_t *node = &(list->nil);
-
-    while (node->next != &(list->nil)) {
-        if (node->next->key == key) {
-            node_t *to_be_deleted = node->next;
-            node->next = node->next->next;
-            free(to_be_deleted);
-        } else {
-            node = node->next;
-        }
-    }
+    list->nil.next = prev;
 }

@@ -1,26 +1,20 @@
-> Let $L$ be a doubly linked list of length $n$ stored in arrays `key`,
-> `prev`, and `next` of length $m$. Suppose that these arrays are managed by
-> `ALLOCATE-OBJECT` and `FREE-OBJECT` procedures that keep a doubly linked
-> free list $L$. Suppose further that of the $m$ items, exactly $n$ are on the
-> list $L$ and $m - n$ are on the free list. Write a procedure
-> `COMPACTIFY-LIST(L, F)` that, given the list $L$ and the free list $F$,
-> moves the items in $L$ so that they occupy array positions $1, 2, \ldots, n$
-> and adjust the free list $F$ so that it remains correct, occupying array
-> positions $n + 1, n + 2, \ldots, m$. The running time of your procedure
-> should be $\Theta(n)$, and it should use only a constant amount of extra
-> space. Argue that your procedure is correct.
+> $\star$ Write an $\O(n)$-time nonrecursive procedure that, given an $n$-node
+> binary tree prints out the key of each node. Use no more than constant extra
+> space outside the tree itself and do not modify the tree, even temporarily,
+> during the procedure.
 
-I'll use this approach:
+This is tricky. We need a pointer to the parent. We keep track of the previous
+pointer (starting with NIL) and do the following.
 
-1. We traverse the free list and mark each element by putting a special value
-   in its `prev` pointer (it is not used by the free list)
-2. We start two pointers, one from the beginning of the memory and one from
-   the end. We increment the left pointer until it reaches an empty cell and
-   decrement the right until it reaches a non-empty cell. We move the right
-   cell to the left position and leave a forwarding address in the `next`
-   field. This terminates when the two pointers catch up. At this point the
-   "active" memory is in the beginning of the array and the free - in the end.
-   We take note of the threshold.
-3. We linearly scan the first part of the array and update all the pointers
-   that point beyond the threshold, by using the forwarding address in `next`.
-4. Finally, we organize the memory beyond the threshold in a free list.
+1. If we're coming from the parent, move to the left child
+2. If we're coming from the left child, move to the right child
+3. If we're coming from the right child, move to the parent
+
+To handle cases of less than two children, we skip to the next step if the
+conditions allow for it. That is:
+
+* If there is only a right child, and we're coming form the parent, we move to
+  the right child
+* If we come from the left child, but there is no right child, we move to the
+  parent.
+* If we there are no children, we move to the parent.

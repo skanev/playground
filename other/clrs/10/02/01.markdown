@@ -1,7 +1,10 @@
-> Can you implement the dynamic-set operation `INSERT` on a singly linked list
-> in $\O(1)$ time? How about `DELETE`?
+> Explain why the dynamic-set operation `INSERT` on a singly linked list can be
+> implemented in $\O(1)$ time, but the worst-case time for `DELETE` is
+> $\Theta(n)$.
 
-You can implement `INSERT` in constant time by prepending it to the list.
+Since we have a pointer to the first element of the link list, we can insert in
+constant time by adding an element in front of it.
 
-You cannot implement `DELETE` in constant time, unless you pass to it as an
-argument the predecessor of the element you are deleting.
+The worst-case time for deleting, however, is going to be linear, because we
+need to walk the whole list in order to find the element (it could be at the
+end).

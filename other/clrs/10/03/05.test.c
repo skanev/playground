@@ -1,33 +1,41 @@
 #include "05.c"
 #include "../../build/ext/test.h"
 
-TEST(compactify) {
-    list_t list;
+#include <stdlib.h>
 
-    init_storage();
+tree_t* make_tree(int key) {
+    tree_t *new = malloc(sizeof(tree_t));
+    new->key    = key;
+    new->left   = NULL;
+    new->right  = NULL;
+    new->parent = NULL;
+    return new;
+}
 
-    list = cons(0, empty_list);
-    list = cons(1, list);
-    list = cons(2, list);
-    list = cons(3, list);
-    list = cons(4, list);
-    list = cons(5, list);
-    list = cons(6, list);
-    list = cons(7, list);
-    list = cons(8, list);
+tree_t* make_left(tree_t *parent, int key) {
+    tree_t *new = make_tree(key);
+    new->parent = parent;
+    parent->left = new;
+    return new;
+}
 
-    delete(2);
-    delete(3);
-    delete(5);
-    delete(6);
+tree_t* make_right(tree_t *parent, int key) {
+    tree_t *new = make_tree(key);
+    new->parent = parent;
+    parent->right = new;
+    return new;
+}
 
-    list = compatify_list(list);
+TEST(quote_printing_unquote) {
+    tree_t *t1 = make_tree(1);
+    tree_t *t2 = make_left(t1, 2);
+    tree_t *t3 = make_right(t1, 3);
+    tree_t *t4 = make_left(t2, 4);
+    tree_t *t5 = make_left(t3, 5);
+    tree_t *t6 = make_right(t3, 6);
+    int expected[] = {1, 2, 4, 3, 5, 6};
 
-    ASSERT_EQUALS(get(list), 8);
-    ASSERT_EQUALS(get(next_obj(list)), 7);
-    ASSERT_EQUALS(get(next_obj(next_obj(list))), 4);
-    ASSERT_EQUALS(get(next_obj(next_obj(next_obj(list)))), 1);
-    ASSERT_EQUALS(get(next_obj(next_obj(next_obj(next_obj(list))))), 0);
-    ASSERT_EQUALS(get(next_obj(next_obj(next_obj(next_obj(next_obj(list)))))), -1);
-    ASSERT_EQUALS(free_list, 5);
+    print_tree(t1);
+
+    ASSERT_SAME_ARRAYS_S(keys, expected, 6);
 }

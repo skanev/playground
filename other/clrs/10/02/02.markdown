@@ -1,7 +1,9 @@
-> Implement a stack using a singly linked list `L`. The operations `PUSH` and
-> `POP` should still take $\O(1)$ time.
+> Implement a stack using a singly linked list. The operations `PUSH` and
+> `POP` should still take $\O(1)$ time. Do you need to add any attributes to the
+> list.
 
-This is too simple to be worth implementing.
+Rather than implementing, let's just talk about it.
 
 The `PUSH` operation adds an element in the beginning of the list and the
-`POP` operation removes the first element from the list.
+`POP` operation removes the first element from the list. We don't need to add
+any new attributes.

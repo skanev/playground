@@ -1,54 +1,41 @@
 #include "02.c"
 #include "../../build/ext/test.h"
 
-TEST(adding_elements) {
-    list_t list;
+#include <stdlib.h>
 
-    init_storage();
-
-    list = cons(1, empty_list);
-    list = cons(2, list);
-    list = cons(3, list);
-
-    ASSERT_EQUALS(get(list), 3);
-    ASSERT_EQUALS(get(next(list)), 2);
-    ASSERT_EQUALS(get(next(next(list))), 1);
-    ASSERT_EQUALS(get(next(next(next(list)))), empty_list);
+tree_t* make_tree(int key) {
+    tree_t *new = malloc(sizeof(tree_t));
+    new->key    = key;
+    new->left   = NULL;
+    new->right  = NULL;
+    new->parent = NULL;
+    return new;
 }
 
-TEST(removing_elements) {
-    list_t list, freed;
-
-    init_storage();
-
-    list = cons(1, empty_list);
-    list = freed = cons(2, list);
-    list = cons(3, list);
-
-    delete(freed);
-
-    ASSERT_EQUALS(get(list), 3);
-    ASSERT_EQUALS(get(next(list)), 1);
-    ASSERT_EQUALS(get(next(next(list))), empty_list);
-    ASSERT_EQUALS(free_list, freed);
+tree_t* make_left(tree_t *parent, int key) {
+    tree_t *new = make_tree(key);
+    new->parent = parent;
+    parent->left = new;
+    return new;
 }
 
-TEST(removing_and_adding) {
-    list_t list, freed;
+tree_t* make_right(tree_t *parent, int key) {
+    tree_t *new = make_tree(key);
+    new->parent = parent;
+    parent->right = new;
+    return new;
+}
 
-    init_storage();
+TEST(quote_printing_unquote) {
+    tree_t *t1 = make_tree(1);
+    tree_t *t2 = make_left(t1, 2);
+    tree_t *t3 = make_right(t1, 3);
+    tree_t *t4 = make_left(t2, 4);
+    tree_t *t5 = make_left(t3, 5);
+    tree_t *t6 = make_right(t3, 6);
+    int expected[] = {1, 2, 4, 3, 5, 6};
 
-    list = cons(1, empty_list);
-    list = freed = cons(2, list);
-    list = cons(3, list);
+    print_tree(t1);
 
-    delete(freed);
-
-    list = cons(4, list);
-
-    ASSERT_EQUALS(get(list), 4);
-    ASSERT_EQUALS(get(next(list)), 3);
-    ASSERT_EQUALS(get(next(next(list))), 1);
-    ASSERT_EQUALS(get(next(next(next(list)))), empty_list);
-    ASSERT_EQUALS(free_list, -1);
+    ASSERT_SAME_ARRAYS_S(keys, expected, count);
 }

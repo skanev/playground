@@ -1,76 +1,30 @@
-#include <stdio.h>
-#include <stdlib.h>
+struct tree_t {
+    struct tree_t *left;
+    struct tree_t *right;
+    struct tree_t *parent;
+    int key;
+};
+typedef struct tree_t tree_t;
+void store(int);
 
-#define MAX_SIZE 3
+void print_tree(tree_t *tree) {
+    store(tree->key);
 
-typedef int list_t;
-typedef int obj_t;
+    if (tree->left)
+        print_tree(tree->left);
 
-int empty_list = -1;
-int cells[MAX_SIZE * 3];
-int free_list;
-
-#define NEXT(i) cells[(i) + 1]
-#define PREV(i) cells[(i) + 2]
-#define KEY(i)  cells[i]
-
-void init_storage() {
-    int i;
-    for (i = 0; i < (MAX_SIZE - 1) * 3; i += 3)
-        NEXT(i) = i + 3;
-
-    NEXT(i) = -1;
-    free_list = 0;
+    if (tree->right)
+        print_tree(tree->right);
 }
 
-list_t allocate_object() {
-    if (free_list == -1) {
-        fprintf(stderr, "Storage depleted\n");
-        exit(1);
-    }
+#define MAX_SIZE 10
+int keys[MAX_SIZE];
+int count = 0;
 
-    list_t new = free_list;
-    free_list = NEXT(free_list);
-    return new;
+void reset_storage() {
+    count = 0;
 }
 
-void free_object(list_t list) {
-    NEXT(list) = free_list;
-    free_list = list;
-}
-
-list_t cons(obj_t key, list_t list) {
-    list_t new = allocate_object();
-
-    NEXT(new) = list;
-    PREV(new) = empty_list;
-    KEY(new) = key;
-
-    if (list != empty_list) {
-        PREV(list) = new;
-    }
-
-    return new;
-}
-
-void delete(list_t list) {
-    if (PREV(list) != empty_list) {
-        NEXT(PREV(list)) = NEXT(list);
-    }
-
-    if (NEXT(list) != empty_list) {
-        PREV(NEXT(list)) = PREV(list);
-    }
-
-    free_object(list);
-}
-
-obj_t get(list) {
-    if (list == empty_list) return -1;
-    return KEY(list);
-}
-
-list_t next(list) {
-    if (list == empty_list) return -1;
-    return NEXT(list);
+void store(int key) {
+    keys[count++] = key;
 }

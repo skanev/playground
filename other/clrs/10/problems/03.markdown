@@ -1,16 +1,21 @@
 ## Searching a sorted compact list
 
-> Exercise 10.3-4 asked how we might maintain an $n$-element list compactly in
-> the first $n$ positions of an array. We shall assume that the keys are
-> distinct and that the compact list is also sorted, that is, `key[i] <
-> key[next[i]]` for all $i = 1, 2, \ldots, n$ such that `next[i] ≠ NIL`. We
-> will also assume that we have a variable $L$ that contains the index of the
-> first element on the list. Under these assumptions, you will show that we
-> can use the following randomized algorithm to search the list in
-> $\O(\sqrt{n})$ expected time.
+> We can represent a singly linked list with two arrays, `key` and `next`. Given
+> the index $i$ of an element, its value is stored in `key[i]`, and the index of
+> its successor is given by `next[i]`, where `next[i] = NIL` for the last
+> element. We also need the index `head` of the first element in the list. An
+> $n$-element list sorted this way is **compact** if it is sorted only in
+> positions $1$ to $n$ of the `key` and `next` arrays.
 >
->     COMPACT-LIST-SEARCH(L, n, k)
->       i = L
+> Let's assume that all keys are distinct and that the compact list is also
+> sorted, that is, `key[i] < key[next[i]]` for all $i = 1, 2, \ldots, n$ such
+> that `next[i] ≠ NIL`. We will also assume that we have a variable $L$ that
+> contains the index of the first element on the list. Under these assumptions,
+> you will show that the randomized algorithm `COMPACT-LIST-SEARCH` searches the
+> list for key $k$ in $\O(\sqrt{n})$ expected time.
+>
+>     COMPACT-LIST-SEARCH(key, next, head, n, k)
+>       i = head
 >       while i ≠ ␀ and key[i] < k
 >           j = RANDOM(1, n)
 >           if key[i] < key[j] and key[j] ≤ k
@@ -20,8 +25,9 @@
 >           i = next[i]
 >       if i == ␀ or key[i] > k
 >           return ␀
+>       else return i
 >
-> If we ignore lines 3-7 of the procedure, we have an ordinary algorithm for
+> If you ignore lines 3-7 of the procedure, we have an ordinary algorithm for
 > searching a sorted linked list, in which index $i$ points to each position
 > of the list in turn. The search terminates once the index $i$ "falls off"
 > the end of the list or once `key[i] ≥ k`. In the latter case, if `key[i] =
@@ -41,8 +47,8 @@
 > two separate loops. This algorithm takes an additional parameter $t$ which
 > determines an upper bound on the number of iterations of the first loop.
 >
->     COMPACT-LIST-SEARCH(L, n, k)
->       i = L
+>     COMPACT-LIST-SEARCH'(key, next, head, n, k, t)
+>       i = head
 >       for q = 1 to t
 >           j = RANDOM(1, n)
 >           if key[i] < key[j] and key[j] ≤ k
@@ -56,20 +62,20 @@
 >       else
 >           return i
 >
-> To compare the execution of the algorithms `COMPACT-LIST-SEARCH(L, n, k)`
-> and `COMPACT-LIST-SEARCH(L, n, k, t)`, assume that the sequence of integers
-> returned by the calls of `RANDOM(1, n)` is the same for both algorithms.
+> To compare the execution of the two algorithms, assume that the sequence of
+> calls of `RANDOM(1, n)` yields the same sequence of integers for both
+> algorithms.
 >
 > <ol type="a">
->   <li>Suppose that <code>COMPACT-LIST-SEARCH(L, n, k)</code> takes $t$
->   iterations of the <strong>while</strong> loop of lines 2-8. Argue that
->   <code>COMPACT-LIST-SEARCH'(L, n, k, t)</code> returns the same answer and
->   that total number of iterations of both the <strong>for</strong> and
->   <strong>while</strong> loops within <code>COMPACT-LIST-SEARCH'</code> is
->   at least $t$.
+>   <li>Argue that for any value of $t$, <code>COMPACT-LIST-SEARCH(key, next,
+>   head, n, k)</code> and <code>COMPACT-LIST-SEARCH(key, next, head, n, k,
+>   t)</code> return the same result and that the number of iterations of the
+>   <strong>while</strong> loop of lines 2-8 in <code>COMPACT-LIST-SEARCH</code>
+>   is at most the total number of iterations of both the <strong>for</strong>
+>   and <strong>while</strong> loops in <code>COMPACT-LIST-SEARCH'</code>.
 > </ol>
 >
-> In the call `COMPACT-LIST-SEARCH'(L, n, k, t)`, let $X_t$ be the random
+> In the call `COMPACT-LIST-SEARCH'(key, next, head, n, k, t)`, let $X_t$ be the random
 > variable that describes the distance in the linked list (that is, through
 > the chain of _next_ pointers) from position $i$ in the desired key $k$ after
 > $t$ iterations of the **for** loop of lines 2-7 have occurred.
@@ -78,10 +84,11 @@
 >   <li>Argue that the expected running time of <code>COMPACT-LIST-SEARCH'(L,
 >   n, k, t)</code> is $\O(t + \E[X_t])$.
 >   <li>Show that $\E[X_t] \le \sum_{r=1}^n(1 - r/n)^t$. (<i>Hint:</i> Use
->   equation (C.25).)
+>   equation (C.28) on page 1193.)
 >   <li>Show that $\sum_{r=0}^{n-1} r^t \le n^{t+1}/(t + 1)$.
->   <li>Prove that $\E[X_t] \le n/(t+1)$.
->   <li>Show that <code>COMPACT-LIST-SEARCH'(L, n, k, t)</code> runs in $\O(t
+>   <li>Prove that $\E[X_t] \le n/(t+1)$. (<em>Hint:</em> Use equation (C.28) on
+>   page 1193.)
+>   <li>Show that <code>COMPACT-LIST-SEARCH'(key, next, head, n, k, t)</code> runs in $\O(t
 >   + n/t)$ expected time.
 >   <li>Conclude that <code>COMPACT-LIST-SEARCH</code> runs in $\O(\sqrt{n})$
 >   expected time.
@@ -122,7 +129,7 @@ $$ \Pr\\{X_t \ge r\\} = \bigg(\frac{n - r}{n}\bigg)^t
 That is, one of the `RANDOM` calls should advance to the desired distance,
 while the rest should advance to elements before it.
 
-Using the (C.25), we get:
+Using the (C.28), we get:
 
 $$ \E[X_t] = \sum_{r=1}^{\infty} \Pr\\{X_t \ge r\\}
            = \sum_{r=1}^n \Pr\\{X_t \ge r\\}
@@ -131,7 +138,7 @@ $$ \E[X_t] = \sum_{r=1}^{\infty} \Pr\\{X_t \ge r\\}
 The probability of getting distance, larger than $n$ is 0, so that's why we
 can bound the sum index to $n$.
 
-We can show (d) by approximating the sum with an integral with (A.11):
+We can show (d) by approximating the sum with an integral with (A.18):
 
 $$ \sum_{r=0}^{n-1} r^t \le \int_0^n x^t dx = \frac{n^{t+1}}{t+1} $$
 
@@ -145,7 +152,8 @@ $$ \begin{aligned}
            &= \frac{n}{t+1}
    \end{aligned} $$
 
-The expected running time of `COMPACT-LIST-SEARCH'(L, n, k, t)` is thus:
+The expected running time of `COMPACT-LIST-SEARCH'(key, next, head, n, k, t)` is
+thus:
 
 $$ \O(t + \E[X_t]) = \O(t + n/(t+1)) = \O(t + n/t) $$
 
