@@ -1,0 +1,17 @@
+## Longest simple path in a directed acyclic graph
+
+> You are given a directed acyclic graph $G = (V, E)$ with real-valued edge
+> weights and two distinguished vertices $s$ and $t$. The **weight** of a path
+> is the sum of the weights of the edges in the path. Describe a
+> dynamic-programming approach for finding a longest weighted simple path from
+> $s$ to $t$. What is the running time of your algorithm?
+
+I struggle a bit with this because I don't know how to solve this without
+bringing in some preexisting graphs knowledge.
+
+The shortest path to $t$ is the $m(t) = \max_{e \in I}\\{ w(e, t) + m(e)\\}$ and
+$m(s) = 0$ where $I$ are the incoming edges.
+
+Otherwise, it could be solved with a variety of graph algorithms. For example,
+we could negate the weights and then do a shortest-path algorithm (the graph is
+acyclic). We could a Dijkstra with a max-heap. And so on.
