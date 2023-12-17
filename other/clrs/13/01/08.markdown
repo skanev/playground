@@ -1,0 +1,8 @@
+> Argue that in a red-black tree, a red node cannot have exactly one non-`NIL`
+> child.
+
+That one non-NIL child is bound to be black (because the parent is red), which
+means it will eventually have another non-black child (even if its children are
+red, they will have a black child that could be `NIL`). One of those children is
+going to have a bigger black-height compared to the other `NIL` child of the red
+node in question.

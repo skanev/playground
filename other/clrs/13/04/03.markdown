@@ -1,8 +1,7 @@
-> In Exercise 13.3-2, you found the red-black tree that results from
-> successively inserting the keys $41, 38, 31, 12, 19, 8$ into an initially
-> empty tree. Now show the red-black trees that result from the successive
-> deletion of the keys in the order $8, 12, 19, 31, 38, 41$.
+> Argue that if in `RB-DELETE-FIXUP` both $x$ and $x.p$ are red, then property 4
+> is restored by the call to `RB-DELETE-FIXUP(T, x)`
 
-I did this on paper, but in order to be certain of the results, it's worth
-implementing deletion and seeing whether they match when I came up with. Let's
-see.
+Similar to the previous exercise, just observe that `RB-DELETE-FIXUP(T, x)` will
+immediately color x black if it was red. Thus, if both $x$ and $x.p$ are red,
+$x$ will become black and the property will be retained (as $x.p$ is red and
+it's other child was unchanged, it's bound to be black).

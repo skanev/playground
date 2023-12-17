@@ -106,6 +106,8 @@
 >   a node into a treap is less than 2.
 > </ol>
 
+(This one was removed from the 4th edition, but I'm leaving it here anyway.)
+
 ### a. unique treaps
 
 If we take any tree elements, and attempt to arrange them in a treap

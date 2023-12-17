@@ -1,7 +1,11 @@
-> Argue that if in `RB-DELETE-FIXUP` both $x$ and $x.p$ are red, then property 4
-> is restored by the call to `RB-DELETE-FIXUP(T, x)`
+> Argue that after executing `RB-DELETE-FIXUP`, the root of the tree must be
+> black.
 
-Similar to the previous exercise, just observe that `RB-DELETE-FIXUP(T, x)` will
-immediately color x black if it was red. Thus, if both $x$ and $x.p$ are red,
-$x$ will become black and the property will be retained (as $x.p$ is red and
-it's other child was unchanged, it's bound to be black).
+First, let's observe that all the cases in `RB-DELETE-FIXUP` retains the color
+of the root of the subtree. If the deleted node is not the root or an immediate
+descendent of the root, the root's color will remain the same, regardless of
+rotations.
+
+The only case that's not obvious is when the deleted node is the root and it has
+a single child. In this case, `RB-DELETE-FIXUP` will immediately color it red,
+and the property will be preserved.
