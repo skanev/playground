@@ -1,12 +1,22 @@
-> Can we maintain the black-heights of nodes in a red-black tree as attributes
-> in the nodes of the tree without affecting the asymptotic performance of any
-> of the red-black tree operations? Show how, or argue why not. How about
-> maintaining the depth of nodes?
+> Give a recursive algorithm `MATRIX-CHAIN-MULTIPLY(A, s, i, j)` that actually
+> performs the optimal matrix-chain multiplication given the sequence of
+> matrices $\langle A_1, A_2, \ldots, A_n \rangle$, the $s$ table computed by
+> `MATRIX-CHAIN-ORDER`, and the indices $i$ and $j$. (The initial call is
+> `MATRIX-CHAIN-MULTIPLY(A, s, 1, n)`.) Assume that the call
+> `RECTANGULAR-MATRIX-MULTIPLY(A, B)` returns the product of matrices `A` and
+> `B`.
 
-We can maintain the black heights, although we need to be careful with the
-various recoloring that's happening when we're going up the tree on insertion
-and deletion. Then it's quite simple to do it when rotations happen. I'm not
-going to show it, as I don't think it's that interesting.
+Ugh.
 
-Depth won't work, because if we remove the root, we may need to update the depth
-of all $n$ nodes.
+    MATRIX-CHAIN-MULTIPLY(A, s, i, j):
+      if i == j:
+        return A[i]
+
+      k = s[i, j]
+
+      return RECTANGULAR-MATRIX-MULTIPLY(
+        MATRIX-CHAIN-MULTIPLY(A, s, i, k),
+        MATRIX-CHAIN-MULTIPLY(A, s, k+1, j)
+      )
+
+Or something like that.

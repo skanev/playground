@@ -1,18 +1,17 @@
-> Show how $\text{OS-RANK}(T, x)$ operates on the red-black tree $T$ of Figure
-> 14.1 and the node $x$ with $x.key = 35$.
+> Show, by means of counterexample, that the following "greedy" strategy does
+> not always determine an optimal way to cut rods. Define the **density** of a
+> rod of length $i$ to be $p_i / i$, that is, its value per inch. The greedy
+> strategy for a rod of length $n$ cuts off a first piece of length $i$, where
+> $1 \le i \le n$, having maximum density. It then continues by applying the
+> greedy strategy to the remaining piece of length $n - i$.
 
-It does the following:
+Let us have the following options of rod length.
 
-```
-starts with
+| Length  |  5 |  4 | 1 |
+|---------|---:|---:|--:|
+| Cost    | 10 |  7 | 1 |
+| Density |  2 | 1¾ | 1 |
 
-y.key = 35
-r = 1
-
-then goes in the while loop:
-1. y.key = 35; r = 1; goes up, adds nothing
-2. y.key = 38; r = 1; goes up, adds rank of left sibling plus one
-3. y.key = 30; r = 3; goes up, adds nothing
-4. y.key = 41; r = 3; goes up, adds rank of left sibling plus one
-5. y.key = 20; r = 16; returns 16
-```
+Let's look at a rod of length 8. The greedy algorithm will choose $5 + 1 + 1 +
+1$ with value $13$. In comparison, if we just cut it $4 + 4$, we are going to
+get value $14$.

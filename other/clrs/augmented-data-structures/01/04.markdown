@@ -1,0 +1,20 @@
+> Write a recursive procedure `OS-KEY-RANK(T, k)` that takes as input an ordered
+> statistic tree $T$ and a key $k$ and returns the rank $k$ in the dynamic set
+> represented by $T$. Assume that the keys of $T$ are distinct.
+
+In order for the function to be recursive, $T$ needs to be a pointer to a node,
+not a tree. Otherwise, it won't be recursive.
+
+Here's the python version:
+
+```python
+def key_rank(node, key):
+    if node.key == key:
+        return node.left.size + 1
+    elif key < node.key:
+        return node.left.key_rank(key)
+    else:
+        return node.left.size + 1 + node.right.key_rank(key)
+```
+
+There is a full version below

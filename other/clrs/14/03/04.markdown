@@ -1,50 +1,40 @@
-> Given an interval tree $T$ and an interval $i$, describe how to list all
-> intervals in $T$ that overlap $i$ in $\O(\min(n, k \lg n))$ time, where $k$ is
-> the number of intervals in the output list. (_Hint:_ One simple method makes
-> several queries, modifying the tree between queries. A slightly more
-> complicated method does not modify the tree).
+> As stated, in dynamic programming, you first solve the subproblems and then
+> choose which of them to use in an optimal solution to the problem. Professor
+> Capulet claims that she does not always need to solve all the subproblems in
+> order to find an optimal solution. She suggests that she can find an optimal
+> solution to the matrix-chain multiplication problem by always choosing the
+> matrix $A_k$ at which to split the subproduct $A_i A_{i+1} \ldots A_j$ (by
+> selecting $k$ to minimize the quantity $p_{i-1} p_k p_j$) _before_ solving the
+> subproblems. Find an instance of the matrix-chain multiplication problem for
+> which this greedy approach yields a suboptimal solution.
 
-The simple method would be to remove the interval and search again, until an
-interval is no longer present.
+An example would be a matrix chain $10 \times 4 \times 3 \times 2$, where:
 
-I struggle to formally establish an upper bound. Intuitively, if $k = n$, that
-is, all intervals overlap with the one that is being searched for, it will
-always be the root, and removing the root would be a constant operating,
-establishing $\O(n)$ complexity. I'm not sure how to reason about this when $k <
-n$ but $n < k \lg n$. Should pan out, but no idea why.
+$$
+\begin{aligned}
+  A_1 & \in \mathbb{R}^{10} \times \mathbb{R}^4 \\\\
+  A_2 & \in \mathbb{R}^4 \times \mathbb{R}^3 \\\\
+  A_3 & \in \mathbb{R}^3 \times \mathbb{R}^2 \\\\
+\end{aligned}
+$$
 
-An algorithm that does not modify the tree is doable, but the upper bound still
-evades me. Let's explore it nonetheless.
+The first choice would be whether to first multiply $A_1 A_2$ or $A_2 A_3$.
+Looking just at $p_{i-1} p_k p_j$, the options will be 
 
-Once we visit a node, we can check whether it overlaps and add its interval to
-the result if it does. We're then in a situation in which we may have to explore
-both branches of the tree. Letting $x$ be the node, we have the following
-constraints to work with:
+$$
+\begin{aligned}
+  C_1 &= p_1 p_2 p_4 = 10 \cdot 4 \cdot 2 &= 80 \\\\
+  C_2 &= p_1 p_3 p_4 = 10 \cdot 3 \cdot 2 &= 60 \\\\
+\end{aligned}
+$$
 
-* $x.left$ will not contain overlapping intervals if $x.left.max < i.low$.
-* $x.right$ will not contain overlapping intervals unless $[x.int.low,
-  x.right.max]$ overlaps with $i$.
+With this information, ~~Juliet~~ Professor Capulet would opt in for the second
+option. Yet, this would be premature!
 
-We can use this to avoid visiting some of the nodes in the tree. The resulting
-algorithm will certainly be $\O(n)$, because it does not visit a node more than
-once. Whether it is $\O(k \lg n)$, I have no idea.
+In the second case, she will have to continue with then multiplying $A_1 A_2$
+with $10 \cdot 4 \cdot 3 = 120$ additional scalar operations, bringing the tally
+to $180$.
 
-```python
-def search(tree, interval):
-    result = []
-
-    def collect(node):
-        if node.interval.overlaps(interval):
-            result.append(node.interval)
-
-        if node.left and interval.low <= node.left.max:
-            collect(node.left)
-
-        if node.right and Interval(node.interval.low,
-                node.right.max).overlaps(interval):
-            collect(node.right)
-
-    collect(tree.root)
-
-    return result
-```
+If she instead, chilled a bit and waited to see how things would play out, she
+would discover that in the other option there would be only $4 \cdot 3 \cdot 2 =
+24$ more scalar operations to perform, in a total of $104$.

@@ -1,25 +1,14 @@
-> Observe that whenever we reference the $size$ attribute of a node in either
-> `OS-SELECT` or `OS-RANK`, we use it only to compute a rank. Accordingly,
-> suppose we store in each node its rank in the subtree of which it is the root.
-> Show how to maintain this information during insertion and deletion. (Remember
-> that those two operations can cause rotations).
+> The Fibonacci numbers are defined by recurrence (3.22). Give a $\O(n)$-time
+> dynamic-programming algorithm to compute the $n$th Fibonacci number. Draw the
+> subproblem graph. How many vertices and edges are in the graph?
 
-First, let's notice that `node.rank = node.left.size + 1`. Since one is actually
-a function of the other, we can use that to calculate the new rank. We need to:
+We don't really need a dynamic programming approach, do we? Anyway, let's
+implement one.
 
-* Update the code doing the rotation, where a slight asymmetry gets introduced.
-* Update the code that goes down the tree when inserting to change rank
-  accordingly.
-* Update the rank of the node that gets moved to the deleted position with the
-  rank of the deleted node.
-* Update the code that goes up the tree when deleting to change rank
-  accordingly.
+The subproblem graph is pretty trivial to draw, and I was going to skip the
+whole dot exercise, but then I drew it on paper, and there is a pretty
+interesting property. Specifically, the non-optimal version for solving $n$ has
+$F_n$ vertices, where $F_i$ is the $i$-th Fibonacci number.
 
-Specifically for rotations, referring to Figure 13.2, notice that:
-
-* On a left rotation, the rank of $y$ decreases by the rank of $x$ ($\alpha$
-  gets removed from $y$'s left subtree)
-* On a right rotation, the rank of $y$ increases by the rank of $x$ ($\alpha$
-  gets added to $y$'s left subtree)
-
-All the changes can be found in the code below.
+The other is pretty straightforward, although graphviz doesn't render it
+perfectly.

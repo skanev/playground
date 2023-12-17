@@ -4,7 +4,7 @@
 >
 > $$ \sum_{i=1}^n \sum_{j=i}^n R(i, j) = \frac{n^3 - n}{3} $$
 >
-> (_Hint:_ You may find equation (A.3) useful.)
+> (_Hint:_ You may find equation (A.4) useful.)
 
 Let's observe the following about the loops:
 

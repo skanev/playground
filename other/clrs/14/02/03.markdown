@@ -1,24 +1,29 @@
-> $\star$ Let $\otimes$ be an associative binary operator, and let $a$ be an
-> attribute maintained in each node of a red-black tree. Suppose that we want to
-> include in each node $x$ an additional attribute $f$ such that $x.f = x_1.a
-> \otimes x_2.a \otimes \cdots \otimes x_m.a$, where $x_1, x_2, \ldots, x_m$ is
-> the inorder listing of nodes in the subtree rooted at $x$. Show how to update
-> the $f$ attributes in $\O(1)$ times after a rotation. Modify your argument
-> slightly to apply it to the $size$ attribute in order-statistic trees.
+> Use the substitution method to show that the solution to the recurrence (15.6)
+> is $\Omega(2^n)$.
 
-I'm uncertain about why the star on this exercise.
+The recurrence is:
 
-Fundamentally, the problem is nicely aligned so that
+$$
+  P(n) =
+  \begin{cases}
+    1 & \text{if } n = 1, \\\\
+    \sum_{k=1}^{n-1} P(k) P(n - k) & \text{if } n \ge 2
+  \end{cases}
+$$
 
-$$ x.f = x.left.f \otimes x.a \otimes x.right.f $$
+Our guess is that $P(m) \ge c \cdot 2^m$.
 
-...for every $x$ in the tree. In order to get it to work, we need to:
+Trying to quantify $P(n)$, we get:
 
-* Recalculate $f$ for each parent of a newly inserted node (before the fixup)
-* Recalculate $f$ for each parent of the newly deleted node (before the fixup)
-* Recalculate $f$ on each rotation, but first recalculating it for the lower
-  node, and then the upper
+$$
+  \begin{aligned}
+      P(n) &= \sum_{k=1}^{n-1} P(k) P(n - k) \\\\
+           &\ge \sum_{k=1}^{n-1} c \cdot 2^k \cdot c \cdot 2^{n-k} \\\\
+           &= c^2 \sum_{k=1}^{n-1} 2^k 2^{n-k} \\\\
+           &= c^2 \sum_{k=1}^{n-1} 2^n \\\\
+           &= c^2 (n - 1) 2^n \\\\
+           &\ge c \cdot 2^{n}
+  \end{aligned}
+$$
 
-For tracking the size, we just have that $a = 1$ for each node other than the
-sentinel $nil$ (where $a = 0$) and $\otimes = +$.
-
+(when $c \ge 1$ and $n \ge 2$)

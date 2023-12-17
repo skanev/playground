@@ -1,20 +1,10 @@
-> Write a recursive procedure `OS-KEY-RANK(T, k)` that takes as input an ordered
-> statistic tree $T$ and a key $k$ and returns the rank $k$ in the dynamic set
-> represented by $T$. Assume that the keys of $T$ are distinct.
+> Modify `CUT-ROD` and `MEMOIZED-CUT-ROD-AUX` so that their **for** loops go up
+> to only $\lfloor n / 2 \rfloor$, rather than up to $n$. What other changes to
+> the procedures do you need to make? How are their running times affected?
 
-In order for the function to be recursive, $T$ needs to be a pointer to a node,
-not a tree. Otherwise, it won't be recursive.
+So, that means essentially calling `CUT-ROD(i) + CUT-ROD(n - i)`. We need to
+initialize `q` with with the price from `p` if one is available, otherwise we
+won't terminate correctly.
 
-Here's the python version:
-
-```python
-def key_rank(node, key):
-    if node.key == key:
-        return node.left.size + 1
-    elif key < node.key:
-        return node.left.key_rank(key)
-    else:
-        return node.left.size + 1 + node.right.key_rank(key)
-```
-
-There is a full version below
+The running time remains unaffected asymptotically, although the non-memoized
+version gets a bit "more exponential", as if that meant anything.

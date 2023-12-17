@@ -1,0 +1,18 @@
+> Show how $\text{OS-RANK}(T, x)$ operates on the red-black tree $T$ of Figure
+> 14.1 and the node $x$ with $x.key = 35$.
+
+It does the following:
+
+```
+starts with
+
+y.key = 35
+r = 1
+
+then goes in the while loop:
+1. y.key = 35; r = 1; goes up, adds nothing
+2. y.key = 38; r = 1; goes up, adds rank of left sibling plus one
+3. y.key = 30; r = 3; goes up, adds nothing
+4. y.key = 41; r = 3; goes up, adds rank of left sibling plus one
+5. y.key = 20; r = 16; returns 16
+```

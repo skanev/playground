@@ -1,20 +1,13 @@
-> Suggest modifications to the interval-tree procedures to support the new
-> operation `INTERVAL-SEARCH-EXACTLY(T, i)`, where $T$ is an interval tree and
-> $i$ is an interval. The operation should return a pointer to a node $x$ in $T$
-> such that $x.int.low = i.low$ and $x.int.high = i.high$, or $T.nil$ if $T$
-> contains no such code. All operations including `INTERVAL-SEARCH-EXACTLY`
-> should run in $\O(\lg n)$ time on a $n$-node interval tree.
+> Suppose that in the rod-cutting problem of Section 14.1, we also had limit
+> $l_i$ on the number of pieces of length $i$ that we are allowed to produce,
+> for $i = 1, 2, \ldots, n$. Show that the optimal-substructure property
+> described in Section 14.1 no longer holds.
 
-This only presents a problem if there are intervals with matching $low$ values –
-otherwise, it's just a basic binary tree search, looking at $low$ for the key.
-The solutions of the previous exercises assume that the low endpoints are
-distinct, so they even provide a function like that.
+A bit obviously, but the subproblems stop being independent now. When choosing a
+cut, we have to balance the remaining number of cuts to add up to at most a
+given number.
 
-Assuming that we're not creating a multiset, that is, each interval can be
-present only once, the trick here is to define a total order on the intervals –
-$i_1 < i_2$ if and only if $(i_1.low, i_1.high) < (i_2.low, i_2.high)$ where the
-comparison is "lexicographical". That is, as long as two intervals have
-different lower bounds, the one that goes more to the left is smaller. If their
-lower bounds match, the one that has less width is the smaller.
-
-With the ordering defined like that, we simply do a regular search in a BST.
+I think this could be solved with tweaking the algorithm to use a table for
+memoization instead of an array, so we have both the rod length and the maximum
+number of cuts. Nobody is asking me to implement it, however, so I'll opt out
+not to.

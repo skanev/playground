@@ -1,21 +1,14 @@
-> $\star$ We wish to augment red-black trees with an operation `RB-ENUMERATE(x,
-> a, b)` that outputs all keys $k$ such that $a \le k \le b$ in a red-black tree
-> rooted at $x$. Describe how to implement `RB-ENUMERATE` in $\Theta(m + \lg n)$
-> time, where $m$ is the number of keys that are output and $n$ is the number of
-> internal nodes in the tree. (_Hint_: You do not need to add new attributes to
-> the red-black tree.)
+> Describe the subproblem graph for matrix-chain multiplication with an input
+> chain of length $n$. How many vertices does it have? How many edges does it
+> have, and which edges are they?
 
-I'd write it in code, but I feel I've done that before.
+Assuming this is the efficient algorithm, the graph has vertices $v_{ij}$ where $i
+\le j$. There are $1 + 2 + \ldots + n$ of them, which is $\frac{n(n+1)}{2}$, a
+boring old formula.
 
-Fundamentally, there are two bits:
+As for edges, each vertex has two edges, $(v_{ij}, v_{ik})$ and $(v_{ij},
+v_{k+1,j})$ for each $k$ such that $i \le k < j$. The sum is:
 
-* We find $a$ in $\O(\lg n)$ time.
+$$ \sum_{i=1}^n \sum_{j=i}^n 2 (j - i) $$
 
-* We perform an in-order tree walk, but we start from $a$ instead of the minimum
-  element, and we terminate after we find $b$. As per Exercise 12.2-7, we can do
-  that in $m$ time.
-
-As a reminder, the in-order tree walk can be accomplished without extra storage
-if we keep track of where in the tree we are, and where we are coming from.
-Exercise 10.4-5 implements an algorithm for that. We need to modify it slightly
-to work in-order as opposed to depth-first.
+This is probably expandable, but I'm not that hard-working.

@@ -1,0 +1,7 @@
+> Write pseudocode for `LEFT-ROTATE` that operates on nodes in an interval tree
+> and updates the max attributes in $\O(1)$ time.
+
+This is pretty basic – we just update the `max` on the lower node and then update
+the `max` on the upper node. We set `max` to be `max(node.max,
+node.left.interval.high, node.right.interval.high)` where we need to be careful
+to exclude nil values.

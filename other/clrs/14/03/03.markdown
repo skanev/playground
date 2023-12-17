@@ -1,11 +1,9 @@
-> Describe an efficient algorithm that, given an interval $i$, returns an
-> interval overlapping $i$ that has the minimum low endpoint, or $T.nil$ if no
-> such interval exists.
+> Consider the antithetical variant of the matrix-chain multiplication problem
+> where the goal is to parenthesize the sequence of matrices so as to maximize,
+> rather than minimize, the number of scalar multiplications. Does this problem
+> exhibit optimal substructure?
 
-The existing algorithm is almost there – the only addition it needs to be made
-is that in case the current node overlaps with the supplied interval, instead of
-returning immediately, we need to keep track of the match, and continue left.
-Matches in the left subtree will have smaller low endpoints.
+Yes it does.
 
-To keep it simple, we can just keep track of the matches, updating them only
-when the lower bound is smaller than the current match.
+It changes the calculation, but the two important properties remain – there is
+an overlap of the subproblems and they are independent.

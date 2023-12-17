@@ -1,0 +1,19 @@
+> Write a non-recursive version of `OS-SELECT`
+
+Here's the Python code:
+
+```python
+def select(node, i):
+    while node:
+        rank = node.left.size + 1
+
+        if i == rank:
+            return node
+        elif i < rank:
+            node = node.left
+        else:
+            i -= rank
+            node = node.right
+```
+
+Below is the whole thing.

@@ -1,10 +1,9 @@
-> Rewrite the code for `INTERVAL-SEARCH` so that it works properly when all
-> intervals are open.
+> Draw the recursion tree for the `MERGE-SORT` procedure from Section 2.3.1 on
+> an array of 16 elements. Explain why memoization fails to speed up a good
+> divide-and-conquer algorithm such as `MERGE-SORT`.
 
-This is pretty minor, and I'm not gonna bother doing the full thing. We need to
-do to things to the code in Exercise 14.3-1:
+Because there is no subproblem overlap. Whenever merge sort splits an array, it
+produces unique partitions that don't occur anywhere else.
 
-* change the definition of `overlaps` to exclude the boundary conditions, that
-  is, change `<=` to `<` in the comparisons;
-* use `>` instead of `>=` when comparing `node.left.max` and `interval.low` in
-  `Tree.search`.
+I'm not gonna draw the tree, because it's kinda obvious once you've read the
+chapter.

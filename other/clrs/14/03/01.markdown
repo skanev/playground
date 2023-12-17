@@ -1,7 +1,14 @@
-> Write pseudocode for `LEFT-ROTATE` that operates on nodes in an interval tree
-> and updates the max attributes in $\O(1)$ time.
+> Which is a more efficient way to determine the optimal number of
+> multiplications in a matrix-chain multiplication problem: enumerating all the
+> ways of parenthesizing the product and computing the number of multiplications
+> for each, or running `RECURSIVE-MATRIX-CHAIN`? Justify your answer.
 
-This is pretty basic – we just update the `max` on the lower node and then update
-the `max` on the upper node. We set `max` to be `max(node.max,
-node.left.interval.high, node.right.interval.high)` where we need to be careful
-to exclude nil values.
+Obviously the dynamic programming approach.
+
+To keep it simple, if there is a split on $k$, the dynamic programming approach
+would calculate the possible parenthesizations of $A_k A_{k+1} \ldots A_j$ only
+once, while when enumerating, we'll calculate them once for each possible
+parenthesization of $A_i A_{i + 1} \ldots A_{k - 1}$.
+
+In fact, I fail to see how the original slow algorithm is not doing just that –
+enumerating all the ways in which the multiplication can be parenthesized.

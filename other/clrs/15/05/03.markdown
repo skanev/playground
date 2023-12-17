@@ -1,8 +1,0 @@
-> Suppose that instead of maintaining the table $w[i, j]$, we computed the value
-> of $w(i, j)$ directly from equation (15.12) in line 9 of `OPTIMAL-BST` and
-> used this computed value in line 11. How would this change affect the
-> asymptotic running time of `OPTIMAL-BST`?
-
-It will make line 9 linear instead of constant, but it will not increase the
-overall asymptotic time, since it's not in the innermost loop. Thus, it will
-remain $O(n^3)$.

@@ -1,14 +1,2 @@
-> Show, by adding pointers to the nodes, how to support each of the dynamic-set
-> queries `MINIMUM`, `MAXIMUM`, `SUCCESSOR`, and `PREDECESSOR` in $\O(1)$
-> worst-case time on an augmented order-statistic tree. The asymptotic
-> performance of other operations on order-statistic trees should not be
-> affected.
-
-There's no dark magic here. Nodes just form a doubly-linked list with successor
-and predecessor being the pointers in both directions, and minimum and maximum
-being the start end end. Every time we insert a node, it's gonna be the
-predecessor or successor of its parent (depending on whether it's on the left or
-right). We're then just doing a simple linked list insertion/deletion.
-
-The code below is not as polished as it could be, the problem is not
-particularly hard either.
+> Find an optimal parenthesization of a matrix-chain product whose sequence of
+> dimensions is $\langle 5, 10, 3, 12, 5, 50, 6 \rangle$.

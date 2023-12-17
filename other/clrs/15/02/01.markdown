@@ -1,2 +1,0 @@
-> Find an optimal parenthesization of a matrix-chain product whose sequence of
-> dimensions is $\langle 5, 10, 3, 12, 5, 50, 6 \rangle$.
