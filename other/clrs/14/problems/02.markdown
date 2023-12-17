@@ -1,0 +1,20 @@
+## Longest palindrome subsequence
+
+> A **palindrome** is a nonempty string over some alphabet that reads the same
+> forward and backward. Examples of palindromes are all strings of length 1,
+> `civic`, `racecar` and `aibohphobia` (fear of palindromes).
+>
+> Give an efficient algorithm to find the longest palindrome that is a
+> subsequence of a given input string. For example, given the input `character`,
+> your algorithm should return `carac`. What is the running time of your
+> algorithm?
+
+I'm making two versions - bottom-down and top-up.
+
+The running time is (or technically, could be) $\Theta(n^2)$, which is easy to
+infer from the structure of the code. A more correct solution would have a table
+with lengths and a table with strings. Since I'm storing just a table of
+strings, and calling `len` on the string a couple of times, it could be
+$\Theta(n^3)$ depending on whether Python stores the string length or calculates
+it on the fly. Also, if you want to get nitpicky, the string construction is not
+in constant time either.
