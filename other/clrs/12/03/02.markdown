@@ -1,4 +1,4 @@
-> Suppose that we construct a binary search tree by repeatedly inserting
+> Suppose that you construct a binary search tree by repeatedly inserting
 > distinct values into the tree. Argue that the number of nodes examined in
 > searching for a value in the tree is one plus the number of nodes examined
 > when the value was first inserted into the tree.

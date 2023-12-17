@@ -1,4 +1,4 @@
-> We can sort a given set of $n$ numbers by first building a binary search tree
+> You can sort a given set of $n$ numbers by first building a binary search tree
 > containing these numbers (using `TREE-INSERT` repeatedly to insert the numbers
 > one by one) and then printing the numbers by an inorder tree walk. What are
 > the worst-case and best-case running times for this sorting algorithm?

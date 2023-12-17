@@ -1,26 +1,6 @@
-> Is the operation of deletion "commutative" in the sense that deleting $x$ and
-> then $y$ from a binary search tree leaves the same tree as deleting $y$ and
-> then $x$? Argue why it is or give a counter example.
+> When `TREE-DELETE` calls `TRANSPLANT`, under what circumstances can the
+> parameter `v` of `TRANSPLANT` be `NIL`?
 
-It's not commutative. Let's explore the following tree:
-
-         2
-       /   \
-     1       4
-            /
-           3
-
-If we first delete 1, and then 2 we get:
-
-         2              4
-           \          /
-             4      3
-            /
-           3
-
-If we do it the other way around, deleting 2 first, we replace it with its
-successor (3) and then when we delete 1, we get:
-
-         3          3
-       /   \          \
-     1       4          4
+* `z` is a leaf node.
+* The successor is a leaf node
+* `z` is the maximum element

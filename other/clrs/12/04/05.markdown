@@ -1,8 +1,0 @@
-> $\star$ Consider `RANDOMIZED-QUICKSORT` operating on a sequence of $n$
-> distinct input numbers. Prove that for any constant $k > 0$, all but
-> $\O(1/n^k)$ of the $n!$ input permutations yield an $\O(n \lg n)$ running
-> time.
-
-**UNSOLVED**. Yeah, this formulation is very confusing and I don't get it.
-
-Let's move on.

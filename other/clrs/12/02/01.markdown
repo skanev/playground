@@ -1,6 +1,6 @@
-> Suppose that we have numbers between 1 and 1000 in a binary search tree, and
-> we want to search for the number 363. Which of the following sequences could
-> _not_ be the sequence of nodes examined?
+> You are searching for the number 363 in a binary search tree containing
+> numbers between 1 and 1000. Which of the following sequence _cannot_ be the
+> sequence of nodes examined?
 >
 > 1. 2, 252, 401, 398, 330, 344, 397, 363.
 > 2. 924, 220, 911, 244, 898, 258, 362, 363.

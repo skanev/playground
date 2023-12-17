@@ -1,8 +1,8 @@
-> Professor Bunyan thinks he has discovered a remarkable property of binary
+> Professor Kilmer claims to have discovered a remarkable property of binary
 > search trees. Suppose that the search for key $k$ in a binary search tree ends
 > up in a leaf. Consider three sets: $A$, the keys to the left of the search
 > path; $B$, the keys on the search path; and $C$, the keys to the right of the
-> search path. Professor Bunyan claims that any three keys $a \in A$, $b \in B$,
+> search path. Professor Kilmer claims that any three keys $a \in A$, $b \in B$,
 > and $c \in C$ must satisfy $a \le b \le c$. Give a smallest possible
 > counterexample to the professor's claim.
 

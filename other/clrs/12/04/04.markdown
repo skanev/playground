@@ -1,7 +1,0 @@
-> Show that the function $f(x) = 2^x$ is convex.
-
-Like $f'(x) = 2^x \ln{2}$ and $f''(x) = 2^x \ln^2 2$ which is positive for all
-real numbers, thus the function is convex.
-
-The again, the Instructor Manual solves this without calculus. Key point: learn
-calculus.

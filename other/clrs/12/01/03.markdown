@@ -1,11 +1,7 @@
 > Give a nonrecursive algorithm that performs an inorder tree walk. (_Hint:_ An
 > easy solution uses a stack as an auxiliary data structure. A more complicated,
-> but elegant, solution uses no stack but assumes that we can test two points of
-> equality.)
-
-We already implemented that in Exercise 10.4.5.
-
-The summarize:
+> but elegant, solution uses no stack but assumes that you can test two points
+> of equality.)
 
 1. We need the node to have a pointer to the parent.
 2. We keep track of a current node (starting at root) and a previous node
