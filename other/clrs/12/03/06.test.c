@@ -1,4 +1,4 @@
-#include "05.debug.c"
+#include "06.debug.c"
 #include "../../build/ext/test.h"
 
 #include <stdlib.h>

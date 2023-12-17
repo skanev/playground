@@ -20,6 +20,7 @@ module Runtimes
       else
         system 'python3', path.to_s
       end
+      raise if $?.exitstatus != 0
     end
   end
 end

@@ -1,4 +1,4 @@
-#include "05.c"
+#include "06.c"
 #include <stdio.h>
 
 #define W 6

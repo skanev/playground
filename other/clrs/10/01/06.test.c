@@ -1,4 +1,4 @@
-#include "05.c"
+#include "06.c"
 #include "../../build/ext/test.h"
 
 TEST(using_as_a_stack) {

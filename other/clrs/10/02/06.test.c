@@ -1,4 +1,4 @@
-#include "08.c"
+#include "06.c"
 #include "../../build/ext/test.h"
 
 TEST(inserting_and_searching) {

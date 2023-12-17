@@ -1,4 +1,4 @@
-#include "06.c"
+#include "08.c"
 #include "../../build/ext/test.h"
 
 TEST(heap_increase_key) {

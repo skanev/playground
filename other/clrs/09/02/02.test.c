@@ -1,4 +1,4 @@
-#include "03.c"
+#include "02.c"
 #include "../../build/ext/test.h"
 
 #define SIZE 10

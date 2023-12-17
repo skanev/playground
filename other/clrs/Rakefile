@@ -33,6 +33,16 @@ namespace :test do
     problem = Problem.new ChapterNumber.new(args[:chapter]), args[:number]
     problem.run_tests
   end
+
+  desc 'Runs all the tests'
+  task :all do
+    catalog = Catalog.new SOLUTION_ROOT
+    catalog.solutions.each do |name, solution|
+      next unless solution.tested?
+      puts name
+      solution.run_tests
+    end
+  end
 end
 
 namespace :run do
@@ -46,5 +56,15 @@ namespace :run do
   task :problem, :chapter, :number do |t, args|
     problem = Problem.new ChapterNumber.new(args[:chapter]), args[:number]
     problem.run_all
+  end
+
+  desc 'Runs all the code'
+  task :all do
+    catalog = Catalog.new SOLUTION_ROOT
+    catalog.solutions.each do |name, solution|
+      next unless solution.code?
+      puts name
+      solution.run_all
+    end
   end
 end

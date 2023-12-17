@@ -2,7 +2,7 @@ import unittest
 import os.path as path
 import random
 
-filename = path.join(path.dirname(__file__), '03.py')
+filename = path.join(path.dirname(__file__), '04.py')
 exec(open(filename).read())
 
 

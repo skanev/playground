@@ -1,6 +1,6 @@
 import unittest
 
-fibonacci = __import__('05').fibonacci
+fibonacci = __import__('06').fibonacci
 
 
 class FibonacciTest(unittest.TestCase):

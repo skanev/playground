@@ -60,6 +60,7 @@ END
       else
         system executable_path.to_s
       end
+      raise if $?.exitstatus != 0
     end
   end
 end
