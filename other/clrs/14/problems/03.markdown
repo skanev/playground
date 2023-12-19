@@ -1,0 +1,29 @@
+## Bitonic euclidean traveling-salesperson problem
+
+> In the euclidean traveling-salesperson problem, you are given a set of $n$
+> points in the plane, and your goal is to find the shortest closed tour that
+> connects all $n$ points. Figure 14.11(a) shows the solution to a 7-point
+> problem. The general problem is NP-hard, and its solution is therefore
+> believed to require more than polynomial time (see Chapter 34).
+>
+> J. L. Bentley has suggested simplifying the problem by considering only
+> **bitonic tours**, that is, tours that start at the leftmost point, go
+> strictly rightward to the rightmost point, and then go strictly leftward back
+> to the starting point. Figure 14.11(b) shows the shorted bitonic tour of the
+> same 7 points. In this case, a polynomial-time algorithm is possible.
+>
+> Describe an $\O(n^2)$-time algorithm for determining an optimal bitonic tour.
+> You may assume that no two points have the same $x$-coordinate and that all
+> operations on real numbers take unit time. (_Hint_: Scan left to right,
+> maintaining optimal possibilities for the two parts of the tour).
+
+This caused me pain, although it's not that hard. The ideas goes like this:
+
+Let's consider two paths, an "upper" and a "lower". Let's have `b[i][j]` be the
+cost of reaching `i` through the upper path and reaching `j` through the lower
+path. `b[j][j]` then would be the optimal cost for going to `j` and back. Every
+time we consider a `b[j-1][j]` we need to look at the `i < j - 1` that minimizes
+`b[i][j] + dist(p[i], p[j-1])`.
+
+We, of course, need to sort the points on the x coordinate and walk them in
+order.
