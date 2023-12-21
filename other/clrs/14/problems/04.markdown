@@ -1,0 +1,36 @@
+## Printing neatly
+
+> Consider the problem of neatly printing a paragraph with a monospaced font
+> (all characters have the same width). The input text is a sequence of $n$
+> words of lengths $l_1, l_2, \ldots, l_n$, measured in characters, which are to
+> be printed neatly on a number of lines that hold a maximum of $M$ characters
+> each. No word exceeds the line length, so that $l_i \le M$ for $i = 1, 2,
+> \ldots, n$. The criterion of "neatness" is as follows. If a given line
+> contains words $i$ through $j$, where $i \le j$, and exactly one space appears
+> between words, then the number of extra space characters at the end of the
+> line is $M - j + i - \sum_{k=i}^j{l_k}$, which must be nonnegative so that the
+> words fit on the line. The goal is to minimize the sum, over all lines except
+> the last, of the cubes of the numbers of extra space characters at the ends of
+> lines. Give a dynamic programming algorithm to print a paragraph of $n$ words
+> neatly. Analyze the running time and space requirements of your algorithm.
+
+Let's first note that ignoring the last line is making the problem a bit more
+cumbersome. We can instead look for an optimal way to break a number of words
+into lines, counting the penalty of each line, and then consider the possible
+end words for the penultimate line (there is going to be a fixed number of them
+due to the line length requirement). Thus, we're looking for an optimal way to
+wrap a number block, including the last line. Out of the possible final words of
+the penultimate lines, we need to choose the one that allows us to do line
+breaks with the smallest penalty. Thus, to find the best way to wrap the first
+$m$ words.
+
+To find the best wrapping for that ends on the $m$-th word, we need to:
+
+1. Find all possible lines that end with the $m$-th word (they are going to
+   include $m-1$, $m-2$ and so on, as far as they can fit in the line length
+   limit)
+2. If $s$ is the index of the first word in a possible line, we need to find the
+   optimal wrapping for the block that ends on the $(s-1)$-th.
+
+It could be written recursively, but the python code below is doing it
+bottom-up.
