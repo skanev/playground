@@ -1,0 +1,43 @@
+## Viterbi algorithm
+
+> Dynamic programming on a directed graph can play a part in speech recognition.
+> A directed graph $G = (V, E)$ with labeled edges form a formal model of a
+> person speaking a restricted language. Each edge $(u, v) \in E$ is labeled
+> with a sound $\sigma(u, v)$ from a finite set $\Sigma$ of sounds. Each
+> directed path in the graph starting from a distinguished vertex $v_0 \in V$
+> corresponds to a possible sequence of sounds produced by the model, with the
+> label of a path being the concatenation of the labels of the edges on that
+> path.
+>
+> 1. Describe an efficient algorithm that, given an edge-labeled directed graph
+>    $G$ with distinguished vertex $v_0$ and a sequence $s = \langle \sigma_1,
+>    \sigma_2, \ldots, \sigma_k \rangle$ of sounds from $\Sigma$, returns a path
+>    $G$ that begins at $v_0$ and has $s$ as its label, if any such path exists.
+>    Otherwise, the algorithm should return `NO-SUCH-PATH`. Analyze the running
+>    time of your algorithm. (_Hint_: You may find concepts from Chapter 20
+>    useful).
+>
+> Now suppose that every edge $(u, v) \in E$ has an associated nonnegative
+> probability $p(u, v)$ of being traversed, so that the corresponding sound is
+> produced. The sum of the probabilities of the edges leaving any vertex equals
+> $1$. The probability of a path is defined to be the product of the
+> probabilities of its edges. Think of the probability of a path beginning at
+> vertex $v_0$ as the probability that a "random walk" beginning at $v_0$
+> follows the specified path, where the edge leaving a vertex $u$ is taken
+> randomly, according to the probabilities of the available edges leaving $u$.
+>
+> <ol start="2">
+>    <li>Extend your answer to part (a) so that if a path is returned, it is a
+>    <em>most probable path</em> starting at vertex $v_0$ and having label $s$.
+>    Analyze the running time of your algorithm.
+> </ol>
+
+Both are fairly straightforward. The problem seems unclear to me on whether each
+sound leads to a single edge or to multiple edges, but it probably is more
+meaningful if there are multiple edges that can continue the sequence.
+
+For the first part, we just do a depth-first traversal on matching edges and
+return on the first path we find.
+
+For the second, for each edge we need to memoize which is the most probable
+subsequence continuation (if one exists) and then choose that.
