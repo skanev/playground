@@ -1,0 +1,109 @@
+## Edit distance
+
+> In order to transform a source string of text $x[1:m]$ to a target string
+> $y[1:n]$, you can perform various transformation operations. The goal is,
+> given $x$ and $y$, to produce a series of transformations that changes $x$ to
+> $y$. An array $z$—assumed to be large enough to hold all the character it
+> needs—holds the intermediate results. Initially, $z$ is empty, and at
+> termination, you should have $z[j] = y[j]$ for $j = 1, 2, \ldots, n$. The
+> procedure for solving this problem maintains current indices $i$ into $x$ and
+> $j$ into $z$, and the operations are allowed to alter $z$ and these indices.
+> Initially, $i = j = 1$. Every character in $x$ must be examined during the
+> transformation, which means that at the end of the sequence of transformation
+> operations, $i = m + 1$.
+>
+> You may choose from among six transformation operations, each of which has a
+> constant cost that depends on the operation:
+>
+> * **Copy** a character from $x$ to $z$ by setting $z[j] = x[i]$ and then
+>   incrementing both $i$ and $j$. The operation examines $x[i]$ and has cost
+>   $Q_C$.
+> * **Replace** a character from $x$ by another character $c$, by setting $z[j]
+>   = c$, and then incrementing both $i$ and $j$. This operation examines $x[i]$
+>   and has cost $Q_R$.
+> * **Delete** a character from $x$ by incrementing $i$ but leaving $j$ alone.
+>   This operation examines $x[i]$ and has cost $Q_D$.
+> * **Insert** the character $c$ into $z$ by setting $z[j] = c$ and then
+>   incrementing $j$, but leaving $i$ alone. This operation examines no
+>   characters of $x$ and has cost $Q_I$.
+> * **Twiddle** (i.e. exchange) the next two characters by copying them from $x$
+>   to $z$ but in the opposite order: setting $z[j] = x[i + 1]$ and $z[j + 1] =
+>   x[i]$, and then setting $i = i + 2$ and $j = j + 2$. This operation examines
+>   $x[i]$ and $x[i + 1]$ and has cost $Q_T$.
+> * **Kill** the remainder of $x$ by setting $i = m + 1$. This operation
+>   examines all characters in $x$ that have not yet been examined. This
+>   operation, if performed, must be the final operation. It has cost $Q_K$.
+>
+> Figure 14.12 gives one way to transform the source string `algorithm` to the
+> target string `altruistic`. Several other sequences of transformation
+> operations can transform `algorithm` to `altruistic`.
+>
+> Assume that $Q_C < Q_D + Q_I$ and $Q_R < Q_D + Q_I$, since otherwise, the copy
+> and replace operations would not be used. The cost of a given sequence of
+> transformation operations is the sum of the costs of the individual operations
+> in the sequence. For the sequence above, the cost of transforming `algorithm`
+> to `altruistic` is $3 Q_C + Q_R + Q_D + 4 Q_I + Q_T + Q_K$.
+>
+> 1. Given two sequences $x[1:m]$ and $y[1:n]$ and the costs of the
+> transformation operations, the **edit distance** for $x$ to $y$ is the cost of
+> the least expensive operation sequence that transforms $x$ to $y$. Describe a
+> dynamic-programming algorithm that finds the edit distance from $x[1:m]$ to
+> $y[1:n]$ and prints an optimal operation sequence. Analyze the running time
+> and space requirements of your algorithm.
+>
+> The edit-distance problem generalizes the problem of aligning two DNA
+> sequences (see, for example, Setubal and Meidanis [405, Section 3.2]). There
+> are several methods for measuring the similarity of two DNA sequences by
+> aligning them. One such method to align two sequences $x$ and $y$ consists of
+> inserting spaces at arbitrary locations in the two sequences (including at
+> either end) so that the result sequences $x'$ and $y'$ have the same length
+> but do not have a space in the same position (i.e. for no position $j$ are
+> both $x'[j]$ and $y'[j]$ a space). Then we assign "score" to each position.
+> Position $j$ receives a score as follows:
+>
+> * $+1$ if $x'[j] = y'[j]$ and neither is a space,
+> * $-1$ if $x'[j] \ne y'[j]$ and neither is a space,
+> * $-2$ if either $x'[j]$ or $y'[j]$ is a space.
+>
+> The score for the alignment is the sum of the scores of the individual
+> positions. For example, given the sequences `x = GATCGGCAT` and `y =
+> CAATGTGAATC`, one alignment is
+>
+>     G ATCG GCAT
+>     CAAT GTGAATC
+>     -*++*+*+-++*
+>
+> A $+$ under a position indicates a score for $+1$, a $-$ indicates a score of
+> $-1$, and a $*$ indicates a score of $-2$, so that this alignment has a total
+> score of $6 \cdot 1 - 2 \cdot 1 - 4 \cdot 2 = -4$.
+>
+> <ol start="2">
+>   <li>Explain how to cast the problem of finding an optimal alignment as an
+>   edit-distance problem using a subset of the transformation operations copy,
+>   replace, delete, insert, twiddle, and kill.
+> </ol>
+
+The algorithm is essentially an implementation of the problem statement. Some
+python code that implements the minimal edit distance is below.
+
+To cast the DNA alignment problem to an edit distance problem, we need:
+
+$$
+  \begin{aligned}
+    Q_C &= -1 \\\\
+    Q_R &= 1 \\\\
+    Q_D &= 2 \\\\
+    Q_I &= 2 \\\\
+    Q_T &= \infty \\\\
+    Q_K &= \infty \\\\
+  \end{aligned}
+$$
+
+I don't like this problem, because the alignment it gives is not optimal. I used
+the algorithm to find a more optimal alignment with score -3:
+
+    GATCG GCAT
+    CAATGTGAATC
+    -+--+*+-++*
+
+I guess that was the point.
