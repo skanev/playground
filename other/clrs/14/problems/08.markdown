@@ -1,0 +1,40 @@
+## Image compression by seam carving
+
+> Suppose that you are given a color picture consisting of an $m \times n$ array
+> $A[1:m, 1:n]$ of pixels, where each pixel specifies a triple of red, green
+> blue (RGB) intensities. You want to compress this picture slightly, by
+> removing one pixel from each of the $m$ rows, so that the whole picture
+> becomes one pixel narrower. To avoid incongruous visual effects, however, the
+> pixels removed in two adjacent rows must lie in either the same column or
+> adjacent columns. In this way, the pixels removed form a "seam" from the top
+> row to the bottom row, where successive pixels in the seam are adjacent
+> vertically or diagonally.
+>
+> 1. Show that the number of such possible seams grows at least exponentially in
+>    $m$, assuming that $n > 1$.
+> 2. Suppose now that along with each pixel $A[i, j]$, you are given a
+>    real-valued disruption measure $d[i, j]$, indicating how disruptive it
+>    would be to remove the pixel $A[i, j]$. Intuitively, the lower a pixel's
+>    disruption measure, the more similar the pixel is to its neighbors. Define
+>    the disruption measure of a seam as the sum of the disruption measures of
+>    its pixels. <p>Give an algorithm to find a seam with the lower disruption
+>    measure. How efficient is your algorithm?
+
+For the first part, it's fairly obvious – for each subsequent row we can choose
+from at least 2 pixels. This means that there are $\Theta(2^m)$ possible seams.
+
+The second part is simple enough as well. I will not implement it, but just
+describe it.
+
+1. We create an m-by-n table that will store the best possible seam starting
+   from the bottom and ending on that pixel.
+2. We start with the bottom row and fill it with the disruption of removing that
+   pixel.
+3. For each previous row, we iterate the pixels, and of each pixel we choose the
+   adjacent pixel in the next row that minimizes the disruption and we add it to
+   the disruption of the pixel we're examining.
+4. Once we fill in the whole table, the top row will contain the minimal
+   disruption for each seam that ends on a given pixel. If we need to construct
+   the seam (as opposed to just calculate the minimum disruption), we could pick
+   the pixel with the minimal disruption value and start tracing backwards (or
+   just maintain a decision table).
