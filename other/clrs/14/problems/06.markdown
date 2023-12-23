@@ -1,0 +1,35 @@
+## Planning a company party
+
+> Professor Blutarsky is consulting for the president of a corporation that is
+> planning a company party. The company has a hierarchical structure, that is,
+> the supervisor relation forms a tree rooted at the president. The human
+> resources department has ranked each employee with a conviviality rating,
+> which is a real number. In order to make the party fun for all attendees, the
+> president does not want both an employee and his or her immediate supervisor
+> to attend.
+>
+> Professor Blutarsky is given a tree that describes the structure of the
+> corporation, using left-child, right-sibling representation described in
+> Section 10.3. Each node of the tree holds, in addition to the pointers, the
+> name of an employee and that employee's conviviality ranking. Describe an
+> algorithm to make up a guest list that maximizes the sum of conviviality
+> ratings of the guests. Analyze the running time of your algorithm.
+
+The structure is as follows:
+
+For each employee (a node in the tree), they are either invited to the party or
+they are not. For the subtree rooted at that employee, the best conviviality
+rating would be a choice between:
+
+* when invited, the conviviality of the employee plus the best rating of each
+  child when the child is not invited;
+* when not invited, sum of the best possible invitations of each child,
+  regardless of whether the child is invited or not.
+
+Note that if we invite the parent, we must not invite the children, but if we do
+not invite the parent, we may find better solutions when not inviting the
+children.
+
+The algorithm visits each child one, so it's $\O(n)$. Furthermore, it seems to
+me that it doesn't even need to do any dynamic programming at all, which would
+be weird.
