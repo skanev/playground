@@ -1,0 +1,38 @@
+## Planning an investment strategy
+
+> Your knowledge of algorithms helps you obtain an exciting job with a hot
+> startup, along with a <span>$10,000</span> signing bonus. You decide to invest
+> this money with the goal of maximizing your return at the end of 10 years. You
+> decide to use your investment manager, G. I. Luvcache, to manage your signing
+> bonus. The company that Luvcache works with requires you to observe the
+> following rules. It offers $n$ different investments, numbered $1$ through
+> $n$. In each year $j$, investment $i$ provides a return rate of $r_{ij}$. In
+> other words, if you invest $d$ dollars in investment $i$ in year $j$, then at
+> the end of year $j$, you have $dr_{ij}$ dollars. The return rates are
+> guaranteed, that is, you are given all the return rates for the next 10 years
+> for each investment. You make investment decisions only once per year. At the
+> end of each y ear, you can leave the money made in the previous year in the
+> same investments, or you can shift money to other investments, by either
+> shifting money between existing investments or moving money to a new
+> investment. If you do not move your money between two consecutive years, you
+> pay a fee of $f_1$ dollars, where if you switch your money, you pay a fee of
+> $f_2$ dollars, where $f_2 > f_1$. You pay the fee once per year at the end of
+> the year, and it is the same amount, $f_2$, whether you move money in and out
+> of only one investment, or in and out of many investments.
+>
+> 1. The problem, as stated, allows you to invest your money in multiple
+>    investments in each year. Prove that there exists an optimal investment
+>    strategy that, in each year, puts all the money into a single investment.
+>    (Recall that an optimal investment strategy maximizes the amount of money
+>    after 10 years and is not concerned with any other objectives, such as
+>    minimizing risk.)
+> 2. Prove that the problem of planning your optimal investment strategy
+>    exhibits optimal substructure.
+> 3. Design an algorithm that plans your optimal investment strategy. What is
+>    the running time of your algorithm?
+> 4. Suppose that Luvcache's company imposes the additional restriction that, at
+>    any point, you can have no more than <span>$15,000</span> in any one
+>    investment. Show that the problem of maximizing your income at the end of
+>    10 years no longer exhibits optimal substructure.
+
+**(UNSOLVED)**
