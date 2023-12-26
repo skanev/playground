@@ -1,0 +1,8 @@
+> Suppose that instead of always selecting the first activity to finish, you
+> instead select the last activity to start that is compatible with all
+> previously selected activities. Describe how this approach is a greedy
+> algorithm, and prove that it yields an optimal solution.
+
+The argument is exactly the same but with a few tweaks. Another way to gain
+intuition about it, is to see that if we have time run backwards, it is
+reducible to the first-to-finish argument.
