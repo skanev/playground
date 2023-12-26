@@ -1,0 +1,37 @@
+> Not just any greedy approach to the activity-selection problem produces a
+> maximum-size set of mutually compatible activities. Give an example to show
+> that approach of selecting the activity of least duration from among those
+> that are compatible with previously selected activities does not work. Do the
+> same for the approaches of always selecting the compatible activity that
+> overlaps the fewest other remaining activities and always selecting the
+> compatible remaining activity with the earliest start time.
+
+Time for ASCII art!
+
+Least duration won't work because of this:
+
+         *****
+    ******* *******
+
+The event on the top row would be selected, but it would be more optimal to
+select the two in the second row.
+
+Earliest start time won't work here:
+
+    **********
+      **** ****
+
+It would be better to pick the two on the second line, but the one on the firs
+line starts first.
+
+Least overlaps is trickiest:
+
+    ******* ********** *******
+    **** *****      ***** ****
+    *******            *******
+    *******            *******
+
+The second event on the top row overlaps with the fewest of the other intervals,
+just two. Every other one is overlapping with at least 3 other events. But if we
+pick it, we would close the door for selecting the four events on the second
+that are the optimal solution.
