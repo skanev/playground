@@ -1,0 +1,20 @@
+> Professor Gekko has always dreamed of inline skating across North Dakota. The
+> professor plans to cross the state on highway U.S 2, which runs from Grand
+> Forks, on the eastern border with Minnesota, to Williston, near the western
+> border with Montana. The professor can carry two liters of water and can skate
+> $m$ miles before running out of water. (Because North Dakota is relatively
+> flat, the professor does not have to worry about drinking water at a greater
+> rate on uphill sections than on flat or downhill sections.). The professor
+> will start in Grand Forks with two full liters of water. The professor has an
+> official North Dakota state map, which shows all the places along U.S. 2 to
+> refill water and the distances between these locations.
+>
+> The professor's goal is to minimize the number of water stops along the route
+> across the state. Give an efficient method by which the professor can
+> determine which water stops to make. Prove that your strategy yields an
+> optimal solution, and give its running time.
+
+The professor should always just pick the farthest stop that he can reach with
+the water he has. We can apply the same argument we've been using about taking
+an optimal strategy and constructing another one that includes the point
+farthest away that's reachable.
