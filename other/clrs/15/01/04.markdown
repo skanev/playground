@@ -1,0 +1,19 @@
+> You are given a set of activities to schedule among a large number of lecture
+> halls where any activity can take place in any lecture hall. You wish to
+> schedule all the activities using as few lecture halls as possible. Give an
+> efficient greedy algorithm to determine which activity should use which
+> lecture hall.
+>
+> (This problem is also known as the **interval-graph coloring problem**. It is
+> modeled by an interval graph whose vertices are the given activities and whose
+> edges connect incompatible activities. The smallest number of colors required
+> to color every vertex so that no two adjacent vertices have the same color
+> corresponds to finding the fewest lecture halls needed to schedule all of the
+> given activities.)
+
+This can be done by sorting all the activities by `(start-time, end-time)` and
+run a simulation. We basically move the time forward (or just identify the
+interesting times and move through them) and keep track of the currently ongoing
+activities. We need enough lecture halls to host he biggest overlap possible
+when we process them this way. The decisions can be made greedy because we can
+sort the intervals.
