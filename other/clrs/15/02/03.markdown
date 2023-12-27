@@ -1,0 +1,20 @@
+> Suppose that in a 0-1 knapsack problem, the order of the items when sorted by
+> increasing weight is the same as their order when sorted by decreasing value.
+> Give an efficient algorithm to find an optimal solution to this variant of the
+> knapsack problem, and argue that your algorithm is correct.
+
+We can take a greedy approach here, by picking the lightest item.
+
+The argument is that there is an optimal solution that includes the lightest
+item. We are going to do the construction argument again. Let's take an optimal
+solution $S$ and have the lightest item be $i$. If $S$ includes $i$, then we're
+done. If it doesn't, we can construct an optimal solution from it by replacing a
+single item with $i$.
+
+Lets pick any item $k$. We know that $w_i \le w_k$ and $v_i \ge v_k$. If we
+construct $S' = S \cup \\{ v_i \\} \setminus \\{ v_k \\}$. We know that $S'$ is
+going to have at most the same weight and the same value ($v_i \ge v_k$ because
+of the order, and $v_i \le v_k$ otherwise $S$ won't be optimal).
+
+Also we could apply the "usual cut-and-paste argument" to illustrate that there
+is optimal substructure.
