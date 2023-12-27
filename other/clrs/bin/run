@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+require_relative '../build/build'
+
+if ARGV.size == 0
+  puts "Usage: #{$0} <path>"
+  exit 1
+end
+
+file = SOLUTION_ROOT.join(ARGV[0])
+
+if !file.exist?
+  puts "File #{ARGV[0]} does not exist"
+  exit 1
+end
+
+case file.relative_path_from(SOLUTION_ROOT).to_s
+in %r[^(\d+)/(\d+)/(\d+)\.test\.py$]    then Exercise.new($1, $2, $3).run_test(:python)
+in %r[^(\d+)/(\d+)/(\d+)\.run\.py$]     then Exercise.new($1, $2, $3).run(:python)
+in %r[^(\d+)/problems/(\d+)\.test\.py$] then Problem.new($1, $2).run_test(:python)
+in %r[^(\d+)/problems/(\d+)\.run\.py$]  then Problem.new($1, $2).run(:python)
+else
+  puts "Don't know how to run this file"
+  exit 1
+end
