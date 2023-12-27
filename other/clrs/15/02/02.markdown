@@ -1,0 +1,3 @@
+> Give a dynamic programming solution to the 0-1 knapsack problem that runs in
+> $\O(nW)$ time, where $n$ is the number of items and $W$ is the maximum weight
+> of items that the thief can put in the knapsack.
