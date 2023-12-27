@@ -1,0 +1,8 @@
+> Consider a modification to the activity-selection problem in which each
+> activity $a_i$ has, in addition to a start and finish time, a value $v_i$. The
+> objective is no longer to maximize the number of activities scheduled, but
+> instead to maximize the total value of the activities scheduled. That is, the
+> goal is to choose a set $A$ of compatible activities such that $\sum_{a_k \in
+> A} v_k$ is maximized. Give a polynomial-time algorithm for this problem.
+
+This is just exercise 15.1-1 with the $1$ replaced with the $v_k$.
