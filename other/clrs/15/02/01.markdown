@@ -1,0 +1,37 @@
+> Prove that the fractional knapsack problem has the greedy-choice property.
+
+Let $i$ be the item with the biggest $v_i / w_i$ value. Let's also assume that
+$W >= w_i$, just to simplify the argument. Let's show that if we have an optimal
+solution $S$, we can construct another optimal solution that includes $w_i$ of
+the $i$th item.
+
+Let's define $d_i = v_i / w_i$, which is the "value density" of the $i$th item,
+and let's the optimal solution be $S = \\{a_1, a_2, \ldots, a_n\\}$, where $a_i$
+is how much of the item we've picked ($a_i \le w_i$).
+
+Using $S$ we can construct another optimal solution that maximizes $a_m$ where
+$m$ is the item with the highest density $d_m$. We can construct another optimal
+solution that maximizes the item $m$.
+
+If $a_m < w_m$, then let's have $s = \min(w_m, W) - a_m$ (how much more of $i$
+we could have taken). If $s = 0$ then $S$ satisfies the condition and is the
+optimal solution we need. Otherwise, let's pick some items $R$ and move some
+fractions from them to $i$. That is, we have a quantity $\sum_{j \in R} r_j = s$
+that we remove from each item $j \in R$ and put into $i$. This new solution $S'$
+will have the following difference with $S$':
+
+$$
+  V(S') - V(S) = s d_i - \sum_{j \in R} r_j d_j
+$$
+
+We can transform this a bit:
+
+$$
+  s d_i - \sum_{j \in R} r_j d_j =
+  \sum_{j \in R} r_j d_i - \sum_{j \in R} r_j d_j =
+  \sum_{j \in R} r_j (d_i - d_j) \ge
+  0
+$$
+
+The last part is because $_j \ge 0$ and we picked $i$ so $d_i \ge d_j$ for any
+$j$. In fact, unless $d_i = d_j$, $S$ is not an optimal solution.
