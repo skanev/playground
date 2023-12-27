@@ -1,0 +1,10 @@
+> Describe an algorithm that, given a set $\\{ x_1, x_2, \ldots, x_n \\}$ of
+> points on the real line, determines the smallest set of unit-length closed
+> intervals that contains all of the given points. Argue that your algorithm is
+> correct.
+
+We can do it by sorting the points, picking the smallest one, putting a unit
+interval there, and then excluding all of the points that lie in it. Then we
+repeat.
+
+This should be the optimal greedy strategy here.
