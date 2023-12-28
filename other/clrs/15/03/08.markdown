@@ -1,0 +1,19 @@
+> Show that no lossless (invertible) compression scheme can guarantee that for
+> every input file, the corresponding output file is shorter. (_Hint_: Compare
+> the number of possible files with the number of possible encoded files).
+
+The hint spells it out. We need to show that it isn't possible to construct a
+bijection between inputs and outputs, because the cardinality of the outputs is
+smaller than the cardinality of the inputs.
+
+Let's look at files of exactly $l$ bits. There are $2^l$ possible files. Let's
+assume we can encode them to a file of $k$ bits where $k < l$. The number of
+possible output files is:
+
+$$ \sum_{k=0}^{l-1} 2^k = 2^l - 1 $$
+
+Which is one short. And of course, that's only if we consider the files of
+exactly $l$ bits. If we also include the files of $l-1, l-2, \ldots$ bits as
+well, they don't have anywhere to go, because we've already taken all the
+possible options.
+
