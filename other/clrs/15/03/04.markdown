@@ -1,0 +1,8 @@
+> Prove that the total cost $B(T)$ of a full binary tree $T$ for a code equals
+> the sum, over all internal nodes, of the combined frequencies of the two
+> children of the node.
+
+We probably need induction to prove this formally, but informally, each leaf $c$
+contributes its frequency once for itself, once for its parent, once for its
+grandparent, for a total of $c.freq \cdot d_T(c)$ times. When we sum those, we
+get the formula for the cost.
