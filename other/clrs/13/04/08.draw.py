@@ -1,7 +1,7 @@
 import os.path as path
 import drawing
 
-exec(open(path.join(path.dirname(__file__), '03.py')).read())
+exec(open(path.join(path.dirname(__file__), '04.py')).read())
 
 B = drawing.RedBlackTrees.Black
 R = drawing.RedBlackTrees.Red
