@@ -1,0 +1,25 @@
+> What is an optimal Huffman code for the following set of frequencies, based on
+> the first 8 Fibonacci numbers:
+>
+>     a:1 b:1 c:2 d:3 e:5 f:8 g:13 h:21
+>
+> Can you generalize your answers to find the optimal code when the frequencies
+> are the first $n$ Fibonacci numbers.
+
+This will construct a tree where for each internal node the probability of the
+two children will be equal, and one child will be a leaf node, while the other
+will be internal and having the same property.
+
+A simple way to think about it is that we will get the following encodings:
+
+    h = 0
+    g = 10
+    f = 110
+    e = 1110
+    d = 11110
+    c = 111110
+    b = 1111110
+    a = 1111111
+
+Basically, the optimal solution for Fibonacci frequencies will always look like
+this.
