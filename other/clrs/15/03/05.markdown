@@ -1,0 +1,16 @@
+> Given an optimal prefix-free code on a set $C$ of $n$ characters, you wish to
+> transmit the code itself using as few bits as possible. Show how to represent
+> any optimal prefix-free code on $C$ using only $2n - 1 + n \lceil \lg n
+> \rceil$ bits. (_Hint_: Use $2n - 1$ bits to specify the structure of the tree,
+> as discovered by a walk of the tree.)
+
+Two things.
+
+First, since the characters are at most $n$, we can encode them with $\lceil \lg
+n \rceil$ bits.
+
+Second, we can do a pre-order traversal of the tree and write what we see. If we
+encounter an internal node, we output 0. If we encounter a leaf node, we output
+1 and then output the bits of the character. This will uniquely determine the
+tree structure, along with each character in it. The remaining $2n - 1$ bits
+will be enough because it's a full binary trees.
