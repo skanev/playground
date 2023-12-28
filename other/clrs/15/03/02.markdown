@@ -1,0 +1,11 @@
+> Prove that a non-full binary tree cannot correspond to an optimal prefix-free
+> code.
+
+If the binary tree is not full, this means that there is a node with a single
+child. If we replace with the child we get another prefix-tree that has less
+cost (all the children of that node are 1 cheaper), therefore the original
+binary tree cannot be optimal.
+
+This would mean, for example, that both `1101..` and `1100..` encode something,
+but `111..` does not encode anything. We could just replace all the `110..`
+codes with `11..` codes and get a better encoding.
