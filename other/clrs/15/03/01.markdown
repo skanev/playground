@@ -1,0 +1,11 @@
+> Explain why, in the proof of Lemma 15.2, if $x.freq = b.freq$, then we must
+> have $a.freq = b.freq = x.freq = y.freq$.
+
+Well, we have $x.freq \le a.freq$ and $a.freq \le b.freq$, and thus $x.freq \le
+a.freq \le b.freq$, $a.freq$ will be equal to $x.freq$ and $y.freq$ as it is
+sandwiched between the two. We also know that $x.freq \le y.freq \le b.freq$
+which makes $y.freq$ equal as well.
+
+To put it in other words, we picked $x$ as the smallest frequency and $b$ as the
+largest frequency, so if they are equal, all between them are going to be equal
+as well.
