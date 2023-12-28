@@ -1,0 +1,7 @@
+> Generalize Huffman's algorithm to ternary codewords (i.e. codewords using the
+> symbols 0, 1, and 2), and prove that it yields optimal ternary codes.
+
+It's the same algorithm, with a little twist – we need to make sure that the
+number of characters is odd and we can do that by introducing a fake character
+with frequency zero. We will still use a heap, but this time we will pop 3 items
+and introduce back 1, reducing the size by 2 at each step.
