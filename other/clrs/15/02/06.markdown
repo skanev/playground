@@ -1,0 +1,6 @@
+> $\star$ Show how to solve the fractional knapsack problem in $\O(n)$ time.
+
+**(UNSOLVED)**. This is going to be some linear-time-selection / weighted-median
+stuff, isn't it?
+
+I'm will probably circle back to it later when I feel inspired to deal with it.
