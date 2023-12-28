@@ -1,0 +1,13 @@
+> A data file contains a sequence of 8-bit characters such that all 256
+> characters are about equally common: the maximum character frequency is less
+> than twice the minimum character frequency. Prove that Huffman coding in this
+> case is no more efficient than using ordinary 8-bit fixed-length code.
+
+If we use the chapter algorithm, it will produce a full balanced binary tree,
+that is, a tree of height 8.
+
+In order to represent a character $a$ with less bits than another character, we
+need to have two characters $b$ and $c$ such that $a.freq > b.freq + c.freq$.
+Otherwise the algorithm will always pick either two leaf nodes, or two internal
+nodes to join. Since we know this algorithm produces an optimal encoding, we
+know that no other encoding is going to do better.
