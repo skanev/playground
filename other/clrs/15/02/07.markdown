@@ -1,0 +1,30 @@
+> You are given two sets $A$ and $B$, each containing $n$ positive integers. You
+> can choose to reorder each set however you like. After reordering, let $a_i$
+> be the $i$th element of set $A$, and let $b_i$ be the $i$th element of set
+> $B$. You then receive a payoff of $\prod_{i=1}^n a_i^{b_i}$. Give an algorithm
+> that maximizes your payoff. Prove that your algorithm maximizes the payoff,
+> and state its running time, omitting the time for reordering the sets.
+
+We can be greedy here. We sort $A$ and $B$ in descending order. And then get an
+optimal solution. Let's call that $S$.
+
+To see why it won't be otherwise, let's construct $S'$ by switching two elements
+in $B$, $i$ and $j$. We then look at the ratio $S/S'$, where everything will
+cancel out, apart from this term:
+
+$$
+  R = \frac{a_i^{b_i} a_j^{b_j}}{a_i^{b_j} a_j^{b_i}}
+$$
+
+Which we could then rewrite:
+
+$$
+  R = \frac{a_i^{b_i} a_j^{b_j}}{a_i^{b^j} a_j^{b^i}} =
+  a_i^{b_i - b_j} a_j^{b_j - b_i} =
+  \frac{a_i^{b_i - b_j}}{a_j^{b_i - b_j}} =
+  \big( \frac{a_i}{a_j} \big) ^{b_i - b_j}
+$$
+
+We know that $a_i \ge a_j$ and $b_i \ge b_j$, so both the base and the exponent
+are $\ge 1$, which means $R \ge 1$, which means $S'$ can't be
+any better.
