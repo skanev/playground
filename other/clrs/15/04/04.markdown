@@ -1,0 +1,20 @@
+> This section has assumed that at most one block is placed into the cache
+> whenever a block is requested. You can imagine, however, a strategy in which
+> multiple blocks may enter the cache upon a single request. Show that for every
+> solution that allows multiple blocks to enter the cache upon each request,
+> there is another solution that brings in only one block upon each request and
+> is at least as good.
+
+I think it depends on whether we're minimizing cache misses or block reads. I'm
+pretty certain that if we were minimizing cache misses, we benefit if we can
+load multiple blocks (e.g. we can load the first $C$ hits at once and we can
+compact adjacent cache misses up to $C$).
+
+If we're minimizing block reads, however, then it's pretty easy to see that we
+don't need to read multiple at once. Let's say there is an optimal strategy that
+on a given step $i$ reads $k$ blocks into memory. It's safe to assume that the
+next $k - 1$ would be cache hits (otherwise we could rearrange things so we only
+read again at the earliest at $i + k$, or the strategy is not optimal). Instead
+of reading the blocks at once, we can spread them out in the next $k - 1$ steps.
+After all, step $i$ would need just one of the $k$ blocks, step $i+1$ would need
+at most one of the other $k+1$ blocks and so on.
