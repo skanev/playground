@@ -16,11 +16,13 @@ module Runtimes
 
     def execute(path, capture_output = false)
       if capture_output
-        `python3 #{path.to_s} 2>&1`
+        result = `python3 #{path.to_s} 2>&1`
+        raise if $?.exitstatus != 0
+        result
       else
         system 'python3', path.to_s
+        raise if $?.exitstatus != 0
       end
-      raise if $?.exitstatus != 0
     end
   end
 end
