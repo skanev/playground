@@ -1,0 +1,72 @@
+## Coin changing
+
+> Consider the problem of making change for $n$ cents using the smallest number
+> of coins. Assume that each coin's value is an integer.
+>
+> 1. Describe a greedy algorithm to make change consisting of quarters, dimes,
+>    nickels, and pennies. Prove that your algorithm yields an optimal solution.
+> 2. Suppose that the available coins are in denominations that are powers of
+>    $c$: the denominations are $c^0, c^1, \ldots, c^k$ for some integers $c >
+>    1$ and $k \ge 1$. Show that the greedy algorithm always yields an optimal
+>    solution.
+> 3. Give a set of coin denominations for which the greedy algorithm does not
+>    yield an optimal solution. Your set should include a penny so that there is
+>    a solution for every value of $n$.
+> 4. Give an $\O(nk)$-time that makes change for any set of $k$ different coin
+>    denominations using the smallest number of coins, assuming that one of the
+>    coins is a penny.
+
+### The greedy algorithm for American coins
+
+Quarters, dimes, nickels and pennies are denominations of $25, 10, 5, 1$. The
+greedy algorithm is to start with the target value $n$, pick the largest coin
+that fits, and recurse with what's left. Here's an informal proof that this
+works.
+
+First, optimal substructure. If we have an optimal solution $S$ and it has a
+subset $S'$ with a value of $n$, it's going to be optimal. Otherwise, we could
+just replace $S'$ with another solution with less coins, plug it back in $S$ and
+get a better solution, thus getting a contradiction.
+
+Second, greedy property. Let's say we have an optimal solution $S'$ for $n$. It
+will include a coin from the largest denomination that fits in $n$. This is a
+bit more finicky as we need to look at the cases. As an example, let's pick $n =
+24$. An optimal solution with include a nickel. If it doesn't, we can show it's
+not optimal. It cannot include a quarter (larger than $24$) and if we assume it
+doesn't include a nickel (to prove a contradiction), we're left with $5$s and
+$1$s. There are going to be enough of them to sum to $10$, and if we replace
+them with a single nickel, we get a better solution, thus a contradiction.
+That's a bit hand-wavy, but you get the idea.
+
+### Powers of $c$
+
+The logic of the optimal substructure is the same. As for the greedy property,
+we can probably prove it by induction on the power $k$. That is, for any $n >=
+c^p$, the optimal solution $S$ will include a coin of value $c^p$. This works
+trivially for when $p = 0$ (we have only $1$s). If we To prove it for an
+arbitrary $p$, we can assume it's correct for $c^{p-1}$. We have $c^p <= n <
+c^{p+1}$. We have to show that it contains a $c^p$ coin. If we assume it
+doesn't, it must contain $c^{p-1}$ coins (by the inductive hypothesis) and at
+least $c$ of them (to add up to at least $n$). Since $c \cdot c^{p-1} = c^p$, we
+can just replace them with a single coin from the upper denomination and get a
+better solution, thus a contradiction.
+
+### A non-greedy set of coins
+
+Heheh. "Greedy" and "coins". Anyway.
+
+If we have $5, 4, 1$, then a greedy solution would not work for $n = 8$. It
+would choose $\\{ 5, 1, 1, 1 \\}$, but the optimal one is $\\{ 4, 4 \\}$.
+
+### The $\O(nk)$ algorithm for any denomination set with a penny
+
+This is a classic dynamic programming algorithm. Basically, for $S(n)$ we try
+each denomination $d$ and pick the one that has the best solution for $S(n -
+d)$. We can do it via memoization, where the running time will not be obvious.
+We can also do it in a bottom-up approach where we build a table $T$ that's an
+array of $n$ elements, where each elements stores the number of coins in the
+optimal solution. $T(1)$ is going to be the number of coins in the optimal
+solution for $n = 1$ (which is 1), and $T(k)$ will be the optimal for $k$. We
+build this from $1$ upwards to $n$, and for each $n$:
+
+$$ T(n) = \max_{d \in D, d \le n}{\Big( 1 + T(n - d) \Big)}$$
