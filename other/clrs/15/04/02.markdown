@@ -1,0 +1,15 @@
+> Real cache managers do not know the future requests, and so they often use the
+> past to decide which block to evict. The **least-recently-used**, or **LRU**,
+> strategy evicts the block that, of all blocks currently in the cache, was the
+> least recently requested. (You can this of LRU as "furthest-in-past.") Give an
+> example of a request sequence in which the LRU strategy is not optimal, by
+> showing that it induces more cache misses that the furthest-in-future strategy
+> does on the same request sequence.
+
+Here's a sequence, assuming a two-sized cache:
+
+    1 2 3 1
+
+The first three would be a cache miss regardless. On the third step, LRU will
+evict 1, resulting in a cache miss. Furthest-in-future will evict 2, which will
+make the next one a cache hit.
