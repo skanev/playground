@@ -1,0 +1,74 @@
+## Scheduling to minimize average completion time
+
+> You are given a set $S = \\{a_1, a_2, \ldots, a_n\\}$ of tasks, where task
+> $a_i$ requires $p_i$ units of processing time to complete. Let $C_i$ be the
+> **completion time** of task $a_i$, that is, the time at which task $a_i$
+> completes processing. Your goal is to minimize the average completion time,
+> that is, to minimize $(1/n)\sum_{i=1}^n C_i$. For example, suppose that there
+> are two tasks $a_1$ and $a_2$ with $p_1 = 3$ and $p_2 = 5$, and consider the
+> schedule in which $a_2$ runs first, followed by $a_1$. Then we have $C_2 = 5$,
+> $C_1 = 8$, and the average completion time is $(5 + 8)/2 = 6.5$. If task $a_1$
+> runs first, however, then we have $C_1 = 3$, $C_2 = 8$, and the average
+> completion time is $(3 + 8)/2 = 5.5$.
+>
+> 1. Give an algorithm that schedules the tasks so as to minimize the average
+>    completion time. Each task must run nonpreemptively, that is, once task
+>    $a_i$ starts, it must run continuously for $p_i$ units of time until it is
+>    done. Prove that your algorithm minimizes the average completion time, and
+>    analyze the running time of your algorithm.
+> 2. Suppose now that the tasks are not all available at once. That is, each
+>    task cannot start until its **release time** $b_i$. Suppose also that tasks
+>    may be **preempted**, so that a task can be suspended and restarted at a
+>    later time. For example, a task $a_i$ with processing time $p_i = 6$ and
+>    release time $b_i = 1$ might start running at time 1 and be preempted at
+>    time 4. It might then resume at time 10 but be preempted at time 11, and it
+>    might finally resume at time 13 and complete at time 15. Task $a_i$ has run
+>    for a total of 6 time units, but its running time has been divided into
+>    three pieces. Give an algorithm that schedules the tasks so as to minimize
+>    the average completion time in this new scenario. Prove that your algorithm
+>    minimizes the average completion time, and analyze the running time of your
+>    algorithm.
+
+I'm going to be hand-wavy instead of formal here.
+
+### Non-preemptive
+
+There is a simple greedy approach here. Note that we essentially have to choose
+the order of tasks $t_1, t_2, \ldots, t_n$ and then minimize the sum $(t_1) +
+(t_1 + t_2) + (t_1 + t_2 + t_3) + \ldots$, or more precisely:
+
+$$ \sum_{i=1}^n \sum_{k=1}^i t_k = \sum_{i=1}^n (n + 1 - i) t_i $$
+
+That is, $t_1$ is counted $n$ times, $t_2$ is counted $n - 1$ times and so on.
+The greedy choice is picking the task with the smallest duration and recursing.
+That is, the durations should be sorted in increasing order, with $t_1$ having
+the smallest, $t_2$ the second smallest and so on.
+
+We can prove it by taking an optimal solution $S$, stating that it will choose
+$t_1$ first and illustrate that if it doesn't, we can get better one by
+exchanging the choice with $t_1$. I'm not sure how we prove the optimal
+substructure, however, but there is probably a way to do it easily with this
+formulation.
+
+The running time is going to be $\O(n \lg n)$ because we need to sort. Since
+we're sorting numbers we can technically get it in "linear" time, but yeah.
+
+### Preemptive
+
+This one is trickier. The approach that I think would work will be similar, only
+now we need to consider each time in increasing order. At each time point, we
+should execute the available task with the least duration left. The
+simplest-to-implement-data-structure-heavy approach I can think of is (1) sort
+the array by increasing release time, (2) start simulating time from 1 upwards,
+(3) maintain a min-heap with currently available tasks and advance the one with
+the least duration and (4) add the tasks to the queue as they become available.
+
+However, this will depend on the total completion time, when it shouldn't have
+to. We could compact the time factor by only considering the "interesting
+points", that is (1) when tasks become available and (2) when the current task
+finishes. At those points we should choose which task to resume with next and
+choose the one with the least remaining duration. Note that this means that if
+we're halfway into a task with duration 10 (so only 5 remain) and get a new one
+with duration 6 becomes available, we should continue with the 10 one. If the
+new task had duration 4, however, we should switch to it.
+
