@@ -1,0 +1,16 @@
+> Write pseudocode for a cache manager that uses the furthest-in-future
+> strategy. It should take as input a set of $C$ blocks in the cache, the number
+> of blocks $k$ that the cache can hold, a sequence $b_1, b_2, \ldots, b_n$ of
+> requested blocks, and the index $i$ into the sequence for the block $b_i$
+> being requested. For each request, it should print out whether a cache hit or
+> a cache miss occurs, and for each cache miss, it should also print out which
+> block, if any, is evicted.
+
+Here's an algorithm.
+
+It pre-processes the input to be able to determine which is the
+furthest-in-future element that could be evicted. It uses a `dict` and a `set`
+to accomplish (expected) $\O(nC)$ time.
+
+It could probably be made tighter with a different data structure, but I can't
+quite figure it out right now.
