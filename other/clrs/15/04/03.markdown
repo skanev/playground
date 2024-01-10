@@ -1,0 +1,19 @@
+> Professor Croesus suggests that in the proof of Theorem 15.5, the last clause
+> in property 1 can change to $C_{S', j} = D_j \cup \\{ x \\}$ or, equivalently,
+> require the block $y$ given in property 1 to always be the block $x$ evicted
+> by solution $S$ upon the request for block $b_i$. Show where the proof breaks
+> down with this requirement.
+
+**(UNSOLVED?)**. I'm not quite sure about where the problem is here, and it gets
+very technical.
+
+At the very least, we could not prove that property 1 holds, because if (or
+rather, when) $S$ subsequently loads $x$, and evicts $w \ne z$ (assuming it
+still has $z$), it will no longer be the case that both $|D_j| \ge k - 1$ and
+$C_{S,j} = D \cup \\{z\\}$ and $C_{S',j} = D \cup \\{ x \\}$. $S'$ either needs
+to evict $x$ now, breaking the property, or has to unnecessarily eject $w$ and
+now there $|D_j| = k - 2$. Or alternatively loading $z$ in order to make them
+equal, but loading it too early.
+
+This breaks the proof going forward, although I haven't tried to "fix" it and
+see what else breaks.
