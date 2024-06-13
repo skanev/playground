@@ -1,0 +1,9 @@
+> Give asymptotically tight bounds on the following summations. Assume that $r \ge 0$ and $s \ge 0$ are constants.
+> a. $\sum_{k=1}^{n} k^r$.
+> b. $\sum_{k=1}^{n} \lg^s k$.
+> c. $\sum_{k=1}^{n} k^r \lg^s k$.
+
+a. $\Theta(n^r)$
+b. $\Theta(n\lg^s n)$
+c. I have no idea...
+

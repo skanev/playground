@@ -1,0 +1,12 @@
+> Why didn’t we use the integral approximation (A.12) directly on $\sum_{k=1}^{n} 1/k$ to obtain an upper bound on the nth harmonic number?
+
+\frac{1}{k} is a monotonically decreasing function. To obtain an upper bound,
+
+$$
+\int_{0}^{n} \frac{1}{k} dk
+$$
+
+is to be calculated. However, this is undefined as $\frac{1}{0}$ is undefined.
+
+(I am not sure about this answer. I think calculating $\int_{1/2}^{n} \frac{1}{k} dk$ can also get the correct answer.)
+

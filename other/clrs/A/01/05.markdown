@@ -1,0 +1,10 @@
+> Evalulate the sum $\sum_{k=0}^{\infty} (2k+1)x^{2k}$.
+
+$$
+\begin{align}
+	\sum_{k=0}^{\infty} (2k+1)x^{2k}	&= \sum_{k=0}^{\infty} 2k x^{2k} + \sum_{k=0}^{\infty} x^{2k} \\
+						&= \frac{2x^2}{(1-x^2)^2} + \frac{1}{1-x^2} - 1 \\
+						&= \frac{x^2 + 1}{(1-x^2)^2} - 1
+\end{align}
+$$
+

@@ -1,0 +1,10 @@
+> Show that $\sum_{k=0}^{\infty} k^2 x^k = x(1+x)/(1-x)^3$ for $0 < |x| < 1$.
+
+$\sum_{k=0}^{\infty} x^k = \frac{1}{1-x}$
+
+Differentiating both sides and multupling both sides with x, we get
+$\sum_{k=0}^{\infty} kx^k = \frac{x}{(1-x)^2}$
+
+Once again, we get
+$\sum_{k=0}^{\infty} k^2 x^k = \frac{x(x + 1)}{(1-x)^3}$
+
