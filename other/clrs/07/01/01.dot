@@ -4,7 +4,7 @@ graph Partition {
   subgraph cluster_A {
     a1[label=13];
     a2[label=19];
-    a3[label=3];
+    a3[label=9];
     a4[label=5];
     a5[label=12];
     a6[label=8];
@@ -24,7 +24,7 @@ graph Partition {
   subgraph cluster_B {
     b1[label=13 fillcolor="#dddddd"];
     b2[label=19];
-    b3[label=3];
+    b3[label=9];
     b4[label=5];
     b5[label=12];
     b6[label=8];
@@ -44,7 +44,7 @@ graph Partition {
   subgraph cluster_C {
     c1[label=13 fillcolor="#dddddd"];
     c2[label=19 fillcolor="#dddddd"];
-    c3[label=3];
+    c3[label=9];
     c4[label=5];
     c5[label=12];
     c6[label=8];
@@ -62,7 +62,7 @@ graph Partition {
   }
 
   subgraph cluster_D {
-    d1[label=3 fillcolor="#999999"];
+    d1[label=9 fillcolor="#999999"];
     d2[label=19 fillcolor="#dddddd"];
     d3[label=13 fillcolor="#dddddd"];
     d4[label=5];
@@ -82,7 +82,7 @@ graph Partition {
   }
 
   subgraph cluster_E {
-    e1[label=3 fillcolor="#999999"];
+    e1[label=9 fillcolor="#999999"];
     e2[label=5 fillcolor="#999999"];
     e3[label=13 fillcolor="#dddddd"];
     e4[label=19 fillcolor="#dddddd"];
@@ -102,7 +102,7 @@ graph Partition {
   }
 
   subgraph cluster_F {
-    f1[label=3 fillcolor="#999999"];
+    f1[label=9 fillcolor="#999999"];
     f2[label=5 fillcolor="#999999"];
     f3[label=13 fillcolor="#dddddd"];
     f4[label=19 fillcolor="#dddddd"];
@@ -122,7 +122,7 @@ graph Partition {
   }
 
   subgraph cluster_G {
-    g1[label=3 fillcolor="#999999"];
+    g1[label=9 fillcolor="#999999"];
     g2[label=5 fillcolor="#999999"];
     g3[label=8 fillcolor="#999999"];
     g4[label=19 fillcolor="#dddddd"];
@@ -142,7 +142,7 @@ graph Partition {
   }
 
   subgraph cluster_H {
-    h1[label=3 fillcolor="#999999"];
+    h1[label=9 fillcolor="#999999"];
     h2[label=5 fillcolor="#999999"];
     h3[label=8 fillcolor="#999999"];
     h4[label=7 fillcolor="#999999"];
@@ -162,7 +162,7 @@ graph Partition {
   }
 
   subgraph cluster_I {
-    i1[label=3 fillcolor="#999999"];
+    i1[label=9 fillcolor="#999999"];
     i2[label=5 fillcolor="#999999"];
     i3[label=8 fillcolor="#999999"];
     i4[label=7 fillcolor="#999999"];
@@ -182,7 +182,7 @@ graph Partition {
   }
 
   subgraph cluster_J {
-    j1[label=3 fillcolor="#999999"];
+    j1[label=9 fillcolor="#999999"];
     j2[label=5 fillcolor="#999999"];
     j3[label=8 fillcolor="#999999"];
     j4[label=7 fillcolor="#999999"];
@@ -202,7 +202,7 @@ graph Partition {
   }
 
   subgraph cluster_K {
-    k1[label=3 fillcolor="#999999"];
+    k1[label=9 fillcolor="#999999"];
     k2[label=5 fillcolor="#999999"];
     k3[label=8 fillcolor="#999999"];
     k4[label=7 fillcolor="#999999"];
@@ -222,7 +222,7 @@ graph Partition {
   }
 
   subgraph cluster_L {
-    l1[label=3 fillcolor="#999999"];
+    l1[label=9 fillcolor="#999999"];
     l2[label=5 fillcolor="#999999"];
     l3[label=8 fillcolor="#999999"];
     l4[label=7 fillcolor="#999999"];
@@ -242,7 +242,7 @@ graph Partition {
   }
 
   subgraph cluster_M {
-    m1[label=3 fillcolor="#999999"];
+    m1[label=9 fillcolor="#999999"];
     m2[label=5 fillcolor="#999999"];
     m3[label=8 fillcolor="#999999"];
     m4[label=7 fillcolor="#999999"];
