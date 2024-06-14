@@ -17,7 +17,7 @@ observe that the median we're looking for is between the medians of the two
 arrays. Let's elaborate on that.
 
 Let's assume that the median is at position $k$ in array $A$. This means that
-there are $k - 1$ elements less than the median in $A$ and $n - k$ elements
+there are $k - 1$ elements less than the median in $A$ and $k$ elements
 greater than the median in $B$. If $k < n / 2$ then the median of $A$ will be
 greater than the final median, but the median of $B$ will be lesser than it.
 It's the other way around for $k \ge n / 2$. Thus the median of the two arrays
