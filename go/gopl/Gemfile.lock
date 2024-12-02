@@ -2,7 +2,7 @@ GEM
   remote: http://rubygems.org/
   specs:
     coderay (1.1.1)
-    ffi (1.9.17)
+    ffi (1.15.0)
     formatador (0.2.5)
     guard (2.14.0)
       formatador (>= 0.2.4)
