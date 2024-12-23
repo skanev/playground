@@ -1,3 +1,7 @@
 > If the set of stack operations includes a `MULTIPUSH` operation, which pushes
 > $k$ items onto the stack, does the $\O(1)$ bound on the amortized cost of
 > stack operations continue to hold?
+
+If that is the case, the analysis no longer holds. We could alternate
+`MULTIPUSH(n)` with a `MULTIPOP(n)` and each operation would cost `n` in this
+case, making it non-constant.

@@ -1,2 +1,6 @@
 > Show that if a `DECREMENT` operation is included in the $k$-bit counter, $n$
 > operations can cost as much as $\Theta(nk)$ time.
+
+Similar to the previous one, we could increment until we get to (say)
+`01111111111` and then alternate `INCREMENT` and `DECREMENT`. Each of those
+operations would cost $k$ time, making the total cost $\Theta(nk)$.

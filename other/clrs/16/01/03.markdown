@@ -1,3 +1,25 @@
 > Use aggregate analysis to determine the amortized cost per operation for a
 > sequence of $n$ operations on a data structure in which the $i$th operation
 > costs $i$ if $i$ is an exact power of 2, and 1 otherwise.
+
+The computation would look like this:
+
+$$ 2^0 + 2^1 + 1 + 2^2 + 1 + 1 + 1 + 2^3 + 1 + 1 + 1 + \ldots $$
+
+We could separate the powers of 2 from the ones. There would be $n - \lfloor \lg
+n \rfloor$ ones.
+
+As for the cost of the powers of two, it would be:
+
+$$
+\begin{aligned}
+  T(n) & = \sum_{i=0}^{\lfloor \lg n \rfloor} 2^i \\\\
+       & \le \sum_{i=0}^{\lg n} 2^i \\\\
+       & = 2^{\lg n + 1} - 1 \\\\
+       & = 2n - 1
+\end{aligned}
+$$
+
+Adding two two together, we get:
+
+$$ n - \lfloor \lg n \rfloor + 2n - 1 = 3n - \lfloor \lg n \rfloor - 1 = \Theta(n) $$
