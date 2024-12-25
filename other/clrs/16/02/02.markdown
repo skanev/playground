@@ -1,0 +1,29 @@
+> Redo Exercise 16.1-3 using an accounting method of analysis.
+
+We assign the cost of each operation to be $3$.
+
+We know that the cost of $n$ operations is:
+
+$$
+  c(n) = \sum_{i=0}^{\lfloor \lg n \rfloor} 2^i + n - \lfloor \lg n \rfloor
+$$
+
+where the sum represents the cost of the operations that are an exact power of
+$2$, and the rest is the cost of the remaining $n - \lfloor \lg n \rfloor$
+operations.
+
+We have that $\hat c(n) = 3n$, and we need to prove that $c(n) \leq \hat c(n)$.
+We can do it like this:
+
+$$
+\begin{aligned}
+  c(n) &= \sum_{i=0}^{\lfloor \lg n \rfloor} 2^i + n - \lfloor \lg n \rfloor \\\\
+       &= 2^{\lfloor \lg n \rfloor + 1} - 1 + n - \lfloor \lg n \rfloor \\\\
+       &\leq 2n - 1 + n - \lfloor \lg n \rfloor \\\\
+       &\leq 3n \\\\
+       &= \hat c(n)
+\end{aligned}
+$$
+
+That is, each operation prepays enough so the next time we reach an exact power
+of $2$, the bigger cost will have been prepaid.

@@ -1,0 +1,9 @@
+> Consider an ordinary binary min-heap data structure supporting the
+> instructions `INSERT` and `EXTRACT-MIN` that, when there are $n$ items in the
+> heap, implements each operation in $\O(\lg n)$ worst-case time. Give a
+> potential function $\Phi$ such that the amortized cost of `INSERT` is $\O(\lg
+> n)$ and the amortized cost of `EXTRACT-MIN` is $\O(1)$, and show that your
+> potential function yields these amortized time bounds. Note that in the
+> analysis, $n$ is the number of items currently in the heap, and you do not
+> know a bound on the maximum number of items that can ever be stored in the
+> heap.

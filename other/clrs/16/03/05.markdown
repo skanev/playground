@@ -1,0 +1,3 @@
+> Show how to implement a queue with two ordinary stacks (Exercise 10.1-7) so
+> that the amortized cost of each `ENQUEUE` and each `DEQUEUE` operation is
+> $\O(1)$.

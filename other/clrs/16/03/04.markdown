@@ -1,0 +1,3 @@
+> What is the total cost of executing $n$ of the stack operations `PUSH`, `POP`,
+> and `MULTIPOP`, assuming that the stack begins with $s_0$ objects and finishes
+> with $s_n$ objects?

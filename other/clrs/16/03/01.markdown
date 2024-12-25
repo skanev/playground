@@ -1,0 +1,5 @@
+> Suppose you have a potential function $\Phi(D_i) \ge \Phi(D_0)$ for all $i$,
+> but $\Phi(D_0) \ne 0$. Show that there exists a potential function $\Phi'$,
+> such that $\Phi'(D_0) = 0$, $\Phi'(D_i) \ge 0$ for all $i \ge 1$, and the
+> amortized costs using $\Phi'$ are the same as the amortized costs using
+> $\Phi$.

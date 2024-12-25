@@ -1,0 +1,12 @@
+> Design a data structure to support the following two operations for a dynamic
+> multiset $S$ of integers, which allows duplicate values:
+>
+> `INSERT(S, x)` inserts $x$ into $S$.
+>
+> `DELETE-LARGER-HALF(S)` deletes the largest $\lceil |S| / w \rceil$ elements
+> from $S$.
+>
+> Explain how to implement this data structure so that any sequence of $m$
+> `INSERT` and `DELETE-LARGER-HALF` operations runs in $\O(m)$ time. Your
+> implementation should also include a way to output the elements of $S$ in
+> $\O(|S|)$ time.

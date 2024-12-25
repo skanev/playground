@@ -1,0 +1,18 @@
+> You wish not only to increment a counter but also to reset it to $0$ (i.e.,
+> make all bits in it to 0). Counting the time to examine or modify a bit as
+> $\Theta(1)$, show how to implement a counter as an array of bits so that any
+> sequence of $n$ `INCREMENT` and `RESET` operations takes $\O(n)$ time on an
+> initially zero counter. (_Hint_: Keep a pointer to the high-order 1.)
+
+This is super trivial to implement. The only gotcha you have is to move the
+pointer on the transition 0 → 1, and only when it points to a less significant
+bit than the one that has been transitioned. We have two things we can do.
+
+Either, reset could use that pointer to move to the beginning of the array and
+set every bit to 0, and we can use amortized analysis to show that this
+operation fits the linear bound (e.g. if we set the cost to 3, we could use the
+accounting method to illustrate that all the resets have been prepaid).
+
+Or, we can semantically define the count to include only the bits up until and
+including the pointer, in which case `RESET` would be constant, as it only
+resets the pointer to the beginning of the array.
