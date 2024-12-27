@@ -10,3 +10,27 @@
 > `INSERT` and `DELETE-LARGER-HALF` operations runs in $\O(m)$ time. Your
 > implementation should also include a way to output the elements of $S$ in
 > $\O(|S|)$ time.
+
+Ooph, I needed help for this.
+
+The idea here is to use an unsorted array to add items. This makes inserting
+linear (given that we hand resizing like explained in the rest of the chapter).
+
+In order to delete the larger half, we need to identify the median and create a
+new array with the elements smaller than the median. In order to do that, we use
+the algorithm for finding a median in linear time, and then create a new array
+with half the correct size and move the elements smaller than the median in it.
+
+Since this is a multiset, and the median can be present multiple times, we can
+avoid making a second pass to count how many time it is present by calculating
+the size of the new array, moving only the elements strictly smaller than the
+median, and then copying over the median in the remaining slots.
+
+Using the account method, we put two extra tokens on each element when we insert
+it. When we delete larger half, we use one of the tokens to find the median and
+create a new array. We the move the tokens from the removed elements to the
+elements that are left, leaving the new array with 2 tokens per item.
+
+As for the potential method, if there is a bound on `DELETE-LARGER-HALF` that is
+$cn$, then the potential function would be $\Phi(n) = 2cn$. This balances out
+all the operations so they are constant.
