@@ -1,3 +1,20 @@
 > Show how to implement a queue with two ordinary stacks (Exercise 10.1-7) so
 > that the amortized cost of each `ENQUEUE` and each `DEQUEUE` operation is
 > $\O(1)$.
+
+We already did that (or at least, described it, there is no code for that
+exercise at the time of writing).
+
+The idea is to have two stacks, `A` and `B`. `ENQUEUE` pushes elements in `B`,
+while `DEQUEUE` would pop elements from `A`, first transferring all the elements
+in `B` if `A` is empty. This makes the running time of `DEQUEUE` to be $\O(n)$
+in the worst case, but with amortized analysis, we can show that it will be
+linear overall.
+
+With the accounting method, each time we push on `B`, we put an extra $1 on the
+item. We use it to pay for the price of moving it to `A` later, hence the move
+is already accounted for.
+
+Using the potential method, we can define $\Phi(D)$ to be the number of elements
+in `B`, and when we calculate $\hat c$, we will find that all the amortized
+costs are constant.

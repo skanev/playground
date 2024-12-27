@@ -7,3 +7,24 @@
 > analysis, $n$ is the number of items currently in the heap, and you do not
 > know a bound on the maximum number of items that can ever be stored in the
 > heap.
+
+Oh, I enjoyed this one. The function would be:
+
+$$
+  \Phi(n) = \lg(n!) = \sum_{i=1}^n \lg i
+$$
+
+That way, the cost for insert would be:
+
+$$
+  \hat c = \lg n + \lg(n!) - \lg((n-1)!) = \lg n + \lg n = 2 \lg n
+$$
+
+The cost for `EXTRACT-MIN` would be:
+
+$$
+  \hat c = \lg n + \lg((n-1)!) - \lg n = \lg n - \lg n = 0
+$$
+
+Essentially, each insert prepays for the extract that could happen down the
+line.

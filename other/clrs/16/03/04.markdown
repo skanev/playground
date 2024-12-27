@@ -1,3 +1,10 @@
 > What is the total cost of executing $n$ of the stack operations `PUSH`, `POP`,
 > and `MULTIPOP`, assuming that the stack begins with $s_0$ objects and finishes
 > with $s_n$ objects?
+
+I am not sure how to exactly quantify this. Can I count the number of pushes?
+
+We're probably looking for an answer that is $\O(n + s_0)$, because it would be
+linear to $n$ if the stack starts empty, but if the stack has elements in the
+beginning, a multi-pop can consume it. $s_n$ seems irrelevant to me, because it
+doesn't tell us whether the stack was popped beyond the initial size or not.

@@ -3,3 +3,7 @@
 > such that $\Phi'(D_0) = 0$, $\Phi'(D_i) \ge 0$ for all $i \ge 1$, and the
 > amortized costs using $\Phi'$ are the same as the amortized costs using
 > $\Phi$.
+
+It seems to me that we can do that by defining $\Phi'(D_i) = \Phi(D_i) -
+\Phi(D_0)$. That way, each value in $\Phi'$ will be non-negative, and the
+changes in potential will remain the same.
