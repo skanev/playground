@@ -1,0 +1,11 @@
+> Discuss how to use the accounting method to analyze both the insertion and
+> deletion operations, assuming that the table doubles in size when its load
+> factor exceeds $1$ and the table halves in size when its load factor goes
+> below $1/4$.
+
+So, it's quite similar, only we start with no tokens left on the items after a
+table resize. Each insertion after the 1/2 point costs two extra tokens as
+usual, one for moving the item on expansion, and one for moving another item in
+the first half on expansion. As for contraction, we need to leave on extra token
+on the last element of the table. When the table gets from 1/2 size to 1/4, it
+would have accumulated 1/4 tokens that can be used for the resize.

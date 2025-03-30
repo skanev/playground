@@ -1,0 +1,55 @@
+## Binary reflected Gray code
+
+> A **binary Gray code** represents a sequence of nonnegative integers in binary
+> such that to go from one integer to the next, exactly one bit flips every
+> time. The **binary reflected Gray code** represents a sequence of the integers
+> $0$ to $2^k - 1$ for some positive integer $k$ according to the following
+> recursive method:
+>
+> * For $k = 1$, the binary reflected Gray code is $\langle 0, 1 \rangle$.
+>
+> * For $k \ge 2$, first form the binary reflected Gray code for $k - 1$, giving
+>   the $2^{k-1}$ integers $0$ to $2^{k-1} - 1$. Then form the reflection of
+>   this sequence, which is just the sequence in reverse. (That is, the $j$th
+>   integer in the sequence becomes the $(2^{k-1} - j - 1)$st integer in the
+>   reflection). Next, add $2^{k-1}$ to each of the $2^{k-1}$ integers in the
+>   reflected sequence. Finally, concatenate the two sequences.
+>
+> For example, for $k = 2$, first form the binary reflected Gray code $\langle
+> 0, 1 \rangle$ for $k = 1$. Its reflection is the sequence $\langle 1, 0
+> \rangle$. Adding $2^{k-1} = 2$ to each integer gives the reflection $\langle
+> 3, 2 \rangle$. Concatenating the two sequences gives $\langle 0, 1, 3, 2
+> \rangle$ or, in binary, $\langle 00, 01, 11, 10 \rangle$, so that each integer
+> differs from its predecessor by exactly one bit. For $k = 3$, the reflection
+> of the binary reflected Gray code for $k = 2$ is $\langle 2, 3, 1, 0 \rangle$
+> and adding $2^{k-1} = 4$ gives $\langle 6, 7, 5, 4 \rangle$. Concatenating
+> produces the sequence $\langle 0, 1, 3, 2, 6, 7, 5, 4 \rangle$, which in
+> binary is $\langle 000, 001, 011, 010, 110, 111, 101, 100 \rangle$. In the
+> binary reflected Gray code, only one bit flips even when wrapping around from
+> the last integer to the first.
+>
+> 1. Index the integers in a binary reflected Gray code from $0$ to $2^k - 1$,
+>    and consider the $i$th integer in the binary reflected Gray code. To go
+>    from the $(i-1)$st integer to the $i$th integer in the binary reflected
+>    Gray code, exactly one bit flips. Show how to determine which bit flips,
+>    given the index $i$.
+>
+> 2. Assuming that given a bit number $j$, you can flip the bit $j$ of an
+>    integer in constant time, show how to compute the entire binary reflected
+>    gray code sequence of $2^k$ numbers in $\Theta(2^k)$ time.
+
+## Which bit to flip?
+
+I did a bit of trial and error here, and the answer is: when we represent $i$ in
+binary, we flip the least significat bit that has value $1$. Every odd number
+flips the $0$th bit, every number divisible by $2$, but not by $4$, flips the
+$1$st bit, every number divisible by $4$, but not by $8$ flips the $2$nd bit,
+and so on.
+
+Another way to reframe it is we flip the $p$ bit, where $p$ is the number of
+times $2$ is a factor in $i$.
+
+## Implementing the bit flipping
+
+There is a neat trick from Hacker's Delight to isolate the leftmost 1 in a
+binary number by doing `(-x) & x`.

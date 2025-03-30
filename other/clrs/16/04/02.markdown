@@ -1,0 +1,19 @@
+> You wish to implement a dynamic, open-address hash table. Why might you
+> consider the table to be full when its load factor reaches some value $\alpha$
+> that is strictly less than $1$? Describe briefly how to make insertion into a
+> dynamic, open-address hash table run in such a way that the expected value of
+> the amortized cost per insertion is $\O(1)$. Why is the expected value of the
+> actual cost per insertion not necessarily $\O(1)$ for all insertions?
+
+This is covered in the chapter of open addressing, but the expected number of
+probes for a successful search with a load factor of $0.9$ is $10$. Also, if the
+table is full, unsuccessful searches would have to iterate over the whole table
+to return failure, making searching linear in the worst case.
+
+Otherwise, I am too lazy to do the math, but my intuition is that if we have a
+load factor of $0.9$, that's $10$ expected elements that have to be skipped in
+order to find a place where to insert the new element. If we put 10 tokens on
+the element we just inserted, it will prepay for the next 10 insertions that
+move over this element, yielding a constant amortized time. Actually, the math
+here may be fun to do, but again, I'm too lazy to deal with it right now, and I
+want to move over to the next sections as quickly as possible anyway.

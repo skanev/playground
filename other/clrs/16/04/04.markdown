@@ -1,0 +1,35 @@
+> Suppose that instead of contracting a table by halving its size when its load
+> factor drops below $1/4$, you contract the table by multiplying its size by
+> $2/3$ when its load factor drops below $1/3$. Using the potential function
+>
+> $$ \Phi(T) = |2(T.num - T.size/2)| $$
+>
+> show that the amortized cost of a `TABLE-DELETE` that uses this strategy is
+> bounded above by a constant.
+
+Well, let's assume that the size before contraction at operation $i$ is $s$.
+This means that the number of items before contraction would be $s/3$. After
+contraction, one item is removed, so the new size is $s/3 - 1$, and the new size
+is $2s/3$.
+
+This means, that the potential before contraction is:
+
+$$
+  \Phi(T_{i-1}) = \Big| 2(\frac 1 3 s - \frac 1 2 s) \Big |
+                = \Big| 2 ( - \frac 1 6 s ) \Big|
+                = \frac s 3
+$$
+
+The potential after contraction would be:
+
+$$
+  \Phi(T_i) = \Big| 2 ( \frac 1 3 s - 1 - \frac 1 2 \cdot \frac 2 3 s ) \Big |
+            = 2
+$$
+
+This then makes the change in potential:
+
+$$ \Delta_\Phi = 2 - \frac s 3 $$
+
+Given that the cost of reallocating the other items is $s/3 - 1$, the two cancel
+out and we get a constant cost.

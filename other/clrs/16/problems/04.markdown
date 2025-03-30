@@ -1,0 +1,79 @@
+## The cost of restructuring red-black trees
+
+> There are four basic operations on red-black trees that perform **structural
+> modifications**: node insertions, node deletions, rotations, and color
+> changes. We have seen that `RB-INSERT` and `RB-DELETE` use only $\O(1)$
+> rotations, node insertions, and node deletions to maintain the red-black
+> properties, but they may make many more color changes.
+>
+> 1. Describe a legal red-black tree with $n$ nodes such that calling
+>    `RB-INSERT` to add the $(n+1)$st node causes $\Omega(\lg n)$ color changes.
+>    Then describe a legal red-black tree with $n$ nodes for which calling
+>    `RB-DELETE` on a particular node causes $\Omega(\lg n)$ color changes.
+>
+> Although the worst-case number of color changes per operation can be
+> logarithmic, you will prove that any sequence of `RB-INSERT` and `RB-DELETE`
+> operations on an initially empty red-black tree causes $\O(m)$ structural
+> modifications in the worst case.
+>
+> <ol start="2">
+>   <li>Some of the cases handled by the main loop of the code of both
+>   <code>RB-INSERT-FIXUP</code> and <code>RB-DELETE-FIXUP</code> are
+>   <strong>terminating</strong>: once encountered, they cause the loop to
+>   terminate after a constant number of additional operations. For each of the
+>   cases of <code>RB-INSERT-FIXUP</code> and <code>RB-DELETE-FIXUP</code>,
+>   specify which are terminating and which are not. (<em>Hint:</em> Look at
+>   Figures 13.5, 13.6, and 13.7 in Sections 13.3 and 13.4)
+> </ol>
+>
+> You will first analyze the structural modifications when only insertions are
+> performed. Let $T$ be a red-black tree, and define $\Phi(T)$ to be the number
+> of red nodes in $T$. Assume that one unit of potential can pay for the
+> structural modifications performed by any of the three cases in
+> `RB-INSERT-FIXUP`.
+>
+> <ol start="3">
+>   <li>Let $T'$ be the result of applying Case 1 of
+>   <code>RB-DELETE-FIXUP</code> to $T$. Argue that $\Phi(T') = \Phi(T) - 1$.
+>   <li>We can break the operation of <code>RB-INSERT</code> procedure into
+>   three parts. List the structural modifications and potential changes
+>   resulting from lines 1-16 of <code>RB-INSERT</code>, from nonterminating
+>   cases of <code>RB-INSERT-FIXUP</code>, and from terminating cases of
+>   <code>RB-INSERT-FIXUP</code>.
+>   <li>Using part (d), argue that the amortized number of structural
+>   modifications performed by any call of <code>RB-INSERT</code> is $\O(1)$.
+> </ol>
+>
+> Next you will prove that there are $\O(m)$ structural modifications when both
+> insertions and deletions occur. Define, for each node $x$,
+>
+> $$
+>  w(x) =
+>    \begin{cases}
+>      0 & \text{if $x$ is red}, \\\\
+>      1 & \text{if $x$ is black and has no red children}, \\\\
+>      0 & \text{if $x$ is black and has one red child}, \\\\
+>      2 & \text{if $x$ is black and has two red children}.
+>    \end{cases}
+> $$
+>
+> Now redefine the potential of a red-black tree $T$ as
+>
+> $$ \Phi(T) = \sum_{x \in T} w(x) $$
+>
+> and let $T'$ be the tree that results from applying any nonterminating case of
+> `RB-INSERT-FIXUP` or `RB-DELETE-FIXUP` to $T$.
+>
+> <ol start="6">
+>   <li>Show that $\Phi(T') \le \Phi(T) - 1$ for all nonterminating cases of
+>   <code>RB-INSERT-FIXUP</code>. Argue that the amortized number of structural
+>   modifications performed by any call of <code>RB-INSERT-FIXUP</code> is
+>   $\O(1)$.
+>   <li>Show that $\Phi(T') \le \Phi(T) - 1$ for all nonterminating cases of
+>   <code>RB-DELETE-FIXUP</code>. Argue that the amortized number of structural
+>   modifications performed by any call of <code>RB-DELETE-FIXUP</code> is
+>   $\O(1)$.
+>   <li>Complete the proof that in the worst case, any sequence of $m$
+>   <code>RB-INSERT</code> and <code>RB-DELETE</code> operations perform $\O(m)$
+>   structural modifications.
+> </ol>

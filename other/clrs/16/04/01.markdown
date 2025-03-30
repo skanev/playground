@@ -1,0 +1,16 @@
+> Using the potential method, analyze the amortized cost of the first table
+> insertion.
+
+I'm not sure what I am asked to do here, as it seems to me that the text already
+analyzes this. Either way, assuming that we need to count the cost of the
+insertion into an empty table (rather than the "first" table), then we have
+that:
+
+$$ \Phi(T_0) = 2(0 - 0/2) = 0 $$
+
+After the first insertion, when the table has one element, we have:
+
+$$ \Phi(T_1) = 2(1 - 1/2) = 1 $$
+
+In other words, the potential changes from 0 to 1, and given that the cost of
+the operation is also $1$, we get that $\hat c = 2$.
