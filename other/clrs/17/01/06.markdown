@@ -1,8 +1,8 @@
-> Observe that whenever we reference the $size$ attribute of a node in either
-> `OS-SELECT` or `OS-RANK`, we use it only to compute a rank. Accordingly,
-> suppose we store in each node its rank in the subtree of which it is the root.
-> Show how to maintain this information during insertion and deletion. (Remember
-> that those two operations can cause rotations).
+> The procedures `OS-SELECT` and `OS-RANK` use the `size` attribute of a node
+> only to compute a rank. Suppose that you store in each node its rank in the
+> subtree of which it is the root instead of the `size` attribute. Show how to
+> maintain this information during insertion and deletion. (Remember that these
+> two operations can cause rotations.)
 
 First, let's notice that `node.rank = node.left.size + 1`. Since one is actually
 a function of the other, we can use that to calculate the new rank. We need to:

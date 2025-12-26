@@ -1,0 +1,2 @@
+> $\star$ If you insert the keys $\{1, 2, \ldots, n\}$ into an empty B-tree with
+> minimum degree 2, how many nodes does the final B-tree have?

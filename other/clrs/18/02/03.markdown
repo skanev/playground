@@ -1,0 +1,5 @@
+> Professor Bunyan asserts that the `B-TREE-INSERT` procedure always results in
+> a B-tree with the minimum possible height. Show that the professor is mistaken
+> by proving that with $t = 2$ and the set of keys $\{1, 2, \ldots, 15\}$, there
+> is no insertion sequence that results in a B-tree with the minimum possible
+> height.

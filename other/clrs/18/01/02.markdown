@@ -1,0 +1,1 @@
+> For what values of $t$ is the tree of Figure 18.1 a legal B-tree?

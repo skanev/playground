@@ -1,6 +1,6 @@
 > Given an element $x$ in an $n$-node order-statistic tree and a natural number
-> $i$, how can we determine the $i$th successor of $x$ in the linear order of
-> the tree in $\O(\lg n)$ time?
+> $i$, show how to determine the $i$th successor of $x$ in the linear order of
+> the tree in $\O(\lg n)$ time.
 
 Here's the code:
 

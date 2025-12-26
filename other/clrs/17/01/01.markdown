@@ -1,5 +1,5 @@
 > Show how $\text{OS-SELECT}(T.root, 10)$ operates on the red-black tree $T$
-> of Figure 14.1.
+> of Figure 17.1.
 
 It does the following:
 

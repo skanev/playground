@@ -1,0 +1,6 @@
+> Suppose that disk hardware allows you to chose the size of a disk block
+> arbitrarily, but that the time it takes to read the disk block is $a+bt$,
+> where $a$ and $b$ are specified constants and $t$ is the minimum degree for a
+> B-tree using blocks of the selected size. Describe how to choose $t$ so as to
+> minimize (approximately) the B-tree search time. Suggest an optimal value of
+> $t$ for the case in which $a$ = 5 milliseconds and $b$ = 10 microseconds.

@@ -1,0 +1,1 @@
+> Show all legal B-trees of minimum degree 2 that store the keys 1, 2, 3, 4, 5.

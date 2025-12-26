@@ -1,5 +1,5 @@
 > Show how $\text{OS-RANK}(T, x)$ operates on the red-black tree $T$ of Figure
-> 14.1 and the node $x$ with $x.key = 35$.
+> 17.1 and the node $x$ with $x.key = 35$.
 
 It does the following:
 

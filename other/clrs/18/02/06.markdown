@@ -1,0 +1,3 @@
+> Suppose that you implement `B-TREE-SEARCH` to use binary search rather than
+> linear search within each node. Show that this change makes the required CPU
+> time $\O(\lg n)$, independent of how $t$ might be chosen as a function of $n$.

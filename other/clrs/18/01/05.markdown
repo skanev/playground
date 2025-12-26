@@ -1,0 +1,2 @@
+> Describe the data structure that results if each black node in a red-black
+> tree absorbs its red children, incorporating their children with its own.

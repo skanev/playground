@@ -1,0 +1,1 @@
+> Why isn't a minimum degree of $t = 1$ allowed?

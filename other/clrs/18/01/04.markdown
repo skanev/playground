@@ -1,0 +1,2 @@
+> As a function of the minimum degree $t$, what is the maximum number of keys
+> that can be stored in a B-tree of height $h$?

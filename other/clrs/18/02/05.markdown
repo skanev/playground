@@ -1,0 +1,4 @@
+> Since leaf nodes require no pointers to children, they could conceivably use a
+> different (larger) $t$ value than internal nodes for the same disk block size.
+> Show how to modify the procedures for creating and inserting into a B-tree to
+> handle this variation.
